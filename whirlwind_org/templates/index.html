@@ -1,0 +1,104 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Whirlwind</title>
+        <link rel="icon" href="static/images/logo.png"/>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300|Roboto+Mono" rel="stylesheet">
+        <link href="static/css/styles.css" rel="stylesheet" type="text/css"/>
+        <link href="static/css/index.css" rel="stylesheet" type="text/css"/>
+        <script src="static/lib/ace/src-min-noconflict/ace.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            let demos = ["concur", "func", "expr", "modules", "control-flow"];
+            let demoNum = 1;
+
+
+            $(() => {
+                $('#demo-left').mousedown(() => {
+                    $('#demo-' + demos[0]).removeClass('visible');
+                    demos.unshift(demos.pop());
+                    $('#demo-' + demos[0]).addClass('visible');
+
+                    if (demoNum > 1) demoNum--;
+                    else demoNum = 5;
+                    $('#demo-example-number').html(demoNum);
+                    // add code examples
+                });
+
+                $('#demo-right').mousedown(() => {
+                    $('#demo-' + demos[0]).removeClass('visible');
+                    demos.push(demos.shift());
+                    $('#demo-' + demos[0]).addClass('visible');
+
+                    if (demoNum < 5) demoNum++;
+                    else demoNum = 1;
+                    $('#demo-example-number').html(demoNum);
+                    // add code examples
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <header>
+            <div class="visible-title">
+                <img src="static/images/logo.png" height="50px" width="50px"/>
+                <span>Whirlwind</span>
+            </div>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/install">Install</a>
+                <a href="/docs">Docs</a>
+                <a href="/packages">Packages</a>
+                <a href="/blog">Blog</a>
+                <a href="/developers">Development</a>
+            </nav>
+        </header>
+        <img src="static/images/wallpaper.jpg" height="1080px" width="1920px"/>
+        <div class="demo-prompt">
+            <div class="editor-container">
+                <div id="editor">let x = () => {
+    console.log("Hello, world!");   
+};
+                    
+x();
+                </div>
+                <script>
+                    let editor = ace.edit('editor');
+                    editor.setTheme('ace/theme/monokai');
+                    editor.session.setMode('ace/mode/javascript')
+                    editor.session.selection.moveCursorFileStart();
+                </script>
+            </div>
+            <div class="description">
+                <!--concurrency-->
+                <span id="demo-concur" class="visible"><h1>Concurrent</h1>
+                <p>Whirlwind allows for fluid, thread-safe, manageable concurrency through the use of implicit locking
+                and asynchronous functions.</p></span>
+                <!--functional programming-->
+                <span id="demo-func"><h1>Functional</h1>
+                <p>Whirlwind also has features to allow for functional programming, such as comprehensions and
+                aggregators.</p></span>
+                <!--expressions-->
+                <span id="demo-expr"><h1>Expressive</h1>
+                <p>Whirlwind presents a legible, simple expression syntax, while still allowing for a
+                myriad of useful operators.</p></span>
+                <!--modules-->
+                <span id="demo-modules"><h1>Object Oriented</h1>
+                <p>Whirlwind brings a new kind of object orientation to the table, while still remaining simple and efficient.</p></span>
+                <!--control flow-->
+                <span id="demo-control-flow"><h1>Concise Flow</h1>
+                <p>Whirlwind introduces a number of powerful control flow operators to make
+                your code cleaner.</p></span>
+            </div>
+            <div class="demo-selections">
+                <button id="demo-left">&lt;</button>
+                <button id="demo-right">&gt;</button>
+                <span><span id="demo-example-number">1</span> / 5</span>
+            </div>
+        </div>
+        <article>
+        </article>
+    </body>
+</html>
