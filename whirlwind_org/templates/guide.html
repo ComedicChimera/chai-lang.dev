@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Guide - Whirlwind</title>
+        <link rel="icon" href="../../static/images/logo.png"/>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300|Roboto+Mono" rel="stylesheet">
+        <link href="../../static/css/styles.css" rel="stylesheet" type="text/css"/>
+        <link href="../../static/css/guide.css" rel="stylesheet" type="text/css"/>
+        <link href="../../static/lib/prism/prism.css" rel="stylesheet" />
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="../../static/lib/prism/prism.js" data-manual></script>
+        <script src="../../static/js/language-whirlwind.js"></script>
+    </head>
+    <body>
+        <header>
+            <div class="visible-title">
+                <img src="../../static/images/logo.png" height="50px" width="50px"/>
+                <span>Whirlwind</span>
+            </div>
+            <nav>
+                <a href="../../">Home</a>
+                <a href="../../install">Install</a>
+                <a href="../../docs">Docs</a>
+                <a href="../../packages">Packages</a>
+                <a href="../../blog">Blog</a>
+                <a href="../../developers">Development</a>
+            </nav>
+        </header>
+        <aside class="chapter-bar">
+            <ul class="chapter-list">
+                {{ chapters|safe }}
+            </ul>      
+        </aside>
+        <article>
+            {{ content|safe }}
+            <script>
+                let dp = new DOMParser();
+                function htmlUnescape(string) {
+                    let doc = dp.parseFromString(string, "text/html");
+                    return doc.documentElement.textContent;
+                }
+
+                let elements = $('.language-whirlwind');
+                for (var i = 0; i < elements.length; i++) {
+                    let html = Prism.highlight(elements[i].innerHTML, Prism.languages.whirlwind);
+                    elements[i].innerHTML = html;
+                }
+                $('pre').wrapAll('<div class="code-viewer" />');
+            </script>
+        </article>
+        <footer>
+
+        </footer>
+    </body>
+</html>
