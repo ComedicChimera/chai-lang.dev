@@ -11,7 +11,7 @@ def load_chapter_bar(chap_num, name):
         chapter = int(chapter)
         if len(chapters) < chapter:
             chapters.append([])
-        chapters[chapter - 1].append(section_title[:-3].replace('#', ''))
+        chapters[chapter - 1].append(section_title[:-3])
     chapters[chap_num] = [(x, True) if x == name else x for x in chapters[chap_num]]
     html_elements = []
     for i in range(len(chapters)):
@@ -19,11 +19,13 @@ def load_chapter_bar(chap_num, name):
         for j in range(len(chapter)):
             name, selected = chapter[j] if isinstance(chapter[j], tuple) else (chapter[j], False)
             if j == 0:
-                element = '<li class="chapter-title%s"><a href="%s/guide/chapter%d"><b>%d</b> %s</a></li>' % (' selected' if selected else '', HOST, i + 1, i + 1, name)
+                element = '<li class="chapter-title%s"><a href="%s/guide/chapter%d"><b>%d</b> %s</a></li>' % (
+                    ' selected' if selected else '', HOST, i + 1, i + 1, name[1:]
+                )
                 html_elements.extend([element, []])
             else:
                 element = '<li class="chapter-section%s"><a href="%s/guide/chapter%d/%s"><b>%d.%d</b> %s</a></li>' % (
-                    ' selected' if selected else '', HOST, i + 1, name, i + 1, j, name
+                    ' selected' if selected else '', HOST, i + 1, name, i + 1, j, name[1:]
                 )
                 html_elements[-1].append(element)
     return ''.join(map(lambda x: '<ul>%s</ul>' % ''.join(x) if isinstance(x, list) else x, html_elements))
@@ -47,5 +49,5 @@ def load_chapter_title(chap_num):
                     data = file.read()
 
                 html = markdown.markdown(data)
-                return html.replace('<code>', '<code class="language-whirlwind">'), filename[:-3].split('#')[1]
+                return html.replace('<code>', '<code class="language-whirlwind">'), '#' + filename[:-3].split('#')[1]
 
