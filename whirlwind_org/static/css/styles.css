@@ -51,3 +51,9 @@ header nav a {
 header nav a:hover {
     color: #20c0ff;
 }
+
+.code-viewer {
+    background-color: #eeeeee;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+}

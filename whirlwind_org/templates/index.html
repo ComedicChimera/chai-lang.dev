@@ -8,37 +8,12 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300|Roboto+Mono" rel="stylesheet">
         <link href="static/css/styles.css" rel="stylesheet" type="text/css"/>
         <link href="static/css/index.css" rel="stylesheet" type="text/css"/>
-        <script src="static/lib/ace/src-min-noconflict/ace.js"></script>
+        <link href="static/lib/prism/prism.css" rel="stylesheet" />
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script>
-            let demos = ["concur", "func", "expr", "modules", "control-flow"];
-            let demoNum = 1;
-
-
-            $(() => {
-                $('#demo-left').mousedown(() => {
-                    $('#demo-' + demos[0]).removeClass('visible');
-                    demos.unshift(demos.pop());
-                    $('#demo-' + demos[0]).addClass('visible');
-
-                    if (demoNum > 1) demoNum--;
-                    else demoNum = 5;
-                    $('#demo-example-number').html(demoNum);
-                    // add code examples
-                });
-
-                $('#demo-right').mousedown(() => {
-                    $('#demo-' + demos[0]).removeClass('visible');
-                    demos.push(demos.shift());
-                    $('#demo-' + demos[0]).addClass('visible');
-
-                    if (demoNum < 5) demoNum++;
-                    else demoNum = 1;
-                    $('#demo-example-number').html(demoNum);
-                    // add code examples
-                });
-            });
-        </script>
+        <script src="static/lib/prism/prism.js" data-manual></script>
+        <script src="static/js/language-whirlwind.js"></script>
+        <script src="static/js/index.js"></script>
     </head>
     <body>
         <header>
@@ -58,23 +33,14 @@
         <img src="static/images/wallpaper.jpg" height="1080px" width="1920px"/>
         <div class="demo-prompt">
             <div class="editor-container">
-                <div id="editor">let x = () => {
-    console.log("Hello, world!");   
-};
-                    
-x();
+                <div id="home-code-viewer" class="code-viewer">
+                    <pre style="margin:0px;"><code id="viewer-content" class="language-whirlwind">module partial Test {}</code></pre>
                 </div>
-                <script>
-                    let editor = ace.edit('editor');
-                    editor.setTheme('ace/theme/monokai');
-                    editor.session.setMode('ace/mode/javascript')
-                    editor.session.selection.moveCursorFileStart();
-                </script>
             </div>
             <div class="description">
                 <!--concurrency-->
                 <span id="demo-concur" class="visible"><h1>Concurrent</h1>
-                <p>Whirlwind allows for fluid, thread-safe, manageable concurrency through the use of implicit locking
+                <p>Whirlwind allows for fluid, thread-safe, manageable concurrency through the use of locking
                 and asynchronous functions.</p></span>
                 <!--functional programming-->
                 <span id="demo-func"><h1>Functional</h1>
