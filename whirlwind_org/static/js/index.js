@@ -2,7 +2,7 @@ let demos = ["concur", "func", "expr", "modules", "control-flow"];
 let demoNum = 1;
 
 const demoCode = [
-    `use include stdio;\nlock $counter = 0;\n\nasync printCounter() {\n\tdo (5) Println(counter);\n}\n\nfunc Main() int {\n\tprintCounter();\n\tdo (5) counter++;\n}`,
+    `use include stdio;\nvolatile $counter = 0;\n\nasync printCounter() {\n\tdo (5) Println(counter);\n}\n\nfunc Main() int {\n\tprintCounter();\n\tdo (5) counter++;\n}`,
     `func Sum($lst: list[int]) int =>\n\tlst |> ... + |;\n\nfunc Main() int {\n\tSum([1, 2, 3]); // 6\n\tSum([4, 5]); // 9\n}`,
     `func Sqrt($n: int) {\n\t$t = n;\n\tfor($z = 0; z < 10; z++)\n\t\ty -= (y^2 - n) / (2 * y);\n\treturn y;\n}\n\nfunc Main() int {\n\tSqrt(4); // 2\n\tSqrt(16); // 4\n}`,
     `\n\nmodule Point2D {\n\tproperty $(x, y): int;\n\n\tfunc property Display() =>
