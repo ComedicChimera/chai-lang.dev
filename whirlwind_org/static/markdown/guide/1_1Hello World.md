@@ -38,5 +38,11 @@ Go ahead and run that executable and you should see the following:
 </div>
 
 Congratulations!  You just wrote your first Whirlwind program.  Welcome
-to Whirlwind programming community!  Now, let's break this program down
-to see how it works.
+to Whirlwind programming community!
+
+If you're confused by the Hello World program, don't worry! We will spend
+the rest of this chapter breaking down how this program works and
+what we can learn from it.
+
+
+
