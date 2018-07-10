@@ -74,7 +74,7 @@ a lot more about these later, but for now just think of them as
 **callable** blocks of code.  The code in **Listing 1.2** shows how to
 declare a main function.
 
-#### Listing 1.2
+#### Listing 1.2 - The Main Function
 
     func Main() {
 

@@ -51,8 +51,8 @@ Prism.languages.whirlwind = {
         }
     ],
     'function': /[a-zA-Z_]\w*(?=\()/,
-    'punctuation':/[{}[\];(),.:]/,
-    'operator': /[+\-*\/%&\^!|><=?\$@]/,
+    'punctuation':/[{}[\];(),.]/,
+    'operator': /[+\-*\/%&\^!|><=?\$@:]/,
     'boolean': /true|false/,
     'modifier': /\b(private|partial|extern|volatile|property)\b/,
 };

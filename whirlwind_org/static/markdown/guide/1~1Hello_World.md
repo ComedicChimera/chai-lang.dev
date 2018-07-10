@@ -16,7 +16,7 @@ that `.wrl` is the extension used for Whirlwind program files.
 Open the file you just created and type the code in
 **Listing 1.1** into it.
 
-#### Listing 1.1
+#### Listing 1.1 - An Example of Hello World Program
 
     use include stdio;
 

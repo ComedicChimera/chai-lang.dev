@@ -7,7 +7,7 @@ from .constants import HOST
 def load_chapter_bar(chap_num, name):
     chapters = []
     for filename in os.listdir('whirlwind_org/static/markdown/guide'):
-        chapter, section_title = filename.split('_')
+        chapter, section_title = filename.split('~')
         chapter = int(chapter)
         if len(chapters) < chapter:
             chapters.append([])
@@ -20,12 +20,12 @@ def load_chapter_bar(chap_num, name):
             name, selected = chapter[j] if isinstance(chapter[j], tuple) else (chapter[j], False)
             if j == 0:
                 element = '<li class="chapter-title%s"><a href="%s/guide/chapter%d"><b>%d</b> %s</a></li>' % (
-                    ' selected' if selected else '', HOST, i + 1, i + 1, name[1:]
+                    ' selected' if selected else '', HOST, i + 1, i + 1, name[1:].replace('_', ' ')
                 )
                 html_elements.extend([element, []])
             else:
                 element = '<li class="chapter-section%s"><a href="%s/guide/chapter%d/%s"><b>%d.%d</b> %s</a></li>' % (
-                    ' selected' if selected else '', HOST, i + 1, name, i + 1, j, name[1:]
+                    ' selected' if selected else '', HOST, i + 1, name, i + 1, j, name[1:].replace('_', ' ')
                 )
                 html_elements[-1].append(element)
     return ''.join(map(lambda x: '<ul>%s</ul>' % ''.join(x) if isinstance(x, list) else x, html_elements))
@@ -33,7 +33,10 @@ def load_chapter_bar(chap_num, name):
 
 # flask secures path
 def load_guide(chap_num, name):
-    with open('whirlwind_org/static/markdown/guide/%d_%s.md' % (chap_num, name)) as file:
+    path = 'whirlwind_org/static/markdown/guide/%d~%s.md' % (chap_num, name)
+    if not os.path.exists(path):
+        return
+    with open(path, encoding='utf-8') as file:
         data = file.read()
 
     html = markdown.markdown(data)
@@ -43,7 +46,7 @@ def load_guide(chap_num, name):
 def load_chapter_title(chap_num):
     for filename in os.listdir('whirlwind_org/static/markdown/guide'):
         if '#' in filename:
-            chapter, _ = filename.split('_')
+            chapter, _ = filename.split('~')
             if int(chapter) == chap_num:
                 with open('whirlwind_org/static/markdown/guide/' + filename) as file:
                     data = file.read()
