@@ -188,6 +188,3 @@ data types, variables, constants, constexprs, and assignment.
 But, you have only begun your Whirlwind journey.
 I know the information may seem daunting, but
 don't worry.  After a while, you will get the hang of it.
-
-Now let's move on to Chapter 2, where will cover some new data types and
-cooler ways to assign values.

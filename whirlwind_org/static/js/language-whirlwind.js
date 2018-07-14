@@ -47,12 +47,12 @@ Prism.languages.whirlwind = {
         },
         // special
         {
-            pattern: /\b(value|new|use|include|delete)\b/
+            pattern: /\b(value|new|use|include|delete|ref)\b/
         }
     ],
     'function': /[a-zA-Z_]\w*(?=\()/,
     'punctuation':/[{}[\];(),.]/,
     'operator': /[+\-*\/%&\^!|><=?\$@:]/,
     'boolean': /true|false/,
-    'modifier': /\b(private|partial|extern|volatile|property)\b/,
+    'modifier': /\b(private|partial|extern|volatile|property|mut)\b/,
 };

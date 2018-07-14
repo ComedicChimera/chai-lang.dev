@@ -19,12 +19,12 @@ def load_chapter_bar(chap_num, name):
         for j in range(len(chapter)):
             name, selected = chapter[j] if isinstance(chapter[j], tuple) else (chapter[j], False)
             if j == 0:
-                element = '<li class="chapter-title%s"><a href="%s/guide/chapter%d"><b>%d</b> %s</a></li>' % (
+                element = '<li class="chapter-title%s"><a href="%s/docs/guide/chapter%d"><b>%d</b> %s</a></li>' % (
                     ' selected' if selected else '', HOST, i + 1, i + 1, name[1:].replace('_', ' ')
                 )
                 html_elements.extend([element, []])
             else:
-                element = '<li class="chapter-section%s"><a href="%s/guide/chapter%d/%s"><b>%d.%d</b> %s</a></li>' % (
+                element = '<li class="chapter-section%s"><a href="%s/docs/guide/chapter%d/%s"><b>%d.%d</b> %s</a></li>' % (
                     ' selected' if selected else '', HOST, i + 1, name, i + 1, j, name[1:].replace('_', ' ')
                 )
                 html_elements[-1].append(element)
