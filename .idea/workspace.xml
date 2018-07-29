@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e8130cb1-1f4b-4bd2-954c-2f3cc944ce48" name="Default" comment="" />
+    <list default="true" id="e8130cb1-1f4b-4bd2-954c-2f3cc944ce48" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/whirlwind_org/static/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/whirlwind_org/static/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/whirlwind_org/static/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/whirlwind_org/static/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/whirlwind_org/static/js/language-whirlwind.js" beforeDir="false" afterPath="$PROJECT_DIR$/whirlwind_org/static/js/language-whirlwind.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/whirlwind_org/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/whirlwind_org/templates/index.html" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -71,8 +77,8 @@
         <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~1Arrays.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="422">
-                <caret line="48" selection-start-line="48" selection-end-line="48" />
+              <first_editor relative-caret-position="152">
+                <caret line="33" column="28" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="30" />
               </first_editor>
               <second_editor>
                 <js_state />
@@ -141,6 +147,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -198,7 +205,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -333,13 +339,13 @@
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32943678" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32943678" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3995749" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3995749" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -557,11 +563,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~#Getting_Started.md">
-      <provider editor-type-id="text-editor">
-        <state>
-          <caret column="18" selection-start-column="18" selection-end-column="18" />
-        </state>
-      </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="198">
@@ -570,6 +571,11 @@
           <second_editor>
             <js_state />
           </second_editor>
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -588,7 +594,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~1Hello_World.md">
-      <provider editor-type-id="text-editor" />
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="324">
@@ -599,6 +604,7 @@
           </second_editor>
         </state>
       </provider>
+      <provider editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~3Comments.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
@@ -671,11 +677,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~5Variables_and_Constants.md">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="13" lean-forward="true" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="3402">
@@ -684,6 +685,11 @@
           <second_editor>
             <js_state />
           </second_editor>
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="13" lean-forward="true" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -716,8 +722,8 @@
     <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~1Arrays.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="422">
-            <caret line="48" selection-start-line="48" selection-end-line="48" />
+          <first_editor relative-caret-position="152">
+            <caret line="33" column="28" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="30" />
           </first_editor>
           <second_editor>
             <js_state />

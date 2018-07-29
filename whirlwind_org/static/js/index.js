@@ -1,10 +1,10 @@
-let demos = ["concur", "func", "expr", "modules", "control-flow"];
+let demos = ["concur", "func", "generic", "modules", "control-flow"];
 let demoNum = 1;
 
 const demoCode = [
     `use include stdio;\nvolatile $counter = 0;\n\nasync printCounter() {\n\tdo (5) Println(counter);\n}\n\nfunc Main() mut {\n\tprintCounter();\n\tdo (5) counter++;\n}`,
     `func Sum($lst: list[int]) int =>\n\tlst |> ... + |;\n\nfunc Main() {\n\tSum([1, 2, 3]); // 6\n\tSum([4, 5]); // 9\n}`,
-    `func Sqrt($n: int) float {\n\t$t = n;\n\tfor($z = 0; z < 10; z++)\n\t\ty -= (y^2 - n) / (2 * y);\n\treturn y;\n}\n\nfunc Main() {\n\tSqrt(4); // 2\n\tSqrt(16); // 4\n}`,
+    `template&lt;T>\nfunc Max($set: list[T], $fn: func($a: T, $b: T)(bool)) \nlist[T]\n{\n\t$mx: T;\n\tfor set|item| => {\n\t\tif (fn(mx, item))\n\t\t\tmx = item;\n\t}\n}`,
     `\n\nmodule Point2D {\n\tproperty $(x, y): int;\n\n\tfunc property Display() str =>
         "(%d, %d)".Format(this.x, this.y);\n}\n\nfunc Main() {\n\t$p = new Point2D { x=2, y=4 };\n\tp.Display(); // (2, 4)\n}`,
     `use include stdio;\n\nfunc Main() {\n\t$input = Scanln();\n\tmatch {\n\t\t? len(input) < 5:

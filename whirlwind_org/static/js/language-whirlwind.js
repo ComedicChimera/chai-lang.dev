@@ -39,20 +39,20 @@ Prism.languages.whirlwind = {
         },
         // declarations
         {
-            pattern: /\b(func|async|module|interface|union|constructor)\b/
+            pattern: /\b(func|async|module|interface|template|struct|constructor)\b/
         },
         // data types
         {
-            pattern: /\b(int|bool|float|char|str|type|array|list|map|byte|long)\b/
+            pattern: /\b(int|bool|float|char|str|array|list|map|byte|long)\b/
         },
         // special
         {
-            pattern: /\b(value|new|use|include|delete|ref)\b/
+            pattern: /\b(value|new|use|include|delete|ref|cast)\b/
         }
     ],
     'function': /[a-zA-Z_]\w*(?=\()/,
     'punctuation':/[{}[\];(),.]/,
     'operator': /[+\-*\/%&\^!|><=?\$@:]/,
     'boolean': /true|false/,
-    'modifier': /\b(private|partial|extern|volatile|property|mut)\b/,
+    'modifier': /\b(private|partial|extern|volatile|property|mut|uniform)\b/,
 };
