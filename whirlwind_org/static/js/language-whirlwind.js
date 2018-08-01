@@ -1,7 +1,7 @@
 Prism.languages.whirlwind = {
     'comment': [
         {
-            pattern: /\/\*.*\*\//s
+            pattern: /(\/\*[^(\\\*)]*\*\/)/s
         },
         {
             pattern: /\/\/.*/
@@ -43,16 +43,16 @@ Prism.languages.whirlwind = {
         },
         // data types
         {
-            pattern: /\b(int|bool|float|char|str|array|list|map|byte|long)\b/
+            pattern: /\b(int|bool|float|char|str|array|list|map|byte|long|double)\b/
         },
         // special
         {
-            pattern: /\b(value|new|use|include|delete|ref|cast)\b/
+            pattern: /\b(value|new|use|include|delete|cast|export)\b/
         }
     ],
     'function': /[a-zA-Z_]\w*(?=\()/,
     'punctuation':/[{}[\];(),.]/,
     'operator': /[+\-*\/%&\^!|><=?\$@:]/,
     'boolean': /true|false/,
-    'modifier': /\b(private|partial|extern|volatile|property|mut|uniform)\b/,
+    'modifier': /\b(private|partial|protected|volatile|property|mut|uniform)\b/,
 };

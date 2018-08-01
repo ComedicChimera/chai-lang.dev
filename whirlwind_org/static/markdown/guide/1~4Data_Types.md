@@ -21,6 +21,8 @@ designates.
 
     long // the long type, a larger integer that can store up to a much higher value
 
+    double // the double type, a larger float that can store up to a much higher value
+
     byte // the byte type, a single byte of data
 
     bool // the boolean type, a true/false value
@@ -35,7 +37,7 @@ constant, immutable value such as `7` or `3.14`. The code in
     // integer, long (same literal)
     1 34 752
 
-    // float
+    // float, double
     3.14 56.0 4.1244
 
     // char

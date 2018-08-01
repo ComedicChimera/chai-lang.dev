@@ -5,9 +5,6 @@ indices.  You can think of it as a simple data set with a set size.  All
 collections, including arrays, are strongly typed; this means that
 a collection can only contain one type.
 
-***Note** It is possible to have multi-type collections through the use
-of type unions, but that will be covered later.*
-
 ### Array Literals
 
 Like simple types, collections also have literals.  Array literals consist
@@ -64,5 +61,10 @@ designators, as shown by **Listing 2.1**.
 
     $arr: array[int, 4] = {1,2,3,4};
 
-    $arr2: array[float, 3] = { 1.2, 4.5, 5}; // 5 is valid since type coercion applies to arrays
+    $arr2: array[float, 3] = { 1.2, 4.5, 5 }; // 5 is valid since type coercion applies to arrays
+
+
+One final note, an array must always contain at least one element.
+You cannot create zero element arrays because otherwise the compiler
+has no way of inferring the array's element type.
 

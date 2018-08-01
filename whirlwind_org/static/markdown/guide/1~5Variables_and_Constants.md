@@ -180,11 +180,3 @@ the code below is invalid.
     $(x = 'a', y = 'b', z = 'c');
 
     x, y, = z, y, x; // invalid; too many values on right hand side
-
-## Summary
-That's it.  You finished Chapter 1. This was quite a large and diverse chapter.
-You learned about  program structure, the main function, comments,
-data types, variables, constants, constexprs, and assignment.
-But, you have only begun your Whirlwind journey.
-I know the information may seem daunting, but
-don't worry.  After a while, you will get the hang of it.
