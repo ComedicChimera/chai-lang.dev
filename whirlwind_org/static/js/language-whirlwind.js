@@ -32,6 +32,15 @@ Prism.languages.whirlwind = {
     ],
     'constant': /null|this|@[_a-zA-Z]\w*/,
     'variable': /\$[_a-zA-Z]\w*/,
+    'variant': {
+        pattern: /\b(variant)\s*(<[\w ,]+>)\s*(\w+)\s*\{/,
+        inside: {
+            'function': /(\w+)\s*(?=\{)/,
+            'keyword': /\b(variant|int|bool|float|char|str|array|list|map|byte|long|double)\b/,
+            'punctuation': /[{,]/,
+            'operator': /[<>]/
+        }   
+    },
     'keyword': [
         // control flow
         {
@@ -39,7 +48,7 @@ Prism.languages.whirlwind = {
         },
         // declarations
         {
-            pattern: /\b(func|async|module|interface|template|struct|constructor)\b/
+            pattern: /\b(func|async|module|interface|template|struct|constructor|variant)\b/
         },
         // data types
         {

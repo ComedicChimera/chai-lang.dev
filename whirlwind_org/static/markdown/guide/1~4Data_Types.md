@@ -69,3 +69,17 @@ used to change the sign of a numeric value.
 
 Finally, booleans are case sensitive. This means that `True` or
 `FALSE` are not valid literals.
+
+### Unsigned Types
+Certain numeric types can be **unsigned**.  This means that
+they must be positive at all times and cannot be made negative.
+
+You can designate a type as unsigned by prefixing with the unsigned
+keyword.
+
+    unsigned int // a unsigned integer
+
+The types that can be unsigned include `int`, `float`, `double`,
+`long`, and `byte`. As you might expect, the `-` (negation) operator
+cannot be applied to an unsigned type. If you attempt to, the compiler
+with give you an error.

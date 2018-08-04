@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e8130cb1-1f4b-4bd2-954c-2f3cc944ce48" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~6Function_Calling.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~3Lists.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/forlo.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/forlo.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~4Maps.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/whirlwind_org/static/css/guide.css" beforeDir="false" afterPath="$PROJECT_DIR$/whirlwind_org/static/css/guide.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/whirlwind_org/static/js/language-whirlwind.js" beforeDir="false" afterPath="$PROJECT_DIR$/whirlwind_org/static/js/language-whirlwind.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~4Data_Types.md" beforeDir="false" afterPath="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~4Data_Types.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~5Variables_and_Constants.md" beforeDir="false" afterPath="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~5Variables_and_Constants.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~1Arrays.md" beforeDir="false" afterPath="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~1Arrays.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -58,8 +53,8 @@
         <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~1Arrays.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="296">
-                <caret line="38" column="26" lean-forward="true" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
+              <first_editor relative-caret-position="684">
+                <caret line="38" column="26" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
               </first_editor>
               <second_editor>
                 <js_state />
@@ -71,13 +66,27 @@
       <file leaf-file-name="language-whirlwind.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/whirlwind_org/static/js/language-whirlwind.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="3" column="44" lean-forward="true" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
+            <state relative-caret-position="412">
+              <caret line="43" column="16" selection-start-line="43" selection-start-column="16" selection-end-line="43" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="guide.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="2~4Maps.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~4Maps.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="328">
+                <caret line="95" column="6" selection-start-line="95" selection-start-column="6" selection-end-line="95" selection-end-column="6" />
+              </first_editor>
+              <second_editor>
+                <js_state />
+              </second_editor>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="guide.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/whirlwind_org/static/css/guide.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="156">
@@ -127,13 +136,14 @@
         <option value="$PROJECT_DIR$/whirlwind_org/static/js/index.js" />
         <option value="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~#Collections.md" />
         <option value="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~2Subscripting_and_Slicing.md" />
-        <option value="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~4Data_Types.md" />
         <option value="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~1Arrays.md" />
         <option value="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~3Lists.md" />
         <option value="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~5Variables_and_Constants.md" />
         <option value="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~6Function_Calling.md" />
-        <option value="$PROJECT_DIR$/whirlwind_org/static/js/language-whirlwind.js" />
         <option value="$PROJECT_DIR$/whirlwind_org/static/css/guide.css" />
+        <option value="$PROJECT_DIR$/whirlwind_org/static/js/language-whirlwind.js" />
+        <option value="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~4Data_Types.md" />
+        <option value="$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~4Maps.md" />
       </list>
     </option>
   </component>
@@ -148,6 +158,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -198,7 +209,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -324,12 +334,18 @@
       <option name="project" value="LOCAL" />
       <updated>1531537630750</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fixed an error with multi-line comments and added some keyword to&#10;syntax highlighter, removed some unnecessary notes, added&#10;1.6 and 2.3">
+      <created>1533162016469</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1533162016469</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -364,16 +380,10 @@
     <MESSAGE value="added tutorials 1.2, revised 1.1, and fixed bug that caused all guide to code to be rendered with html&#10;tags in the same block" />
     <MESSAGE value="finished chapter 1, still needs to be proofread, fixed some&#10;guide loading bugs, and changed : to an operator in the highlighter" />
     <MESSAGE value="fixed some errors and highlighter and in the variables section, and started working on chapter 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed some errors and highlighter and in the variables section, and started working on chapter 2" />
+    <MESSAGE value="fixed an error with multi-line comments and added some keyword to&#10;syntax highlighter, removed some unnecessary notes, added&#10;1.6 and 2.3" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed an error with multi-line comments and added some keyword to&#10;syntax highlighter, removed some unnecessary notes, added&#10;1.6 and 2.3" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/whirlwind_org/templates/guide.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/whirlwind_org/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="558">
@@ -529,11 +539,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~#Getting_Started.md">
-      <provider editor-type-id="text-editor">
-        <state>
-          <caret column="18" selection-start-column="18" selection-end-column="18" />
-        </state>
-      </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="198">
@@ -542,6 +547,11 @@
           <second_editor>
             <js_state />
           </second_editor>
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -553,7 +563,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~1Hello_World.md">
-      <provider editor-type-id="text-editor" />
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="324">
@@ -564,6 +573,7 @@
           </second_editor>
         </state>
       </provider>
+      <provider editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~3Comments.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
@@ -625,24 +635,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~4Data_Types.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="548">
-            <caret line="39" column="18" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~2Subscripting_and_Slicing.md">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="121" column="20" selection-start-line="121" selection-start-column="20" selection-end-line="121" selection-end-column="20" />
-        </state>
-      </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="-370" />
@@ -651,33 +644,9 @@
           </second_editor>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~3Lists.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="184">
-            <caret line="83" column="34" selection-start-line="83" selection-start-column="34" selection-end-line="83" selection-end-column="34" />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~5Variables_and_Constants.md">
       <provider editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="13" lean-forward="true" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="472">
-            <caret line="181" column="67" selection-start-line="181" selection-start-column="67" selection-end-line="181" selection-end-column="67" />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
+        <state relative-caret-position="570">
+          <caret line="121" column="20" selection-start-line="121" selection-start-column="20" selection-end-line="121" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -706,8 +675,8 @@
     <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~1Arrays.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="296">
-            <caret line="38" column="26" lean-forward="true" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
+          <first_editor relative-caret-position="684">
+            <caret line="38" column="26" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
           </first_editor>
           <second_editor>
             <js_state />
@@ -720,17 +689,70 @@
         <state relative-caret-position="-546" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/whirlwind_org/static/js/language-whirlwind.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="44" lean-forward="true" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/whirlwind_org/static/css/guide.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
           <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/whirlwind_org/static/js/language-whirlwind.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="43" column="16" selection-start-line="43" selection-start-column="16" selection-end-line="43" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~3Lists.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="310">
+            <caret line="83" column="34" selection-start-line="83" selection-start-column="34" selection-end-line="83" selection-end-column="34" />
+          </first_editor>
+          <second_editor>
+            <js_state />
+          </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~4Data_Types.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="508">
+            <caret line="84" column="23" selection-start-line="84" selection-start-column="23" selection-end-line="84" selection-end-column="23" />
+          </first_editor>
+          <second_editor>
+            <js_state />
+          </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/1~5Variables_and_Constants.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="472">
+            <caret line="181" column="67" selection-start-line="181" selection-start-column="67" selection-end-line="181" selection-end-column="67" />
+          </first_editor>
+          <second_editor>
+            <js_state />
+          </second_editor>
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="13" lean-forward="true" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/whirlwind_org/static/markdown/guide/2~4Maps.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="328">
+            <caret line="95" column="6" selection-start-line="95" selection-start-column="6" selection-end-line="95" selection-end-column="6" />
+          </first_editor>
+          <second_editor>
+            <js_state />
+          </second_editor>
         </state>
       </provider>
     </entry>
