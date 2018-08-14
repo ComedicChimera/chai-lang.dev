@@ -61,7 +61,8 @@ designators, as shown by **Listing 2.1**.
 
     $arr: array[int, 4] = {1,2,3,4};
 
-    $arr2: array[float, 3] = { 1.2, 4.5, 5 }; // 5 is valid since type coercion applies to arrays
+    // 5 is valid since type coercion applies to arrays
+    $arr2: array[float, 3] = { 1.2, 4.5, 5 };
 
 
 One final note, an array must always contain at least one element.

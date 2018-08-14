@@ -47,8 +47,7 @@ even more concise through the use of special operators.
 
 Whirlwind provides two special compound assignment operators, called
 **increment** and **decrement**. Their purpose is faily simple,
-to add or subtract 1 from a numeric value. **Listing 1.10** showcases
-each of the two operators in action.
+to add or subtract 1 from a numeric value.
 
     x++; // increment
     x--; // decrement
@@ -75,10 +74,10 @@ Whereas, the postfix version gives you the original value and then adds
 
 These two versions have a key syntactical different: the placement of the operator.
 In the prefix version, you place the operator **before** the value.  But, in the
-postifx version, you place the operator after the value.  **Listing 1.11** contains examples
+postifx version, you place the operator after the value.  **Listing 1.10** contains examples
 of each.
 
-#### Listing 1.11
+#### Listing 1.10
 
     $(x = 4, y = 10);
 
