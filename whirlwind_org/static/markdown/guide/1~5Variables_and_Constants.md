@@ -125,12 +125,12 @@ You will likely not use constexpr's very much, but it is important
 to know of their existence, so you can avoid confusing errors later
 down the line.
 
-### Compound Declaration
+### Multi Declaration
 
-Compound declaration refers to declaring multiple variables or constants
-at once.  **Listing 1.8** show examples of compound declaration.
+multi declaration refers to declaring multiple variables or constants
+at once.  **Listing 1.8** show examples of multi declaration.
 
-#### Listing 1.8 - Compound Declaration
+#### Listing 1.8 - Multi Declaration
 
     $(a, b, c): int; // all 3 variables are given a type of int
 
@@ -138,7 +138,7 @@ at once.  **Listing 1.8** show examples of compound declaration.
 
     @(s = 'a', r = 'b'); // both values must be initalized since it is a constant
 
-As you can see, compound declaration consists of using one of the two
+As you can see, multi declaration consists of using one of the two
 declaration operators, followed by a set of identifiers wrapped in parentheses.
 
 These identifiers can provide initializers or be given the overall type of
@@ -159,10 +159,10 @@ default to.
 
     $(b = 4, c: char, d, e): float; // b is int, c is char, and d & e are floats
 
-### Compound Assignment
+### Multi Assignment
 
 Just like declaration, you can also assign to multiple values at once.
-This is done with **compound assignment** as looks like so:
+This is done with **Multi assignment** as looks like so:
 
     $(a = 4, b = 3);
 

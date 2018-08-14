@@ -49,10 +49,10 @@ so it is important to know when a function returns or not.
 ### Passing Arguments
 Some functions will accept one, two, or many arguments.  We can pass
 these arguments two the function by inserting them between the parentheses,
-separated by commas. **Listing 1.9** shows some examples of function
+separated by commas. **Listing 1.12** shows some examples of function
 calls using arguments.
 
-#### Listing 1.9 - Calling Functions with Arguments
+#### Listing 1.12 - Calling Functions with Arguments
 
     /* somewhere else we declared a function add that
        takes two integer arguments. Here is how we call it */
