@@ -76,7 +76,7 @@ declare a main function.
 
 #### Listing 1.2 - The Main Function
 
-    func Main() {
+    func main() {
 
     }
 

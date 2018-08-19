@@ -20,7 +20,7 @@ Open the file you just created and type the code in
 
     use include stdio;
 
-    func Main() {
+    func main() {
         Println("Hello, world!");
     }
 
