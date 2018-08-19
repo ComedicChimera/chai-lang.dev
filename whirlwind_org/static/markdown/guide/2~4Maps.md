@@ -30,6 +30,7 @@ Maps also have a specific type designator.  It is formatted like so:
 above is `map[char, int]`.
 
 ### Modifying Maps
+
 You can access the keys in a map using the subscript operator with the key
 as your value.  For example, if you wanted to get the value of 'b' in the
 map in **Listing 2.7**, you could so like this: `myMap['b']`.
@@ -56,6 +57,7 @@ you will get a **KeyException** at runtime that can crash your program if
 not properly handled.
 
 ### Map Methods
+
 Just like lists, maps also have a couple essential methods for working with
 them.  The first 2 are fairly simple: `keys()` and `values()`. As you might
 expect, each returns as list of the keys and values respectively.
@@ -96,6 +98,7 @@ Notice that, in this case, a key is required, unlike in the examples
 with update.
 
 ### Hashability
+
 In addition to all of the previous conditions,
 all of the keys must be **hashable**, which just means
 they are able to hashed for use in a map.
