@@ -132,7 +132,7 @@ Tuples are intentionally designed to not be very reusable.
 Later on, you will be introduced to structs which are
 much easier to manipulate and are very reusable.
 
-### Summary
+## Summary
 
 That is it for the chapter on Collections.  You have learned a
 lot and been introduced to a lot in this chapter.  This is

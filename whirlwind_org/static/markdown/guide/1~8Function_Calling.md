@@ -85,6 +85,7 @@ other special types of arguments, but we will talk more
 about that in **Chapter 4**.  This is all you need to know for now.
 
 ## Summary
+
 That's it.  You finished Chapter 1. This was quite a large and diverse chapter.
 You learned about  program structure, the main function, comments,
 data types, variables, constants, constexprs, assignment, and function calling.

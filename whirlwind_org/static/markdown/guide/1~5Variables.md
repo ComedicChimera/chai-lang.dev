@@ -1,9 +1,11 @@
 ## Variables and Constants
+
 In programming, we need ways of storing and accessing data in memory, whether it
 be an integer, a string, or a massive, complex object.  In Whirlwind,
 we use something called a **variable** to accomplish this.
 
 ### Variables
+
 A variable is an identifier that references some point in the computer's
 memory.  The code below shows how to declare them.
 
@@ -18,6 +20,7 @@ where the value of a variable is set.  This performed with the
 Once x is declared, it can be accessed from anywhere as shown in **Listing 1.7**.
 
 #### Listing 1.7 - Variables in Action
+
     // notice that x is accessible from anywhere
     $y = x * 3; // 9
     $z = x + 4; // 7
@@ -73,57 +76,6 @@ it must always be there.  Whirlwind will not allow you to declare
 variables with no type.  For example, the code below is invalid.
 
     $invalidVar; // ERROR: unable to infer type of 'invalidVar'
-
-
-### Constants
-Constants are just like variables, except their value cannot be
-changed.  They are declared using the `@` operator as opposed to
-the `$` operator.
-
-    @a = 5;
-
-Unlike variables, constants must always be initialized.  You can provide
-a type extension should you desire to, but there must always
-be an initializer.
-
-    @b: int; // ERROR: all constants must be initialized
-
-Because constants cannot be changed, there are not valid on the left hand side
-of assignment.
-
-    $x: int;
-    @a = 45;
-
-    x = a; // valid, no constant is being mutated
-    a = 20: // ERROR: constant value is changed
-
-Constants cannot be assigned to under any context, even if the
-value they are being assigned is the same as their current value.
-
-    @constant = 15;
-    $variable = 15;
-
-    constant = variable; // invalid
-
-### Constexprs
-There is a third kind of constant in Whirlwind called a **constexpr**.
-Constexpr stands for constant expression.  These are constants whose
-default value is predictable at compile time.  They are initialized
-using the `:=` operator as opposed to the `=` operator.
-
-    @constexpr := 5 + 4;
-
-Constexpr values are significantly faster at run time as their
-value can be statically determined by the compiler.  The docs page
-contains a document that outlines all valid constant expressions.
-
-The reason constexpr's exist is not just because they are faster at
-runtime, but also for other things that need to be compile time constant,
-such as array bounds (which we will talk about in Chapter 2).
-
-You will likely not use constexpr's very much, but it is important
-to know of their existence, so you can avoid confusing errors later
-down the line.
 
 ### Multi Declaration
 
