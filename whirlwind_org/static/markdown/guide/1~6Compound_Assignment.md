@@ -18,10 +18,10 @@ utilizes compound assignment.
 
 The `+=` is called a compound assignment operator.  Whirlwind supports
 a number of compound assignment operators, including arithmetic operators
-and bitwise operators. The code in **Listing 1.9** shows examples
+and bitwise operators. The code in **Listing 1.10** shows examples
 of compund assignment with other operators.
 
-#### Listing 1.9 - Compound Assignment Operators
+#### Listing 1.10 - Compound Assignment Operators
 
     $x = 2;
 
@@ -74,10 +74,10 @@ Whereas, the postfix version gives you the original value and then adds
 
 These two versions have a key syntactical different: the placement of the operator.
 In the prefix version, you place the operator **before** the value.  But, in the
-postifx version, you place the operator after the value.  **Listing 1.10** contains examples
+postifx version, you place the operator after the value.  **Listing 1.11** contains examples
 of each.
 
-#### Listing 1.10
+#### Listing 1.11
 
     $(x = 4, y = 10);
 

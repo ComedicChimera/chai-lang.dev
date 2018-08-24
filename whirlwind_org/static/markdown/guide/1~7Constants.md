@@ -141,4 +141,4 @@ Now the resulting code looks how you would expect:
     );
 
 Whenever possible, try to use the constepxr initializer when
-working with enumerated constants. 
+working with enumerated constants.

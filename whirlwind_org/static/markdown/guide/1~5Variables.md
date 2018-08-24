@@ -132,3 +132,38 @@ the code below is invalid.
     $(x = 'a', y = 'b', z = 'c');
 
     x, y, = z, y, x; // invalid; too many values on right hand side
+
+### Shadowing
+
+Shadowing is an extremely useful concept in Whirlwind that allows you to
+reuse variable names from higher scopes.
+
+***Note*** *A scope refers a variable context, like a block.*
+
+The principle of shadowing is that when looking up a variable, Whirlwind starts
+in the nearest scope. This means that you can use the variable name twice as long as
+they are in different scopes.  **Listing 1.9** demonstrates this.
+
+#### Listing 1.9 - Shadowing
+
+    $x = 2;
+
+    // sub scope
+    {
+        // shadow occurs
+        $x = 5;
+
+        Println(x); // x is 5
+    }
+
+    Println(x); // x is 2
+
+Just be careful that the variables aren't in the same scope as that will cause a
+redefinition error.
+
+    $x = 2;
+
+    // ERROR
+    $x = 5;
+    Println(x);
+
