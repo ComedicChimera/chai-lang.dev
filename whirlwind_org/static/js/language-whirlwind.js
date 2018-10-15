@@ -12,8 +12,8 @@ Prism.languages.whirlwind = {
         greedy: true
     },
     'char': {
-            pattern: /'(?:[^"\\']|\\.)*'/,
-            greedy: true
+        pattern: /'(?:[^"\\']|\\.)*'/,
+        greedy: true
     },
     'number': [
         // hex
@@ -42,7 +42,7 @@ Prism.languages.whirlwind = {
     'keyword': [
         // control flow
         {
-            pattern: /\b(break|continue|return|yield|for|do|if|elif|else|select|case|default|throw|with|except|where)\b/
+            pattern: /\b(break|continue|return|yield|for|do|if|elif|else|select|case|default|throw|except|where)\b/
         },
         // declarations
         {
@@ -54,7 +54,7 @@ Prism.languages.whirlwind = {
         },
         // special
         {
-            pattern: /\b(value|new|use|include|delete|cast|export)\b/
+            pattern: /\b(new|use|include|delete|cast|export)\b/
         }
     ],
     'function': /[a-zA-Z_]\w*(?=\()/,
@@ -62,5 +62,5 @@ Prism.languages.whirlwind = {
     'operator': /[+\-*\/%&\^!|><=?\$@:]/,
     'boolean': /true|false/,
     'modifier': /\b(private|partial|protected|volatile|static)\b/,
-    'constant': /null|this/,
+    'constant': /this/,
 };
