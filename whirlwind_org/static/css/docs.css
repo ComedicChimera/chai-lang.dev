@@ -1,0 +1,28 @@
+.doc-ref h3 a {
+    color: #20c0ff;
+    font-size: 30px;
+    text-decoration: none;
+
+    font-family: "Roboto", sans-serif;
+}
+
+.doc-ref p {
+    font-size: 14px;
+
+    font-family: "Open Sans", sans-serif;
+    color: #212121;
+}
+
+article {
+    display: flex;
+    justify-content: space-between;
+}
+
+.doc-ref {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #eeeeee;
+
+    width: 47%;
+    height: 170px;
+}

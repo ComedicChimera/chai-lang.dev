@@ -57,3 +57,12 @@ header nav a:hover {
     padding: 5px 10px 5px 10px;
     border-radius: 5px;
 }
+
+article {
+    margin: auto;
+
+    width: 80%;
+    min-width: 80%;
+
+    padding: 10px;
+}

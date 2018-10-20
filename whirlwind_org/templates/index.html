@@ -16,20 +16,7 @@
         <script src="static/js/index.js"></script>
     </head>
     <body>
-        <header>
-            <div class="visible-title">
-                <img src="static/images/logo.png" height="50px" width="50px"/>
-                <span>Whirlwind</span>
-            </div>
-            <nav>
-                <a href="/">Home</a>
-                <a href="/install">Install</a>
-                <a href="/docs">Docs</a>
-                <a href="/packages">Packages</a>
-                <a href="/blog">Blog</a>
-                <a href="/developers">Development</a>
-            </nav>
-        </header>
+        {% include 'header.html' without context %}
         <img src="static/images/wallpaper.jpg" height="1080px" width="1920px"/>
         <div class="demo-prompt">
             <div class="editor-container">

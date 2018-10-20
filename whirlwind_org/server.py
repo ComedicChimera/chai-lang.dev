@@ -9,6 +9,11 @@ def index():
     return flask.render_template('index.html')
 
 
+@app.route('/docs')
+def doc_home():
+    return flask.render_template('docs.html')
+
+
 @app.route('/docs/guide/chapter<int:chap_num>/<name>')
 def guide(chap_num, name):
     if '#' in name:
