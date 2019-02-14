@@ -23,12 +23,15 @@ html, body {
     align-items: center;
 
     color: white;
+
+    background: url(../images/background.jpg);
+    background-size: 1920px 640px;
 }
 
 .main-panel .top-bar {
     width: 100%;
 
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 
 .main-panel .top-bar nav {
@@ -50,7 +53,7 @@ html, body {
 
     padding: 0px;
 
-    width: 40%;
+    width: 25%;
 }
 
 .main-panel .top-bar nav li {
@@ -59,7 +62,21 @@ html, body {
     font-size: 35px;
 
     padding: 0px 10px 0px 10px;
-    
+}
+
+.main-panel .top-bar nav li a {
+    text-decoration: none;
+
+    transition-duration: 0.3s;
+    color: white;
+
+    padding-bottom: 5px;
+
+    border-bottom: 3px solid transparent;
+}
+
+.main-panel .top-bar nav li a:hover {
+    border-bottom: 3px solid white;
 }
 
 .main-panel .title-box {
@@ -85,8 +102,76 @@ html, body {
     font-size: 22px;
     text-align: center;
 
-    margin: 0px;
+    margin-bottom: 30px;
     font-weight: normal;
 }
 
+.explanation {
+    margin-top: 10px;
 
+    width: 100%;
+
+    display: grid;
+
+    grid-template-rows: 1fr 4fr;
+    grid-template-columns: 1fr 1fr;
+
+    grid-template-areas: 
+        'title code'
+        'text code'
+        ;
+}
+
+.explanation .text {
+    grid-area: text;
+
+    padding: 3px;
+
+    font-family: 'Open Sans', sans-serif;
+    font-size: 24px;
+    color: #212121;
+
+    padding: 0px 10px 0px 30px;
+}
+
+.explanation header {
+    grid-area: title;
+
+    padding-left: 30px;
+}
+
+.explanation h2 {
+    font-family: "Roboto", sans-serif;
+    font-size: 40px;
+
+    margin-bottom: 0px;
+}
+
+.explanation .underline {
+    background-color: #20aced;
+
+    position: relative;
+    top: -22px;
+
+    z-index: -1;
+
+    height: 20px;
+    width: 40%;
+}
+
+.explanation .code-window {
+    grid-area: code;
+
+    padding: 3px;
+
+    font-family: 'Inconsolata', monospace;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+.code-window pre {
+    margin: 0px;
+}

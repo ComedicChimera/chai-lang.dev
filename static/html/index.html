@@ -19,18 +19,24 @@
         <!--page icon-->
         <link rel="icon" type="image" href="static/images/logo.png"/>
 
+        <!--vendor-->
+        <script src="static/vendor/prism/prism.js"></script>
+        <link href="static/vendor/prism/prism.css" rel="stylesheet" type="text/css"/>
+        <script src="static/vendor/jquery/jquery-3.3.1.min.js"></script>
+
+        <!--scipts-->
+        <script src="static/js/language-whirlwind.js"></script>
+
         <title>Whirlwind Language</title>
     </head>
     <body>
-        <img class="background" src="static/images/background.jpg" width="1920px" height="642px"/>
-        
         <div class="main-panel">
             <div class="top-bar">
                 <nav>
                     <ul>
-                        <li>install</li>
-                        <li>docs</li>
-                        <li>packages</li>
+                        <li><a href="/install">install</a></li>
+                        <li><a href="/docs">docs</a></li>
+                        <li><a href="/packages">packages</a></li>
                     </ul>
                 </nav>
             </div>
@@ -40,5 +46,52 @@
                 <h2>A lightning fast, intuitive systems language for the modern world.</h2>
             </div>
         </div>
+
+        <div class="explanation">
+            <header>
+                <h2>Why Whirlwind?</h2>
+                <div class="underline"></div>
+            </header>
+
+            <div class="text">
+                Whirlwind is a language designed to resolve many of the problems of other languages.  It is intended
+                to bridge the gap between the more hardcore systems languages such as C++ or Rust and languages like Python
+                and Ruby, while still remaining efficient.  While this task sounds impossible, Whirlwind has come as close
+                as possible to being this bridge.  It is an imperative language with functional aspects that introduces the unique
+                tool of agents.  It is also designed to be expressive and user friendly, while simultaneously giving you extreme
+                power and tight control.  In short, it is a language designed to fill the gaps and minimize the problems and idiosyncracies
+                of many other languages.  It is not perfect, but a good start.
+            </div>
+            <div class="code-window">
+                <pre><code class="language-whirlwind">
+func log(n, base: double) double {
+    if (n < 0)
+        throw new ValueException("Value outside the domain of the logerithm");
+
+    if (base == e)
+        return ln(n);
+    else
+        return ln(n) / ln(base);
+}
+
+func main() {
+    let b = 10;
+
+    Println(log(1000, 10));
+}
+                </code></pre>
+            </div>
+        </div>
+
+        <script>
+            let dp = new DOMParser();
+            let elements = $('.language-whirlwind');
+
+            for (var i = 0; i < elements.length; i++) {
+                let html = dp.parseFromString(elements[i].innerHTML, 'text/html').documentElement.textContent
+
+                elements[i].innerHTML = Prism.highlight(html, Prism.languages.whirlwind);
+            }
+        </script>
     </body>
 </html>
