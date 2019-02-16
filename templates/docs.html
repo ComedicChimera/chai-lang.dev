@@ -4,9 +4,127 @@
     <head>
         {% include 'head.html' %}
 
+        <link href="../static/css/docs.css" rel="stylesheet" type="text/css"/>
+
         <title>Whirlwind Language Docs</title>
     </head>
     <body>
         {% include 'header.html' %}
+        <article>
+            <div class="article-content">
+                <div class="section">
+                    <div class="section-header">Language Documentation</div>
+
+                    <div class="section-panels">
+                       <div class="column">
+                            <div class="section-panel">
+                                <h3><a href="/guide">Getting Started Guide</a></h3>
+                                <p>This is a guide designed to get you started up and ready to go
+                                    with Whirlwind.  It is by no means comprehensive, but it will
+                                    give you enough information to build a good understanding of
+                                    the language.
+                                </p>
+                            </div>
+                            <div class="section-panel">
+                                <h3><a href="/grammar">Syntax Reference</a></h3>
+                                <p>This is the formal language grammar and list of lexical tokens.  It
+                                    is marked up in a modified EBNF format and is a copy of the actual
+                                    grammar and tokens used by the compiler.
+                                </p>
+                            </div>
+                       </div>
+                       <div class="column">
+                            <div class="section-panel">
+                                <h3><a href="/spec">Language Specification</a></h3>
+                                <p>This is the formal language specification of Whirlwind.  It is not
+                                    an easy read, but definitely worth it for any advanced Whirlwind
+                                    developers.
+                                </p>
+                            </div>
+                            <div class="section-panel">
+                                <h3><a href="/style-guide">Style Guide</a></h3>
+                                <p>This is the official Whirlwind style guide. It describes naming conventions,
+                                    formatting, and how to write efficient and idiomatic Whirlwind.  An absolute
+                                    must read for Whirlwind programmers new and old alike.
+                                </p>
+                            </div>
+                       </div> 
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="section-header">Blend Documentation</div>
+
+                    <div class="section-panels">
+                        <div class="column">
+                            <div class="section-panel">
+                                <h3><a href="/blend/guide">Introducing Blend</a></h3>
+                                <p>This is an article designed to get you up to speed with Whirlwind's 
+                                    builtin project management tool, Blend.  While it is not comprehensive,
+                                    it is very detailed, but still fairly friendly.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="section-panel">
+                                <h3><a href="/blend/reference">Blend Reference</a></h3>
+                                <p>This is the complete CLI and concept reference for Blend.  It gives
+                                    a list of all commands and their syntax, and it provides a full
+                                    terminology and concept guide.
+                                </p>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="section-header">Package Documentation</div>
+
+                    <div class="section-panels">
+                        <div class="column">
+                            <div class="section-panel">
+                                <h3><a href="/std-lib">Standard Library Reference</a></h3>
+                                <p>This is a searchable reference for all package in the standard
+                                    library.  It not only describes their API, but also how to use
+                                    them and what they do.  This will likely be one of you most valuable
+                                    resources when working with Whirlwind.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="section-panel">
+                                <h3><a href="/package-guide">Working with Packages</a></h3>
+                                <p>This document describes how to create, install, manage, and publish
+                                    Whirlwind packages you and others have created.  If you plan on
+                                    contributing to or benefiting from Whirlwind's package ecosystem, 
+                                    this is an essential read.
+                                </p>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="section-header">Compiler Documentation</div>
+
+                    <div class="section-panels">
+                        <div class="column">
+                            <div class="section-panel">
+                                <h3><a href="/compiler-guide">Using Your Compiler</a></h3>
+                            </div>
+                            <div class="section-panel">
+                                <h3><a href="/compiler-structure">Compiler Structure</a></h3>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="section-panel">
+                                <h3><a href="/cli-reference">CLI Reference</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <footer>
+            {% include 'footer.html' %}
+        </footer>
+        
     </body>
 </html>

@@ -1,11 +1,3 @@
-html, body {
-    margin: 0px;
-    width: 100%;
-    height: 100%;
-
-    overflow-x: hidden;
-}
-
 .background {
     position: absolute;
     overflow-y: hidden;
@@ -141,17 +133,17 @@ html, body {
     border-left: solid #212121 3px;
 }
 
-header {
+.title {
     grid-area: title;
 
     padding-left: 30px;
 }
 
-header .title-wrapper {
+.title .title-wrapper {
     display: inline-block;
 }
 
-header h2 {
+.title h2 {
     font-family: "Roboto", sans-serif;
     font-size: 40px;
 
@@ -159,7 +151,7 @@ header h2 {
     margin-bottom: 0px;
 }
 
-header .underline {
+.title .underline {
     background-color: #20aced;
 
     position: relative;
@@ -272,31 +264,5 @@ header .underline {
 }
 
 .three-panel .sub-panel nav a:hover {
-    color: #20aced;
-}
-
-footer {
-    padding: 10px;
-
-    display: flex;
-    flex-direction: row;
-
-    justify-content: center;
-
-    color: white;
-    font-family: 'Open Sans', sans-serif;
-
-    background-color: #212121;
-}
-
-footer a {
-    color: white;
-
-    text-decoration: none;
-
-    transition-duration: 0.2s;
-}
-
-footer a:hover {
     color: #20aced;
 }

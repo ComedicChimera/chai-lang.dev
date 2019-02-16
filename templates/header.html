@@ -1,10 +1,13 @@
 <header>
     <div class="title-box">
         <img class="icon" src="{{ prefix|safe }}static/images/logo.png" width="50px" height="50px"/>
-        <span class="title">Whirlwind</span>
+        <span class="title"><a href="{{ prefix|safe }}">Whirlwind</a></span>
     </div>
     <nav>
-
+        <a href="{{ prefix|safe }}install">Install</a>
+        <a href="{{ prefix|safe }}docs">Docs</a>
+        <a href="{{ prefix|safe }}packages">Packages</a>
+        <a href="{{ prefix|safe }}suggestions">Suggestions</a>
     </nav>
     <div class="search">
         <div class="input-box">
@@ -12,4 +15,19 @@
             <img class="search-icon" src="{{ prefix|safe }}static/images/search.png" width="25px" height="25px"/>
         </div>
     </div>
+
+    <script>
+        $('.search-input').keydown((e) => {
+            if (e.which == 13)
+                search();
+        });
+
+        $('.search-icon').mousedown(search);
+
+        function search() {
+            let query = $('.search-input').val();
+
+            window.location.href += `/{{ prefix|safe }}search?query=${query}`;
+        }
+    </script>
 </header>

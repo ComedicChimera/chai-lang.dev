@@ -2,27 +2,14 @@
 
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <meta name="application-name" content="whirlwind-lang.org">
-        <meta name="description" content="The Whirlwind Programming Language">
-        <meta name="keywords" content="whirlwind programming language coding object oriented functional agent oriented free open source software docs documentation">
+        {% include 'head.html' %}
 
         <!--style sheets-->
         <link href="static/css/index.css" rel="stylesheet" type="text/css"/>
 
-        <!--fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Open+Sans+Condensed:300|Roboto" rel="stylesheet">
-
-        <!--page icon-->
-        <link rel="icon" type="image" href="static/images/logo.png"/>
-
         <!--vendor-->
         <script src="static/vendor/prism/prism.js"></script>
         <link href="static/vendor/prism/prism.css" rel="stylesheet" type="text/css"/>
-        <script src="static/vendor/jquery/jquery-3.3.1.min.js"></script>
 
         <!--scipts-->
         <script src="static/js/language-whirlwind.js"></script>
@@ -48,12 +35,12 @@
         </div>
 
         <div class="explanation">
-            <header>
+            <div class="title">
                 <div class="title-wrapper">
                     <h2>Why Whirlwind?</h2>
                     <div class="underline"></div>
                 </div> 
-            </header>
+            </div>
 
             <div class="text-wrapper">
                 <div class="text">
@@ -68,12 +55,12 @@
             </div>
         </div>
         <div class="examples">
-            <header>
+            <div class="title">
                 <div class="title-wrapper">
                     <h2>Examples</h2>
                     <div class="underline"></div>
                 </div>         
-            </header>
+            </div>
 
             <div class="example-panels">
                 <div class="example1">
@@ -208,12 +195,12 @@ func main() {
             </div>
         </div>
         <div class="three-panel-wrapper">
-            <header>
+            <div class="title">
                 <div class="title-wrapper">
                     <h2>Resources</h2>
                     <div class="underline"></div>
                 </div>   
-            </header>
+            </div>
 
             <div class="three-panel">
                 <div class="sub-panel getting-started">
@@ -247,8 +234,7 @@ func main() {
             </div>
         </div>    
         <footer>
-            <!--add in useful stuff-->
-            <span>This site is fully open source. <a href="https://github.com/ComedicChimera/whirlwind-lang_org">Take a look!</a> | &copy; 2019 Jordan Gaines</span>
+            {% include 'footer.html' %}
         </footer>
 
         <script>
