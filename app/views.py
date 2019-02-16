@@ -1,4 +1,5 @@
 from app import app
+from flask import render_template
 
 
 @app.route('/')
@@ -8,4 +9,4 @@ def index():
 
 @app.route('/docs')
 def docs():
-    return app.send_static_file('html/docs.html')
+    return render_template('docs.html', prefix='../')

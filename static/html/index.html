@@ -116,19 +116,19 @@ include http;
 include strconv;
 
 agent Server {
-    when ("http-0/" => _) { http::respond(0, "Home Page"); }
+    when ("http-0/" => _) { http::Respond(0, "Home Page"); }
 
-    when ("http-0/store" => _) { http::respond(0, "Welcome to the Store!"); }
+    when ("http-0/store" => _) { http::Respond(0, "Welcome to the Store!"); }
 
     when (req: http::Request => req.path.startswith("/api")) {
         if (req.path.has("v2") && req.method == "POST")
-            http::respond(0, processReq(req)); 
+            http::Respond(0, processReq(req)); 
         else
-            http::respond(0, http::Response(403));
+            http::Respond(0, http::Response(403));
     }
 
-    func processReq(r: Req) str {
-        return strconv.ParseInt(r.data["num"]) ~^ 2;
+    func processReq(r: http::Request) str {
+        return strconv::ToString(strconv::ParseInt(r.data["num"]) ~^ 2);
     }
 }
 
@@ -144,14 +144,14 @@ func main() {
                     <h3>Custom Iterable</h3>
                         <div class="code-window">
                             <pre><code class="language-whirlwind">
-type Range : Iterable&lt;int&gt; {
+type Range : Iterable&lt;uint&gt; {
     priv let (start, end, step): uint;
 
     constructor(s, e: uint, st = 1) {
         this.start, this.end, this.step = s, e, st;
     }
 
-    priv func at(i: int) (int, bool) {
+    priv func at(i: uint) (uint, bool) {
         let val = this.start + (i * this.step);
 
         if (val < this.end)
@@ -166,7 +166,7 @@ type Range : Iterable&lt;int&gt; {
 
 func main() {
     let sum = new Range(1, 11).foldl(
-        |a, b: int| => a + b
+        |a, b: uint| => a + b
     );
 }
                             </code></pre>
@@ -207,36 +207,45 @@ func main() {
                 </div>
             </div>
         </div>
-        <div class="three-panel">
-            <div class="sub-panel getting-started">
-                <h2>Getting Started</h2>
-                <p>Getting started is often the hardest part, so we've made it easy for you.</p>
-                <nav>
-                    <a href="docs/guide">Get Started with Whirlwind</a>
-                    <a href="docs/blend">Get Started with Blend</a>
-                </nav>
+        <div class="three-panel-wrapper">
+            <header>
+                <div class="title-wrapper">
+                    <h2>Resources</h2>
+                    <div class="underline"></div>
+                </div>   
+            </header>
+
+            <div class="three-panel">
+                <div class="sub-panel getting-started">
+                    <h2>Getting Started</h2>
+                    <p>Getting started is often the hardest part, so we've made it easy for you.</p>
+                    <nav>
+                        <a href="docs/guide">Get Started with Whirlwind</a>
+                        <a href="docs/blend">Get Started with Blend</a>
+                    </nav>
+                </div>
+                <div class="sub-panel community">
+                    <h2>Community</h2>
+                    <p>Come and join the Whirlwind family, and no, we don't have social media.</p>
+                    <nav>
+                        <!--add in links-->
+                        <a>Discord</a>
+                        <a>Slack</a>
+                        <a>Reddit</a>
+                    </nav>
+                </div>
+                <div class="sub-panel contributing">
+                    <h2>Contributing</h2>
+                    <p>Help us make Whirlwind better for everyone and make our lives a little easier.</p>
+                    <nav>
+                        <!--add in blend link-->
+                        <a href="https://github.com/ComedicChimera/Whirlwind">Whirlwind Github</a>
+                        <a>Blend Github</a>
+                        <a href="/suggestions">Suggestions</a>
+                    </nav>
+                </div>
             </div>
-            <div class="sub-panel community">
-                <h2>Community</h2>
-                <p>Come and join the Whirlwind family, and no, we don't have social media.</p>
-                <nav>
-                    <!--add in links-->
-                    <a>Discord</a>
-                    <a>Slack</a>
-                    <a>Reddit</a>
-                </nav>
-            </div>
-            <div class="sub-panel contributing">
-                <h2>Contributing</h2>
-                <p>Help us make Whirlwind better for everyone and make our lives a little easier.</p>
-                <nav>
-                    <!--add in blend link-->
-                    <a href="https://github.com/ComedicChimera/Whirlwind">Whirlwind Github</a>
-                    <a>Blend Github</a>
-                    <a href="/suggestions">Suggestions</a>
-                </nav>
-            </div>
-        </div>
+        </div>    
         <footer>
             <!--add in useful stuff-->
             <span>This site is fully open source. <a href="https://github.com/ComedicChimera/whirlwind-lang_org">Take a look!</a> | &copy; 2019 Jordan Gaines</span>

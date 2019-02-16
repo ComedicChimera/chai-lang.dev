@@ -54,7 +54,7 @@ Prism.languages.whirlwind = {
         },
         // data types
         {
-            pattern: /\b(int|bool|float|char|str|array|list|dict|byte|long|double)\b/
+            pattern: /\bu?(int|bool|float|char|str|array|list|dict|byte|long|double)\b/
         },
         // special
         {
