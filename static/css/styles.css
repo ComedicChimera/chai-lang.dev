@@ -52,17 +52,6 @@ header nav {
     font-size: 24px;
 }
 
-header nav a {
-    color: white;
-    text-decoration: none;
-
-    transition-duration: 0.2s;
-}
-
-header nav a:hover {
-    color: #20aced;
-}
-
 header .search {
     grid-area: search;
 
@@ -112,7 +101,7 @@ footer {
     background-color: #212121;
 }
 
-footer a {
+a {
     color: white;
 
     text-decoration: none;
@@ -120,6 +109,6 @@ footer a {
     transition-duration: 0.2s;
 }
 
-footer a:hover {
+a:hover {
     color: #20aced;
 }
