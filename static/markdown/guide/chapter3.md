@@ -68,9 +68,10 @@ below.
     bool // boolean type (8 bits)
 
 You'll notice that all of the numeric types have both a signed and unsigned form.  This is always
-designated by placing a `u` in front. `char` is special in that it is technically numeric, but
-it defaults to being unsigned as this is it's normal use.  The designate it as signed, you have to place
-an `s` in front.
+designated by placing a `u` in front.
+
+> `char` is special in that it is technically numeric, but it defaults to being unsigned as this is it's normal use.
+> To designate it as signed, you have to place an `s` in front.
 
 ## Null Initialization
 
@@ -114,6 +115,19 @@ I know we have not covered much of the concepts used above, but it is simply to 
 of just how long constancy lasts.  For experienced programmers, this should be a wake up call
 to you to be careful with constants.
 
+## Multi Declaration
 
+Multi-declaration is just a way of declaring multiple variables at once.  It looks like so.
 
+    let (a = 0, b = 'a', c = 0.3);
 
+Notice that each variable is separated by commas and that the variables have different data types.
+You can also just use a type extension instead of an initializer if you want to.
+
+    let (a: int, b = 'a', c: double);
+
+You can also define an overarching type extension to fill in any unspecified variables.
+
+    const (a: int, b = 'a', c, d): double;
+
+The variables `c` and `d` are now both doubles.  

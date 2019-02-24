@@ -74,3 +74,19 @@ article nav a {
 
     text-align: center;
 }
+
+article .article-content blockquote {
+    color: #858585;
+
+    border-left: 3px solid #cccccc;
+    border-radius: 3px;
+    
+    padding: 10px;
+
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+article .article-content p {
+    margin: 0px;
+}
