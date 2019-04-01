@@ -21,6 +21,10 @@ The first item in the brackets is the data type of the elements and the second v
 the length of the array.  Unlike in many other languages, arrays can only have a fixed length
 and it must be included in the data type.
 
+> It is also possible for an array data type to be unsized.  This will allow any array of
+> the element type to be considered equivalent, regardless of its size.  Unsized arrays are
+> designated with the `array[T]` type specifier.
+
 You can get the length of an array (or any other collection) by using the `len()` method.
 
     let l = arr.len(); // l = 3

@@ -188,13 +188,13 @@ second value if the branch is false.
 The second control flow operator is the inline case operator.  This operator works like the
 select expression, but for inline values.
 
-    let y = val case {
+    let y = value case {
         1, 2 => 4,
         3 => 6,
         _ => 8
     };
 
-The val at the top of the case expression is what will be selected over.  Each of the cases are
+The value at the top of the case expression is what will be selected over.  Each of the cases are
 separated by commas and the possible values and the result are separated by the `=>` operator.
 
 Notice that the last case just has the `_` symbol in it.  In the context of the inline case statement,

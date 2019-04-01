@@ -94,9 +94,7 @@ of what type of function they are.
 Optional arguments are another method by which functions can be
 made more versatile.  An optional argument is an argument with a default value.  
 These arguments do not have to be specified and can be left empty if
-the creator so chooses.
-
-These arguments are declared by specifying a default value in
+the creator so chooses and are declared by specifying a default value in
 functions signature.
 
     func someFunc(x: int, y: double = 1.0) {

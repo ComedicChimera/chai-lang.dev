@@ -46,7 +46,7 @@ Prism.languages.whirlwind = {
         },
         // declarations
         {
-            pattern: /\b(func|async|type|interf|template|struct|constructor|variant|enum|agent)\b/
+            pattern: /\b(func|async|type|interf|template|struct|constructor|variant|enum|agent|operator)\b/
         },
         // variables
         {
@@ -58,7 +58,7 @@ Prism.languages.whirlwind = {
         },
         // special
         {
-            pattern: /\b(new|from|include|delete|cast|export|await|ref)\b/
+            pattern: /\b(new|from|include|delete|cast|export|await|ref|then|val|is)\b/
         }
     ],
     'function': /[a-zA-Z_]\w*(?=\()/,

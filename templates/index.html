@@ -67,7 +67,7 @@
                     <h3>Fibonacci Closure</h3>
                     <div class="code-window">
                         <pre><code class="language-whirlwind">
-include { Println } from stdio;
+include { Println } from io::std;
 
 func fib() func()(int) {
     let (a = 0, b = 1);
@@ -128,33 +128,33 @@ func main() {
                     </div>
                 </div>
                 <div class="example3">
-                    <h3>Custom Iterable</h3>
+                    <h3>Monadic Type</h3>
                         <div class="code-window">
                             <pre><code class="language-whirlwind">
-type Range : Iterable&lt;uint&gt; {
-    priv let (start, end, step): uint;
+include { Println } from io::std;
 
-    constructor(s, e: uint, st = 1) {
-        this.start, this.end, this.step = s, e, st;
-    }
+type Option&lt;T&gt;
+    | Some(T)
+    | None
+    ;
 
-    priv func at(i: uint) (uint, bool) {
-        let val = this.start + (i * this.step);
-
-        if (val < this.end)
-            return val, true;
+interf&lt;T&gt; for Option&lt;T&gt; is Monad&lt;T&gt; {
+    operator >>= (fn: func(T)(Option&lt;T&gt;)) Option&lt;T&gt; {
+        if (this is None)
+            return None;
         else
-            return null, false;
+            return fn(from this);
     }
 
-    func begin() uint => this.start;
-    func end() uint => this.end;
+    // -- snip -- (:> and ~* operator overloads)
 }
 
 func main() {
-    let sum = new Range(1, 11).foldl(
-        |a, b: uint| => a + b
-    );
+    let (optA = Some(5), optB = Some(6));
+
+    let sum = optA >>= |x: int| => optB >>= |y: int| => Some(x + y);
+    
+    Println(from sum); // 11
 }
                             </code></pre>
                         </div>
