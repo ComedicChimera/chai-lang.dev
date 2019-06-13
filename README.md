@@ -17,6 +17,7 @@ The Whirlwind Language Website
 - Overloading
 - Type Classes
 - Closures and Decorators
+- Captures
 - Comprehensions
 - Generics
 - Error Handling
