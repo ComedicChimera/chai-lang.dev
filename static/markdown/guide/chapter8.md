@@ -104,9 +104,9 @@ This can save you from a lot of unnecessary pain that can result by forgetting t
 ## Dynamic Allocation
 
 Dynamic allocation is the process of allocating values on the heap.  You can dynamically allocate any value using the
-`new` keyword followed by the data type you want to allocate.
+`make` keyword followed by the data type you want to allocate.
 
-    let hp = new int;
+    let hp = make int;
 
 The variable `hp` is now a **heap pointer**.  This means that it is pointing to value allocated on the heap, in this case
 an integer.  It is important to note that all values allocated on the heap cannot be directly stored.  They instead must be
