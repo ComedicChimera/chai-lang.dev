@@ -22,5 +22,4 @@ The Whirlwind Language Website
 - Error Handling
 - Monads and Chaining
 - Concurrency
-- Agents
 - Packages and Inclusion
