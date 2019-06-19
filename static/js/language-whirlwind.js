@@ -34,7 +34,7 @@ Prism.languages.whirlwind = {
         pattern: /\b(variant)\s*(<[\w ,]+>)\s*(\w+)\s*\{/,
         inside: {
             'function': /(\w+)\s*(?=\{)/,
-            'keyword': /\b(variant|int|bool|float|char|str|array|list|dict|byte|long|double)\b/,
+            'keyword': /\b(variant|int|bool|float|char|str|byte|long|double)\b/,
             'punctuation': /[{,]/,
             'operator': /[<>]/
         }   
@@ -54,11 +54,11 @@ Prism.languages.whirlwind = {
         },
         // data types
         {
-            pattern: /\bu?(int|bool|float|char|str|array|list|dict|byte|long|double)\b/
+            pattern: /\bu?(int|bool|float|char|str|byte|long|double)\b/
         },
         // special
         {
-            pattern: /\b(new|from|include|delete|cast|export|await|ref|then|val|is)\b/
+            pattern: /\b(new|make|from|include|delete|cast|export|await|ref|then|val|is)\b/
         }
     ],
     'function': /[a-zA-Z_]\w*(?=\()/,

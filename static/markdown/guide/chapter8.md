@@ -146,12 +146,12 @@ they are just masked pointers.
 
 The reference type specifier is connoted with the `ref` keyword followed by the type referenced.
 
-    let r2: ref list[int];
+    let r2: ref [int];
 
 References are just as light weight as pointers, but without the additional hassle.  However, references are type safe meaning you cannot
 set a reference to a non-reference, but you can set a non-reference equal to a reference.
 
-    let arr2: array[int, 3] = r; // valid
+    let arr2: [3]int = r; // valid
 
     r = arr2; // ERROR
 

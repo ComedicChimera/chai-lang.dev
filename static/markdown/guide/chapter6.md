@@ -35,7 +35,7 @@ if you have a function that returns the time, its signature might look like this
 
 Similarly, a function that sums a list, might look like the following.
 
-    func sum(lst: list[int]) int {
+    func sum(lst: [int]) int {
         let s = 0;
 
         for (n <- lst)
@@ -48,7 +48,7 @@ Functions can take as many or as few arguments as necessary.  Arguments
 can also be marked as constant by putting the const keyword before the
 name.
 
-    func sum(const lst: list[int]) int {
+    func sum(const lst: [int]) int {
         let s = 0;
 
         for (n <- lst)
@@ -118,7 +118,7 @@ It has a type of `float`
 **Indefinite arguments** are arguments that can take in multiple values.  They are
 designated by placing `...` before the argument name.
 
-    func makeList(... args: int) list[int]
+    func makeList(... args: int) [int]
         => args;
 
 The function would the be called like so.

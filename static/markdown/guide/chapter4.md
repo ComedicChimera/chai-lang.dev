@@ -15,7 +15,7 @@ Array literals must contain at least one item in order to determine their type.
 
 The array data type is declared using the following type alias syntax.
 
-    let arr: array[uint, 3];
+    let arr: [3]uint;
 
 The first item in the brackets is the data type of the elements and the second value is
 the length of the array.  Unlike in many other languages, arrays can only have a fixed length
@@ -23,7 +23,7 @@ and it must be included in the data type.
 
 > It is also possible for an array data type to be unsized.  This will allow any array of
 > the element type to be considered equivalent, regardless of its size.  Unsized arrays are
-> designated with the `array[T]` type specifier.
+> designated with the `[]T` type specifier.
 
 You can get the length of an array (or any other collection) by using the `len()` method.
 
@@ -93,9 +93,9 @@ the data type.  You declare a list a like so.
     let lst = ['a', 'b', 'c'];
 
 Notice that lists use brackets instead of braces.  The list data type is declared similar to that of
-an array, but without the size.
+an array, but with the type inside the brackets instead of the size.
 
-    let lst: list[char];
+    let lst: [char];
 
 Just like arrays, it is impossible to declare an empty list literal, but you can use the pure data type
 form to declare an empty list.
@@ -129,7 +129,7 @@ in between the pairs.
 
 The dictionary data type looks like so and is the only way to declare an empty dictionary
 
-    let d: dict[char, int];
+    let d: [char: int];
 
 Dictionaries work a little bit differently in terms of subscripting.  Firstly
 the subscript is done with the key name instead of the index.  Additionally, you can

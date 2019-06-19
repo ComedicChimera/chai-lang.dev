@@ -130,4 +130,4 @@ You can also define an overarching type extension to fill in any unspecified var
 
     const (a: int, b = 'a', c, d): double;
 
-The variables `c` and `d` are now both doubles.  
+The variables `c` and `d` are now both doubles.

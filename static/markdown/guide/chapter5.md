@@ -142,7 +142,7 @@ want to iterator over.
 
     let col = range(1, 11); // returns a list of the numbers 1-10
 
-    let d: dict[int, int];
+    let d: [int: int];
 
     for (n <- col) {
         d[n] = n ~^ 2;
