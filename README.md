@@ -1,4 +1,4 @@
-# Whirlwind Site
+# whirlwind-lang.org
 
 The Whirlwind Language Website
 
