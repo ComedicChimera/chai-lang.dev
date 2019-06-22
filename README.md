@@ -1,6 +1,8 @@
 # Whirlwind Site
 
-The Whirlwind Language Website
+The Official Whirlwind Language Website
+
+*Website and Information therein Copyright &copy; Jordan Gaines 2019*
 
 ## Guide Chapters
 

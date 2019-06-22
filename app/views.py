@@ -6,10 +6,16 @@ import os
 
 
 guide_names = []
+unordered_guide = {}
 
 for file in os.listdir('static/markdown/guide'):
     with open('static/markdown/guide/' + file) as fp:
-        guide_names.append(fp.readline()[1:].strip())
+        unordered_guide[int(file[7:][:-3])] = fp.readline()[1:].strip()
+
+for i in range(len(unordered_guide)):
+    guide_names.append(unordered_guide[i + 1])
+
+unordered_guide = {}
 
 
 def load_markdown(path):

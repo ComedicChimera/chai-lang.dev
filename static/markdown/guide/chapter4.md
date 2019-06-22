@@ -85,6 +85,37 @@ when using negative values, the start index is **greater** than the end index.  
 the fact the slice is collecting in reverse.  Finally, if a step is too great, it will be considered an
 out of bounds exception.
 
+## Ranges
+
+Ranges are special type of array that allow you to create ordered series of numbers.
+By default, they generate as an unsized array and are treated just like one. To create
+a range, you must use the `..` operator, bounded by two integers.  
+
+    let r = 1..10;
+
+The above range creates a list of numbers 1 through 9.  Notably, Whirlwind ranges generate
+including the leading bound and excluding the ending bound.  Ranges only go in one direction:
+least to greatest and will generate an empty range if any other pairing occurs.
+
+> Unlike some languages, Whirlwind only allows the creation of ranges of integers.
+
+Ranges are high level expressions meaning in order to access the range as a whole, you must
+enclose it in parentheses.
+
+    let r = 1..9[2]; // ERROR: you can't subscript integers
+
+    r = (1..9)[0]; // A OK
+
+This can be somewhat inconvenient, but it allows you to put complete expressions on each side of the
+range as opposed to only simple literals.
+
+    let (a = 10, b = 17);
+
+    let r = a * b..a ~^ b; // me me big range
+
+This format makes editing the bounds of ranges far easier, but it also introduces some ambiguity which can
+make code confusing to read so just make sure to not make the range expressions too complex
+
 ## Lists
 
 A list is a like an array that can be resized.  Similarly, the size of a list is not factored into
