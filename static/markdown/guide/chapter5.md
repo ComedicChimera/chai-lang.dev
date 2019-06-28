@@ -177,9 +177,9 @@ having to use a full block.
 
 The first operator is the inline condition operator.  It takes the following form.
 
-    let x = condition ? result1 : result2;
+    let x = result1 if condition else result2;
 
-As you can see, this operator returns the first value is condition is true and the
+As you can see, this operator returns the first value if condition is true and the
 second value if the branch is false.
 
 > Both inline control flow operators as low precedence operators.  This means that

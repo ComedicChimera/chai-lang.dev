@@ -46,7 +46,7 @@ Prism.languages.whirlwind = {
         },
         // declarations
         {
-            pattern: /\b(func|async|type|interf|template|struct|constructor|variant|enum|agent|operator)\b/
+            pattern: /\b(func|async|type|interf|template|struct|constructor|variant|enum|operator)\b/
         },
         // variables
         {
@@ -65,6 +65,6 @@ Prism.languages.whirlwind = {
     'punctuation':/[{}[\];(),.]/,
     'operator': /[+\-*\/%&\^!|><=?\~]/,
     'boolean': /true|false/,
-    'modifier': /\b(priv|vol)\b/,
+    'modifier': /\bvol\b/,
     'constant': /\b(this|null|_)\b/,
 };

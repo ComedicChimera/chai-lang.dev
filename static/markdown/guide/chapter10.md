@@ -215,3 +215,20 @@ If you recall from earlier, I mentioned that there is a caveat to implicit imple
 implemented types do not receive completely defined methods because they do not technically implement the interface.  This does not
 mean that when passed as an interface they will not receive the methods, but rather that it will not be globally defined on the actual
 type itself.
+
+## Overriding
+
+When implementing a classifying interface, it is possible that one might want to adjust the behaviour of an inherited method which
+is completely defined.  To do this, all one needs to do is redefine a method with the same signature within the body.
+
+    interf A {
+        func doThing() int => 3;
+    }
+
+    interf for SomeType is A {
+        // doThing is redefined for SomeType
+        func doThing() int => 5;
+    }
+
+This process is called overriding, and there aren't any major caveats to it.  You just need to be aware of when you are overriding
+as in order for an override to be valid, it must match the signature of the base method exactly.
