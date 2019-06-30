@@ -18,9 +18,10 @@ The Official Whirlwind Language Website
 - Interfaces
 - Overloading
 - Type Classes
-- Closures and Decorators
-- Captures
+- Lambdas and Closures
+- Decorators
 - Comprehensions
+- Captures
 - Generics
 - Error Handling
 - Monads and Chaining

@@ -34,8 +34,7 @@ simple functional toolkit.
 
 Whirlwind does support objects, however in a way slightly different than what you might expect.
 Firstly, objects **cannot** inherit from each other.  However, objects can implement interfaces
-both explicitly and implicitly (a topic discussed in detail later).  They are also **can** have
-private members and methods, a courtesy not afforded by some more recent programming languages.
+both explicitly and implicitly (a topic discussed in detail later). 
 Objects also support constructor overloading and private constructors.  This is in contrast to
 the rest of Whirlwind which does not support function and method overloading.
 

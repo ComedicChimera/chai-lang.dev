@@ -58,7 +58,7 @@ Prism.languages.whirlwind = {
         },
         // special
         {
-            pattern: /\b(new|make|from|include|delete|cast|export|await|ref|then|val|is)\b/
+            pattern: /\b(new|make|from|include|delete|cast|export|await|ref|then|val|is|as)\b/
         }
     ],
     'function': /[a-zA-Z_]\w*(?=\()/,
