@@ -11,35 +11,36 @@ This guide will:
 - Introduce you to important packages in the Standard Library.
 - Demonstrate best practices and good style in Whirlwind.
 
-While this language certainly isn't perfect, it can be a powerful
-and useful tool to help you work as efficiently and logically
-as possible.  If you are intimidated by Whirlwind, don't worry:
-the more you work with it, the more everything will make
-sense.  The rewards of mastery are well worth the pain.
+This guide is **NOT** anywhere close to comprehensive.  There are
+a number of critical topics that are not discussed and even more
+that are only examined at a surface level.  If you want to get a more
+complete look at the language, start by reading through (as best you can)
+the language specification and trying out our Whirlwind Koans.
 
 ## Some Interesting Quirks
 
 There are couple of things that make Whirlwind stand out from other
-languages.  The first and most obvious example is Whirlwind's addition
-of **agents**.  These are intended as a powerful tool to enable you
-to have different processing kernels that logically and organically
-communicate with each other, akin to neurons in a brain.  Another important
-distinction are the functional aspects of Whirlwind.  While it is primarily an
-imperative language as stated before, it supports a number of functional programming
-techniques including closures, comprehensions, partial functions (the good kind), and
-an inline case statement.  We also provide an entire package dedicated to giving you a powerful, yet
-simple functional toolkit.
-
-## Our Approach to Object Orientation
-
-Whirlwind does support objects, however in a way slightly different than what you might expect.
-Firstly, objects **cannot** inherit from each other.  However, objects can implement interfaces
-both explicitly and implicitly (a topic discussed in detail later).
-Objects also support constructor overloading and private constructors.  This is in contrast to
-the rest of Whirlwind which does not support function and method overloading.
+languages.  The first and most obvious example is Whirlwind's unique
+type system that allows you to create types in numerous different
+ways from enumerated types, structs, aliases, and even more complex
+types beyond that.  To compound that, Whirlwind takes a much more flexible
+approach to the idea methods allowing for methods to bound onto any type
+creating a much more unique method of "object orientation".
+Another important distinction are the functional aspects of Whirlwind.  
+While it is primarily an imperative language as stated before,
+it supports a number of functional programming techniques including but not limited to
+closures, comprehensions, partial functions (the good kind), chaining, and an inline case statement.  
+We also provide an entire package dedicated to giving you a powerful, yet
+simple functional toolkit.  In addition to a functional toolkit, we also provide
+a simple, but adaptable concurrency model that ships with several standard
+constructs and paradigms such as an event system, mutexes, thread managers, and more.
 
 ## Finally...
 
 Now that you have a good idea just what your getting into, I wish you the best of luck on
 your adventures with Whirlwind and hope that you will stick around long enough to really
-appreciate it.  I think you will really enjoy it.
+appreciate it.  While it certainly isn't a perfect language, it does provide a very
+versatile and powerful toolkit that can enhance any programmers experience.  Additionally,
+once mastered, Whirlwind is actually fairly intuitive and can be written exceptionally
+quickly.  Although it may be difficult at first, once you get into it, I firmly believe that
+you will really enjoy it.

@@ -45,12 +45,11 @@
             <div class="text-wrapper">
                 <div class="text">
                     Whirlwind is a language designed to be just as fast to run as it is to write. 
-                    It is statically typed with no runtime garbage collector, while simultaneously
-                    providing powerful concurrency and flexible generics. It allows you to create and use 
-                    objects and giving you the full power of closures, comprehensions, and more.  It introduces
-                    the new, powerful language feature of agents and all this with a clean, consistent syntax
-                    that is easy to learn.  In short, it provides a toolkit filled with everything you need while
-                    not being bloated or opinionated.
+                    It is statically typed with no runtime garbage collector, easy access to memory,
+                    and powerful concurrency while simultaneously supporting high level programming constructs
+                    such as closures, generics, type classes, interfaces, and more.  Plus, it boasts a very
+                    flexible and adaptable type system and a clean, consistent syntax that is easy to learn and remember. 
+                    In short, it provides a toolkit filled with everything you need while not being bloated or opinionated.
                 </div>
             </div>
         </div>
@@ -96,39 +95,39 @@ func main() {
                     </div>
                 </div>
                 <div class="example2">
-                    <h3>Agent Server</h3>
+                    <h3>LSD Radix Sort</h3>
                     <div class="code-window">
                         <pre><code class="language-whirlwind">
-include http;
-include strconv;
+include { Println } from io::std;
 
-agent Server {
-    when ("http-0/" => _) { http::Respond(0, "Home Page"); }
+func radixSort(list: [int]) [int] {
+    let mx = list.max();
 
-    when ("http-0/store" => _) { http::Respond(0, "Welcome to the Store!"); }
+    for (it = 0; 10 ~^ it < mx; it++) {
+        let buckets = [listOf&lt;int&gt;() | _ <- 0..10];
 
-    when (req: http::Request => req.path.startswith("/api")) {
-        if (req.path.has("v2") && req.method == "POST")
-            http::Respond(0, processReq(req)); 
-        else
-            http::Respond(0, http::Response(403));
+        for (item <- list)
+            buckets[item ~/ (10 ~^ it) % 10].push(item);
+
+        list = list.foldl(|a, b| => a + b).collect();
     }
 
-    func processReq(r: http::Request) str {
-        return strconv::ToString(strconv::ParseInt(r.data["num"]) ~^ 2);
-    }
+    return list;
 }
 
 func main() {
-    let srv = new http::AgentServer();
+    let list = [9, 4, 7, 8, 2, 3, 9, 0, 0, 1];
 
-    srv.listen("0.0.0.0", 8000);
+    list = radixSort(list);
+
+    Println(list); // [0, 0, 1, 2, 3, 4, 7, 8, 9, 9]
 }
+
                         </code></pre>
                     </div>
                 </div>
                 <div class="example3">
-                    <h3>Monadic Type</h3>
+                    <h3>Optional Type</h3>
                         <div class="code-window">
                             <pre><code class="language-whirlwind">
 include { Println } from io::std;
@@ -143,7 +142,7 @@ interf&lt;T&gt; for Option&lt;T&gt; is Monad&lt;T&gt; {
         if (this is None)
             return None;
         else
-            return fn(from this);
+            return fn(from this as Some);
     }
 
     // -- snip -- (:> and ~* operator overloads)
@@ -152,9 +151,9 @@ interf&lt;T&gt; for Option&lt;T&gt; is Monad&lt;T&gt; {
 func main() {
     let (optA = Some(5), optB = Some(6));
 
-    let sum = optA >>= |x: int| => optB >>= |y: int| => Some(x + y);
+    let sum = optA >>= |x| => optB >>= |y| => Some(x + y);
     
-    Println(from sum); // 11
+    Println(from sum as Some); // 11
 }
                             </code></pre>
                         </div>
