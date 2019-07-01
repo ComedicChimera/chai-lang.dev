@@ -7,7 +7,7 @@ such as C++ and extremely dynamic, data science languages such as Python.
 This guide will:
 
 - Teach you the basics of programming in Whirlwind.
-- Familiarize you with your compiler and Blend.
+- Familiarize you with your compiler.
 - Introduce you to important packages in the Standard Library.
 - Demonstrate best practices and good style in Whirlwind.
 
@@ -34,7 +34,7 @@ simple functional toolkit.
 
 Whirlwind does support objects, however in a way slightly different than what you might expect.
 Firstly, objects **cannot** inherit from each other.  However, objects can implement interfaces
-both explicitly and implicitly (a topic discussed in detail later). 
+both explicitly and implicitly (a topic discussed in detail later).
 Objects also support constructor overloading and private constructors.  This is in contrast to
 the rest of Whirlwind which does not support function and method overloading.
 
