@@ -78,7 +78,7 @@ Then, given any two instances of `Point` it will be possibly to find their dista
 This definition of distance will work anywhere in which `Point` is also defined and can be called
 on any instance of Point.
 
-> It is technically impossible to bind to the static version of a struct or a type class.
+> It is technically impossible to bind to the static version of a struct.
 
 ## Classifying Interfaces
 
@@ -118,7 +118,7 @@ As you can see, the implements of any given type must be listed after `is`.  It 
 to note that a type **CAN** implement multiple interfaces.
 
 > You cannot bind type interfaces to classifying interfaces as classifying interfaces have another
-> mechanism for defining functionality.  This all prevent interfaces for implementing other interfaces.
+> mechanism for defining functionality.  This also prevents interfaces for implementing other interfaces.
 
 Now that `SomeType` implements `MyInterf`, a `SomeType` may be passed in place of a `MyInterf` like so.
 
@@ -193,8 +193,8 @@ defining a method with a body.  When you do this, any type that implements the i
             => floor(a) * b.len();
     }
 
-    func doThing(a: IThing) float
-        => cbrt(a.method1());
+    func doThing(a: IThing) double
+        => sqrt(a.method1());
 
     func main() {
         let t = new Thing {a = 3.14, b = "beef stew"};

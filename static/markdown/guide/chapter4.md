@@ -13,7 +13,7 @@ an array using braces and items delimited by commas.
 That is an array of unsigned integers.  The part in braces is called an array literal.
 Array literals must contain at least one item in order to determine their type.
 
-The array data type is declared using the following type alias syntax.
+The array data type is declared using the following type label syntax.
 
     let arr: [3]uint;
 
@@ -29,7 +29,7 @@ You can get the length of an array (or any other collection) by using the `len()
 
     let l = arr.len(); // l = 3
 
-All a method is a function, like the one's we used in Chapter 1, that is bound to an object.
+All a method is a function, like the one's we used in Chapter 1, that is bound to a type.
 The `len()` method takes no arguments and so can be called with just parentheses.  Notice that
 instead of using the `::` operator, we use the `.` operator to call methods.
 
@@ -97,7 +97,7 @@ The above range creates a list of numbers 1 through 9.  Notably, Whirlwind range
 including the leading bound and excluding the ending bound.  Ranges only go in one direction:
 least to greatest and will generate an empty range if any other pairing occurs.
 
-> Unlike some languages, Whirlwind only allows the creation of ranges of integers.
+> Unlike some languages, Whirlwind only allows the creation of ranges of integers by default.
 
 Ranges are high level expressions meaning in order to access the range as a whole, you must
 enclose it in parentheses.

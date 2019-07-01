@@ -35,39 +35,43 @@ those as well as the noticably missing return type in our section on functions, 
 designate a code block.  Inside them is where we will place our *hello world* instruction and any other code
 we want to run from the main function.
 
-## Importing the *stdio* Package
+## Importing the "stdio" Package
 
-Before we can write our print instruction however, we need to import the stdio package.  This package contains
+Before we can write our print instruction however, we need to import the **stdio** (standard I/O) package.  This package contains
 several important definitions used when reading from and writing to the console.  Packages are an essential
 piece of Whirlwind and a tool you will be using quite frequently.  To import a package, we need to use the
 **include statement**.  This is a statement that goes at the top of your file and describes what package to import
 and what definitions you want from it.
 
+> We are actually including a sub-package of the io package which handles all forms of I/O in Whirlwind
+> called the `std` sub-package which is where the standard I/O definition are stored.
+> This sub-package is often referred to as the stdio package even though that is not its name.
+
 A simple include statement for the stdio package will look like this:
 
-    include stdio;
+    include io::std;
 
-This brings the stdio library into scope so that we can use all of its definitions.  This will be all we use for now.
-However, later on we will learn how to use the full power of the include statement to export include and import specific
-defintions.
+This brings the `std` sub-package of the `io` package into scope so that we can use all of its definitions.  
+This will be all we use for now.  However, later on we will learn how to use the full power of the include statement to export
+and import specific definitions.
 
 ## Calling the Println Function
 
 The `Println` function from the stdio package is what we be using to print to the console.  It writes whatever you tell it
 to to the console, followed by a new line.  To call the Println function, we will use the following syntax.
 
-    stdio::Println();
+    std::Println();
 
 Notice that the work Println is followed by 2 parentheses, one open and one closed.  These parentheses are where we will put our
-**arguments**. The stdio prefix before Println is simply an instruction telling the compiler what package to find the function in.  
-Finally the semicolon at the end marks where our instruction ends.  These tell the compiler where one instruction ends and another begins.
+**arguments**. The `std` prefix before `Println` is simply an instruction telling the compiler what package (or sub-package in this case) to find the function in.  
+Finally, the semicolon at the end marks where our instruction ends.  These tell the compiler where one instruction ends and another begins.
 
 Now we need to tell Println what to print.  In order to do this we have to pass it an argument to print.  In this case, we will be
 passing in a **string**.  A string is just series of characters that all go together.  In this case, the contents of our string will be
 `Hello, World!`. To designate a string we simply take the content we want to be stored by the string and wrap it in double quotes.  We then
 need to pass our string value to Println, so we will be put it inside the parentheses we designated for arguments earlier.
 
-    stdio::Println("Hello, World!");
+    std::Println("Hello, World!");
 
 That's it.  Our finished print instruction.  You can see where and how we have inserted our string literal and how we have called our function.
 Get familiar with this syntactic structure as it will likely be one of your most used in Whirlwind.
@@ -78,10 +82,10 @@ Now that we have each part of our program, we need assemble them together and bu
 in our include statement and then put our print statement inside the braces of the main function definition.  After doing that, our program finished program
 is only 5 lines long and very expressive.
 
-    include stdio;
+    include io::std;
 
     func main() {
-        stdio::Println("Hello, World!");
+        std::Println("Hello, World!");
     }
 
 Next step is to build it.  Go ahead and open a command window and navigate to the directory your file is stored in.  Once there, enter

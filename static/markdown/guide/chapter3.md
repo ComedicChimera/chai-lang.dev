@@ -48,7 +48,7 @@ by using a type extension.
 
 Even though 5 is an unsigned integer, because a is marked as a signed integer and unsigned types 
 can be coerced to signed types, a has a type of signed integer.  They are several types
-central types in Whirlwind and all of them have **type aliases** associated with them as shown
+central types in Whirlwind and all of them have **type labels** associated with them as shown
 below.
 
     int, uint // signed and unsigned integer (32 bits)

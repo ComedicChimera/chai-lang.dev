@@ -140,7 +140,7 @@ The final loop, the for each loop, iterates through every value in a collection.
 specify an iterator variable (or variables under certain conditions) and the collection you
 want to iterator over.
 
-    let col = range(1, 11); // returns a list of the numbers 1-10
+    let col = 1..11;
 
     let d: [int: int];
 
