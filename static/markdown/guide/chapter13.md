@@ -127,12 +127,12 @@ not just expressions.  So let's change it up and instead of adding one, calculat
 Now, we have a list full of factorials.  Before we move on the last concept in this chapter, we need to look at
 one little thing.  No argument lambdas.  These do indeed occur, and when using them you need to be careful not
 to confuse the `||` operator for the beginning of an empty lambda.  As a rule of thumb, whenever you declare a
-no argument lambda, put a space in between the `|` operator.  Not only will it prevent annoying syntax errors, but
+no argument lambda, put a space in between the `|` operators.  Not only will it prevent annoying syntax errors, but
 it will also make your code more readable.
 
 ## Closures
 
-The final piece of the puzzle is the closure.  A closure is not some much its own unique data type, but rather
+The final piece of the puzzle is the closure.  A closure is not so much its own unique data type, but rather
 a type of function.  A **closure** is a function that *closes around* its external state.  That probably sounds
 a bit confusing so let's look at an example.
 
@@ -168,7 +168,7 @@ function behave like.
 Most of you are probably a bit confused right now.  Why is `cs` returning a different value for `c`?  I thought it was
 `0`.  Well, my friends, this the magic of the closure.  When a closure closes around its external state, it captures all
 the variables in it as references by default.  This means that when we execute `c++` in the lambda, we are actually modifying
-a reference to `c`.v
+a reference to `c`.
 
 However, this has some interesting implications.  Let's examine the code from before more closely by adding on a few extra lines.
 
@@ -186,8 +186,8 @@ However, this has some interesting implications.  Let's examine the code from be
         cs(); // 3
     }
 
-Here we see the one caveat to closures.  Because they captures their state by reference, they all modify the same state.  Effectively,
-all closures generated from the same state, all modify the same **shared** state.  So, when `cs2` is created, it captures the same reference
-to `c` that `cs` had and in doing so, latched on to the modified version of `c` meaning `c` had an initial value of `2`.  Moreover, when
-we called `cs` again after `cs2` we see that the same principle occurs.  Because `cs2` modified not a copy of `c`, but the original version
-of `c` itself, `cs` receive and incremented that modified version.  Thus, we observe the above behavior.
+Here we see the one caveat to closures.  Because they capture their state by reference, they all modify the same, **shared** state.
+So, when `cs2` is created, it captures the same reference to `c` that `cs` had and in doing so, latched on to the modified version of `c`
+meaning `c` had an initial value of `2`.  Moreover, when we called `cs` again after `cs2`, we see that the same principle occurs.  
+Because `cs2` modified not a copy of `c`, but the original version of `c` itself, `cs` received and incremented that modified version.  
+Thus, we observe the above behavior.
