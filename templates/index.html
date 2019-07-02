@@ -89,7 +89,7 @@ func main() {
     }
 
     f = fib();
-    f(); // 0
+    f(); // 55
 }
                         </code></pre>
                     </div>
@@ -137,7 +137,7 @@ type Option&lt;T&gt;
     | None
     ;
 
-interf&lt;T&gt; for Option&lt;T&gt; is Monad&lt;T&gt; {
+interf&lt;T&gt; for Option is Monad {
     operator >>= (fn: func(T)(Option&lt;T&gt;)) Option&lt;T&gt; {
         if (this is None)
             return None;
