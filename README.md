@@ -13,17 +13,19 @@ The Official Whirlwind Language Website
 - Control Flow
 - Functions
 - Tuples
-- Memory and the Heap
+- Pointers and References
+- Ownership and Lifetimes
 - Structs
 - Interfaces
 - Overloading
 - Type Classes
 - Lambdas and Closures
+- Captures
 - Decorators
 - Comprehensions
-- Captures
 - Generics
 - Error Handling
+- Function Composition
 - Monads and Chaining
 - Concurrency
 - Packages and Inclusion

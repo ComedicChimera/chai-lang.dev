@@ -1,8 +1,9 @@
-# Memory and the Heap
+# Pointers and References
 
 This chapter will cover some of the more systems
 oriented aspect of Whirlwind including the stack,
-the heap, pointers, references, and all things memory.
+the heap, dynamic allocation, and, of course,
+pointers and references.
 
 ## The Stack
 
