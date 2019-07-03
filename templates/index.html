@@ -109,7 +109,7 @@ func radixSort(list: [int]) [int] {
         for (item <- list)
             buckets[item ~/ (10 ~^ it) % 10].push(item);
 
-        list = list.foldl(|a, b| => a + b).collect();
+        list = list.flatten().collect();
     }
 
     return list;
