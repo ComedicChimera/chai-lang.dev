@@ -188,6 +188,6 @@ However, this has some interesting implications.  Let's examine the code from be
 
 Here we see the one caveat to closures.  Because they capture their state by reference, they all modify the same, **shared** state.
 So, when `cs2` is created, it captures the same reference to `c` that `cs` had and in doing so, latched on to the modified version of `c`
-meaning `c` had an initial value of `2`.  Moreover, when we called `cs` again after `cs2`, we see that the same principle occurs.  
-Because `cs2` modified not a copy of `c`, but the original version of `c` itself, `cs` received and incremented that modified version.  
+meaning `c` had an initial value of `2`.  Moreover, when we called `cs` again after `cs2`, we see that the same principle occurs.  Because
+`cs2` modified not a copy of `c`, but the original version of `c` itself, `cs` received and incremented that modified version.  
 Thus, we observe the above behavior.

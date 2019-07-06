@@ -16,7 +16,7 @@ article a {
 }
 
 article .article-content {
-    width: 55%;
+    width: 45%;
 
     background-color: white;
     padding: 15px;
@@ -89,4 +89,6 @@ article .article-content blockquote {
 
 article .article-content p {
     margin: 10px 0px 10px 0px;
+
+    line-height: 22px;
 }

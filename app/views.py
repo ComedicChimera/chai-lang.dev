@@ -24,7 +24,7 @@ def load_markdown(path):
 
     html = markdown.markdown(md_file).replace('<code>', '<code class=\'language-whirlwind\'>')
 
-    return html
+    return html.replace('<br />', '</p><p>')
 
 
 @app.route('/')

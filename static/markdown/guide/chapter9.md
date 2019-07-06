@@ -159,7 +159,7 @@ the deletion of a type.  The method looks like the following:
         }
     }
 
-By its very definition, finalizers are unable to called explicitly and instead are called implicitly
+By its very definition, finalizers are unable to be called explicitly and instead are called implicitly
 by the compiler.
 
 ## Ownership as a Responsibility
@@ -178,7 +178,7 @@ Because of these rules, the following code would be considered invalid by the co
         p = make int;
     }
 
-There are however, a number of ways to handle deletion.  The first is by simply deleting the pointer.
+There are however, a number of ways to handle this problem.  The first is by simply deleting the pointer.
 
     func main() {
         let p = make int;
