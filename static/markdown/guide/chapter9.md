@@ -45,6 +45,9 @@ The only exception to this rule is when the sub-scope is a function.
 
 If Whirlwind detects a specific ownership violation, it will fail compilation.
 
+> Setting a pointer to null flags the pointer as needing to be initialized, but
+> doesn't count as a deletion since the underlying memory isn't freed.
+
 If Whirlwind determines that a pointer could be null via an owned deletion,
 it will by default warn you during compilation, but it will not fail compilation.  
 However, you can change this setting by specifying it in the `whirl build` call.
