@@ -1,136 +1,267 @@
-# Structs
+# Ownership and Lifetimes
 
-The struct is the most fundamental method for stucturing data and an
-essential aspect of the Whirlwind language.  Knowing how to properly, wield
-the power of structs will enable you to write cleaner, simpler programs and
-think of your data in a more human fashion.
+As a system language, managing how long resources exist and where they are available
+is incredibly important to Whirlwind.  In this chapter, we will discuss how this is done.
 
-## Defining a Struct
+## The Basics of Ownership
 
-A struct itself is a collection of named values of different types. Each value is designated
-by an identifier and labeled with a type akin to the way arguments are laid out.  To declare
-a struct, you use the `struct` keyword followed by a name and the members of the struct enclosed
-in curly braces.
+Ownership in Whirlwind is different from how you might think of it in other languages.
+First and foremost, ownership primarily applies only to **heap pointers**.  It is the
+method by which we manage dynamic memory.  
 
-    struct Point2D {
-        x, y: int;
+Ownership in Whirlwind is defined as the right to delete something.  Effectively,
+only the scope which owns a given pointer may use `delete` on it.  Now, we must
+discuss how Whirlwind determines ownership of a pointer.  By default, the scope
+that creates a given pointer is the owning scope.  
+
+    // this scope owns p
+    let p = make int;
+
+    {
+        // this scope owns p2
+        let p2 = make float;
     }
 
-The above code creates a struct called `Point2D` that contains two member variables `x` and `y` that
-are both integers.  As I said before, structs can contain as many types and variables as you want.
+If a scope is a sub-scope of the scope that owns the given type, then that scope also
+has ownership.
 
-Another example of a struct might be a struct representing a product in a store.
+    let p = make int;
 
-    struct Product {
-        name: str;
-        price: float;
-        count: int;
+    {
+        // this scope also owns `p`
+        delete p;
     }
 
-As you can see, this struct contains three variables of all different types.  In structs, variables are
-often grouped by type, but this is not necessarily the case.  For example, `Point2D` could just as easily
-be written as:
+The only exception to this rule is when the sub-scope is a function.
 
-    struct Point2D {
-        x: int;
-        y: int;
-    }
+    func main() {
+        let p = make int;
 
-Just remember that each member or member series must be delimited by a semicolon.
-
-## Create Struct Instances
-
-The struct definition acts a template for the corresponding instances.  An instance represents a single unit
-of data that matches the form of the struct definition.  Each struct can have numerous instances and none
-of the instances have any specific influence over each other.
-
-To create an instance of a struct, we use the `new` keyword once again, followed by the struct's name and parentheses.
-
-    let p = new Point2D();
-
-This will create a new instance of the Point2D struct.  You can get and set values by using the `.` operator followed
-by the property you want to access.
-
-    p.x = 4;
-
-    let y = p.y;
-
-The compiler will mark any invalid struct accesses (due to type or name) during compilation and you will get an error.
-
-    p.z = 3; // ERROR, z doesn't exist
-
-    p.x = 4.3; // ERROR, type mismatch
-
-It is also possible to initialize struct properties during creation using an initializer list.  To do this, you
-replace the parentheses with braces followed by initializers for each individual property.
-
-    let p2 = new Point2D{ x=15, y=-7 };
-
-The same guards apply as do with property accesses.  In addition, you don't need to initialize every property in the list,
-just the ones you intend to use.
-
-> Like variables, all struct properties are default initialized.
-
-## Constructors
-
-A constructor is the function that is called whenever a struct is created.  It is what is responsible for initializing the struct
-and internally, used to create the instance.  You can define a custom constructor using the `constructor` keyword.
-
-Consider our `Point2D` example.  What if we wanted all Point2D's to default to the position (1, 1) instead of (0, 0).  Using a
-constructor, we could do this.
-
-    struct Point2D {
-        x, y: int;
-
-        constructor() {
-            this.x, this.y = 1, 1;
+        func sub() {
+            // ERROR: ownership violation
+            delete p;
         }
     }
 
-The constuctor looks somewhat like a function, but it cannot return anything.  This is because it implicitly returns the new struct
-instance.  Also, notice that all member variables of the struct are prefaced by the `this` keyword.  All `this` is as a reference to
-the parent struct.  Without it, it would be impossible to access the member variables of the struct.
+If Whirlwind detects a specific ownership violation, it will fail compilation.
 
-Constructors can also take arguments.  For example, the Point2D constructor might take in an x and a y coordinate so as to avoid the
-slightly more verbose initializer list.
+If Whirlwind determines that a pointer could be null via an owned deletion,
+it will by default warn you during compilation, but it will not fail compilation.  
+However, you can change this setting by specifying it in the `whirl build` call.
 
-    struct Point2D {
-        x, y: int;
+<div class="command-window">
+    whirl build filename --unsafealert=ERROR
+</div>
 
-        constructor(x, y: int) {
-            this.x, this.y = x, y;
+The other values for this argument are `WARN`, the default; `ERROR` which tells the
+compiler to throw an error; and `SILENT` which disables this type of checking.
+
+> We only recommend setting this to silent if you are confident that you're code is
+> safe and/or are looking for a faster build as turning this setting off will speed
+> up compilation.
+
+Ownership is not only bound to the scope, but also to the variable itself.  Consider the
+below example.
+
+    func main() {
+        let p = make int;
+
+        let p2 = p;
+
+        // FAIL: "p2" doesn't own the memory at "p"
+        delete p2;
+    }
+
+Because `p` is the variable that owns that memory, `p2` cannot delete it.
+
+## Transferring Ownership
+
+There are two ways to transfer ownership of a heap pointer.  The first method occurs
+implicitly when a heap pointer is returned from the scope that created it.  Consider
+the below example.
+
+    func fn() *int {
+        let p = make int;
+
+        return p;
+    }
+
+    func main() {
+        let p = fn();
+
+        // valid because p is now owned by main
+        delete p;
+    }
+
+In this example, the function `fn` creates `p` initially and is thus its initial owner.
+However, when `p` is returned from `fn`, its ownership is transferred to main.
+
+The second method of tranferring ownership is explicit.  It is connoted by the `own` keyword.
+
+    func fn(p: *own int) {
+        // ok
+        delete p;
+    }
+
+    func main() {
+        let p = make int;
+        fn(p);
+    }
+
+In this example, the variable `p` is created in main and passed to `fn`.  In `fn`, p is explicitly
+specified as owned and therefore ownership of `p` is transferred to `fn`.
+
+Because `own` is a type modifier, you can attach to anything, even a variable.
+Using `own`, we can revise the example from the first section to work as intended.
+
+    func main() {
+        let p = make int;
+
+        let p2: own *int = p;
+
+        delete p2;
+    }
+
+You can also add this modifier to a struct to allow the struct to delete it.
+
+    struct S {
+        p: own *int;
+    }
+
+    func makeStruct() S {
+        let p = make int;
+
+        let s = new S{p = p};
+
+        // ordinarily, this would cause an error since s doesn't own `p`
+        // but because we specified that it did, this is ok
+        return s;
+    }
+
+    func main() {
+        let s = makeStruct();
+
+        // ERROR: main doesn't own p, only S does
+        delete s.p;
+    }
+
+If a bit of memory is owned by a given struct or type, it can only be deleted in the **finalizer**
+of that struct.  A **finalizer** is simply a special method that, if it exists, will be called during
+the deletion of a type.  The method looks like the following:
+
+    interf for S {
+        func __finalize__() {
+            // ok because in the finalizer
+            delete p;
         }
     }
 
-Now, we could create an instance of this struct by using passing the values for `x` and `y` in the constructor call.
+By its very definition, finalizers are unable to called explicitly and instead are called implicitly
+by the compiler.
 
-    let p = new Point2D(4, 3);
+## Ownership as a Responsibility
 
-Notice that we do not need to name the members anymore since we are just passing arguments to the constructor, not manually initializing
-the struct.
+Ownership is more than just a right: it is a responsibility.  When you take ownership of a piece of
+memory, you must free it.  This means two things: one, it is impossible to change where an owning
+pointer points without explicitly deleting the memory, and two, it is (almost) impossible
+to create memory leaks.
 
-> Structs always retain a **default constructor** which allows their constructor to be called with no arguments, even if one is not
-> defined.  The default constructor is always overridden by any user-specified no-argument constructor.
+Because of these rules, the following code would be considered invalid by the compiler.
 
-Finally, it is possible to give a struct multiple constructors.  These constructors need to be distinguishable by their arguments and are
-all declared the same way.
+    func main() {
+        let p = make int;
 
-    struct Point2D {
-        x, y: int;
-
-        constructor() {
-            this.x, this.y = 1, 1;
-        }
-
-        constructor(x, y: int) {
-            this.x, this.y = x, y;
-        }
-
-        constructor(both: int) {
-            this.x, this.y = both, both;
-        }
+        // ERROR: the initial memory you allocated was never freed
+        p = make int;
     }
 
-Now, you can call any of the constructors using the new syntax and all are valid.  You can have as many constructors as you want so long as
-they can be distinguished by their arguments.  For example, it is not possible to specify two no argument constructors or two constructors that
-both accept a single integer.
+There are however, a number of ways to handle deletion.  The first is by simply deleting the pointer.
+
+    func main() {
+        let p = make int;
+
+        delete p;
+
+        // because "p" is the l-value in the assignment, this is ok
+        p = make int;
+    }
+
+This can be a little tedious because it: a) requires an extra step, b) is not very functional, and c) mandates
+that a pointer be assigned to before it can be used as an r-value (not being assigned to) again.
+
+All these reasons means that there is a probably a better way of handling this.  The first solution solves
+problem b because it is a function.  This function is `free()` which is actually a method of pointers.
+
+    func main() {
+        let p = make int;
+
+        p.free();
+
+        p = make int;
+    }
+
+Now, we could use `free` as just a normal function which, as you will see later, has its benefits.  However, this is
+not the best solution.  The best solution is the `move()` method, which solves all of our problems.
+
+    func main() {
+        let p = make int;
+
+        p.move(make int);
+    }
+
+In this scenario, the memory `p` points to is safely freed and its value is updated all in own step.  
+
+> Using make expressions like this is often not recommended as it creates unique ownership problems unless
+> the function it is being passed to takes ownership of it (which move() does).  For safety reasons,
+> the compiler only allows such use of make expressions when the function takes ownership.  Otherwise, it throws
+> an error.
+
+Now, all of this seems rather tedious.  Having to explicitly delete everything you allocate on the heap would be a huge pain.  Luckily,
+Whirlwind's compiler takes care of this.  Whenever the owner of a piece of memory goes out of scope, Whirlwind implicitly frees that underlying
+memory.  For this reason, things like finalizers are reserved primarily for managing things like file-handles and for handling destruction logic
+like incrementing a counter.
+
+## Lifetimes
+
+There is one final piece of the puzzle in terms of ownership, and that is lifetimes.  By default, all variables have what is called
+a **standard life-time**.  This means the variable (or other value) exists until it goes out of scope.  If it is in a function, it is
+recreated everytime that function is called.  However, this can sometimes be inconvenient if for example you need data to persist between
+function calls.  This is why Whirlwind implements what are called **static life-times**.
+
+A static life-time is a life-time that extends indefinitely.  This means that a variable's value and memory are retained forever.  You can
+designate a variable as static via the use of the `static` modifier in the declaration.
+
+    func counter() int {
+        let static inc = 0;
+
+        return inc++;
+    }
+
+    func main() {
+        counter(); // 0
+        counter(); // 1
+    }
+
+As you can see, because `inc` is marked as static, its memory is never deallocated, and its value persists.  However, this has some interesting
+implications for ownership.  First and foremost, it means that static values are **perpetual owners** aka they can never be deleted.  Once a
+static variable takes ownership of a value, it holds that ownership forever.  It is thereby impossible to transfer ownership from a static owner,
+to delete a static owner, or to adjust where a static owner points to.
+
+    func takeOwnership(a: own *int) {
+        // -- snip --
+    }
+
+    func main() {
+        let static v = make int;
+
+        // ERROR
+        delete v;
+
+        // ERROR
+        takeOwnership(v);
+    }
+
+The reason for this is that is impossible to determine the exact parameters of ownership on any specific static variable.  So, we simply say that once
+ownership is taken, it cannot be revoked.  Now, this does not mean you cannot mutate static variables generally, just not static owners.  And, it also
+does not preclude you from modifying the memory under a static variable or passing its value or even its address around.  But, any transfer or adjustment
+or ownership on a static variable will be considered invalid.
