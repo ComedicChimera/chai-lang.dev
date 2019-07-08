@@ -42,11 +42,11 @@ Prism.languages.whirlwind = {
     'keyword': [
         // control flow
         {
-            pattern: /\b(break|continue|return|yield|for|if|elif|else|select|case|default|throw|except|when|after)\b/
+            pattern: /\b(break|continue|return|yield|for|if|elif|else|select|case|default|when|after)\b/
         },
         // declarations
         {
-            pattern: /\b(func|async|type|interf|template|struct|constructor|variant|enum|operator)\b/
+            pattern: /\b(func|async|type|interf|struct|constructor|variant|operator|with)\b/
         },
         // variables
         {
