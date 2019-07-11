@@ -4,7 +4,6 @@ import markdown
 import json
 import os
 
-
 guide_names = []
 unordered_guide = {}
 
