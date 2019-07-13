@@ -1,18 +1,18 @@
 <header>
     <div class="title-box">
-        <img class="icon" src="{{ prefix|safe }}static/images/logo.png" width="50px" height="50px"/>
-        <span class="title"><a href="{{ prefix|safe }}">Whirlwind</a></span>
+        <img class="icon" src="/static/images/logo.png" width="50px" height="50px"/>
+        <span class="title"><a href="/">Whirlwind</a></span>
     </div>
     <nav>
-        <a href="{{ prefix|safe }}install">Install</a>
-        <a href="{{ prefix|safe }}docs">Docs</a>
-        <a href="{{ prefix|safe }}packages">Packages</a>
-        <a href="{{ prefix|safe }}suggestions">Suggestions</a>
+        <a href="/install">Install</a>
+        <a href="/docs">Docs</a>
+        <a href="/packages">Packages</a>
+        <a href="/suggestions">Suggestions</a>
     </nav>
     <div class="search">
         <div class="input-box">
             <input class="search-input" type="text"/>
-            <img class="search-icon" src="{{ prefix|safe }}static/images/search.png" width="25px" height="25px"/>
+            <img class="search-icon" src="/static/images/search.png" width="25px" height="25px"/>
         </div>
     </div>
 
@@ -27,7 +27,7 @@
         function search() {
             let query = $('.search-input').val();
 
-            window.location.href += `/{{ prefix|safe }}search?query=${query}`;
+            window.location.replace(`/search?query=${query}`);
         }
     </script>
 </header>

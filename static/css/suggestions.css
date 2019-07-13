@@ -22,6 +22,41 @@ article {
 }
 
 .article-content hr {
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+
+    height: 1px;
+
     border-color: #212121;
 }
 
+.article-content .action-container {
+    padding: 20px 10px 20px 10px;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.article-content .action-container a {
+    display: block;
+
+    background-color: #20aced;
+    border-radius: 3px;
+    padding: 10px;
+    box-shadow: 1px 1px 5px 0px #212121;
+
+    width: 270px;
+    min-width: 270px;
+
+    text-align: center;
+}
+
+.article-content .action-container a:hover {
+    color: white;
+}
+
+.section .action-container a:active {
+    box-shadow: none;
+    background-color: #47c5ff;
+}

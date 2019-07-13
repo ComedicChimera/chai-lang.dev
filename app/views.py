@@ -28,12 +28,12 @@ def load_markdown(path):
 
 @app.route('/')
 def index():
-    return render_template('index.html', prefix='')
+    return render_template('index.html')
 
 
 @app.route('/docs')
 def docs():
-    return render_template('docs.html', prefix='../')
+    return render_template('docs.html')
 
 
 @app.route('/docs/guide')
@@ -45,8 +45,8 @@ def guide_home():
 def guide(chapter):
     html = load_markdown(f'/guide/{chapter}.md')
 
-    return render_template('guide.html', prefix='../../../', content=html, guide_names=guide_names)
+    return render_template('guide.html', content=html, guide_names=guide_names)
 
 @app.route('/suggestions')
 def suggestions():
-    return render_template('suggestions.html', prefix='../')
+    return render_template('suggestions.html')
