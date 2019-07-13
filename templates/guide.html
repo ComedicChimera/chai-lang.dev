@@ -2,7 +2,7 @@
 
 <html lang="en">
     <head>
-        {% include 'head.html' %}
+        {% include 'components/head.html' %}
 
         <link href="../../static/css/guide.css" rel="stylesheet" type="text/css"/>
 
@@ -16,7 +16,7 @@
         <title>Whirlwind Startup Guide</title>
     </head>
     <body>
-        {% include 'header.html' %}
+        {% include 'components/header.html' %}
         <article>
             <div class="article-content">
                 {{ content|safe }}
@@ -30,7 +30,7 @@
             </aside>
         </article>
         <footer>
-            {% include 'footer.html' %}
+            {% include 'components/footer.html' %}
         </footer>
 
         <script>

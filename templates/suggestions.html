@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        {% include 'components/head.html' %}
+
+        <link href="{{ prefix|safe }}static/css/suggestions.css" type="text/css" rel="stylesheet"/>
+
+        <title>Suggestions</title>
+    </head>
+    <body>
+        {% include 'components/header.html' %}
+
+        <article>
+            <div class="article-content">
+                <div class="section">
+                    <h2>What Is a Suggestion?</h2>
+                    <p>A suggestion is a description of an addition, removal, or altercation to Whirlwind or
+                        any of its related components that would improve said component.  For example, here
+                        you could suggest a language feature or perhaps an improvement to the standard library
+                        or compiler.  You could even suggest an improvement to our documentation or the look of
+                        the website.
+                    </p>
+                    <p>Please note, that if you make a suggestion, and it is accepted, your name will be added to
+                        the README.md on the Whirlwind Github repository as well as several other things outlined
+                        in the "Next Steps" section of this page.  All that being said, making a suggestion does not
+                        grant you the title of a "Whirlwind Core Developer" nor does it necessarily give you a right
+                        to the actual suggestion implementation or feature.  What you put down here is merely a suggestion
+                        and not an actual description of the nuance of any given feature.
+                    </p>
+                    <div class="action-container">
+                        <a href="/view-recent">View Recent Suggestions</a>
+                    </div>
+                </div>               
+                <hr />
+                <div class="section">
+                    <h2>Making a Suggestion</h2>
+                    <p>When making a suggestion, keep a few things in mind.  First and foremost, you do not need to describe your
+                        idea in excessive detail.  Simply give a clear enough description of your idea such that it is well 
+                        understood.  Please note that while we deeply appreciate you taking the time to contribute to Whirlwind,
+                        there is a probability your suggestion will either be declined or not reviewed at all.  We do try to avoid
+                        the latter, but it is possible for it to occur.  If either of the above happens to your suggestion, please do
+                        not take it as an indictment of you or your idea.  It may simply have been that your idea would take too much
+                        time to implement or is not in line with our vision for Whirlwind.  Or simply that we did not have time to fully
+                        review your suggestion.  All that being said, if your suggestion is approved, we will contact you via the email
+                        you will provide to let you know that your suggestion has been approved.  Thank you again for your contribution.
+                    </p>
+                    <div class="action-container">
+                        <a href="/make-suggestion">Make a Suggestion</a>
+                    </div>
+                </div>
+                <hr />
+                <div class="section">
+                    <h2>Next Steps...</h2>
+                    <p>If you suggestion is accepted, you will contacted to alert you that your suggestion has been approved.  Additionally,
+                        you will be given an opportunity to submit a pull request to the appropriate repository implementing your suggestion
+                        with a guarantee that it will be reviewed.  If your request is accepted, you may even be given an opportunity to push
+                        code directly to the corresponding repository.  Please note that this may happen, if we deem your code contribution of
+                        Whirlwind quality.  Additionally, your permission may be revoked if it is abused and/or in violation of our code of 
+                        conduct with regard to contributions.
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        <footer>
+            {% include 'components/footer.html' %}
+        </footer>      
+    </body>
+</html>

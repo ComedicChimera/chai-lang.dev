@@ -46,3 +46,7 @@ def guide(chapter):
     html = load_markdown(f'/guide/{chapter}.md')
 
     return render_template('guide.html', prefix='../../../', content=html, guide_names=guide_names)
+
+@app.route('/suggestions')
+def suggestions():
+    return render_template('suggestions.html', prefix='../')

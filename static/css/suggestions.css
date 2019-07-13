@@ -1,0 +1,27 @@
+article {
+    background-color: #eeeeee;
+
+    display: flex;
+    justify-content: center;
+}
+
+.article-content {
+    background-color: white;
+    width: 60%;
+
+    color: #212121;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    padding: 15px;
+}
+
+.article-content h2 {
+    color: #20aced;
+    font-weight: normal;
+    font-size: 24px;
+}
+
+.article-content hr {
+    border-color: #212121;
+}
+
