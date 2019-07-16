@@ -70,6 +70,6 @@ def view_suggestions_by_page(orderby, page):
 def lang_spec():
     html = md.load_markdown('/spec.md')
 
-    pages = html.split('<p>PAGE-BREAK</p>')
+    html = html.replace('language-whirlwind', 'language-javascript', 3)
 
-    return render_template('docs-spec.html', pages=pages)
+    return render_template('docs-spec.html', doc=html)

@@ -5,6 +5,10 @@
         {% include 'components/head.html' %}
 
         <link href="/static/css/spec.css" rel="stylesheet" type="text/css"/>
+        
+        <!--prism-->
+        <link href="/static/vendor/prism/prism.css" rel="stylesheet" type="text/css"/>
+        <script src="/static/vendor/prism/prism.js"></script>
 
         <title>Language Specification</title>
     </head>
@@ -13,15 +17,7 @@
 
         <article>
             <div class="article-content">
-                {% for page in pages %}
-                    <div class="page">
-                        <div class="page-content">
-                            {{ page|safe }}
-                        </div>                    
-
-                        <div class="page-number">{{ loop.index }}</div>
-                    </div>
-                {% endfor %}
+                {{ doc|safe }}
             </div>
         </article>
 
