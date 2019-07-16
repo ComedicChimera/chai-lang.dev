@@ -64,3 +64,12 @@ def view_suggestions_by_page(orderby, page):
     suggestions = db.get_suggestions(orderby, page)
 
     return render_template('suggestions-view.html', results=results)
+
+
+@app.route('/docs/spec')
+def lang_spec():
+    html = md.load_markdown('/spec.md')
+
+    pages = html.split('<p>PAGE-BREAK</p>')
+
+    return render_template('docs-spec.html', pages=pages)

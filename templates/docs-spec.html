@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        {% include 'components/head.html' %}
+
+        <link href="/static/css/spec.css" rel="stylesheet" type="text/css"/>
+
+        <title>Language Specification</title>
+    </head>
+    <body>
+        {% include 'components/header.html' %}
+
+        <article>
+            <div class="article-content">
+                {% for page in pages %}
+                    <div class="page">
+                        <div class="page-content">
+                            {{ page|safe }}
+                        </div>                    
+
+                        <div class="page-number">{{ loop.index }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </article>
+
+        {% include 'components/footer.html' %}
+    </body>
+</html>
