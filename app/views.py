@@ -1,29 +1,8 @@
 from app import app
+import app.db as db
+import app.md as md
+
 from flask import render_template, redirect
-import markdown
-import json
-import os
-
-guide_names = []
-unordered_guide = {}
-
-for file in os.listdir('static/markdown/guide'):
-    with open('static/markdown/guide/' + file) as fp:
-        unordered_guide[int(file[7:-3])] = fp.readline()[1:].strip()
-
-for i in range(len(unordered_guide)):
-    guide_names.append(unordered_guide[i + 1])
-
-unordered_guide = {}
-
-
-def load_markdown(path):
-    with open('static/markdown' + path) as file:
-        md_file = file.read()
-
-    html = markdown.markdown(md_file).replace('<code>', '<code class=\'language-whirlwind\'>')
-
-    return html.replace('<br />', '</p><p>')
 
 
 @app.route('/')
@@ -43,10 +22,45 @@ def guide_home():
 
 @app.route('/docs/guide/<chapter>')
 def guide(chapter):
-    html = load_markdown(f'/guide/{chapter}.md')
+    html = md.load_markdown(f'/guide/{chapter}.md')
 
-    return render_template('guide.html', content=html, guide_names=guide_names)
+    return render_template('docs-guide.html', content=html, guide_names=md.guide_names)
+
 
 @app.route('/suggestions')
 def suggestions():
     return render_template('suggestions.html')
+
+
+@app.route('/suggestions/make')
+def make_suggestion():
+    return render_template('suggestions-make.html')
+
+
+@app.route('/suggestions/view')
+def view_suggestions_no_order():
+    return redirect('/suggestions/view?orderby=recent', 302)
+
+
+@app.route('/suggestions/view?orderby=<orderby>')
+def view_suggestions(orderby):
+    if orderby in ['recent', 'accepted', 'alpha', 'user']:
+        suggestions = db.get_suggestions(orderby, 1)
+        results = list(map(lambda x: db.to_html(x), suggestions))
+    else:
+        results = ['<span class=\"invalid-query\">Invalid query</span>']
+
+    return render_template('suggestions-view.html', results=results)
+
+
+@app.route('/suggestions/view?orderby=<orderby>&page=<int:page>')
+def view_suggestions_by_page(orderby, page):
+    if page > 0 and orderby in ['recent', 'accepted', 'alpha', 'user']:
+        suggestions = db.get_suggestions(orderby, page)
+        results = list(map(lambda x: db.to_html(x), suggestions))
+    else:
+        results = ['<span class=\"invalid-query\">Invalid query</span>']
+
+    suggestions = db.get_suggestions(orderby, page)
+
+    return render_template('suggestions-view.html', results=results)

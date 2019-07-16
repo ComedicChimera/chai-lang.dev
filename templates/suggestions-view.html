@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        {% include 'components/head.html' %}
+
+        <title>View Suggestions</title>
+    </head>
+    <body>
+        {% include 'components/header.html' %}
+
+        <article>
+            <div class="article-content">
+                <div class="search-header">
+                    <select class="orderby-select">
+                        <option value="recent">Recent</option>
+                        <option value="accepted">Accepted</option>
+                        <option value="alpha">A-Z</option>
+                        <option value="user">User A-Z</option>
+                    </select>
+                    <div class="search-input">
+                        <input id="sugg-search-input" type="text"/>
+                    </div>
+                </div>
+                <div class="search-results">
+                    <div class="result-list">
+
+                    </div>
+                    <div class="page-selector">
+                        
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        {% include 'components/footer.html' %}
+    </body>
+</html>

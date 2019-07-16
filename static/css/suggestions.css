@@ -38,7 +38,7 @@ article {
     justify-content: space-evenly;
 }
 
-.article-content .action-container a {
+.article-content .action-container .action-button {
     display: block;
 
     background-color: #20aced;
@@ -50,13 +50,71 @@ article {
     min-width: 270px;
 
     text-align: center;
+
+    border: none;
+
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    color: white;
+
+    cursor: pointer;
 }
 
-.article-content .action-container a:hover {
+.article-content .action-container .action-button:hover {
     color: white;
 }
 
-.section .action-container a:active {
+.article-content .action-container .action-button:active {
     box-shadow: none;
     background-color: #47c5ff;
+}
+
+.article-content form {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-evenly;
+
+    padding: 0px 10px 0px 10px
+}
+
+.article-content form .text-input {
+    width: 20%;
+
+    font-size: 16px;
+    padding: 5px;
+
+    border: none;
+    border-bottom: solid 1px #212121;
+
+    outline: none;
+
+    font-family: "Roboto", sans-serif;
+
+    transition-duration: 0.1s;
+}
+
+.article-content form .text-input:focus {
+    border-bottom-color: #20aced;
+}
+
+.article-content form textarea {
+    resize: none;
+
+    overflow-y: scroll;
+    overflow-x: wrap;
+
+    outline: none;
+
+    border: solid 1px #212121;
+    
+    padding: 5px
+}
+
+.article-content form label {
+    padding: 10px 0px 10px 0px
+}
+
+.article-content .spacer {
+    height: 92px;
 }

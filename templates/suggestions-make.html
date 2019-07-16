@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        {% include 'components/head.html' %}
+
+        <link href="/static/css/suggestions.css" type="text/css" rel="stylesheet"/>
+
+        <title>Make Suggestion</title>
+    </head>
+    <body>
+        {% include 'components/header.html' %}
+
+        <article>
+            <div class="article-content">
+                <h2>Make a Suggestion</h2>
+                <p>Make sure that you have throroughly read the suggestions section before submitting!</p>
+
+                <form>
+                    <label for="#name-input">Name</label>
+                    <input id="name-input" class="text-input" type="text">
+
+                    <label for="#email-input">Email</label>
+                    <input id="email-input" class="text-input" type="text">
+
+                    <label for="#suggestion-body">Suggestion Body</label>
+                    <textarea id="suggestion-body" rows="20"></textarea>
+                </form>
+
+                <div class="action-container">
+                    <button id="submit-button" class="action-button">Submit</button>
+                    <a class="action-button" href="/suggestions">Cancel</a>
+                </div>
+
+                <div class="spacer"></div>
+            </div>
+        </article>
+
+        {% include 'components/footer.html' %}
+    </body>
+</html>

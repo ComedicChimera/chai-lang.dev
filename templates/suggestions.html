@@ -52,15 +52,13 @@
                 </div>
                 <hr />
                 <div class="action-container">
-                    <a href="/suggestions/make">Make a Suggestion</a>
-                    <a href="/suggestions/view?orderby=recent">View Recent Suggestions</a>
-                    <a href="/suggestions/view?orderby=accepted">View Accepted Suggestions</a>
+                    <a class="action-button" href="/suggestions/make">Make a Suggestion</a>
+                    <a class="action-button" href="/suggestions/view?orderby=recent">View Recent Suggestions</a>
+                    <a class="action-button" href="/suggestions/view?orderby=accepted">View Accepted Suggestions</a>
                 </div>
             </div>
         </article>
 
-        <footer>
-            {% include 'components/footer.html' %}
-        </footer>      
+        {% include 'components/footer.html' %}
     </body>
 </html>
