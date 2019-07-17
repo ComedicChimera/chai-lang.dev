@@ -274,6 +274,7 @@ as they are read by the compiler.
     "VOL" := /\bvol\b/,
     "MAKE" := /\bmake\b/,
     "WITH" := /\bwith\b/,
+    "STATIC" := /\bstatic\b/
     "FUNC" := /\bfunc\b/,
     "ASYNC" := /\basync\b/,
     "AWAIT" := /\bawait\b/,
