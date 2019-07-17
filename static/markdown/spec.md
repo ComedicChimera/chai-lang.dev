@@ -164,16 +164,10 @@ of the Whirlwind Programming Language.  It describes the exact behavior
 and construction of each language element as well as the relation between
 language elements.
 
-Whirlwind is a general purpose programming language oriented towards systems
-development and scientific computing.  It is strongly typed and concurrent.
-It is not garbage collected with a heavy emphasis on memory safety.  It is
-comprised of elements from both imperative and functional paradigms complete
-with a flexible type system and logical dependency management through its
-package system.
-
-The objective of Whirlwind is to provide programmers with an easily understood,
-modern, powerful, and efficient language with which to accomplish any goal that might need
-or want to.
+Whirlwind is a compiled, modern, and multipurpose language designed with intentionality.
+It is strongly-typed, versatile, expressive, concurrent, and relatively easy to learn.  It does not
+have a garbage collector and accordingly places a heavy emphasis on memory safety.
+It boasts numerous new and old features and is designed to represent the needs of any software developer.
 
 ## <a name="copyright"></a> Copyright
 
