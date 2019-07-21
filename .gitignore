@@ -2,7 +2,7 @@
 
 /__pycache__
 
-/app/config.py
+.env
 
 .vscode/*
 
