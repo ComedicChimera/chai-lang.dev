@@ -2,7 +2,7 @@ from app import app
 import app.models as db
 import app.md as md
 
-from flask import render_template, redirect
+from flask import render_template, redirect, abort, request
 
 
 @app.route('/')
@@ -17,7 +17,7 @@ def docs():
 
 @app.route('/docs/guide')
 def guide_home():
-    return redirect('docs/guide/chapter1', 302)
+    return redirect('/docs/guide/chapter1', 302)
 
 
 @app.route('/docs/guide/<chapter>')
@@ -32,34 +32,35 @@ def suggestions():
     return render_template('suggestions.html')
 
 
-@app.route('/suggestions/make')
+@app.route('/suggestions/make', methods=['GET', 'POST'])
 def make_suggestion():
-    return render_template('suggestions-make.html')
+    if request.method == 'POST':
+        if request.is_json:
+            obj = request.get_json()
+
+            try:
+                db.add_suggestion(obj['title'], obj['name'], obj['email'], obj['body'])
+            except IndexError:
+                abort(422)
+            except Exception:
+                abort(500)
+
+            return 200
+        else:
+            abort(415)
+    else:
+        return render_template('suggestions-make.html')
 
 
 @app.route('/suggestions/view')
-def view_suggestions_no_order():
-    return redirect('/suggestions/view?orderby=recent', 302)
+def view_suggestions():
+    orderby = request.args.get('orderby', 'recent')
 
-
-@app.route('/suggestions/view?orderby=<orderby>')
-def view_suggestions(orderby):
     if orderby in ['recent', 'accepted', 'alpha', 'user']:
         suggestions = db.get_suggestions(orderby, 1)
         results = '\n'.join((map(lambda x: db.to_html(x), suggestions)))
     else:
-        results = ['<span class=\"invalid-query\">Invalid query</span>']
-
-    return render_template('suggestions-view.html', results=results)
-
-
-@app.route('/suggestions/view?orderby=<orderby>&page=<int:page>')
-def view_suggestions_by_page(orderby, page):
-    if page > 0 and orderby in ['recent', 'accepted', 'alpha', 'user']:
-        suggestions = db.get_suggestions(orderby, page)
-        results = list(map(lambda x: db.to_html(x), suggestions))
-    else:
-        results = ['<span class=\"invalid-query\">Invalid query</span>']
+        results = '<span class=\"invalid-query\">Invalid query</span>'
 
     return render_template('suggestions-view.html', results=results)
 

@@ -4,12 +4,12 @@ services:
     env_file: .env
     build: '.'
     ports:
-     - '8080:5000'
+     - '5000:5000'
     volumes:
      - ./static:/static
      - ./templates:/templates
     environment:
-      DB_URI: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/whirlwind_lang_org"
+      DB_URI: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DB}"
     depends_on:
       - db
   db:
@@ -17,8 +17,7 @@ services:
     image: postgres
     restart: always
     volumes: 
-      - "./db/store:/var/lib/postgresql"
-      - "./db/misc/:/docker-entrypoint-initdb.d/"
+      - "./db:/var/lib/postgresql"
     ports:
       - "5432"
 
