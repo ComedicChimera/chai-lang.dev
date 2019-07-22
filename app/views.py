@@ -1,5 +1,5 @@
 from app import app
-import app.db as db
+import app.models as db
 import app.md as md
 
 from flask import render_template, redirect
@@ -46,7 +46,7 @@ def view_suggestions_no_order():
 def view_suggestions(orderby):
     if orderby in ['recent', 'accepted', 'alpha', 'user']:
         suggestions = db.get_suggestions(orderby, 1)
-        results = list(map(lambda x: db.to_html(x), suggestions))
+        results = '\n'.join((map(lambda x: db.to_html(x), suggestions)))
     else:
         results = ['<span class=\"invalid-query\">Invalid query</span>']
 
@@ -60,8 +60,6 @@ def view_suggestions_by_page(orderby, page):
         results = list(map(lambda x: db.to_html(x), suggestions))
     else:
         results = ['<span class=\"invalid-query\">Invalid query</span>']
-
-    suggestions = db.get_suggestions(orderby, page)
 
     return render_template('suggestions-view.html', results=results)
 

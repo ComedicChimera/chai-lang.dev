@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask('__main__')
 app.config['SQLALCHEMY_DATABASE_URI'] = config.DB_URI
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 

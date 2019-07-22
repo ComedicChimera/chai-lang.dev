@@ -9,13 +9,16 @@ services:
      - ./static:/static
      - ./templates:/templates
     environment:
-      DB_URI: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:3306/whirlwind_lang_org"
+      DB_URI: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/whirlwind_lang_org"
+    depends_on:
+      - db
   db:
     env_file: .env
     image: postgres
     restart: always
     volumes: 
-      - "./db:/var/lib/postgresql"
+      - "./db/store:/var/lib/postgresql"
+      - "./db/misc/:/docker-entrypoint-initdb.d/"
     ports:
       - "5432"
 
