@@ -11,7 +11,7 @@
     </nav>
     <div class="search">
         <div class="input-box">
-            <input class="search-input" type="text"/>
+            <input class="search-input" type="text" placeholder="Search"/>
             <img class="search-icon" src="/static/images/search.png" width="25px" height="25px"/>
         </div>
     </div>
@@ -24,6 +24,7 @@
 
         $('.search-icon').mousedown(search);
 
+        // sanitize search !!!!
         function search() {
             let query = $('.search-input').val();
 

@@ -121,15 +121,19 @@ article {
 
 .article-content .search-header {
     padding: 10px;
-    border-bottom: solid 1px #bbbbbb;
+    border-bottom: solid 1px #212121;
 
     display: flex;
     
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
 }
 
-.article-content .search-header #orderby-select {
+.search-header .orderby label {
+    margin-right: 5px;
+}
+
+.search-header .orderby #orderby-select {
     border-radius: 5px;
     padding: 10px;
 
@@ -137,23 +141,34 @@ article {
 
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
+
+    border: 1px #212121 solid;
 }
 
-.article-content .search-header #search-input {
+.article-content .search-box {
     border-radius: 5px;
-    padding: 10px;
+    padding: 5px;
 
+    border: 1px #212121 solid;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.search-header .search-box #search-input {
     outline: none;
-    border: solid #212121 1px;
 
     font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
+    font-size: 18px;
+
+    border: none;
 }
 
 .article-content .search-results {
     min-height: 900px;
 
-    border-bottom: solid 1px #bbbbbb;
+    border-bottom: solid 1px #212121;
 }
 
 .result-list {
