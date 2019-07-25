@@ -17,6 +17,9 @@ class Suggestion(db.Model):
     accepted = db.Column(db.Boolean, nullable=False)
     body = db.Column(db.String, nullable=False)
 
+    def __repr__(self):
+        return '<Suggestion: {id}>'
+
 
 def get_suggestions(orderby, page):
     if orderby == 'recent':
@@ -29,7 +32,7 @@ def add_suggestion(title, author, email, body):
     while len(Suggestion.query.filter_by(id=id).all()):
         id = random_string(32)
     
-    s = Suggestion(id, title, datetime.today(), author, email, False, body)
+    s = Suggestion(id=id, title=title, date=datetime.today(), author=author, email=email, accepted=False, body=body)
 
     db.session.add(s)
     db.session.commit()
@@ -37,9 +40,10 @@ def add_suggestion(title, author, email, body):
 
 def to_html(model):
     if isinstance(model, Suggestion):
-        return """<div class="suggestion"><div class="title-box"><span class="title">{escape(model.title.python_type)}</span>
-        <span class="author">{escape(model.author.python_type)}</span><span class="date">{model.date.python_type.strftime('%b %d, %Y')}</span>
-        <div class="body">{escape(model.body.python_type)}</div>
+        return f"""<div class="suggestion"><span class="title">{escape(model.title)}</span>
+        <span class="author">By <span class="author-name">{escape(model.author)}</span></span>
+        <span class="date">{model.date.strftime('%b %d, %Y')}</span>
+        <div class="body">{escape(model.body)}</div></div>
         """
 
 

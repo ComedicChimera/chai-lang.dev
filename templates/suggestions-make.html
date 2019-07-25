@@ -62,8 +62,8 @@
                     displayError('Please use an email that is less than 100 characters long.');
                     return;
                 }
-                else if (body.length > 1000) {
-                    displayError('Your suggestion body cannot be more than 1000 characters long.');
+                else if (body.length > 5000) {
+                    displayError('Your suggestion body cannot be more than 5000 characters long.');
                     return;
                 }
 
@@ -71,11 +71,14 @@
                     url: '/suggestions/make',
                     method: 'post',
                     contentType: 'application/json',
-                    data: {
-                        title: title,
-                        name: name,
-                        email: email,
-                        body: body
+                    data: JSON.stringify({
+                        "title": title,
+                        "name": name,
+                        "email": email,
+                        "body": body
+                    }),
+                    success: (data, status, jqXHR) => {
+                        console.log(data)
                     },
                     error: (jqXhr, textStatus, errorThrown) => {
                         console.log(errorThrown);

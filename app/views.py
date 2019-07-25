@@ -36,16 +36,16 @@ def suggestions():
 def make_suggestion():
     if request.method == 'POST':
         if request.is_json:
-            obj = request.get_json()
+            obj = request.get_json(silent=True)
 
             try:
                 db.add_suggestion(obj['title'], obj['name'], obj['email'], obj['body'])
             except IndexError:
                 abort(422)
-            except Exception:
-                abort(500)
+            except Exception as e:
+                return str(e)
 
-            return 200
+            return "Suggestion was made successfully"
         else:
             abort(415)
     else:
