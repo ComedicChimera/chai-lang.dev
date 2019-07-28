@@ -46,7 +46,7 @@ as the functions get more complicated.  This is the problem that a decorator cou
 A decorator by itself is merely a function that takes a function as its argument and spits out a new, wrapped
 function.  Consider our logging example from earlier.  Let's create a decorator for that intended behavior.
 
-    func logger(f: func()(int)) func()(int) {
+    func logger(f: func()(int)) const func()(int) {
         func wrapper() int {
             log("called");
 
@@ -56,7 +56,16 @@ function.  Consider our logging example from earlier.  Let's create a decorator 
 
             return res;
         }
+
+        return wrapper;
     }
+
+As you can see, the decorator takes in the desired function and returns a wrapper
+for that function.  There are two important things to notice here: first the
+return type is `const` because `wrapper` is a constant and if it weren't constant
+we would get an error.  Secondly, and more importantly, `wrapper` calls `f` inside
+of its body and when it is returned it is not called.  This gives us the desired
+behavior.
 
 Now, we can use decorators and little bit of lambda magic to improve out setup from before.
 
@@ -86,7 +95,7 @@ Remember our `logger` function and how we had to use a variable to store the ret
 While it seems fairly trivial, it is a little annoying especially as your decorators get more complex.  
 So how about we make that a little prettier.  Introducing, the `yield` statement.
 
-    func logger(f: func()(int)) func()(int) {
+    func logger(f: func()(int)) const func()(int) {
         func wrapper() int {
             log("called");
 
@@ -94,6 +103,8 @@ So how about we make that a little prettier.  Introducing, the `yield` statement
 
             log("returning");
         }
+
+        return wrapper;
     } 
 
 Much nicer.  Now we have no need for that pesky `res` variable.  For those of you wondering what yield does,
@@ -161,7 +172,7 @@ And with that, we are done looking at basic decorators, now it is time to look a
 A complex decorators is a decorator that in addition to accepting a function as its first argument, also accepts additional arguments that allow
 it to vary its behavior.  We declare these kinds of decorators the same way we do normal decorators but with additional arguments.
 
-    func logger2(f: func()(int), fnName: str) func()(int) {
+    func logger2(f: func()(int), fnName: str) const func()(int) {
         func wrapper() int {
             log("called " + fnName);
 
@@ -169,6 +180,8 @@ it to vary its behavior.  We declare these kinds of decorators the same way we d
 
             log("returning from " + fnName);
         }
+
+        return wrapper;
     }
 
 Now, our new logger we also include the function it being called and returned from in its log messages without having to create unique decorators or
