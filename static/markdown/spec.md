@@ -288,7 +288,6 @@ as they are read by the compiler.
     "EXPORT" := /\bexport\b/,
     "THIS" := /\bthis\b/,
     "NEW" := /\bnew\b/,
-    "CAST" := /\bcast\b/,
     "NULL" := /\bnull\b/,
     "IS" := /\bis\b/,
     "THEN" := /\bthen\b/,
