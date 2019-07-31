@@ -52,7 +52,9 @@
     - Case Expressions
     - Range Expressions
     - Then Expressions
-    - Extended Expressions
+    - Is and As Expressions
+    - Raise Expressions
+    - Extract Expressions
 
 7. Statements
     - Variable Declarations
@@ -110,11 +112,11 @@
     - Generic Binding
 
 14. Type Relations
-    - Coercibility
     - Constancy
+    - Coercibility
     - Casting
+    - Is Operator
     - Classifying Interfaces
-    - Is and As
 
 15. Generics
     - Generic Types
@@ -148,10 +150,16 @@
     - Packages
     - The Prelude
 
-19. Optimizations
+19. Annotations
+    - File-Level Annotations
+    - Struct-Specific Annotations
+    - Function-Specific Annotations
+    - Local Annotations
+
+20. Optimizations
     - *insert here*
 
-20. Runtime and Execution
+21. Runtime and Execution
     - The `main` Function
     - The Fiber and Thread Registry
     - The Heap
@@ -215,7 +223,6 @@ as they are read by the compiler.
     "#" := /#/,
     "@" := /@/,
     "..." := /\.{3}/,
-    "??" := /\?\?/,
     "~*" := /~\*/,
     "~/" := /~\//,
     "~^" := /~\^/,
@@ -317,3 +324,53 @@ Each token is comprised of a name, a value, and a position. The name is listed a
 regular expression specified for the given token type (name).  The position is where in the file the token was found and the match's
 length. The tokens are extracted from the program file by the scanner according to the rules listed and are passed to the parser
 in the order that they appear in the program file.
+
+### <a name="notation"></a> Notation
+
+Our context-free grammar uses a modified form of EBNF (Extended Backus-Naur Form) that allows for comments and does not include a `?` operator 
+or token literals.  Additionally, it uses a different production declaration operator.
+
+The below code block outlines the syntactic notation used in our custom EBNF notation.
+
+    // This is a comment
+
+    /* This is a multiline comment */
+
+    // Tokens (Terminals) are encased in single quotes, and all productions are ended by semicolons.
+    production_name: 'TOKEN' ;
+
+    // Our format allows for alternators and parentheses
+    alternated_production: ( production | 'TOKEN' ) | production ;
+    
+    // and optional blocks
+    optional_production: [ production ] ;
+
+    // star and plus operators
+    operator_production: production* production+ ;
+
+This simple notation is all that used to define the Whirlwind grammar.  However, several conventions are
+followed in the Whirlwind Language Grammar itself.
+
+- All sections are prefixed by titles in all caps.
+- Related productions are grouped together.
+- Each production group has one new-line on either side of it and is labeled with comment.
+- No production contains capital letters.
+- Any alternator which requires multiple lines should follow Haskell style.
+
+Any other patterns that appear in the grammar are not convention and the last convention is not
+always respected.
+
+### <a name="grammar"></a> Grammar
+
+The Whirlwind Language Grammar is partially ambiguous: it allows for left-recursion and productions
+with multiple beginning symbols in common.  The parsing algorithm was custom-written for Whirlwind and
+is designed to deal with this complex grammar with ease.  The start symbol for the grammar itself is
+`whirlwind`.
+
+Below is the complete grammar for Whirlwind exactly as it is read by the compiler.
+
+*insert grammar when ready*
+
+This grammar is designed to be processed into an object by the grammar processor and subsequently passed
+to the parser for efficiency's sake.  It is only loaded once per run of the compiler regardless of how
+many files are being processed and remains any memory throughout compilation.
