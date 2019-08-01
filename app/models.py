@@ -4,6 +4,8 @@ from app import db
 import string
 from random import choice
 from datetime import datetime
+from urllib.parse import unquote
+import string
 
 from sqlalchemy import desc
 from markupsafe import escape
@@ -21,24 +23,48 @@ class Suggestion(db.Model):
         return '<Suggestion: {id}>'
 
     def to_html(self):
-        f"""<div class="suggestion"><span class="title">{escape(self.title)}</span>
+        return f"""<div class="suggestion"><span class="title">{escape(self.title)}</span>
         <span class="author">By <span class="author-name">{escape(self.author)}</span></span>
         <span class="date">{self.date.strftime('%b %d, %Y')}</span>
         <div class="body">{escape(self.body)}</div></div>
         """
 
 
+def check_suggestion_args(args):
+    orderby = args.get('orderby', 'recent')
+    page = args.get('page', '1')
+    query_string = args.get('query_string', '')
+
+    if orderby not in ['recent', 'accepted', 'alpha', 'user']:
+        return False
+    elif not page.isdigit():
+        return False
+    elif query_string not in (string.ascii_letters + string.digits + '%'):
+        return False
+
+    return {'orderby': orderby, 'page': int(page), 'query_string': unquote(query_string).replace('%', '/%').replace('_', '/_')}
+
+
 def get_suggestions(orderby, page, query_string):
+    def apply_ordering(base_query=None):
+        if not base_query:
+            base_query = Suggestion.query
+
+        if orderby == 'recent':
+            base_query = base_query.order_by(desc(Suggestion.date))
+        elif orderby == 'accepted':
+            base_query = base_query.order_by(Suggestion.accepted)
+        elif orderby == 'alpha':
+            base_query = base_query.order_by(Suggestion.title)
+        elif orderby == 'user':
+            base_query = base_query.order_by(Suggestion.author)
+
+        return base_query
+
     if query_string != '':
-        ordered_result = Suggestion.query.order_by(query_string in Suggestion.body)
-    elif orderby == 'recent':
-        ordered_result = Suggestion.query.order_by(desc(Suggestion.date))
-    elif orderby == 'accepted':
-        ordered_result = Suggestion.query.order_by(Suggestion.accepted)
-    elif orderby == 'alpha':
-        ordered_result = Suggestion.query.order_by(Suggestion.title)
-    elif orderby == 'user':
-        ordered_result = Suggestion.query.order_by(Suggestion.author)
+        ordered_result = apply_ordering(Suggestion.query.filter(Suggestion.body.ilike(f'%{query_string}%', escape='/')))
+    else:
+        ordered_result = apply_ordering()
 
     if page > 1 and page * PAGE_SIZE < ordered_result.count():
         return ordered_result.offset(PAGE_SIZE * (page - 1)).limit(PAGE_SIZE).all()

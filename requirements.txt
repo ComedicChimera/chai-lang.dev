@@ -2,3 +2,4 @@ flask
 flask-sqlalchemy
 markdown
 psycopg2
+flask_limiter

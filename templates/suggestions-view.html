@@ -41,5 +41,59 @@
         </article>
 
         {% include 'components/footer.html' %}
+
+        <script>
+            // jinja sub in
+            let page = {{ page|safe }};
+
+            function updateResults() {
+                $.ajax({
+                    url: '/api/suggestions/view',
+                    method: 'get',
+                    data: {
+                        "orderby": $('#orderby-select').val(),
+                        "query_string": $('#search-input').val(),
+                        "page": page
+                    },
+                    success: (data, status, jqXHR) => {
+                        $('.result-list').html(data);
+
+                        let pageSelectHtml = '';
+                        if (page != 1)
+                            pageSelectHtml += '<button class=\"prev-page\">Back</button>'
+
+                        // handle next page
+
+                        $('.page-selector').html(pageSelectHtml);
+
+                    },
+                    error: (jqXhr, textStatus, errorThrown) => {
+                        console.log(errorThrown);
+                        $('.result-list').html('<span class=\"error\">Failed to get results</span>')
+                    }
+                })
+            }
+
+            $('#search-input').keydown(e => {
+                if (e.which == 13)
+                    updateResults();
+            });
+
+            $('#orderby-select').change(updateResults);
+
+            $('#orderby-select').val('{{ orderby|safe }}');
+            updateResults();
+
+            $('.next-page').mousedown(e => {
+                updateResults();
+
+                page++;
+            });
+
+            $('.prev-page').mousedown(e => {
+                updateResults();
+                page--;
+            })
+        </script>
     </body>
 </html>

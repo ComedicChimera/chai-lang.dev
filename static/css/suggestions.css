@@ -216,3 +216,9 @@ article {
     padding: 5px;
     color: #212121;
 }
+
+.result-list .error {
+    margin: 10px 0px 10px 0px;
+    font-size: 16px;
+    color: red;
+}
