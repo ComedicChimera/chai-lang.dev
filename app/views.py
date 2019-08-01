@@ -2,6 +2,9 @@ from app import app
 import app.models as db
 import app.md as md
 
+import string
+from urllib.parse import unquote
+
 from flask import render_template, redirect, abort, request
 
 
@@ -52,17 +55,43 @@ def make_suggestion():
         return render_template('suggestions-make.html')
 
 
+def check_suggestion_args(args):
+    orderby = request.args.get('orderby', 'recent')
+    page = request.args.get('page', '1')
+    query_string = request.args.get('query_string', '')
+
+    if orderby not in ['recent', 'accepted', 'alpha', 'user']:
+        return False
+    elif not page.isdigit():
+        return False
+    elif query_string not in (string.ascii_letters + string.digits + '%'):
+        return False
+
+    return {orderby: orderby, page: int(page), query_string: unquote(query_string)}
+
+
 @app.route('/suggestions/view')
 def view_suggestions():
-    orderby = request.args.get('orderby', 'recent')
+    check_result = check_suggestion_args(request.args)
 
-    if orderby in ['recent', 'accepted', 'alpha', 'user']:
-        suggestions = db.get_suggestions(orderby, 1)
-        results = '\n'.join((map(lambda x: db.to_html(x), suggestions)))
+    if check_result:
+        suggestions = db.get_suggestions(**check_result)
+        results = '\n'.join((map(lambda x: x.to_html(), suggestions)))
     else:
         results = '<span class=\"invalid-query\">Invalid query</span>'
 
     return render_template('suggestions-view.html', results=results)
+
+
+@app.route('/suggestions/view_api')
+def view_suggestions_html():
+    check_result = check_suggestion_args(request.args)
+
+    if check_result:
+        suggestions = db.get_suggestions(**check_result)
+        return '\n'.join((map(lambda x: x.to_html(), suggestions)))
+    else:
+        return '<span class=\"invalid-query\">Invalid query</span>'
 
 
 @app.route('/docs/spec')

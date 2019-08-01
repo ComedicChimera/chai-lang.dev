@@ -20,10 +20,31 @@ class Suggestion(db.Model):
     def __repr__(self):
         return '<Suggestion: {id}>'
 
+    def to_html(self):
+        f"""<div class="suggestion"><span class="title">{escape(self.title)}</span>
+        <span class="author">By <span class="author-name">{escape(self.author)}</span></span>
+        <span class="date">{self.date.strftime('%b %d, %Y')}</span>
+        <div class="body">{escape(self.body)}</div></div>
+        """
 
-def get_suggestions(orderby, page):
-    if orderby == 'recent':
-        return Suggestion.query.order_by(desc(Suggestion.date)).limit(PAGE_SIZE).all()
+
+def get_suggestions(orderby, page, query_string):
+    if query_string != '':
+        ordered_result = Suggestion.query.order_by(query_string in Suggestion.body)
+    elif orderby == 'recent':
+        ordered_result = Suggestion.query.order_by(desc(Suggestion.date))
+    elif orderby == 'accepted':
+        ordered_result = Suggestion.query.order_by(Suggestion.accepted)
+    elif orderby == 'alpha':
+        ordered_result = Suggestion.query.order_by(Suggestion.title)
+    elif orderby == 'user':
+        ordered_result = Suggestion.query.order_by(Suggestion.author)
+
+    if page > 1 and page * PAGE_SIZE < ordered_result.count():
+        return ordered_result.offset(PAGE_SIZE * (page - 1)).limit(PAGE_SIZE).all()
+    else:
+        return ordered_result.limit(PAGE_SIZE).all()
+    
 
 
 def add_suggestion(title, author, email, body):
@@ -36,15 +57,6 @@ def add_suggestion(title, author, email, body):
 
     db.session.add(s)
     db.session.commit()
-
-
-def to_html(model):
-    if isinstance(model, Suggestion):
-        return f"""<div class="suggestion"><span class="title">{escape(model.title)}</span>
-        <span class="author">By <span class="author-name">{escape(model.author)}</span></span>
-        <span class="date">{model.date.strftime('%b %d, %Y')}</span>
-        <div class="body">{escape(model.body)}</div></div>
-        """
 
 
 def random_string(length): return ''.join(choice(string.ascii_letters + string.digits) for _ in range(length))

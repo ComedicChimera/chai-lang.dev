@@ -30,6 +30,7 @@
     - Literals
     - Identifiers
     - This
+    - Super
     - Null
     - Val
     - Comprehensions
@@ -53,7 +54,6 @@
     - Range Expressions
     - Then Expressions
     - Is and As Expressions
-    - Raise Expressions
     - Extract Expressions
 
 7. Statements
