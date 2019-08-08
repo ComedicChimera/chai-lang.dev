@@ -155,7 +155,7 @@ the deletion of a type.  The method looks like the following:
     interf for S {
         func __finalize__() {
             // ok because in the finalizer
-            delete p;
+            delete this.p;
         }
     }
 
