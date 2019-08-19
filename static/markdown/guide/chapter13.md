@@ -1,188 +1,193 @@
-# Type Classes
+# Lambdas and Closures
 
-Type classes are the most complex, but powerful tool available to you in
-Whirlwind.  They are the most variable and advanced type provided by
-the type system and offer numerous different options on how to approach
-them.
+Lambdas and closures are probably some of the most powerful tools in all
+of Whirlwind.  They power many of the patterns and constructs underlying Whirlwind
+and are relatively simple to understand.
 
-## The Basics
+## Functions as Objects
 
-A type class is at its core no more than a name.  It allows you to define
-a type without any properties, methods, or really anything.  The syntax
-for declaring a type class in this form (called an **empty type class**)
-looks like this:
+Before we can understand the idea of a lambda, we must first discuss functions.
+Or rather, look at functions in a unique light.  Up until now, we have exclusively
+examined functions as high level, static constructs, designed only to be called.
+But, that is only half the picture.
 
-    type MyType;
+A function is in fact a type, like a struct or an interface.  And as such, they
+can be made into objects (tangible items that can be stored and operated upon).
+Consider the simple function that adds two numbers.
 
-This creates a new type class by the name `MyType`.  It currently has no values and
-no instance but it can still be used.  A type class in this form can still have methods
-bound to it and can be used like a type, it simple contains no values.
+    func add(a, b: int) int
+        => a + b;
 
-The next form a type class can take is called a **type alias**.  This is a type class that creates a
-new name for an existing type.  For example, say you have situation where you wanted to store an
-integer, but you wanted it to be treated like its own specific type.  You could easily accomplish this
-by using a type alias.
+What if I told you that it were possible to store this function in a variable?  Well,
+as it turns out, this is possible.
 
-    type Alias int;
+    let f = add;
 
-Now, the type `Alias` can hold the value of an integer while still being its own distinct type.  The implications
-of an alias can best summarized by the statement "an integer is an `Alias`, but an `Alias` is not an integer".  This means
-that you can assign an integer value to `Alias`, but you cannot assign or pass an `Alias` as an integer type.
+And even crazier, it is possible to call `f` like a function.
 
-## Enumerated Type Classes
+    f(3, 4); // => 7
 
-A type class can also take the form of an **enumerated type class** wherein the type class defines the literal
-values it can take.  Enumerated type classes begin the same as a normal type class, but their values are prefixed
-by the `|` operator.
+Pretty cool right?  In reality, the call `()` operator is just that, an operator.
+There isn't really anything special about it besides the fact that it can be used to
+call functions.
 
-    type Color
-        | Red
-        | Blue
-        | Green
-        ;
+> The `()` is also the only operator that can't be overloaded.
 
-The `Color` type is now an enumerated type class whose four primary values are `Red`, `Green`, and `Blue`.  A usage
-of the Color class might look like the following.
+But here's where it gets even weirder.  It is possible to, in fact, pass functions
+to functions.  Consider the example below:
 
-    func colorToString(color: Color) str
-        => color case {
-            Red => "Red",
-            Blue => "Blue",
-            _ => "Green"
-        };
+    func applyToList(list: [int], fn: func(int)(int)) [int] {
+        for (i = 0; i < list.len; i++)
+            list[i] = fn(list[i]);
+
+        return list;
+    }
+
+The function `applyToList` accepts a list a function called `fn` and applies that function
+the each element in the list.  `applyToList` is what we call a **higher-order function** which
+is a function that accepts another function as an argument.
+
+> It is **not** possible to have named arguments in this context so as the names
+> are not specified in the function type label.
+
+This is also the first example of the function type label.  This label begins with the `func`
+keyword and is followed by two parentheses: the first contains the types of the arguments and the
+second containing its return type(s).  The function type label does distinguish between regular,
+optional, and indefinite arguments by requiring you to place a `~` **after** each optional argument
+and `...` **before** each indefinite argument.
+
+> If omit the type after the `...`, the argument is assumed to be variadic.
+
+To use our `applyToList` function, we would follow the same protocal as before.
+
+    func increment(x: int) => x + 1;
 
     func main() {
-        let myColor = Color::Red;
+        let myList = [1, 3, 5, 7];
 
-        let strColor = colorToString(myColor);
-
-        strColor = colorToString(Green);
+        // after this call: myList = [2, 4, 6, 8]
+        myList = applyToList(myList, increment);
     }
 
-As you can see in the example below, enumerated type classes behave a lot like a primitive type which can accept and translate
-between values.  The biggest difference is those values are specified.  
+Here, the function `increment` is passed as the second argument and is objectified before being
+passed.
 
-> If your enumerated type class only has one value, you can omit the preceding `|`.
+> There is a method called `map` that exists on all iterables in Whirlwind that exhibits a similar
+> behavior to our `applyToList`.  Look it up in the standard library docs to learn more about it.
 
-There is another important thing to point out, and it is the use of the `Color` prefix.  You will notice that within the
-above code the `Color` prefix is only used once: in the variable declaration.  The prefix must be used here because
-the compiler cannot infer based on context what the type is supposed to be.
-The variable has no type extension and therefore, no assumable type.  It is entirely possible for other `Red` variables or types
-to exist simultaneously and so the compiler requires context to determine which one to use in the given scenario.  If it does
-not have context, you will need to specify what you want the context to be.
+## Lambdas
 
-    // this is ok: the compiler knows the type of the expression
-    let color: Color = Green;
+Now, you have probably already notice a flaw the above model, you have to define a function fully
+before you can objectify it.  Even if you were to define `increment` locally (within the body of main
+which is possible in Whirlwind), you would still run into the same problem.  And, as it happens Whirlwind
+has a solution: the **lambda**.  A lambda is anonymous function, meaning it has no name by default and is
+the closest thing we can get to a "function literal".  Let's see how you would fix the `applyToList` example
+using a lambda.
 
-    // this is not ok: the compiler does not know the type of the expression
-    let color2 = Red;
-
-This pattern is called **context-based inferencing** and is applicable to another type we will see later on.
-
-## Value Type Classes
-
-It is also possible for an enumerated type class to have its enumerated types hold values.  This is called a
-**value type class**.  The syntax for declaring one of these is very simple.  You declare a normal enumerated
-type class followed by the type you want to hold in parentheses.
-
-    type Number
-        | Int(int)
-        | Decimal(double)
-        ;
-
-This type class contains two value-holders `Int` and `Decimal` each of which hold the corresponding type.
-
-> It is also possible for a value type class to have value members that contain themselves multiple values.  You simply delimit
-> the values with commas inside the parentheses.
-
-The usage of this type class is similar to the usage of the basic enumerated type class above, the only difference
-being you specify the value you want each instance to hold.
-
-    let num = Number::Int(3);
+    // applyToList up here somewhere
 
     func main() {
-        let t: int = from (num as Int)
+        let myList = [1, 3, 5, 7];
 
-        t++;
+        myList = applyToList(myList, |x: int| => x + 1);
     }
 
-Value type classes also introduce two new operators: `from` and `as`.  The former of these operators is used elsewhere
-in the language but in this context, unpacks the value of a known type class value.  In the specific case above, it
-extracts the integer value from the `Int` member of the type class.  The `as` operator converts between the different forms
-of a type class so that value extraction works properly.  This operator is necessary as otherwise the compiler would not
-know what value to extract when calling `from` (from only works on type class members, not the type class itself).  Additionally,
-as allows you to store the specific value of a given type class to be used later, while still providing you with the ability to
-unpack it.
+And there it is, no increment function, no unneeded variables, just the behavior we want to occur.  You have probably
+already guess what the lambda syntax is: a normal argument definition enclosed in `|` followed by a standard function
+body.  Pretty easy right?  And it gets better.
 
-    func takeNumber(num: Number) {
-        // -- snip --
-    }
+Remember how earlier in the section on type classes, I mentioned that one other type has context-based inference?  Well,
+here it is.  Lambdas have context based inference on the types of their arguments **and** their return type.  You do not need
+to specify either.  In fact, Whirlwind does not **allow** you to specify the return type because it will always be inferable
+from the function body.
+
+So let's rewrite this scenario one more time.
 
     func main() {
-        let num: Number = Int(3); // context based inferencing applies here too
+        let myList = [1, 3, 5, 7];
 
-        let numInt = num as Int;
-
-        takeNumber(numInt); // still works as type class
-
-        let numSquared = from numInt ~^ 2; // able to use from
+        myList = applyToList(myList, |x| => x + 1);
     }
 
-Note above that `from` is a high-precedence operator so you don't need to wrap from calls in parentheses.
-
-## Value Restrictors
-
-Value type classes also have an additional power in the form of a value restrictor (or just restrictor for short).  Adding
-a restrictor allows you to introduce additional logic defining what values may be contained within a value type class.
-Using this logic, we could expand our `Number` definition to include a positive type.
-
-    type Number
-        | Positive(v: int) when v > 0
-        | Int(int)
-        | Decimal(double)
-        ;
-
-As you can see, to add a value restrictor, you need only add on an additional when expression and a give the type a local
-name within the type class.
-
-## Multi-Variant Type Classes
-
-This is the final and most powerful form of type class.  It is a type class in which all the elements are used together.
-A great example of such a type class would be an optional type class.
-
-    type OptionalFloat
-        | Some(float)
-        | None
-        ;
-
-Here we are combining the traits of an enumerated type class and a value type class.  This type of combination can be done
-easily and is often used within Whirlwind.  We call type classes which combine multiple types of values **multi-variant
-type classes**. A usage of the above class could look like the following:
-
-    include { Println } from std::io;
-    
-    // sqrt may fail if the integer is negative
-    func sqrt(x: int) OptionalFloat {
-        // -- snip --
-    } 
+Bam.  No fuss, no mess, just plain old lambdas.  And just top it off, you can put entire function blocks inside lambdas
+not just expressions.  So let's change it up and instead of adding one, calculate the factorial of each number.
 
     func main() {
-        let res = sqrt(3);
+        let myList = [1, 3, 5, 7];
 
-        if (res is Some) {
-            Println(from (res as Some));
-        } else {
-            Println("Failed to find result.");
-        }
+        myList = applyToList(myList, |x| {
+            // the right hand expression is fully executed before the loop begins
+            for (n <- 2..x)
+                x *= n;
+
+            return x;
+        });
     }
 
-The code above introduces the final operator we will cover in this chapter that is most pertinent to multi-variant and value
-type classes: the `is` operator.  This operator allows you to determine to true type of any value.  In this case, we used it
-to test if `res` is a `Some` or not.  You can also use `is` on any other type if you want to know its actual type (such as
-with classifying interfaces).
+Now, we have a list full of factorials.  Before we move on the last concept in this chapter, we need to look at
+one little thing.  No argument lambdas.  These do indeed occur, and when using them you need to be careful not
+to confuse the `||` operator for the beginning of an empty lambda.  As a rule of thumb, whenever you declare a
+no argument lambda, put a space in between the `|` operators.  Not only will it prevent annoying syntax errors, but
+it will also make your code more readable.
 
-Whew!  You did it.  That was almost certainly one of the most complex chapters in this guide.  As you might imagine, it isn't
-completely comprehensive to type classes, but it is pretty close.  Just remember that the best way to truly understand these
-constructs is to actually use them.  We have recently covered a lot of heavy stuff from interfaces to type classes. The good
-news is, you get a break for the next four chapters which are a lot lighter and easier to understand.  Just remember to keep
-going at it because eventually it will all make sense, especially once you can see the big picture.
+## Closures
+
+The final piece of the puzzle is the closure.  A closure is not so much its own unique data type, but rather
+a type of function.  A **closure** is a function that *closes around* its external state.  That probably sounds
+a bit confusing so let's look at an example.
+
+Suppose you wanted to craft a function that everytime it was called, it would return the next consecutive integer.
+You could do this using the power of closures.  Let's declare a function `consecutive` that is going to return
+one of these special functions.
+
+    func consecutive() func()(int) {
+
+    }
+
+Inside `consecutive` is where the real magic is going to happen.
+
+    func consecutive() func()(int) {
+        let c = 0;
+
+        return | | => c++;
+    }
+
+Did you see what happened there?  The lambda captured `c` in its body.  Now, let's look at what calls this returned
+function behave like.
+
+    func main() {
+        let cs = consecutive();
+
+        cs(); // 0
+
+        cs(); // 1
+
+        cs(); // 2
+    }
+
+Most of you are probably a bit confused right now.  Why is `cs` returning a different value for `c`?  I thought it was
+`0`.  Well, my friends, this the magic of the closure.  When a closure closes around its external state, it captures all
+the variables in it as references by default.  This means that when we execute `c++` in the lambda, we are actually modifying
+a reference to `c`.
+
+However, this has some interesting implications.  Let's examine the code from before more closely by adding on a few extra lines.
+
+    func main() {
+        let cs = consecutive();
+
+        cs(); // 0
+
+        cs(); // 1
+
+        let cs2 = consecutive();
+
+        cs2(); // 2
+
+        cs(); // 3
+    }
+
+Here we see the one caveat to closures.  Because they capture their state by reference, they all modify the same, **shared** state.
+So, when `cs2` is created, it captures the same reference to `c` that `cs` had and in doing so, latched on to the modified version of `c`
+meaning `c` had an initial value of `2`.  Moreover, when we called `cs` again after `cs2`, we see that the same principle occurs.  Because
+`cs2` modified not a copy of `c`, but the original version of `c` itself, `cs` received and incremented that modified version.  
+Thus, we observe the above behavior.

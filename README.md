@@ -13,8 +13,7 @@ The Official Whirlwind Language Website
 - Control Flow
 - Functions
 - Tuples
-- Pointers and References
-- Ownership and Lifetimes
+- Pointers and Lifetimes
 - Structs
 - Interfaces
 - Overloading

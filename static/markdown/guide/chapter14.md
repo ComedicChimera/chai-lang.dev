@@ -1,193 +1,118 @@
-# Lambdas and Closures
+# Captures
 
-Lambdas and closures are probably some of the most powerful tools in all
-of Whirlwind.  They power many of the patterns and constructs underlying Whirlwind
-and are relatively simple to understand.
+Captures are a small, but critical part of Whirlwind.  They are how we control scope and what
+exists in it.
 
-## Functions as Objects
+## Capture Basics
 
-Before we can understand the idea of a lambda, we must first discuss functions.
-Or rather, look at functions in a unique light.  Up until now, we have exclusively
-examined functions as high level, static constructs, designed only to be called.
-But, that is only half the picture.
+Captures define how the higher scopes are represented in the current scope.  They do this by excluding
+and redefining the variables and types that exposed in the upper scope.
 
-A function is in fact a type, like a struct or an interface.  And as such, they
-can be made into objects (tangible items that can be stored and operated upon).
-Consider the simple function that adds two numbers.
+A capture begins with the `with` keyword and is followed by the list of variables that are intended to be
+visible in the current scope.
 
-    func add(a, b: int) int
-        => a + b;
+    let (a = 10, b = 4, c = 3);
 
-What if I told you that it were possible to store this function in a variable?  Well,
-as it turns out, this is possible.
+    with [a, b] {
+        a = b + 2;
 
-    let f = add;
-
-And even crazier, it is possible to call `f` like a function.
-
-    f(3, 4); // => 7
-
-Pretty cool right?  In reality, the call `()` operator is just that, an operator.
-There isn't really anything special about it besides the fact that it can be used to
-call functions.
-
-> The `()` is also the only operator that can't be overloaded.
-
-But here's where it gets even weirder.  It is possible to, in fact, pass functions
-to functions.  Consider the example below:
-
-    func applyToList(list: [int], fn: func(int)(int)) [int] {
-        for (i = 0; i < list.len; i++)
-            list[i] = fn(list[i]);
-
-        return list;
+        // ERROR: c is not defined
+        b = a * c;
     }
 
-The function `applyToList` accepts a list a function called `fn` and applies that function
-the each element in the list.  `applyToList` is what we call a **higher-order function** which
-is a function that accepts another function as an argument.
+By default, captures take in variables by reference, but you can change it to take in variables by value
+using the `val` prefix.
 
-> It is **not** possible to have named arguments in this context so as the names
-> are not specified in the function type label.
+    // a, b, and c are defined up here
 
-This is also the first example of the function type label.  This label begins with the `func`
-keyword and is followed by two parentheses: the first contains the types of the arguments and the
-second containing its return type(s).  The function type label does distinguish between regular,
-optional, and indefinite arguments by requiring you to place a `~` **after** each optional argument
-and `...` **before** each indefinite argument.
+    with [val a, b] {
+        a = b + 2;
 
-> If omit the type after the `...`, the argument is assumed to be variadic.
+        b = a * 4;
+    }
 
-To use our `applyToList` function, we would follow the same protocal as before.
+    let d = a + b; // d = 34 (10 + 24);
 
-    func increment(x: int) => x + 1;
+Because `a` is taken in by value instead of by reference, its value outside the sub-scope is not effected.
+
+> When we say taken by reference here, we just mean that the compiler exposes the variables normally:
+> no pointer or reference is created.  Similarly, taken by value just means that the compiler creates
+> a local copy of the variable in the enclosed scope.
+
+You can also redefine a variable as constant within a sub-scope or take ownership of it using the corresponding keywords.
+
+    let p = make int;
+
+    let a = 5;
+    *p = 14;
+
+    with [own p, const a] {
+        a = 3; // ERROR: a is constant
+
+        delete p; // this sub scope owns "p" so ok
+    }
+
+    // a is no longer constant
+    a = 15;
+
+Captures can also be used to exclude a variable by means of the `!` prefix.
+
+    with [!a] {
+        b = c * 4;
+
+        a += b; // ERROR: a does not exist
+    }
+
+However, when the capture is excluding values, it accepts all non-excluded values unless another value is specified.
+
+    with [!a, c] {
+        // neither b nor a exist
+        c = b * a;
+
+        // A, ok
+        c = 4;
+    }
+
+Using these two patterns together is almost always redundant so we don't normally recommend doing it.
+
+Finally, if a capture is not told to exclude or include anything, it excludes everything by default.  This
+will isolate any scope wrapped by an empty capture from accessing any outside information.
+
+## Captures on Functions
+
+In addition to being bound to ordinary sub-scopes, captures can be attached to the end of any function.
+
+    let var = 45;
+
+    func f() with [!var] {
+        var = 4; // ERROR: var is not defined
+    }
+
+But, more importantly, captures can be used to regulate how a closure accesses and manages information.
+
+    func getFn() func()(str) {
+        let privString = "abc";
+
+        return | | with [val privString] {
+            privString += "d";
+
+            return privString;
+        }
+    }
 
     func main() {
-        let myList = [1, 3, 5, 7];
+        let f1 = getFn();
 
-        // after this call: myList = [2, 4, 6, 8]
-        myList = applyToList(myList, increment);
+        f1(); // abcd
+
+        let f2 = getFn();
+
+        f2(); // abcd
+
+        f2(); // abcd
     }
 
-Here, the function `increment` is passed as the second argument and is objectified before being
-passed.
-
-> There is a method called `map` that exists on all iterables in Whirlwind that exhibits a similar
-> behavior to our `applyToList`.  Look it up in the standard library docs to learn more about it.
-
-## Lambdas
-
-Now, you have probably already notice a flaw the above model, you have to define a function fully
-before you can objectify it.  Even if you were to define `increment` locally (within the body of main
-which is possible in Whirlwind), you would still run into the same problem.  And, as it happens Whirlwind
-has a solution: the **lambda**.  A lambda is anonymous function, meaning it has no name by default and is
-the closest thing we can get to a "function literal".  Let's see how you would fix the `applyToList` example
-using a lambda.
-
-    // applyToList up here somewhere
-
-    func main() {
-        let myList = [1, 3, 5, 7];
-
-        myList = applyToList(myList, |x: int| => x + 1);
-    }
-
-And there it is, no increment function, no unneeded variables, just the behavior we want to occur.  You have probably
-already guess what the lambda syntax is: a normal argument definition enclosed in `|` followed by a standard function
-body.  Pretty easy right?  And it gets better.
-
-Remember how earlier in the section on type classes, I mentioned that one other type has context-based inference?  Well,
-here it is.  Lambdas have context based inference on the types of their arguments **and** their return type.  You do not need
-to specify either.  In fact, Whirlwind does not **allow** you to specify the return type because it will always be inferable
-from the function body.
-
-So let's rewrite this scenario one more time.
-
-    func main() {
-        let myList = [1, 3, 5, 7];
-
-        myList = applyToList(myList, |x| => x + 1);
-    }
-
-Bam.  No fuss, no mess, just plain old lambdas.  And just top it off, you can put entire function blocks inside lambdas
-not just expressions.  So let's change it up and instead of adding one, calculate the factorial of each number.
-
-    func main() {
-        let myList = [1, 3, 5, 7];
-
-        myList = applyToList(myList, |x| {
-            // the right hand expression is fully executed before the loop begins
-            for (n <- 2..x)
-                x *= n;
-
-            return x;
-        });
-    }
-
-Now, we have a list full of factorials.  Before we move on the last concept in this chapter, we need to look at
-one little thing.  No argument lambdas.  These do indeed occur, and when using them you need to be careful not
-to confuse the `||` operator for the beginning of an empty lambda.  As a rule of thumb, whenever you declare a
-no argument lambda, put a space in between the `|` operators.  Not only will it prevent annoying syntax errors, but
-it will also make your code more readable.
-
-## Closures
-
-The final piece of the puzzle is the closure.  A closure is not so much its own unique data type, but rather
-a type of function.  A **closure** is a function that *closes around* its external state.  That probably sounds
-a bit confusing so let's look at an example.
-
-Suppose you wanted to craft a function that everytime it was called, it would return the next consecutive integer.
-You could do this using the power of closures.  Let's declare a function `consecutive` that is going to return
-one of these special functions.
-
-    func consecutive() func()(int) {
-
-    }
-
-Inside `consecutive` is where the real magic is going to happen.
-
-    func consecutive() func()(int) {
-        let c = 0;
-
-        return | | => c++;
-    }
-
-Did you see what happened there?  The lambda captured `c` in its body.  Now, let's look at what calls this returned
-function behave like.
-
-    func main() {
-        let cs = consecutive();
-
-        cs(); // 0
-
-        cs(); // 1
-
-        cs(); // 2
-    }
-
-Most of you are probably a bit confused right now.  Why is `cs` returning a different value for `c`?  I thought it was
-`0`.  Well, my friends, this the magic of the closure.  When a closure closes around its external state, it captures all
-the variables in it as references by default.  This means that when we execute `c++` in the lambda, we are actually modifying
-a reference to `c`.
-
-However, this has some interesting implications.  Let's examine the code from before more closely by adding on a few extra lines.
-
-    func main() {
-        let cs = consecutive();
-
-        cs(); // 0
-
-        cs(); // 1
-
-        let cs2 = consecutive();
-
-        cs2(); // 2
-
-        cs(); // 3
-    }
-
-Here we see the one caveat to closures.  Because they capture their state by reference, they all modify the same, **shared** state.
-So, when `cs2` is created, it captures the same reference to `c` that `cs` had and in doing so, latched on to the modified version of `c`
-meaning `c` had an initial value of `2`.  Moreover, when we called `cs` again after `cs2`, we see that the same principle occurs.  Because
-`cs2` modified not a copy of `c`, but the original version of `c` itself, `cs` received and incremented that modified version.  
-Thus, we observe the above behavior.
+Because we use a capture to specify that the lambda should take in `privString` by value and not by reference,
+our changes to `privString` are only preserved within the temporary scope of the closure.  So even when the same
+closure is called twice, `privString` still keeps it initial value because all changes made to it actually only
+affect a copy of `privString`, not `privString` itself.

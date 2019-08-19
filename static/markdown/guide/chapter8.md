@@ -1,4 +1,4 @@
-# Pointers and References
+# Pointers and Lifetimes
 
 This chapter will cover some of the more systems
 oriented aspect of Whirlwind including the stack,
@@ -113,48 +113,139 @@ The variable `hp` is now a **heap pointer**.  This means that it is pointing to 
 an integer.  It is important to note that all values allocated on the heap cannot be directly stored.  They instead must be
 reference through pointers.  So, all values returned by dynamic allocation calls are pointers.
 
-These pointers can be dereferenced like any old pointer and their type is no different from that of a normal pointer.  The
-only difference is where they are pointing.
+There is however an important difference between this kind of pointer and the stack pointers we saw previously.  That is the
+in Whirlwind, a heap pointer (or dynamic pointer) is actually a different type from the pointers we looked at previously.  They
+are declared just like normal pointers except with the `dyn` prefix before them.
 
-Because heap values are not always automatically deallocated when the current stack frame expires, you will often want to
-delete heap values manually.  This is done with the `delete` keyword.
+    let x: dyn* int;
+
+These pointers can only be created by a heap call as mentioned before; however, we did not mention that the heap call itself can
+only be performed under certain circumstances.  The most simple example of invalid heap allocation occurs when it occurs as an expression
+statement.
+
+    make int;
+
+This will warrant an exception that looks something like "unable to perform heap allocation without possibility of an owner".  Owner, in this
+context, means a deletable name for the heap memory.
+
+Speaking of, deletion works a little bit differently for heap pointers in Whirlwind.  First of all, any heap pointer will be automatically deallocated
+via a delete call inserted by the compiler when their current stack frame expires unless they are being returned or elevated to a higher scope.  Whirlwind
+will makes its best guess on whether or not it can delete something, and if it is not sure, it will opt not to delete it in order to avoid problems later on.
+
+Given that, you may want to manually delete memory under certain circumstances to prevent memory leaks.  This is done with the `delete` keyword.
 
     delete hp;
 
-The heap pointer we created is now null and the value it held has been deallocated.  You can use this pointer to store other
-values, but you cannot access its value until it has been reallocated definitively.
+The heap pointer we created now points to nothing and the memory under it has been freed.  This is important to be aware of as if you try to dereference
+a heap (or stack pointer) that is null, you will get a null pointer exception by default.
 
-The compiler will flag all uses of `hp` until it is set to point to a definite value.  This includes conditional
-uses of `hp` such as those inside an `if` tree.  However, conditional uses will normally result in warnings
-not a compile error, but unless you know for sure that the value is not accessed when it not allocated, I would
-recommend you treat these warnings as if they were explicit errors.
+## Move Semantics and Nullable Dereferencing
 
-## References
+Dynamic allocation, as useful as it is for holding onto memory for long periods of times, introduces some issues.  Consider the code below.
 
-References are like slightly more convenient pointers. They exist for when you want to use a pointer, but don't want to
-have to use the dereferencing syntax associated with them.
+    func main() {
+        let p = make int;
 
-To create a reference, you need only use the `ref` keyword.
+        // do something with p
 
-    let arr = {1, 2, 3, 4};
+        p = make int;
 
-    let r = ref arr;
+        // do something else with new p
+    }
 
-The variable `r` is now a reference to `arr`.  References can be treated as if they were the value they store, but in reality
-they are just masked pointers.
+The code, by itself, looks innocent enough, except for one small problem.  Because values on the heap are not deallocated automatically unless they are named
+(ie. via inserting a delete statement), when p's value is changed, the memory it pointed too is never deallocated.  It is no longer named and so Whirlwind has
+no way of statically determining whether or not to delete it.  And so now, it is just sitting on the heap not doing anything, and it won't be deleted until the
+entire heap is deleted at the end of program execution.  This creates what we call, a memory leak, and these can be a huge problem if you are not careful.
 
-    let second = r[1]; // perfectly valid
+The simple way to avoid this problem is simply by deleting the pointer everytime you change its value.
 
-The reference type specifier is connoted with the `ref` keyword followed by the type referenced.
+    func main() {
+        let p = make int;
 
-    let r2: ref [int];
+        // -- snip --
 
-References are just as light weight as pointers, but without the additional hassle.  However, references are type safe meaning you cannot
-set a reference to a non-reference, but you can set a non-reference equal to a reference.
+        delete p;
+        p = make int;
 
-    let arr2: [3]int = r; // valid
+        // -- snip --
+    }
 
-    r = arr2; // ERROR
+Now, p's underlying memory is freed, and we are safe to change its value.  This works most of the time, provided that all of this is happening in the same scope
+and their is no in between.  For example, if `p` were passed to a function and that function deleted it, you could be in a bit of pickle.  Luckily, Whirlwind provides
+several avenues to avoid the problems of manual deletion.
 
-References are very powerful, but they do still require that you are aware of their presence.  References are for the most part completely managed
-by the compiler, so you should be safe when using them.
+The first is the addition of move semantics.  All dynamic pointers have a builtin method called `move()` which takes in a new memory address as an argument.  Whenever it
+is called, it first frees the underlying memory, handling the memory leak problem, and then assigned the pointer to a new value.
+
+    func main() {
+        let p = make int;
+
+        // -- snip --
+
+        p.move(make int);
+
+        // -- snip --
+    }
+
+Now, whenever p's value is changed, its memory is safely freed, and it is immediately provided with a new value.
+
+> Whirlwind's standard library implement to special kinds of pointers: `UniquePointer`, which automatically implements move semantics
+> on its assignment operator (via a special method), and `SharedPointer` which keeps count of how many times it's value is copied and
+> only applies move semantics when there is only one reference to it to avoid deleting things where not appropriate.
+
+However, move semantics are not the universal antidote: sometimes you just want to delete something, but still need to try to access it
+again.  You can employ a null test before you dereference any heap pointer you are uncertain about:
+
+    func main() {
+        let p = make int;
+
+        // `p` may be deleted somewhere
+
+        // null check
+        let value = *p if p != null else 0;
+        
+        // use p elsewhere
+    }
+
+This solution of course works, but it is a little verbose.  Luckily, Whirlwind provides a **nullable dereference operator** which simply
+returns null when the deference fails as opposed to throwing an error.
+
+    func main() {
+        let p = make int;
+
+        // -- snip --
+
+        // *? is nullable dereference
+        let value = *?p;
+
+        // -- snip --
+    }
+
+Now, we can safely dereference `p` without worrying about null pointer errors.
+
+## Lifetimes
+
+There is one final piece of the puzzle to Whirlwind's memory model, and it is lifetimes.  A lifetime defines, as the name would imply,
+how long a piece of memory exists for.  By default, all variables have what is called a **standard life-time**.  
+This means the variable (or other value) exists until it goes out of scope (with the exception of heap memory sometimes).  If it is in a function, it is
+recreated everytime that function is called.  However, this can sometimes be inconvenient if for example you need data to persist between
+function calls.  This is why Whirlwind implements what are called **static life-times**.
+
+A static life-time is a life-time that extends indefinitely.  This means that a variable's value and memory are retained forever.  You can
+designate a variable as static via the use of the `static` modifier in the declaration.
+
+    func counter() int {
+        let static inc = 0;
+
+        return inc++;
+    }
+
+    func main() {
+        counter(); // 0
+        counter(); // 1
+    }
+
+As you can see, because `inc` is marked as static, its memory is never deallocated, and its value persists.  If you allocate any thing statically,
+you should never really need to worry about deleting unless it is a heap pointer and you want to change its value safely.  These values are automatically
+disposed of when the program exits so there is no reason to worry about them.
