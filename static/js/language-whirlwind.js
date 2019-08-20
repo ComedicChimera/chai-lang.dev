@@ -58,13 +58,13 @@ Prism.languages.whirlwind = {
         },
         // special
         {
-            pattern: /\b(new|make|from|include|delete|export|await|ref|then|val|is|as)\b/
+            pattern: /\b(new|make|from|include|delete|export|await|then|val|is|as)\b/
         }
     ],
     'function': /[a-zA-Z_]\w*(?=\()/,
     'punctuation':/[{}[\];(),.]/,
-    'operator': /[+\-*\/%&\^!|><=\~]/,
+    'operator': /[+\-*\/%&\^!|><=\~\?]/,
     'boolean': /true|false/,
-    'modifier': /\b(vol|static|own)\b/,
+    'modifier': /\b(vol|static|dyn)\b/,
     'constant': /\b(this|null|_)\b/,
 };
