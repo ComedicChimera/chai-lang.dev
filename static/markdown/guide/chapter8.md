@@ -1,6 +1,6 @@
 # Pointers and Lifetimes
 
-This chapter will cover some of the more systems
+This chapter will cover some of the more systems-
 oriented aspect of Whirlwind including the stack,
 the heap, dynamic allocation, and, of course,
 pointers and references.

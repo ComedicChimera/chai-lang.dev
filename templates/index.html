@@ -68,7 +68,7 @@
                         <pre><code class="language-whirlwind">
 include { Println } from io::std;
 
-func fib() func()(int) {
+func fib() const func()(int) {
     let (a = 0, b = 1);
 
     func f() int {
@@ -89,7 +89,7 @@ func main() {
     }
 
     f = fib();
-    f(); // 55
+    f(); // 0
 }
                         </code></pre>
                     </div>
@@ -109,7 +109,7 @@ func radixSort(list: [int]) [int] {
         for (item <- list)
             buckets[item ~/ (10 ~^ it) % 10].push(item);
 
-        list = list.flatten().collect();
+        list = list.flatten().toList();
     }
 
     return list;
@@ -137,7 +137,7 @@ type Option&lt;T&gt;
     | None
     ;
 
-interf&lt;T&gt; for Option is Monad {
+interf&lt;T&gt; for Option&lt;T&gt; is Monad&lt;T&gt; {
     operator >>= (fn: func(T)(Option&lt;T&gt;)) Option&lt;T&gt; {
         if (this is None)
             return None;
@@ -165,12 +165,12 @@ func main() {
                         <pre><code class="language-whirlwind">
 struct Node {
     val: int;
-    left, right: *Node;
+    left, right: dyn* Node;
 }
 
-func insert(root: *Node, val: int) {
+func insert(root: dyn* Node, val: int) {
     if (root == null)
-        root = &new Node { val = val, left = null, right = null };
+        root = make Node { val = val, left = null, right = null };
 
     if (root->val > val)
         insert(root->left, val);
@@ -181,10 +181,10 @@ func insert(root: *Node, val: int) {
 func main() {
     let arr = {2, 3, 0, 1, 5, 4, 7, 6, 8};
 
-    let root = new Node { val = arr[0], left = null, right = null };
+    let root = make Node { val = arr[0], left = null, right = null };
 
     for (n <- arr) {
-        insert(&root, n);
+        insert(root, n);
     }
 }
 

@@ -20,7 +20,6 @@
     - Lists
     - Dictionaries
     - Pointers
-    - References
     - Tuples
     - Functions
     - Structures
@@ -35,7 +34,6 @@
     - Val
     - Comprehensions
     - Lambdas
-    - Type Casts
     - Partial Functions
 
 6. Expressions
@@ -53,7 +51,8 @@
     - Case Expressions
     - Range Expressions
     - Then Expressions
-    - Is and As Expressions
+    - Is Expressions
+    - Cast Expressions
     - Extract Expressions
 
 7. Statements
@@ -83,18 +82,18 @@
     - Type Class Declarations
 
 10. Scoping
-    - Sub Scopes
+    - Subscopes
     - Shadowing
     - Captures
     - Declaration Order
 
-11. Memory and Ownership
+11. Memory
     - Stack Allocation
     - Default Initialization
+    - Pointers
+    - Null and Nullable Operations
     - Heap Allocation
     - Heap Deallocation
-    - Null
-    - Ownership
     - Lifetimes
 
 12. Functional Behaviors
@@ -277,7 +276,6 @@ as they are read by the compiler.
     "YIELD" := /\byield\b/,
     "DELETE" := /\bdelete\b/,
     "FROM" := /\bfrom\b/,
-    "OWN" := /\bown\b/,
     "VOL" := /\bvol\b/,
     "MAKE" := /\bmake\b/,
     "WITH" := /\bwith\b/,
@@ -298,7 +296,6 @@ as they are read by the compiler.
     "NULL" := /\bnull\b/,
     "IS" := /\bis\b/,
     "THEN" := /\bthen\b/,
-    "REF" := /\bref\b/,
     "VAL" := /\bval\b/,
     "AS" := /\bas\b/,
     "STRING_TYPE" := /\bstr\b/,
