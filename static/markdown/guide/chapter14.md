@@ -39,22 +39,6 @@ Because `a` is taken in by value instead of by reference, its value outside the 
 > no pointer or reference is created.  Similarly, taken by value just means that the compiler creates
 > a local copy of the variable in the enclosed scope.
 
-You can also redefine a variable as constant within a sub-scope or take ownership of it using the corresponding keywords.
-
-    let p = make int;
-
-    let a = 5;
-    *p = 14;
-
-    with [own p, const a] {
-        a = 3; // ERROR: a is constant
-
-        delete p; // this sub scope owns "p" so ok
-    }
-
-    // a is no longer constant
-    a = 15;
-
 Captures can also be used to exclude a variable by means of the `!` prefix.
 
     with [!a] {

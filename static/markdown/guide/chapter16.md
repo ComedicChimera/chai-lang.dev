@@ -16,7 +16,7 @@ comprehension has two parts: the action and the iterator, and they are described
 in that order.  Let's look at simple comprehension that takes a range of numbers
 and multiplies them by 2.
 
-    [x * 2 | x <- 1..11];
+    [x * 2 | x <- 1..10];
 
 The first thing to notice is that this is a list comprehension.  The second is
 the action.  This is the `x * 2` component of the comprehension.  The result of
@@ -51,7 +51,7 @@ one action expression it has two: one for the key and one for the value.
 
 You declare it with `{}` and separate the action expressions with a `:`.
 
-    let numbersAndChars = {x: cast<char>(x + 65) | x <- 1..11};
+    let numbersAndChars = {x: cast<char>(x + 65) | x <- 1..10};
 
 This creates a new dictionary with the numbers 1 through 10 as its keys and
 the characters as its values starting at "A" and going until "J".

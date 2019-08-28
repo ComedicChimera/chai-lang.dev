@@ -117,7 +117,7 @@ not just expressions.  So let's change it up and instead of adding one, calculat
 
         myList = applyToList(myList, |x| {
             // the right hand expression is fully executed before the loop begins
-            for (n <- 2..x)
+            for (n <- 1..x)
                 x *= n;
 
             return x;
