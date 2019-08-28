@@ -93,18 +93,18 @@ a range, you must use the `..` operator, bounded by two integers.
 
     let r = 1..10;
 
-The above range creates a list of numbers 1 through 9.  Notably, Whirlwind ranges generate
-including the leading bound and excluding the ending bound.  Ranges only go in one direction:
-least to greatest and will generate an empty range if any other pairing occurs.
+The above range creates a list of numbers 1 through 10.  Notably, Whirlwind ranges generate
+including the leading bound the ending bound.  Ranges can go both from least to greatest and
+from greatest to least and will only generate empty ranges if the numbers are the same.
 
 > Unlike some languages, Whirlwind only allows the creation of ranges of integers by default.
 
 Ranges are high level expressions meaning in order to access the range as a whole, you must
 enclose it in parentheses.
 
-    let r = 1..9[2]; // ERROR: you can't subscript integers
+    let r = 1..10[2]; // ERROR: you can't subscript integers
 
-    r = (1..9)[0]; // A OK
+    r = (1..10)[0]; // A OK
 
 This can be somewhat inconvenient, but it allows you to put complete expressions on each side of the
 range as opposed to only simple literals.
