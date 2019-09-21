@@ -16,6 +16,7 @@
 
 4. Data Types
     - Primitives
+    - Any and None
     - Arrays
     - Lists
     - Dictionaries
@@ -23,6 +24,7 @@
     - Tuples
     - Functions
     - Structures
+    - Interfaces
     - Type Classes
 
 5. Bases
@@ -216,11 +218,13 @@ as they are read by the compiler.
     "FLOAT_LITERAL" := /\d+\.\d+/,
     ">>=" := />>=/,
     ":>" := /\:>/,
+
     ":=" := /\:=/,
     "++" := /\+\+/,
     "--" := /\-\-/,
     "#" := /#/,
     "@" := /@/,
+
     "..." := /\.{3}/,
     "~*" := /~\*/,
     "~/" := /~\//,
@@ -252,15 +256,18 @@ as they are read by the compiler.
     "<" := /</,
     "&" := /&/,
     "~" := /~/,
+
     "(" := /\(/,
     ")" := /\)/,
     "{" := /\{/,
     "}" := /\}/,
     "[" := /\[/,
     "]" := /\]/,
+
     "LET" := /\blet\b/,
     "CONST" := /\bconst\b/,
     "_" := /\b_\b/,
+
     "IF" := /\bif\b/,
     "ELIF" := /\belif\b/,
     "ELSE" := /\belse\b/,
@@ -272,32 +279,40 @@ as they are read by the compiler.
     "CONTINUE" := /\bcontinue\b/,
     "WHEN" := /\bwhen\b/,
     "AFTER" := /\bafter\b/,
+
     "RETURN" := /\breturn\b/,
     "YIELD" := /\byield\b/,
+
     "DELETE" := /\bdelete\b/,
     "FROM" := /\bfrom\b/,
     "VOL" := /\bvol\b/,
     "MAKE" := /\bmake\b/,
     "WITH" := /\bwith\b/,
     "STATIC" := /\bstatic\b/
+    "DYN" := /\bdyn\b/,
+
     "FUNC" := /\bfunc\b/,
     "ASYNC" := /\basync\b/,
     "AWAIT" := /\bawait\b/,
     "VARIANT" := /\bvariant\b/,
     "CONSTRUCTOR" := /\bconstructor\b/,
     "OPERATOR" := /\boperator\b/,
+
     "TYPE" := /\btype\b/,
     "STRUCT" := /\bstruct\b/,
     "INTERF" := /\binterf\b/,
+
     "INCLUDE" := /\binclude\b/,
     "EXPORT" := /\bexport\b/,
+
     "THIS" := /\bthis\b/,
     "NEW" := /\bnew\b/,
     "NULL" := /\bnull\b/,
     "IS" := /\bis\b/,
     "THEN" := /\bthen\b/,
-    "VAL" := /\bval\b/,
+    "VALUE" := /\bvalue\b/,
     "AS" := /\bas\b/,
+
     "STRING_TYPE" := /\bstr\b/,
     "FLOAT_TYPE" := /\bu?float\b/,
     "BOOL_TYPE" := /\bbool\b/,
@@ -306,7 +321,8 @@ as they are read by the compiler.
     "LONG_TYPE" := /\bu?long\b/,
     "DOUBLE_TYPE" := /\bu?double\b/,
     "INT_TYPE" := /\bu?int\b/,
-    "VOID_TYPE" := /\bvoid\b/,
+    "ANY_TYPE" := /\bany\b/,
+
     "BOOL_LITERAL" := /\b(true|false)\b/,
     "HEX_LITERAL" := /0x[0-9A-F]+/,
     "BINARY_LITERAL" := /0b[10]+/,
@@ -324,7 +340,7 @@ in the order that they appear in the program file.
 
 ### <a name="notation"></a> Notation
 
-Our context-free grammar uses a modified form of EBNF (Extended Backus-Naur Form) that allows for comments and does not include a `?` operator 
+Our context-free grammar uses a modified form of EBNF (Extended Backus-Naur Form) that allows for comments and does not include a `?` operator
 or token literals.  Additionally, it uses a different production declaration operator.
 
 The below code block outlines the syntactic notation used in our custom EBNF notation.
