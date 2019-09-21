@@ -37,9 +37,9 @@
             let elements = $('.language-whirlwind');
 
             for (var i = 0; i < elements.length; i++) {
-                let html = dp.parseFromString(elements[i].innerHTML, 'text/html').documentElement.textContent
+                let html = dp.parseFromString(elements[i].innerHTML, 'text/html').documentElement.textContent;
 
-                elements[i].innerHTML = Prism.highlight(html, Prism.languages.whirlwind);
+                elements[i].innerHTML = Prism.highlight(html, Prism.languages.whirlwind);                  
             }
         </script>
     </body>

@@ -7,3 +7,5 @@
 .vscode/*
 
 /app/__pycache__
+
+to_markdown.py

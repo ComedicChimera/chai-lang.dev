@@ -22,5 +22,23 @@
         </article>
 
         {% include 'components/footer.html' %}
+
+        <script>
+            let dp = new DOMParser();
+            let elements = $('pre > code');
+
+            for (var i = 0; i < elements.length; i++) {
+                let html = dp.parseFromString(elements[i].innerHTML, 'text/html').documentElement.textContent;
+
+                if (i < 3) {
+                    elements[i].innerHTML = Prism.highlight(html, Prism.languages.js);
+                    elements[i].classList.add('.language-javascript');
+                }
+                else {
+                    elements[i].innerHTML = Prism.highlight(html, Prism.languages.whirlwind);
+                    elements[i].classList.add('.language-whirlwind');
+                }
+            }
+        </script>
     </body>
 </html>

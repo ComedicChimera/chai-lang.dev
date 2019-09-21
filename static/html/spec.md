@@ -382,8 +382,8 @@ is designed to deal with this complex grammar with ease.  The start symbol for t
 
 Below is the complete grammar for Whirlwind exactly as it is read by the compiler.
 
-*insert grammar when ready*
+    // grammar goes here
 
 This grammar is designed to be processed into an object by the grammar processor and subsequently passed
 to the parser for efficiency's sake.  It is only loaded once per run of the compiler regardless of how
-many files are being processed and remains any memory throughout compilation.
+many files are being processed and remains in memory throughout compilation.

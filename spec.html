@@ -1,0 +1,425 @@
+<h1>The Whirlwind Language Specification</h1>
+<h2>Table of Contents</h2>
+<ol>
+<li>
+<p><a href="#intro">Introduction</a></p>
+</li>
+<li>
+<p><a href="#copyright">Copyright</a></p>
+<ul>
+<li><a href="#lang-copy">Language and Website</a></li>
+<li><a href="#package-copy">Packages</a></li>
+<li><a href="#alt-impl">Alternate Implementations</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#syntax">Lexemes and Grammar</a></p>
+<ul>
+<li><a href="#lexemes">Lexical Elements</a></li>
+<li><a href="#notation">Notation</a></li>
+<li><a href="#grammar">Formal Grammar</a></li>
+</ul>
+</li>
+<li>
+<p>Data Types</p>
+<ul>
+<li>Primitives</li>
+<li>Any and None</li>
+<li>Arrays</li>
+<li>Lists</li>
+<li>Dictionaries</li>
+<li>Pointers</li>
+<li>Tuples</li>
+<li>Functions</li>
+<li>Structures</li>
+<li>Interfaces</li>
+<li>Type Classes</li>
+</ul>
+</li>
+<li>
+<p>Bases</p>
+<ul>
+<li>Literals</li>
+<li>Identifiers</li>
+<li>This</li>
+<li>Super</li>
+<li>Null</li>
+<li>Val</li>
+<li>Comprehensions</li>
+<li>Lambdas</li>
+<li>Partial Functions</li>
+</ul>
+</li>
+<li>
+<p>Expressions</p>
+<ul>
+<li>Nesting</li>
+<li>Precedence</li>
+<li>Atoms</li>
+<li>Unary Expressions</li>
+<li>Arithmetic Expressions</li>
+<li>Shift Expressions</li>
+<li>Comparison Expressions</li>
+<li>Logical Expressions</li>
+<li>Functional Expressions</li>
+<li>Expression Local Variables</li>
+<li>Ternary Expressions</li>
+<li>Case Expressions</li>
+<li>Range Expressions</li>
+<li>Then Expressions</li>
+<li>Is Expressions</li>
+<li>Cast Expressions</li>
+<li>Extract Expressions</li>
+</ul>
+</li>
+<li>
+<p>Statements</p>
+<ul>
+<li>Variable Declarations</li>
+<li>Assignment</li>
+<li>Return Statements</li>
+<li>Yield Statements</li>
+<li>Delete Statements</li>
+<li>Break Statements</li>
+<li>Continue Statements</li>
+<li>Expression Statements</li>
+</ul>
+</li>
+<li>
+<p>Block Statements</p>
+<ul>
+<li>If Statements</li>
+<li>Select Statements</li>
+<li>For Loops</li>
+<li>Context Managers</li>
+<li>After Clauses</li>
+</ul>
+</li>
+<li>
+<p>Declarations</p>
+<ul>
+<li>Function Declarations</li>
+<li>Decorator Tags</li>
+<li>Variant Declarations</li>
+<li>Structure Declarations</li>
+<li>Interface Declarations</li>
+<li>Interface Bindings</li>
+<li>Type Class Declarations</li>
+</ul>
+</li>
+<li>
+<p>Scoping</p>
+<ul>
+<li>Subscopes</li>
+<li>Shadowing</li>
+<li>Captures</li>
+<li>Declaration Order</li>
+</ul>
+</li>
+<li>
+<p>Memory</p>
+<ul>
+<li>Stack Allocation</li>
+<li>Default Initialization</li>
+<li>Pointers</li>
+<li>Null and Nullable Operations</li>
+<li>Heap Allocation</li>
+<li>Heap Deallocation</li>
+<li>Lifetimes</li>
+</ul>
+</li>
+<li>
+<p>Functional Behaviors</p>
+<ul>
+<li>Closures</li>
+<li>Higher Order Functions</li>
+<li>Composition</li>
+<li>Chaining</li>
+<li>Monads</li>
+</ul>
+</li>
+<li>
+<p>Interface Binding</p>
+<ul>
+<li>Type Inferfaces</li>
+<li>Methods</li>
+<li>Bind Labels</li>
+<li>Bind Order</li>
+<li>Generic Binding</li>
+</ul>
+</li>
+<li>
+<p>Type Relations</p>
+<ul>
+<li>Constancy</li>
+<li>Coercibility</li>
+<li>Casting</li>
+<li>Is Operator</li>
+<li>Classifying Interfaces</li>
+</ul>
+</li>
+<li>
+<p>Generics</p>
+<ul>
+<li>Generic Types</li>
+<li>Generic Restrictors</li>
+<li>Generate Construction</li>
+<li>Monomorphism</li>
+<li>Variance</li>
+</ul>
+</li>
+<li>
+<p>Operators</p>
+<ul>
+<li>Reference Operators</li>
+<li>Increment and Decrement</li>
+<li>Arithmetic Operators</li>
+<li>Conditional Operators</li>
+<li>Bitwise and Logical Operators</li>
+<li>Functional Operators</li>
+<li>Type Operators</li>
+<li>Operator Overloading</li>
+</ul>
+</li>
+<li>
+<p>Concurrency</p>
+<ul>
+<li>Fibers</li>
+<li>Asyncs</li>
+<li>Futures</li>
+<li>Threads</li>
+<li>Pooling</li>
+<li>Events</li>
+<li>Communication</li>
+</ul>
+</li>
+<li>
+<p>Packages and Inclusion</p>
+<ul>
+<li>Include Statements</li>
+<li>Export Statements</li>
+<li>Packages</li>
+<li>The Prelude</li>
+</ul>
+</li>
+<li>
+<p>Annotations</p>
+<ul>
+<li>File-Level Annotations</li>
+<li>Struct-Specific Annotations</li>
+<li>Function-Specific Annotations</li>
+<li>Local Annotations</li>
+</ul>
+</li>
+<li>
+<p>Optimizations</p>
+<ul>
+<li><em>insert here</em></li>
+</ul>
+</li>
+<li>
+<p>Runtime and Execution</p>
+<ul>
+<li>The <code>main</code> Function</li>
+<li>The Fiber and Thread Registry</li>
+<li>The Heap</li>
+<li>Compile-Time Intrinsics</li>
+</ul>
+</li>
+</ol>
+<h2><a name="intro"></a> Introduction</h2>
+<p>This specification is a complete reference manual and description
+of the Whirlwind Programming Language.  It describes the exact behavior
+and construction of each language element as well as the relation between
+language elements.</p>
+<p>Whirlwind is a compiled, modern, and multipurpose language designed with intentionality.
+It is strongly-typed, versatile, expressive, concurrent, and relatively easy to learn.  It does not
+have a garbage collector and accordingly places a heavy emphasis on memory safety.
+It boasts numerous new and old features and is designed to represent the needs of any software developer.</p>
+<h2><a name="copyright"></a> Copyright</h2>
+<p>Whirlwind is by nature a piece of intellectual property.  That being said, it is
+powered by and thrives off of its community and as such it has some rather unique
+rules for usage.</p>
+<h3><a name="lang-copy"></a> Language and Website Copyright</h3>
+<p><em>insert legal bs here</em></p>
+<h3><a name="package-copy"></a> Packages</h3>
+<p><em>insert more legal bs here</em></p>
+<h3><a name="alt-impl"></a> Alternate Implementations</h3>
+<p>It is perfectly acceptable to create an alternate implementation of the Whirlwind compiler
+and standard library.  Such implementations are not considered infringement on Whirlwind's
+copyright so long as they give credit to original language creators and acknowledge that they
+are indeed an alternate implementation of an existing programming language.  Additionally,
+in order to be considered a valid implementation, one must completely and totally conform to
+specification only allowing for deviation in the actual implementation details of the compiler
+and standard library elements.  Effectively, this specification needs to be a correct description
+of an alternate implementation in order for it to be considered valid.</p>
+<h2><a name="syntax"></a> Lexemes and Grammar</h2>
+<p>This section will describe the syntactic and lexical structure of the Whirlwind programming language
+in detail.</p>
+<h3><a name="lexemes"></a> Lexical Elements</h3>
+<p>The list below describes the exact and complete list of token names and their corresponding regular expressions
+as they are read by the compiler.  </p>
+<pre><code>"STRING_LITERAL" := /"(?:[^"\\']|\\.)*"/,
+"CHAR_LITERAL" := /'(?:[^"\\']|\\.)*'/,
+"FLOAT_LITERAL" := /\d+\.\d+/,
+"&gt;&gt;=" := /&gt;&gt;=/,
+":&gt;" := /\:&gt;/,
+
+":=" := /\:=/,
+"++" := /\+\+/,
+"--" := /\-\-/,
+"#" := /#/,
+"@" := /@/,
+
+"..." := /\.{3}/,
+"~*" := /~\*/,
+"~/" := /~\//,
+"~^" := /~\^/,
+"?" := /\?/,
+"." := /\./,
+":" := /\:/,
+"," := /,/,
+"!=" := /!=/,
+"!" := /!/,
+"AND" := /&amp;&amp;/,
+"OR" := /\|\|/,
+"XOR" := /\^\^/,
+"|" := /\|/,
+"&lt;-" := /&lt;-/,
+"-&gt;" := /-&gt;/,
+"+" := /\+/,
+"-" := /-/,
+"*" := /\*/,
+"/" := /\//,
+"%" := /%/,
+"==" := /==/,
+"&gt;=" := /&gt;=/,
+"&lt;=" := /&lt;=/,
+"=&gt;" := /=&gt;/,
+"=" := /=/,
+";" := /;/,
+"&gt;" := /&gt;/,
+"&lt;" := /&lt;/,
+"&amp;" := /&amp;/,
+"~" := /~/,
+
+"(" := /\(/,
+")" := /\)/,
+"{" := /\{/,
+"}" := /\}/,
+"[" := /\[/,
+"]" := /\]/,
+
+"LET" := /\blet\b/,
+"CONST" := /\bconst\b/,
+"_" := /\b_\b/,
+
+"IF" := /\bif\b/,
+"ELIF" := /\belif\b/,
+"ELSE" := /\belse\b/,
+"FOR" := /\bfor\b/,
+"SELECT" := /\bselect\b/,
+"CASE" := /\bcase\b/,
+"DEFAULT" := /\bdefault\b/,
+"BREAK" := /\bbreak\b/,
+"CONTINUE" := /\bcontinue\b/,
+"WHEN" := /\bwhen\b/,
+"AFTER" := /\bafter\b/,
+
+"RETURN" := /\breturn\b/,
+"YIELD" := /\byield\b/,
+
+"DELETE" := /\bdelete\b/,
+"FROM" := /\bfrom\b/,
+"VOL" := /\bvol\b/,
+"MAKE" := /\bmake\b/,
+"WITH" := /\bwith\b/,
+"STATIC" := /\bstatic\b/
+"DYN" := /\bdyn\b/,
+
+"FUNC" := /\bfunc\b/,
+"ASYNC" := /\basync\b/,
+"AWAIT" := /\bawait\b/,
+"VARIANT" := /\bvariant\b/,
+"CONSTRUCTOR" := /\bconstructor\b/,
+"OPERATOR" := /\boperator\b/,
+
+"TYPE" := /\btype\b/,
+"STRUCT" := /\bstruct\b/,
+"INTERF" := /\binterf\b/,
+
+"INCLUDE" := /\binclude\b/,
+"EXPORT" := /\bexport\b/,
+
+"THIS" := /\bthis\b/,
+"NEW" := /\bnew\b/,
+"NULL" := /\bnull\b/,
+"IS" := /\bis\b/,
+"THEN" := /\bthen\b/,
+"VALUE" := /\bvalue\b/,
+"AS" := /\bas\b/,
+
+"STRING_TYPE" := /\bstr\b/,
+"FLOAT_TYPE" := /\bu?float\b/,
+"BOOL_TYPE" := /\bbool\b/,
+"CHAR_TYPE" := /\bs?char\b/,
+"BYTE_TYPE" := /\bbyte\b/,
+"LONG_TYPE" := /\bu?long\b/,
+"DOUBLE_TYPE" := /\bu?double\b/,
+"INT_TYPE" := /\bu?int\b/,
+"ANY_TYPE" := /\bany\b/,
+
+"BOOL_LITERAL" := /\b(true|false)\b/,
+"HEX_LITERAL" := /0x[0-9A-F]+/,
+"BINARY_LITERAL" := /0b[10]+/,
+"IDENTIFIER" := /[^\d\W]\w*/,
+"INTEGER_LITERAL" := /\d+/
+</code></pre>
+<p>The name is the value enclosed in quotes on the left hand side of the <code>:=</code> and the regular expression is the value on the right
+hand side of the <code>:=</code> and is enclosed in <code>/</code>.</p>
+<p>In this context, a token refers to the distinct element of any given program file that matches a given regular expression.<br />
+Each token is comprised of a name, a value, and a position. The name is listed above, the value is whatever element matched the
+regular expression specified for the given token type (name).  The position is where in the file the token was found and the match's
+length. The tokens are extracted from the program file by the scanner according to the rules listed and are passed to the parser
+in the order that they appear in the program file.</p>
+<h3><a name="notation"></a> Notation</h3>
+<p>Our context-free grammar uses a modified form of EBNF (Extended Backus-Naur Form) that allows for comments and does not include a <code>?</code> operator
+or token literals.  Additionally, it uses a different production declaration operator.</p>
+<p>The below code block outlines the syntactic notation used in our custom EBNF notation.</p>
+<pre><code>// This is a comment
+
+/* This is a multiline comment */
+
+// Tokens (Terminals) are encased in single quotes, and all productions are ended by semicolons.
+production_name: 'TOKEN' ;
+
+// Our format allows for alternators and parentheses
+alternated_production: ( production | 'TOKEN' ) | production ;
+
+// and optional blocks
+optional_production: [ production ] ;
+
+// star and plus operators
+operator_production: production* production+ ;
+</code></pre>
+<p>This simple notation is all that used to define the Whirlwind grammar.  However, several conventions are
+followed in the Whirlwind Language Grammar itself.</p>
+<ul>
+<li>All sections are prefixed by titles in all caps.</li>
+<li>Related productions are grouped together.</li>
+<li>Each production group has one new-line on either side of it and is labeled with comment.</li>
+<li>No production contains capital letters.</li>
+<li>Any alternator which requires multiple lines should follow Haskell style.</li>
+</ul>
+<p>Any other patterns that appear in the grammar are not convention and the last convention is not
+always respected.</p>
+<h3><a name="grammar"></a> Grammar</h3>
+<p>The Whirlwind Language Grammar is partially ambiguous: it allows for left-recursion and productions
+with multiple beginning symbols in common.  The parsing algorithm was custom-written for Whirlwind and
+is designed to deal with this complex grammar with ease.  The start symbol for the grammar itself is
+<code>whirlwind</code>.</p>
+<p>Below is the complete grammar for Whirlwind exactly as it is read by the compiler.</p>
+<p><em>insert grammar when ready</em></p>
+<p>This grammar is designed to be processed into an object by the grammar processor and subsequently passed
+to the parser for efficiency's sake.  It is only loaded once per run of the compiler regardless of how
+many files are being processed and remains any memory throughout compilation.</p>

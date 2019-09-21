@@ -34,9 +34,10 @@ def guide(chapter):
 
 @app.route('/docs/spec')
 def lang_spec():
-    html = md.load_markdown('/spec.md')
+    f = open('static/html/spec.html', 'r')
+    html = f.read()
 
-    html = html.replace('language-whirlwind', 'language-javascript', 3)
+    f.close()
 
     return render_template('docs-spec.html', doc=html)
 
