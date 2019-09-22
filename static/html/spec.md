@@ -14,10 +14,11 @@
     - [Notation](#notation)
     - [Formal Grammar](#grammar)
 
-4. Data Types
-    - Primitives
+4. [Data Types](#data-types)
+    - [Primitives](#primitives)
     - Any and None
     - Arrays
+    - Strings
     - Lists
     - Dictionaries
     - Pointers
@@ -114,8 +115,8 @@
 
 14. Type Relations
     - Constancy
-    - Coercibility
     - Casting
+    - Coercion
     - Is Operator
     - Classifying Interfaces
 
@@ -387,3 +388,43 @@ Below is the complete grammar for Whirlwind exactly as it is read by the compile
 This grammar is designed to be processed into an object by the grammar processor and subsequently passed
 to the parser for efficiency's sake.  It is only loaded once per run of the compiler regardless of how
 many files are being processed and remains in memory throughout compilation.
+
+## <a name="data-types"></a> Data Types
+
+This section describes the data types used Whirlwind, and their behavior.  It will also outline what
+and how they compile.  However, this section does not clarify which operators are valid on which types
+nor how to declare them.
+
+### <a name="primitives"></a> Primitives
+
+In Whirlwind, a primitive is the simplest type.  It is comprised of no sub-types and translate directly to
+LLVM.  Whirlwind divides the primitives into four categories: boolean types, integral types, and floating point types.
+
+#### The Boolean Type
+
+The boolean type is a type with two states: true (1) and false (0).  It is a classic boolean type akin to those
+found in languages like C++, Rust, and Go.  It designated with the type label `bool` and compiles to an `i1` in
+LLVM.  
+
+#### The Integral Types
+
+There are four integral types in Whirlwind: the byte, the char, the int, and the long.  An integral type is a whole
+number that spans a specific range and can be either signed and unsigned both depending on the type.  Integral types
+are considered numbers, but two have additional connotations.
+
+The first integral type is the byte.  It occupies one byte of memory and translates as an `i8` in LLVM.  If it is unsigned,
+it holds a value of exactly 8 bits and has a type label of `byte`.  If it is signed, it holds a value of 7 bits with
+the first bit is used as a sign bit and has a type label of `sbyte`.  This type, although it is an integral type, also
+can represent raw binary data such as in a data stream.  No change need occur for this to be the case; rather, it one
+must simply use the type differently.
+
+The second integral type is the char. It occupies two bytes of memory and translates as an `i16` in LLVM.  If it is unsigned,
+it holds a value of exactly 16 bits and has a type label of `char`.  In this state, it is also used as Whirlwind's primary
+character type that is it holds a single Unicode (UTF-16, excluding the top 1792 and all private-use characters) character point.
+If it is signed, it holds a value of 15 bits with the first bit being used as a sign bit.  This version uses the type label `schar`.
+
+The last two integral types are relatively similar differing only in their size.  Both are, by default, a signed state, can be converted
+to unsigned by prefixing their type label with a `u`, and represent a plain, old integer.  The first is the int type which is designated
+with the type label `int` and occupies 4 bytes of memory.  It translates as an `i32` in LLVM.  The second is the long type which is
+designated with the type label `long` and occupies 8 bytes of memory.  It translates as an `i64` in LLVM.  Both types, in their signed forms, 
+will hold up to one bit less than the number of bits they occupy in memory with their first bit being used as a sign bit.  
