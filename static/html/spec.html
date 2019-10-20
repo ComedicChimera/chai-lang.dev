@@ -13,46 +13,27 @@
 </ul>
 </li>
 <li>
-<p><a href="#syntax">Lexemes and Grammar</a></p>
+<p><a href="#lexical-structure">Lexical Structure</a></p>
 <ul>
-<li><a href="#lexemes">Lexical Elements</a></li>
-<li><a href="#notation">Notation</a></li>
-<li><a href="#grammar">Formal Grammar</a></li>
+<li><a href="#comments">Comments</a></li>
+<li><a href="#punctuation">Punctuation</a></li>
+<li><a href="#identifiers">Identifiers</a></li>
+<li><a href="#keywords">Keywords</a></li>
+<li><a href="#operators">Operators</a></li>
+<li><a href="#literals">Literals</a></li>
 </ul>
 </li>
 <li>
-<p><a href="#data-types">Data Types</a></p>
+<p><a href="#collections">Collections</a></p>
 <ul>
-<li><a href="#primitives">Primitives</a></li>
-<li>Any and None</li>
-<li>Arrays</li>
-<li>Strings</li>
-<li>Lists</li>
-<li>Dictionaries</li>
-<li>Pointers</li>
-<li>Tuples</li>
-<li>Functions</li>
-<li>Structures</li>
-<li>Interfaces</li>
-<li>Type Classes</li>
+<li><a href="#arrays">Arrays</a></li>
+<li><a href="#lists">Lists</a></li>
+<li><a href="#dicts">Dictionaries</a></li>
+<li><a href="#tuples">Tuples</a></li>
 </ul>
 </li>
 <li>
-<p>Bases</p>
-<ul>
-<li>Literals</li>
-<li>Identifiers</li>
-<li>This</li>
-<li>Super</li>
-<li>Null</li>
-<li>Val</li>
-<li>Comprehensions</li>
-<li>Lambdas</li>
-<li>Partial Functions</li>
-</ul>
-</li>
-<li>
-<p>Expressions</p>
+<p><a href="#expressions">Expressions</a></p>
 <ul>
 <li>Nesting</li>
 <li>Precedence</li>
@@ -78,17 +59,7 @@
 <ul>
 <li>Variable Declarations</li>
 <li>Assignment</li>
-<li>Return Statements</li>
-<li>Yield Statements</li>
-<li>Delete Statements</li>
-<li>Break Statements</li>
-<li>Continue Statements</li>
-<li>Expression Statements</li>
-</ul>
-</li>
-<li>
-<p>Block Statements</p>
-<ul>
+<li>Simple Statements</li>
 <li>If Statements</li>
 <li>Select Statements</li>
 <li>For Loops</li>
@@ -97,66 +68,37 @@
 </ul>
 </li>
 <li>
-<p>Declarations</p>
+<p>Functions</p>
 <ul>
 <li>Function Declarations</li>
-<li>Decorator Tags</li>
-<li>Variant Declarations</li>
-<li>Structure Declarations</li>
-<li>Interface Declarations</li>
-<li>Interface Bindings</li>
-<li>Type Class Declarations</li>
-</ul>
-</li>
-<li>
-<p>Scoping</p>
-<ul>
-<li>Subscopes</li>
-<li>Shadowing</li>
-<li>Captures</li>
-<li>Declaration Order</li>
-</ul>
-</li>
-<li>
-<p>Memory</p>
-<ul>
-<li>Stack Allocation</li>
-<li>Default Initialization</li>
-<li>Pointers</li>
-<li>Null and Nullable Operations</li>
-<li>Heap Allocation</li>
-<li>Heap Deallocation</li>
-<li>Lifetimes</li>
-</ul>
-</li>
-<li>
-<p>Functional Behaviors</p>
-<ul>
-<li>Closures</li>
-<li>Higher Order Functions</li>
+<li>Function Groups</li>
+<li>First Class Functions</li>
+<li>Lambdas and Closures</li>
 <li>Composition</li>
-<li>Chaining</li>
+<li>Partial Functions</li>
 <li>Monads</li>
+</ul>
+</li>
+<li>
+<p>User-Defined Types</p>
+<ul>
+<li>Structure Types</li>
+<li>Interface Types</li>
+<li>Opaque Types</li>
+<li>Type Aliases</li>
+<li>Enumerated Types</li>
+<li>Algebraic Types</li>
 </ul>
 </li>
 <li>
 <p>Interface Binding</p>
 <ul>
-<li>Type Inferfaces</li>
 <li>Methods</li>
-<li>Bind Labels</li>
-<li>Bind Order</li>
-<li>Generic Binding</li>
-</ul>
-</li>
-<li>
-<p>Type Relations</p>
-<ul>
-<li>Constancy</li>
-<li>Casting</li>
-<li>Coercion</li>
-<li>Is Operator</li>
-<li>Classifying Interfaces</li>
+<li>Classification</li>
+<li>Default Implementation</li>
+<li>Overriding</li>
+<li>Operator Overloading</li>
+<li>Special Methods</li>
 </ul>
 </li>
 <li>
@@ -170,60 +112,66 @@
 </ul>
 </li>
 <li>
-<p>Operators</p>
+<p>Symbols and Scoping</p>
 <ul>
-<li>Reference Operators</li>
-<li>Increment and Decrement</li>
-<li>Arithmetic Operators</li>
-<li>Conditional Operators</li>
-<li>Bitwise and Logical Operators</li>
-<li>Functional Operators</li>
-<li>Type Operators</li>
-<li>Operator Overloading</li>
+<li>Declaration Order</li>
+<li>Compound Definitions</li>
+<li>Incomplete Definitions</li>
+<li>Scoping</li>
+<li>Shadowing</li>
+<li>Captures</li>
+</ul>
+</li>
+<li>
+<p>Memory Model</p>
+<ul>
+<li>Pointer Types</li>
+<li>Heap Allocation</li>
+<li>Heap Deallocation</li>
+<li>Moving and Copying</li>
+<li>Implicit Deallocation</li>
+<li>Ownership</li>
+<li>Lifetimes</li>
 </ul>
 </li>
 <li>
 <p>Concurrency</p>
 <ul>
 <li>Fibers</li>
-<li>Asyncs</li>
 <li>Futures</li>
-<li>Threads</li>
-<li>Pooling</li>
-<li>Events</li>
-<li>Communication</li>
+<li>Asynchronous Functions</li>
+<li>Await and Shields</li>
+<li>Volatility</li>
+<li>Race Conditions</li>
 </ul>
 </li>
 <li>
-<p>Packages and Inclusion</p>
+<p>Packages</p>
 <ul>
-<li>Include Statements</li>
-<li>Export Statements</li>
-<li>Packages</li>
-<li>The Prelude</li>
+<li>Package Assembly</li>
+<li>Export Status</li>
+<li>Inclusion</li>
+<li>Data Organization</li>
 </ul>
 </li>
 <li>
 <p>Annotations</p>
 <ul>
 <li>File-Level Annotations</li>
-<li>Struct-Specific Annotations</li>
-<li>Function-Specific Annotations</li>
-<li>Local Annotations</li>
-</ul>
-</li>
-<li>
-<p>Optimizations</p>
-<ul>
-<li><em>insert here</em></li>
+<li>Block Annotations</li>
+<li>Annotation Interpretation</li>
 </ul>
 </li>
 <li>
 <p>Runtime and Execution</p>
 <ul>
-<li>The <code>main</code> Function</li>
-<li>The Fiber and Thread Registry</li>
-<li>The Heap</li>
+<li>The Main Function</li>
+<li>Stack Allocation</li>
+<li>Forced Copying</li>
+<li>Error Model</li>
+<li>Stack Tracing</li>
+<li>Dynamic Allocation</li>
+<li>Concurrency</li>
 <li>Compile-Time Intrinsics</li>
 </ul>
 </li>

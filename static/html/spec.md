@@ -9,37 +9,21 @@
     - [Packages](#package-copy)
     - [Alternate Implementations](#alt-impl)
 
-3. [Lexemes and Grammar](#syntax)
-    - [Lexical Elements](#lexemes)
-    - [Notation](#notation)
-    - [Formal Grammar](#grammar)
+3. [Lexical Structure](#lexical-structure)
+    - [Comments](#comments)
+    - [Punctuation](#punctuation)
+    - [Identifiers](#identifiers)
+    - [Keywords](#keywords)
+    - [Operators](#operators)
+    - [Literals](#literals)
 
-4. [Data Types](#data-types)
-    - [Primitives](#primitives)
-    - Any and None
-    - Arrays
-    - Strings
-    - Lists
-    - Dictionaries
-    - Pointers
-    - Tuples
-    - Functions
-    - Structures
-    - Interfaces
-    - Type Classes
+4. [Collections](#collections)
+    - [Arrays](#arrays)
+    - [Lists](#lists)
+    - [Dictionaries](#dicts)
+    - [Tuples](#tuples)
 
-5. Bases
-    - Literals
-    - Identifiers
-    - This
-    - Super
-    - Null
-    - Val
-    - Comprehensions
-    - Lambdas
-    - Partial Functions
-
-6. Expressions
+5. [Expressions](#expressions)
     - Nesting
     - Precedence
     - Atoms
@@ -58,113 +42,92 @@
     - Cast Expressions
     - Extract Expressions
 
-7. Statements
+6. Statements
     - Variable Declarations
     - Assignment
-    - Return Statements
-    - Yield Statements
-    - Delete Statements
-    - Break Statements
-    - Continue Statements
-    - Expression Statements
-
-8. Block Statements
+    - Simple Statements
     - If Statements
     - Select Statements
     - For Loops
     - Context Managers
     - After Clauses
 
-9. Declarations
+7. Functions
     - Function Declarations
-    - Decorator Tags
-    - Variant Declarations
-    - Structure Declarations
-    - Interface Declarations
-    - Interface Bindings
-    - Type Class Declarations
-
-10. Scoping
-    - Subscopes
-    - Shadowing
-    - Captures
-    - Declaration Order
-
-11. Memory
-    - Stack Allocation
-    - Default Initialization
-    - Pointers
-    - Null and Nullable Operations
-    - Heap Allocation
-    - Heap Deallocation
-    - Lifetimes
-
-12. Functional Behaviors
-    - Closures
-    - Higher Order Functions
+    - Function Groups
+    - First Class Functions
+    - Lambdas and Closures
     - Composition
-    - Chaining
+    - Partial Functions
     - Monads
 
-13. Interface Binding
-    - Type Inferfaces
+8. User-Defined Types
+    - Structure Types
+    - Interface Types
+    - Opaque Types
+    - Type Aliases
+    - Enumerated Types
+    - Algebraic Types
+
+9. Interface Binding
     - Methods
-    - Bind Labels
-    - Bind Order
-    - Generic Binding
+    - Classification
+    - Default Implementation
+    - Overriding
+    - Operator Overloading
+    - Special Methods
 
-14. Type Relations
-    - Constancy
-    - Casting
-    - Coercion
-    - Is Operator
-    - Classifying Interfaces
-
-15. Generics
+10. Generics
     - Generic Types
     - Generic Restrictors
     - Generate Construction
     - Monomorphism
     - Variance
 
-16. Operators
-    - Reference Operators
-    - Increment and Decrement
-    - Arithmetic Operators
-    - Conditional Operators
-    - Bitwise and Logical Operators
-    - Functional Operators
-    - Type Operators
-    - Operator Overloading
+11. Symbols and Scoping
+    - Declaration Order
+    - Compound Definitions
+    - Incomplete Definitions
+    - Scoping
+    - Shadowing
+    - Captures
 
-17. Concurrency
+12. Memory Model
+    - Pointer Types
+    - Heap Allocation
+    - Heap Deallocation
+    - Moving and Copying
+    - Implicit Deallocation
+    - Ownership
+    - Lifetimes
+
+13. Concurrency
     - Fibers
-    - Asyncs
     - Futures
-    - Threads
-    - Pooling
-    - Events
-    - Communication
+    - Asynchronous Functions
+    - Await and Shields
+    - Volatility
+    - Race Conditions
 
-18. Packages and Inclusion
-    - Include Statements
-    - Export Statements
-    - Packages
-    - The Prelude
+14. Packages
+    - Package Assembly
+    - Export Status
+    - Inclusion
+    - Data Organization
 
-19. Annotations
+15. Annotations
     - File-Level Annotations
-    - Struct-Specific Annotations
-    - Function-Specific Annotations
-    - Local Annotations
+    - Block Annotations
+    - Annotation Interpretation
 
-20. Optimizations
-    - *insert here*
-
-21. Runtime and Execution
-    - The `main` Function
-    - The Fiber and Thread Registry
-    - The Heap
+16. Runtime and Execution
+    - The Main Function
+    - Stack Allocation
+    - Forced Copying
+    - Error Model
+    - Stack Tracing
+    - Dynamic Allocation
+    - Concurrency
     - Compile-Time Intrinsics
 
 ## <a name="intro"></a> Introduction
