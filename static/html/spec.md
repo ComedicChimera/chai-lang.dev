@@ -43,9 +43,11 @@
     - Is Expressions
     - Cast Expressions
     - Extract Expressions
+    - Constant Expressions
 
 6. Statements
     - Variable Declarations
+    - Constancy and Constexpr
     - Assignment
     - Simple Statements
     - If Statements
