@@ -3,6 +3,8 @@
 ## Table of Contents
 
 1. [Introduction](#intro)
+    - [Purpose](#purpose)
+    - [Notation](#notation)
 
 2. [Copyright](#copyright)
     - [Language and Website](#lang-copy)
@@ -97,6 +99,7 @@
     - Heap Allocation
     - Heap Deallocation
     - Moving and Copying
+    - Nullable Operators
     - Implicit Deallocation
     - Ownership
     - Lifetimes
@@ -115,12 +118,16 @@
     - Inclusion
     - Data Organization
 
-15. Annotations
+15. Absolute Types
+    - Any Types
+    - None Types
+
+16. Annotations
     - File-Level Annotations
     - Block Annotations
     - Annotation Interpretation
 
-16. Runtime and Execution
+17. Runtime and Execution
     - The Main Function
     - Stack Allocation
     - Forced Copying
@@ -137,10 +144,16 @@ of the Whirlwind Programming Language.  It describes the exact behavior
 and construction of each language element as well as the relation between
 language elements.
 
+### <a name="purpose"></a> Purpose
+
 Whirlwind is a compiled, modern, and multipurpose language designed with intentionality.
 It is strongly-typed, versatile, expressive, concurrent, and relatively easy to learn.  It does not
 have a garbage collector and accordingly places a heavy emphasis on memory safety.
 It boasts numerous new and old features and is designed to represent the needs of any software developer.
+
+### <a name="notation"></a> Notation
+
+yada yada yada
 
 ## <a name="copyright"></a> Copyright
 
