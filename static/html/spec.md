@@ -120,6 +120,7 @@
 
 15. Absolute Types
     - Any Types
+    - Any Pointers
     - None Types
 
 16. Annotations
