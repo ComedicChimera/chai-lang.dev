@@ -15,13 +15,23 @@
     - [Operators](#operators)
     - [Literals](#literals)
 
-3. [Collections](#collections)
+3. [Primitive Types](#prim-types)
+    - Byte Types
+    - Character Types
+    - Integral Types
+    - Floating-Point Types
+    - Boolean Types
+    - String Types
+    - Any Types
+    - None Types
+
+4. [Collections](#collections)
     - [Arrays](#arrays)
     - [Lists](#lists)
     - [Dictionaries](#dicts)
     - [Tuples](#tuples)
 
-4. [Expressions](#expressions)
+5. [Expressions](#expressions)
     - Nesting
     - Precedence
     - Atoms
@@ -41,7 +51,7 @@
     - Extract Expressions
     - Constant Expressions
 
-5. Statements
+6. Statements
     - Variable Declarations
     - Constancy and Constexpr
     - Assignment
@@ -52,7 +62,7 @@
     - Context Managers
     - After Clauses
 
-6. Functions
+7. Functions
     - Function Declarations
     - Function Groups
     - First Class Functions
@@ -61,7 +71,7 @@
     - Partial Functions
     - Monads
 
-7. User-Defined Types
+8. User-Defined Types
     - Structure Types
     - Interface Types
     - Opaque Types
@@ -69,7 +79,7 @@
     - Enumerated Types
     - Algebraic Types
 
-8. Interface Binding
+9. Interface Binding
     - Methods
     - Classification
     - Default Implementation
@@ -77,14 +87,14 @@
     - Operator Overloading
     - Special Methods
 
-9. Generics
+10. Generics
     - Generic Types
     - Generic Restrictors
     - Generate Construction
     - Monomorphism
     - Variance
 
-10. Symbols and Scoping
+11. Symbols and Scoping
     - Declaration Order
     - Compound Definitions
     - Incomplete Definitions
@@ -92,7 +102,7 @@
     - Shadowing
     - Captures
 
-11. Memory Model
+12. Memory Model
     - Pointer Types
     - Heap Allocation
     - Heap Deallocation
@@ -102,7 +112,7 @@
     - Ownership
     - Lifetimes
 
-12. Concurrency
+13. Concurrency
     - Fibers
     - Futures
     - Asynchronous Functions
@@ -110,16 +120,11 @@
     - Volatility
     - Race Conditions
 
-13. Packages
+14. Packages
     - Package Assembly
     - Export Status
     - Inclusion
     - Data Organization
-
-14. Absolute Types
-    - Any Types
-    - Any Pointers
-    - None Types
 
 15. Annotations
     - File-Level Annotations
