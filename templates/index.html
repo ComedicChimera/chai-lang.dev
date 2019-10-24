@@ -168,14 +168,14 @@ struct Node {
     left, right: dyn* Node;
 }
 
-func insert(root: dyn* Node, val: int) {
+func insert(root: dyn* Node, val: int) dyn* Node {
     if (root == null)
-        root = make Node { val = val, left = null, right = null };
+        return make Node { val = val, left = null, right = null };
 
     if (root->val > val)
-        insert(root->left, val);
+        return insert(root->left, val);
     else
-        insert(root->right, val);
+        return insert(root->right, val);
 }
 
 func main() {
