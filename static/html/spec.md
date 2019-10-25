@@ -3,17 +3,17 @@
 ## Table of Contents
 
 1. [Introduction](#intro)
-    - [Purpose](#purpose)
-    - [Copyright](#copy)
-    - [Notation](#notation)
-    
+    - [Purpose](#1-purpose)
+    - [Copyright](#1-copy)
+    - [Notation](#1-notation)
+
 2. [Lexical Structure](#lexical-structure)
-    - [Comments](#comments)
-    - [Punctuation](#punctuation)
-    - [Identifiers](#identifiers)
-    - [Keywords](#keywords)
-    - [Operators](#operators)
-    - [Literals](#literals)
+    - [Comments](#2-comments)
+    - [Punctuation](#2-punctuation)
+    - [Identifiers](#2-identifiers)
+    - [Keywords](#2-keywords)
+    - [Operators](#2-operators)
+    - [Literals](#2-literals)
 
 3. [Primitive Types](#prim-types)
     - Byte Types
@@ -148,20 +148,20 @@ of the Whirlwind Programming Language.  It describes the exact behavior
 and construction of each language element as well as the relation between
 language elements.
 
-### <a name="purpose"></a> Purpose
+### <a name="1-purpose"></a> Purpose
 
 Whirlwind is a compiled, modern, and multipurpose language designed with intentionality.
 It is strongly-typed, versatile, expressive, concurrent, and relatively easy to learn.  It does not
 have a garbage collector and accordingly places a heavy emphasis on memory safety.
 It boasts numerous new and old features and is designed to represent the needs of any software developer.
 
-### <a name="copy"></a> Copyright
+### <a name="1-copy"></a> Copyright
 
 Whirlwind is by nature a piece of intellectual property.  That being said, it is
 powered by and thrives off of its community and as such it has some rather unique
 rules for usage.
 
-### <a name="notation"></a> Notation
+### <a name="1-notation"></a> Notation
 
 Our grammatical notation uses a modified form of EBNF (Extended Backus-Naur Form) that allows for comments and does not include a `?` operator
 or token literals.  Additionally, it uses a different production declaration operator.
@@ -195,7 +195,7 @@ forward slashes on either side when used.
 This section will describe the basic lexical structure as well as some of the simpler code fragments (eg. literals)
 in the Whirlwind programming language.
 
-### <a name="comments"></a> Comments
+### <a name="2-comments"></a> Comments
 
 A comment represents any piece of code that will not be processed by the compiler.  Comments take two forms in
 Whirlwind: single-line and multi-line.  They take the following form:
@@ -223,7 +223,7 @@ Finally, it is also legal (although not advised) to embed single-line comments w
 Because the content of all comments is completely ignored, it is of no consequence to the compiler what you place inside the comment,
 excluding the symbols used to end multi-line comments which will cause the compiler to think the comment has ended.
 
-### <a name="punctuation"></a> Punctuation
+### <a name="2-punctuation"></a> Punctuation
 
 Whirlwind requires that several different pieces of punctuation be used in different scenarios.  The most notable of which is the
 semicolon which primarily denotes the end of block-less [statement](#statements).  Another notable piece of punctuation is the colon which
@@ -240,11 +240,75 @@ Another important piece of punctuation is the brace: its two forms (left and rig
 There are several other pieces of punctuation used in Whirlwind, and they are, including those already mentioned, listed here.
 
     whirlwind
-    ;   :   ,   .   (   )   {   }   ?
+    ;   :   ,   (   )   {   }   
+    .   ?   =>  #   @   ...
 
+Many of the aforementioned punctuation elements have multiple uses and meanings and do not always denote punctuation.
 
-Many of the aforementioned punctuation elements have multiple uses and meanings and so no are not stictly considered punctuation.  Moreover,
-there are several other [operators](#operators) that could be considered punctuation.
+### <a name="2-identifiers"></a> Identifiers
+
+In Whirlwind, an `identifier` is anything that represents a symbol.  That is to say, it is a name.  In Whirlwind, all identifiers must follow
+the following regular expression:
+
+    ebnf
+    /[^\d\W]\w*/
+
+This regular expression indicates that an identifier begins with some letter upper or lowercase and is followed by any number of letters, numbers
+or underscores. Additionally, it is important to note that identifiers must be bounded on either side by any character that is not a letter, number or underscore.
+
+Note that Whirlwind does not allow dollar signs in variable names and that a single underscore is **not** a variable name and is used for other purposes in the
+language.  However, variables may be prefixed with any number of underscores although prefixing with more than one underscore is not recommended as it could cause
+conflicts with compiler or prelude declared symbols.
+
+### <a name="2-keywords"></a> Keywords
+
+A keyword is any word, which in this context is a combination of lowercase letters, that is reserved by the compiler for any special purpose.  Below is a list
+of all keywords used in Whirlwind.
+
+    whirlwind
+    let      const  if      elif   else     for
+    select   case   default break  continue when
+    after    return yield   delete from     make
+    with     func   async   await  variant  constructor
+    operator type   struct  interf include  export
+    this     super  new     null   is       then
+    value    as     vol     static own      dyn
+
+It is important to note that the last four items in this list above are most accurately referred to as modifiers not keywords, but they follow the same semantics
+as all other keywords do.
+
+Finally, it is acceptable (although in many cases not adviseable) to use keywords within identifiers: a keyword may be part of a larger identifier.
+For example, the following identifiers would be considered valid:
+
+    whirlwind
+    typeX
+    my_static_var
+    new13
+    my_value
+    forThis
+    orelse
+    include6
+    withAll
+
+However, if the identifier is malformed then the keyword will still match separately.  Furthermore, keywords are case-sensitive so an identifier comprised
+of a differently-cased form of one of the keywords would be acceptable as well.
+
+### <a name="2-operators"> Operators
+
+An operator is any symbol that denotes an operation.  Whirlwind contains many different kinds operators, varying both in the number of operands they accept and
+the symbols (or keyword) used to represent them.  For the sake of efficiency, below is a list of all of the standard operators.
+
+    whirlwind
+    >>= :> := ++ -- -> <  ~
+    !=  !  && || ^^ |  <- >   
+    /   %  == >= <= =  &  ~* 
+    ~/  ~^ +  -  *    
+
+Notably, some of the operators listed can be combined with the `=` operator to form a [compound assignment](#6-assignment) operator.  
+
+Finally, they are several operators that were not listed in the above list because they are either primarily considered some other type of lexical element.
+Furthermore, all of these operators are considered non-standard operators due to the operands they accept and/or the function they perform.  Many of these
+non-standard operators also do not accept operands in the traditional unary or binary manner that all of the standard operators listed above.
 
 ## <a name="data-types"></a> Data Types
 

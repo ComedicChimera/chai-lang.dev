@@ -1,7 +1,7 @@
 Prism.languages.whirlwind = {
     'comment': [
         {
-            pattern: /(\/\*[^(\\\*)]*\*\/)/s
+            pattern: /(\/\*[^(\\\*)]*\*\/)/
         },
         {
             pattern: /\/\/.*/
@@ -26,7 +26,7 @@ Prism.languages.whirlwind = {
         },
         // numeric
         {
-            pattern: /\b\d+(\.\d+)?/
+            pattern: /\b\d+(\.\d+)?[uld]*/
         }
         
     ],
@@ -54,17 +54,17 @@ Prism.languages.whirlwind = {
         },
         // data types
         {
-            pattern: /\bu?(int|bool|float|char|str|byte|long|double)\b/
+            pattern: /\b[us]?(int|bool|float|char|str|byte|long|double)\b/
         },
         // special
         {
-            pattern: /\b(new|make|from|include|delete|export|await|then|val|is|as)\b/
+            pattern: /\b(new|make|from|include|delete|export|await|then|is|as)\b/
         }
     ],
     'function': /[a-zA-Z_]\w*(?=\()/,
-    'punctuation':/[{}[\];(),.]/,
-    'operator': /[+\-*\/%&\^!|><=\~\?]/,
+    'operator': /:?[+\-*\/%&\^!|><=\~]/,
+    'punctuation': /[{}[\];(),.\?:#@]/,
     'boolean': /true|false/,
-    'modifier': /\b(vol|static|dyn)\b/,
-    'constant': /\b(this|null|_)\b/,
+    'modifier': /\b(vol|static|dyn|own)\b/,
+    'constant': /\b(this|null|_|super|value)\b/,
 };
