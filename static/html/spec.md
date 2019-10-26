@@ -240,8 +240,8 @@ Another important piece of punctuation is the brace: its two forms (left and rig
 There are several other pieces of punctuation used in Whirlwind, and they are, including those already mentioned, listed here.
 
     whirlwind
-    ;   :   ,   (   )   {   }   
-    .   ?   =>  #   @   ...
+    ;   ,   (   )   {   }   
+    .   =>  #   @   ... :
 
 Many of the aforementioned punctuation elements have multiple uses and meanings and do not always denote punctuation.
 
@@ -299,10 +299,9 @@ An operator is any symbol that denotes an operation.  Whirlwind contains many di
 the symbols (or keyword) used to represent them.  For the sake of efficiency, below is a list of all of the standard operators.
 
     whirlwind
-    >>= :> := ++ -- -> <  ~
-    !=  !  && || ^^ |  <- >   
-    /   %  == >= <= =  &  ~* 
-    ~/  ~^ +  -  *    
+    >>= :> := ++ -- -> <  ~  *  ?
+    !=  !  && || ^^ |  <- >  ~/ ~^ 
+    /   %  == >= <= =  &  ~* +  -
 
 Notably, some of the operators listed can be combined with the `=` operator to form a [compound assignment](#6-assignment) operator.  
 

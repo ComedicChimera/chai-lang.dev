@@ -260,8 +260,8 @@ with the desired type for the label.</p>
 }
 </code></pre>
 <p>There are several other pieces of punctuation used in Whirlwind, and they are, including those already mentioned, listed here.</p>
-<pre><code class="language-whirlwind">;   :   ,   (   )   {   }   
-.   ?   =&gt;  #   @   ...
+<pre><code class="language-whirlwind">;   ,   (   )   {   }   
+.   =&gt;  #   @   ... :
 </code></pre>
 <p>Many of the aforementioned punctuation elements have multiple uses and meanings and do not always denote punctuation.</p>
 <h3><a name="2-identifiers"></a> Identifiers</h3>
@@ -303,10 +303,9 @@ of a differently-cased form of one of the keywords would be acceptable as well.<
 <h3><a name="2-operators"> Operators</h3>
 <p>An operator is any symbol that denotes an operation.  Whirlwind contains many different kinds operators, varying both in the number of operands they accept and
 the symbols (or keyword) used to represent them.  For the sake of efficiency, below is a list of all of the standard operators.</p>
-<pre><code class="language-whirlwind">&gt;&gt;= :&gt; := ++ -- -&gt; &lt;  ~
-!=  !  &amp;&amp; || ^^ |  &lt;- &gt;   
-/   %  == &gt;= &lt;= =  &amp;  ~* 
-~/  ~^ +  -  *
+<pre><code class="language-whirlwind">&gt;&gt;= :&gt; := ++ -- -&gt; &lt;  ~  *  ?
+!=  !  &amp;&amp; || ^^ |  &lt;- &gt;  ~/ ~^ 
+/   %  == &gt;= &lt;= =  &amp;  ~* +  -
 </code></pre>
 <p>Notably, some of the operators listed can be combined with the <code>=</code> operator to form a <a href="#6-assignment">compound assignment</a> operator.  </p>
 <p>Finally, they are several operators that were not listed in the above list because they are either primarily considered some other type of lexical element.

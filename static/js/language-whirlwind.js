@@ -62,8 +62,8 @@ Prism.languages.whirlwind = {
         }
     ],
     'function': /[a-zA-Z_]\w*(?=\()/,
-    'operator': /:?[+\-*\/%&\^!|><=\~]/,
-    'punctuation': /[{}[\];(),.\?:#@]/,
+    'operator': /:?[+\-*\/%&\^!|><=\~\?]/,
+    'punctuation': /[{}[\];(),.:#@]/,
     'boolean': /true|false/,
     'modifier': /\b(vol|static|dyn|own)\b/,
     'constant': /\b(this|null|_|super|value)\b/,
