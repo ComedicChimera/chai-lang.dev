@@ -309,6 +309,45 @@ Finally, they are several operators that were not listed in the above list becau
 Furthermore, all of these operators are considered non-standard operators due to the operands they accept and/or the function they perform.  Many of these
 non-standard operators also do not accept operands in the traditional unary or binary manner that all of the standard operators listed above.
 
+### <a name="2-literals"></a> Literals
+
+A literal represents a single, discreet value used in code.  For example, the number `3` could be considered a literal because it is single, constant
+value.  There are 7 different types of literals in Whirlwind and each is associated with a specific [primitive type](#prim-types).
+
+#### Integral Literals
+
+An integral literal represents a non-negative whole number that corresponds to one of the [integral types](#3-int-types) and a specific signage.
+All integral literals will take the following form.
+
+    ebnf
+    /\d+[ul]*/
+
+Notice that these literals can end with a suffix denoted which specific integral type they correspond to.  The suffix `u` marks the integral
+literal as unsigned and the `l` suffix marks it as a long type.  By default, integral literals default to signed integers.
+
+If the value held by the integral value is outside the range of allowed values for a signed integer literal, it will be interpreted as the smallest
+type that can hold its value (smallest meaning smallest possible range).  Moreover, since the suffixes only increase the maximum range, they can
+never contradict with this upcasting pattern; rather, they merely provide a base size to cast up from if necessary.  
+
+Finally, if the value is too large to be stored in the largest possible integral type, then the program will fail to compile.
+
+#### Floating-Point Literals
+
+A floating-point literal represents a decimal number that corresponds to one of the [floating-point types](#3-float-types).  All floating-point literals
+will take the following form.
+
+    ebnf
+    /\d+\.\d+d?/
+
+Akin to integer literals, floating-point types can also end with a suffix `d` that denotes it as a `double` instead of a `float`.  Additionally,
+if the value it stores has a greater precision than the base float type allows or has a greater value that the float type allows, the literal
+will automatically be upcast to a double type.  If this upcast is still insufficient, the program will fail to compile.
+
+#### Character Literals
+
+A character literal represents a single unicode point that corresponds to the [character type](#3-char-type).  This literal is
+enclosed in single quotes and must contain at least one value.
+
 ## <a name="data-types"></a> Data Types
 
 This section describes the data types used Whirlwind, and their behavior.  It will also outline what
