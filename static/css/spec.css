@@ -41,13 +41,13 @@ article {
 }
 
 .article-content a {
-    color: #212121;
+    color: #20aced;
 
     transition-duration: 0.2s;
 }
 
 .article-content a:hover {
-    color: #20aced;
+    text-decoration: underline;
 }
 
 .article-content ol {
@@ -58,4 +58,10 @@ article {
 
 .article-content ol li p {
     margin: 5px 0px 5px 0px;
+}
+
+.article-content pre {
+    background: #f5f2f0;
+    padding: 1em;
+    margin: .5em 0;
 }

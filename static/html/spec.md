@@ -266,13 +266,13 @@ A keyword is any word, which in this context is a combination of lowercase lette
 of all keywords used in Whirlwind.
 
     whirlwind
-    let      const  if      elif   else     for
-    select   case   default break  continue when
-    after    return yield   delete from     make
-    with     func   async   await  variant  constructor
-    operator type   struct  interf include  export
-    this     super  new     null   is       then
-    value    as     vol     static own      dyn
+    let        const      if         elif       else       for
+    select     case       default    break      continue   when
+    after      return     yield      delete     from       make
+    with       func       async      await      variant    constructor
+    operator   type       struct     interf     include    export
+    this       super      new        null       is         then
+    value      as         vol        static     own        dyn
 
 It is important to note that the last four items in this list above are most accurately referred to as modifiers not keywords, but they follow the same semantics
 as all other keywords do.
@@ -280,7 +280,6 @@ as all other keywords do.
 Finally, it is acceptable (although in many cases not adviseable) to use keywords within identifiers: a keyword may be part of a larger identifier.
 For example, the following identifiers would be considered valid:
 
-    whirlwind
     typeX
     my_static_var
     new13
@@ -293,15 +292,15 @@ For example, the following identifiers would be considered valid:
 However, if the identifier is malformed then the keyword will still match separately.  Furthermore, keywords are case-sensitive so an identifier comprised
 of a differently-cased form of one of the keywords would be acceptable as well.
 
-### <a name="2-operators"> Operators
+### <a name="2-operators"></a> Operators
 
 An operator is any symbol that denotes an operation.  Whirlwind contains many different kinds operators, varying both in the number of operands they accept and
 the symbols (or keyword) used to represent them.  For the sake of efficiency, below is a list of all of the standard operators.
 
     whirlwind
-    >>= :> := ++ -- -> <  ~  *  ?
-    !=  !  && || ^^ |  <- >  ~/ ~^ 
-    /   %  == >= <= =  &  ~* +  -
+    >>=   :>   :=   ++   --   ->   <    ~    *    ?
+    !=    !    &&   ||   ^^   |    <-   >    ~/   ~^ 
+    /     %    ==   >=   <=   =    &    ~*   +    -
 
 Notably, some of the operators listed can be combined with the `=` operator to form a [compound assignment](#6-assignment) operator.  
 
@@ -326,7 +325,7 @@ Notice that these literals can end with a suffix denoted which specific integral
 literal as unsigned and the `l` suffix marks it as a long type.  By default, integral literals default to signed integers.
 
 If the value held by the integral value is outside the range of allowed values for a signed integer literal, it will be interpreted as the smallest
-type that can hold its value (smallest meaning smallest possible range).  Moreover, since the suffixes only increase the maximum range, they can
+integral type starting from the signed integer type that can hold its value.  Moreover, since the suffixes only increase the maximum range, they can
 never contradict with this upcasting pattern; rather, they merely provide a base size to cast up from if necessary.  
 
 Finally, if the value is too large to be stored in the largest possible integral type, then the program will fail to compile.
@@ -345,45 +344,84 @@ will automatically be upcast to a double type.  If this upcast is still insuffic
 
 #### Character Literals
 
-A character literal represents a single unicode point that corresponds to the [character type](#3-char-type).  This literal is
-enclosed in single quotes and must contain at least one value.
+A character literal represents a single UTF-8 encoded, unicode point that corresponds to the [character type](#3-char-types).  This literal is
+enclosed in single quotes and must contain exactly one value.
 
-## <a name="data-types"></a> Data Types
+    ebnf
+    /'(?:[^\"\\']|\\.)'/
 
-This section describes the data types used Whirlwind, and their behavior.  It will also outline what
-and how they compile.  However, this section does not clarify which operators are valid on which types
-nor how to declare them.
+The character literal can contain any unicode character or one of the following legal escape codes (each followed by its function in parentheses):
 
-### <a name="primitives"></a> Primitives
+    \a (alert)
+    \b (backspace)
+    \f (form feed)
+    \n (new line)
+    \r (carriage return)
+    \t (horizontal tab)
+    \v (vertical tab)
+    \0 (null terminator)
+    \s (space)
+    \" (escaped double quote)
+    \' (escaped single quote)
+    \\ (escaped backslash)
 
-In Whirlwind, a primitive is the simplest type.  It is comprised of no sub-types and translate directly to
-LLVM.  Whirlwind divides the primitives into four categories: boolean types, integral types, and floating point types.
+In addition, the prefix `\u` may be used to signal partial unicode character code (16 bits) and the prefix `\U` may be used to signal a full unicode
+character code (32 bits) where the appropriate number of hexadecimal characters follows the the escape prefix.
 
-#### The Boolean Type
+#### Boolean Literals
 
-The boolean type is a type with two states: true (1) and false (0).  It is a classic boolean type akin to those
-found in languages like C++, Rust, and Go.  It designated with the type label `bool` and compiles to an `i1` in
-LLVM.  
+A boolean literals represents a single boolean (true/false) value that corresponds to the [boolean type](#3-bool-types).  This literal can hold
+two values: `true` and `false` as expressed below:
 
-#### The Integral Types
+    ebnf
+    /\b(true|false)\b/
 
-There are four integral types in Whirlwind: the byte, the char, the int, and the long.  An integral type is a whole
-number that spans a specific range and can be either signed and unsigned both depending on the type.  Integral types
-are considered numbers, but two have additional connotations.
+In this literal, `true` corresponds to the boolean value true (1) and `false` corresponds to the boolean value false (0).  
 
-The first integral type is the byte.  It occupies one byte of memory and translates as an `i8` in LLVM.  If it is unsigned,
-it holds a value of exactly 8 bits and has a type label of `byte`.  If it is signed, it holds a value of 7 bits with
-the first bit is used as a sign bit and has a type label of `sbyte`.  This type, although it is an integral type, also
-can represent raw binary data such as in a data stream.  No change need occur for this to be the case; rather, it one
-must simply use the type differently.
+#### String Literals
 
-The second integral type is the char. It occupies two bytes of memory and translates as an `i16` in LLVM.  If it is unsigned,
-it holds a value of exactly 16 bits and has a type label of `char`.  In this state, it is also used as Whirlwind's primary
-character type that is it holds a single Unicode (UTF-16, excluding the top 1792 and all private-use characters) character point.
-If it is signed, it holds a value of 15 bits with the first bit being used as a sign bit.  This version uses the type label `schar`.
+A string literal represents a string of unicode characters that corresponds to the [string type](#3-string-types).  This literal
+matches the regular expression below.
 
-The last two integral types are relatively similar differing only in their size.  Both are, by default, a signed state, can be converted
-to unsigned by prefixing their type label with a `u`, and represent a plain, old integer.  The first is the int type which is designated
-with the type label `int` and occupies 4 bytes of memory.  It translates as an `i32` in LLVM.  The second is the long type which is
-designated with the type label `long` and occupies 8 bytes of memory.  It translates as an `i64` in LLVM.  Both types, in their signed forms, 
-will hold up to one bit less than the number of bits they occupy in memory with their first bit being used as a sign bit.  
+    ebnf
+    /\"(?:[^\"\\']|\\.)*\"/
+
+This literal may contain any escape code or unicode character code that would be valid as a character literal.  Moreover, these literals
+may contain as many or as few characters as necessary.  
+
+String literals (and strings by extension) may also contain no values.  These strings are termed as empty strings and have a length of 0.
+Notably, these strings do still occupy memory and can be manipulated as if they were a proper string.  However, any attempt to read a value
+from this string (though a subscript) will result in a runtime error.
+
+#### Binary and Hexadecimal Literals
+
+Binary and hexadecimal literals represent an arbitrary piece of data.  All binary and hexadecimal literals correspond to either a [byte type](#3-byte-types)
+or an [integral type](#3-integral-types) depending exclusively on the type of data they hold.  Furthermore, the correspondent type is always
+unsigned.
+
+Binary literals take the following form:
+
+    ebnf
+    /0b[10]{1,64}/
+
+Notice that these literals are prefixed by `0b` and may only contain up to 64 characters (corresponding to the `ulong` type) and must contain at least
+one character.  
+
+As noted previously, the size of the resulting type is determined by the size of the literal.  In this case, the number of bits in the literal
+corresponds directly with the type is will evaluate to.  That is to say, a binary literal will be inferred as the smallest type that occupies
+a greater or equal number of bits than the number contained within the binary literal.
+
+Hexadecimal literals take the following form:
+
+    ebnf
+    /0x[0-9A-F]{1,16}/
+
+All hexadecimal literals are prefixed by `0x` and must contain at least one character but no more than 16 characters (corresponding to the `ulong` type).
+Furthermore, only capital letters may be used as hexadecimal digits within a hexadecimal literal.  
+
+Hexadecimal literals follow a similar type progression to binary literals; however, the space that the hexadecimal literal occupies is determined
+by the space required to store the binary value of the hexadecimal literal.  By contrast, with respect to the determined size of the literal,
+the type determination process is identical to that of a binary literal.
+
+Finally, in both literals, 0s still count as a additional space in the literal.  That is to say, the size of the inferred type is determined not by the
+actual used memory of literal but rather by the number of characters specified in the literal.  For example, `0x000` will evaluate to a larger type than `0x00`.
