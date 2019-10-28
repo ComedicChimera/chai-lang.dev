@@ -23,11 +23,11 @@
 <li>
 <p><a href="#prim-types">Primitive Types</a></p>
 <ul>
-<li>Byte Types</li>
-<li>Character Types</li>
-<li>Integral Types</li>
+<li><a href="#3-byte-types">Byte Types</a></li>
+<li><a href="#3-int-types">Integral Types</a></li>
 <li>Floating-Point Types</li>
 <li>Boolean Types</li>
+<li>Character Types</li>
 <li>String Types</li>
 <li>Any Types</li>
 <li>None Types</li>
@@ -289,7 +289,7 @@ value      as         vol        static     own        dyn
 as all other keywords do.</p>
 <p>Finally, it is acceptable (although in many cases not adviseable) to use keywords within identifiers: a keyword may be part of a larger identifier.
 For example, the following identifiers would be considered valid:</p>
-<pre><code class="language-whirlwind">typeX
+<pre><code>typeX
 my_static_var
 new13
 my_value
@@ -310,7 +310,7 @@ the symbols (or keyword) used to represent them.  For the sake of efficiency, be
 <p>Notably, some of the operators listed can be combined with the <code>=</code> operator to form a <a href="#6-assignment">compound assignment</a> operator.  </p>
 <p>Finally, they are several operators that were not listed in the above list because they are either primarily considered some other type of lexical element.
 Furthermore, all of these operators are considered non-standard operators due to the operands they accept and/or the function they perform.  Many of these
-non-standard operators also do not accept operands in the traditional unary or binary manner that all of the standard operators listed above.</p>
+non-standard operators also do not accept operands in the traditional unary or binary manner that all of the standard operators listed above do.</p>
 <h3><a name="2-literals"></a> Literals</h3>
 <p>A literal represents a single, discreet value used in code.  For example, the number <code>3</code> could be considered a literal because it is single, constant
 value.  There are 7 different types of literals in Whirlwind and each is associated with a specific <a href="#prim-types">primitive type</a>.</p>
@@ -372,7 +372,7 @@ Notably, these strings do still occupy memory and can be manipulated as if they 
 from this string (though a subscript) will result in a runtime error.</p>
 <h4>Binary and Hexadecimal Literals</h4>
 <p>Binary and hexadecimal literals represent an arbitrary piece of data.  All binary and hexadecimal literals correspond to either a <a href="#3-byte-types">byte type</a>
-or an <a href="#3-integral-types">integral type</a> depending exclusively on the type of data they hold.  Furthermore, the correspondent type is always
+or an <a href="#3-int-types">integral type</a> depending exclusively on the type of data they hold.  Furthermore, the correspondent type is always
 unsigned.</p>
 <p>Binary literals take the following form:</p>
 <pre><code class="language-javascript">/0b[10]{1,64}/
@@ -392,3 +392,43 @@ by the space required to store the binary value of the hexadecimal literal.  By 
 the type determination process is identical to that of a binary literal.</p>
 <p>Finally, in both literals, 0s still count as a additional space in the literal.  That is to say, the size of the inferred type is determined not by the
 actual used memory of literal but rather by the number of characters specified in the literal.  For example, <code>0x000</code> will evaluate to a larger type than <code>0x00</code>.</p>
+<h2><a name="prim-types"></a> Primitive Types</h2>
+<p>Primitive types are considered to be the most simple types offered by Whirlwind.  They are (with the exception of the string type to a degree) used to
+build more complex types.</p>
+<p>All primitive types that can only hold a "finite" set of a values can experience both underflow and overflow.  These types will <strong>not</strong> throw any form of
+error when said events occur; it is the responsibility of the programmer to check for, prevent, and handle these edge cases where applicable.</p>
+<h3><a name="3-byte-types"></a> Byte Types</h3>
+<p>A byte type is simplest type in Whirlwind.  It represents a single byte of data with no particular type.  </p>
+<p>It has two different variants: the signed byte and the unsigned byte.  Each has its own type label.</p>
+<pre><code class="language-whirlwind">byte  // unsigned byte
+sbyte // signed byte
+</code></pre>
+<p>The only literal forms of a byte type are sufficiently small hexadecimal and binary literals both of which have
+a type of unsigned byte (if small enough).  </p>
+<p>Although byte types compile to an <code>i8</code> in LLVM IR, they are <strong>not</strong> considered integral types, but they can
+be coerced to any of the integral types without an explicit type cast.  They have no additional possible explicit
+casts other than to the types to which they are coercible.</p>
+<h3><a name="3-int-types"></a> Integral Types</h3>
+<p>An integral type represents in whole number that can be negative if the type is marked as signed.  There are several
+different sizes of the integral type as listed below with their corresponding type label:</p>
+<pre><code class="language-whirlwind">short // 16 bit, signed integral type
+int   // 32 bit, signed integral type
+long  // 64 bit, signed integral type
+</code></pre>
+<p>All integral types have absolute sizes that do not vary by platform.  Moreover, each integral type has an unsigned
+variant that can be designated with the prefix <code>u</code>.</p>
+<pre><code class="language-whirlwind">ushort // 16 bit, unsigned integral type
+uint   // 32 bit, unsigned integral type
+ulong  // 64 bit, unsigned integral type
+</code></pre>
+<p>All of the integral types follow the same casting and coercion rules with respect to each other.  Any integral type
+can be coerced to any integral type that has a size larger than that of itself.  Moreover, any integral type
+will automatically coerce from its signed form to its unsigned form; however, integral types must be explicitly cast
+from their unsigned to their signed forms.  Finally, all integral types must be explicitly cast in order to transform
+them into a smaller integral type or to the byte type.</p>
+<p>Both short types and integer types (where the integer type is another way of saying the 32-bit integral type) are
+coercible to both types of <a href="#3-float-types">floating-point types</a>, regardless of signage.  By contrast, long types
+(both signed and unsigned) are only coercible to double types.  However, all integral types can be cast to either
+one of the floating point types explicitly.</p>
+<p>Standing apart from the other integral types, the signed integer type is also capable of being cast to the
+<a href="#3-char-types">character type</a>.  </p>

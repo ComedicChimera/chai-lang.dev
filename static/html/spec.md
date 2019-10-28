@@ -16,11 +16,11 @@
     - [Literals](#2-literals)
 
 3. [Primitive Types](#prim-types)
-    - Byte Types
-    - Character Types
-    - Integral Types
+    - [Byte Types](#3-byte-types)
+    - [Integral Types](#3-int-types)
     - Floating-Point Types
     - Boolean Types
+    - Character Types
     - String Types
     - Any Types
     - None Types
@@ -306,7 +306,7 @@ Notably, some of the operators listed can be combined with the `=` operator to f
 
 Finally, they are several operators that were not listed in the above list because they are either primarily considered some other type of lexical element.
 Furthermore, all of these operators are considered non-standard operators due to the operands they accept and/or the function they perform.  Many of these
-non-standard operators also do not accept operands in the traditional unary or binary manner that all of the standard operators listed above.
+non-standard operators also do not accept operands in the traditional unary or binary manner that all of the standard operators listed above do.
 
 ### <a name="2-literals"></a> Literals
 
@@ -396,7 +396,7 @@ from this string (though a subscript) will result in a runtime error.
 #### Binary and Hexadecimal Literals
 
 Binary and hexadecimal literals represent an arbitrary piece of data.  All binary and hexadecimal literals correspond to either a [byte type](#3-byte-types)
-or an [integral type](#3-integral-types) depending exclusively on the type of data they hold.  Furthermore, the correspondent type is always
+or an [integral type](#3-int-types) depending exclusively on the type of data they hold.  Furthermore, the correspondent type is always
 unsigned.
 
 Binary literals take the following form:
@@ -425,3 +425,60 @@ the type determination process is identical to that of a binary literal.
 
 Finally, in both literals, 0s still count as a additional space in the literal.  That is to say, the size of the inferred type is determined not by the
 actual used memory of literal but rather by the number of characters specified in the literal.  For example, `0x000` will evaluate to a larger type than `0x00`.
+
+## <a name="prim-types"></a> Primitive Types
+
+Primitive types are considered to be the most simple types offered by Whirlwind.  They are (with the exception of the string type to a degree) used to
+build more complex types.
+
+All primitive types that can only hold a "finite" set of a values can experience both underflow and overflow.  These types will **not** throw any form of
+error when said events occur; it is the responsibility of the programmer to check for, prevent, and handle these edge cases where applicable.
+
+### <a name="3-byte-types"></a> Byte Types
+
+A byte type is simplest type in Whirlwind.  It represents a single byte of data with no particular type.  
+
+It has two different variants: the signed byte and the unsigned byte.  Each has its own type label.
+
+    whirlwind
+    byte  // unsigned byte
+    sbyte // signed byte
+
+The only literal forms of a byte type are sufficiently small hexadecimal and binary literals both of which have
+a type of unsigned byte (if small enough).  
+
+Although byte types compile to an `i8` in LLVM IR, they are **not** considered integral types, but they can
+be coerced to any of the integral types without an explicit type cast.  They have no additional possible explicit
+casts other than to the types to which they are coercible.
+
+### <a name="3-int-types"></a> Integral Types
+
+An integral type represents in whole number that can be negative if the type is marked as signed.  There are several
+different sizes of the integral type as listed below with their corresponding type label:
+
+    whirlwind
+    short // 16 bit, signed integral type
+    int   // 32 bit, signed integral type
+    long  // 64 bit, signed integral type
+
+All integral types have absolute sizes that do not vary by platform.  Moreover, each integral type has an unsigned
+variant that can be designated with the prefix `u`.
+
+    whirlwind
+    ushort // 16 bit, unsigned integral type
+    uint   // 32 bit, unsigned integral type
+    ulong  // 64 bit, unsigned integral type
+
+All of the integral types follow the same casting and coercion rules with respect to each other.  Any integral type
+can be coerced to any integral type that has a size larger than that of itself.  Moreover, any integral type
+will automatically coerce from its signed form to its unsigned form; however, integral types must be explicitly cast
+from their unsigned to their signed forms.  Finally, all integral types must be explicitly cast in order to transform
+them into a smaller integral type or to the byte type.
+
+Both short types and integer types (where the integer type is another way of saying the 32-bit integral type) are
+coercible to both types of [floating-point types](#3-float-types), regardless of signage.  By contrast, long types
+(both signed and unsigned) are only coercible to double types.  However, all integral types can be cast to either
+one of the floating point types explicitly.
+
+Standing apart from the other integral types, the signed integer type is also capable of being cast to the
+[character type](#3-char-types).  
