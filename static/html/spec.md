@@ -43,24 +43,23 @@
     - Functional Expressions
     - Expression Local Variables
     - Ternary Expressions
-    - Case Expressions
+    - Select Expressions
     - Range Expressions
     - Then Expressions
     - Is Expressions
     - Cast Expressions
     - Extract Expressions
-    - Constant Expressions
 
 6. Statements
     - Variable Declarations
-    - Constancy and Constexpr
+    - Constancy
     - Assignment
     - Simple Statements
     - If Statements
     - Select Statements
     - For Loops
-    - Context Managers
     - After Clauses
+    - Context Managers
 
 7. Functions
     - Function Declarations
@@ -86,6 +85,7 @@
     - Overriding
     - Operator Overloading
     - Special Methods
+    - Generalized Boxing
 
 10. Generics
     - Generic Types
@@ -108,7 +108,6 @@
     - Heap Deallocation
     - Moving and Copying
     - Nullable Operators
-    - Implicit Deallocation
     - Ownership
     - Lifetimes
 
@@ -117,6 +116,7 @@
     - Futures
     - Asynchronous Functions
     - Await and Shields
+    - Mutexes
     - Volatility
     - Race Conditions
 
@@ -138,7 +138,7 @@
     - Error Model
     - Stack Tracing
     - Dynamic Allocation
-    - Concurrency
+    - Fiber Management
     - Compile-Time Intrinsics
 
 ## <a name="intro"></a> Introduction
@@ -434,6 +434,9 @@ build more complex types.
 All primitive types that can only hold a "finite" set of a values can experience both underflow and overflow.  These types will **not** throw any form of
 error when said events occur; it is the responsibility of the programmer to check for, prevent, and handle these edge cases where applicable.
 
+All reference to coercion and casting in this section, refer exclusively to coercion and casting between primitive types.  More complex types such as
+interfaces and type classes do **not** apply here.
+
 ### <a name="3-byte-types"></a> Byte Types
 
 A byte type is simplest type in Whirlwind.  It represents a single byte of data with no particular type.  
@@ -480,5 +483,21 @@ coercible to both types of [floating-point types](#3-float-types), regardless of
 (both signed and unsigned) are only coercible to double types.  However, all integral types can be cast to either
 one of the floating point types explicitly.
 
-Standing apart from the other integral types, the signed integer type is also capable of being cast to the
-[character type](#3-char-types).  
+Standing apart from the other integral types, the signed and unsigned 32 bit integer type is also capable of being cast 
+to the [character type](#3-char-types).  
+
+### <a name="3-float-types"></a> Floating-Point Types
+
+A floating-point type represents a finite precision decimal number.  There are two different types of floating-point
+types, and their type labels are listed below with their sizes:
+
+    whirlwind
+    float  // 32 bit floating-point type
+    double // 64 bit floating-point type
+
+Floating-point types make no distinction between signage at a typing level: all floating-point types have a sign.
+Both floating-point types conform to the IEEE-754-2008 specifications for binary32 and binary64.
+
+With regards to coercion and casting with the floating-point types, a `float` can coerce to a `double`, but a `double`
+must be explicitly downcast to `float`.  As it pertains to other types, floating-point types must be explicitly cast
+to integral types and cannot be cast to another type.
