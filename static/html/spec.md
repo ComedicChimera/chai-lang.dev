@@ -18,12 +18,12 @@
 3. [Primitive Types](#prim-types)
     - [Byte Types](#3-byte-types)
     - [Integral Types](#3-int-types)
-    - Floating-Point Types
-    - Boolean Types
-    - Character Types
-    - String Types
-    - Any Types
-    - None Types
+    - [Floating-Point Types](#3-float-types)
+    - [Boolean Types](#3-bool-types)
+    - [Character Types](#3-char-types)
+    - [String Types](#3-string-types)
+    - [Any Types](#3-any-types)
+    - [None Types](#3-none-types)
 
 4. [Collections](#collections)
     - [Arrays](#arrays)
@@ -428,14 +428,18 @@ actual used memory of literal but rather by the number of characters specified i
 
 ## <a name="prim-types"></a> Primitive Types
 
-Primitive types are considered to be the most simple types offered by Whirlwind.  They are (with the exception of the string type to a degree) used to
-build more complex types.
+Primitive types are considered to be the most simple types offered by Whirlwind (with the exception of the string type to a degree).  They are often
+the building blocks for more complex types.
 
-All primitive types that can only hold a "finite" set of a values can experience both underflow and overflow.  These types will **not** throw any form of
-error when said events occur; it is the responsibility of the programmer to check for, prevent, and handle these edge cases where applicable.
+All primitive types that can only hold a finite set of a values can experience underflow, overflow, and/or loss of precision.  These types will **not**
+throw any form of error when said events occur; it is the responsibility of the programmer to check for, prevent, and handle these edge cases where applicable.
 
-All reference to coercion and casting in this section, refer exclusively to coercion and casting between primitive types.  More complex types such as
-interfaces and type classes do **not** apply here.
+All references to coercion and casting in this section refer exclusively to coercion and casting between primitive types.  More complex types such as
+interfaces and type classes do **not** apply here.  Additionally, the any type, due to all types ability to be coerced to it, is also not included in
+the descriptions of coercion and casting rules.
+
+> Note: The phrase "a *T* type" that occurs in each type description that follows and many that occur later in this specification technically
+> refers to an element of the set described by *T* type.  In essence, this shorthand is akin to saying "a value of type *T*".
 
 ### <a name="3-byte-types"></a> Byte Types
 
@@ -456,7 +460,7 @@ casts other than to the types to which they are coercible.
 
 ### <a name="3-int-types"></a> Integral Types
 
-An integral type represents in whole number that can be negative if the type is marked as signed.  There are several
+An integral type represents a whole number that can be negative if the type is marked as signed.  There are several
 different sizes of the integral type as listed below with their corresponding type label:
 
     whirlwind
@@ -464,8 +468,8 @@ different sizes of the integral type as listed below with their corresponding ty
     int   // 32 bit, signed integral type
     long  // 64 bit, signed integral type
 
-All integral types have absolute sizes that do not vary by platform.  Moreover, each integral type has an unsigned
-variant that can be designated with the prefix `u`.
+All integral types have absolute sizes that do not vary by platform.  All integral types are represented with
+two's complement arithmetic. Moreover, each integral type has an unsigned variant that can be designated with the prefix `u`.
 
     whirlwind
     ushort // 16 bit, unsigned integral type
@@ -483,7 +487,7 @@ coercible to both types of [floating-point types](#3-float-types), regardless of
 (both signed and unsigned) are only coercible to double types.  However, all integral types can be cast to either
 one of the floating point types explicitly.
 
-Standing apart from the other integral types, the signed and unsigned 32 bit integer type is also capable of being cast 
+Standing apart from the other integral types, the signed and unsigned 32 bit integer type is also capable of being cast
 to the [character type](#3-char-types).  
 
 ### <a name="3-float-types"></a> Floating-Point Types
@@ -498,6 +502,34 @@ types, and their type labels are listed below with their sizes:
 Floating-point types make no distinction between signage at a typing level: all floating-point types have a sign.
 Both floating-point types conform to the IEEE-754-2008 specifications for binary32 and binary64.
 
-With regards to coercion and casting with the floating-point types, a `float` can coerce to a `double`, but a `double`
+With regards to coercion and casting within the floating-point types, a `float` can coerce to a `double`, but a `double`
 must be explicitly downcast to `float`.  As it pertains to other types, floating-point types must be explicitly cast
-to integral types and cannot be cast to another type.
+to integral types and cannot be cast to any other type.
+
+### <a name="3-bool-types"></a> Boolean Types
+
+A boolean type represents a Boolean truth value and is a psuedo-integral data type.  
+It occupies a single byte and is denoted with the following type label:
+
+    whirlwind
+    bool
+
+There is no sign associated with the boolean type.  It cannot be implicitly coerced to any other type, but it can
+be cast into any integral type.
+
+Notably, the boolean type only stores a single bit of information and is padded to 8 bits.  Semantically, it is only
+considered to be 1 bit in size; however, it still technically occupies a byte thus the description above.  For this
+reason, when taking the size of the data type, the language always returns that it is 1 byte in size.
+
+### <a name="3-char-types"></a> Character Types
+
+A character type represents a single UTF-8 encoded character.  It occupies 32 bits and has no sign.  Its type label
+is listed below:
+
+    whirlwind
+    char
+
+Due to its nature as a UTF-8 encoded value, any valid unicode code point can be stored in a character type.  
+
+### <a name="3-string-types"></a> String Types
+
