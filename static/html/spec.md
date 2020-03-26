@@ -103,6 +103,7 @@
     - Captures
 
 12. Memory Model
+    - Value Semantics
     - Pointer Types
     - Heap Allocation
     - Heap Deallocation
@@ -529,7 +530,40 @@ is listed below:
     whirlwind
     char
 
-Due to its nature as a UTF-8 encoded value, any valid unicode code point can be stored in a character type.  
+Due to its nature as a UTF-8 encoded value, any valid unicode code point can be stored in a character type.
+
+Character types can only be coerced to one other primitive: the string.  However, they can be cast to the
+integer (32 bit integral) type.
 
 ### <a name="3-string-types"></a> String Types
 
+String types are unique among the primitive types in that represent not one value but many.  A string is
+defined to be a set of characters with a finite length.  Notably, that length is not noted in the
+data type and thus is not considered at a typing level: two string types of different length are
+equivalent from a typing standpoint.
+
+A string does not occupy any definite amount of space; however, the construct itself includes a pointer
+to an array of characters and a length represented as a 32 bit unsigned integer.  Therefore, it can be
+said that the base string type occupies the equivalent size of a struct of that contains those two members.
+This definition excludes that underlying memory that a string also contains via its pointer.
+
+The string type label is as follows:
+
+    whirlwind
+    str
+
+Strings are unique from almost all other types in Whirlwind in two capacities.  They are fundamentally immutable
+which means that elements of a string which are defined to be character types can only be accessed; never set.
+Therefore, an operation such as the one shown below is considered to be invalid.
+
+    whirlwind
+    let s = "gap";
+    s[0] = 'n'; // COMPILATION ERROR
+
+There are also unique in that the underlying data of a string is only copied implicitly upon being returned from
+a function as opposed to being copied in any other situation where a normal implicit reference type would be copied
+(as outlined in section 12). This is due to the fact that the underlying data of a string will never be mutated and
+so it is feasible for multiple instances of the same string to share the same underlying data without violating
+the value semantics of Whirlwind (as outlined in section 12).
+
+Finally, because strings implicitly include a length in their definition, they are not null terminated.
