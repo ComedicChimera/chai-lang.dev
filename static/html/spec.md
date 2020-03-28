@@ -567,3 +567,14 @@ so it is feasible for multiple instances of the same string to share the same un
 the value semantics of Whirlwind (as outlined in section 12).
 
 Finally, because strings implicitly include a length in their definition, they are not null terminated.
+
+### <a name="3-any-types"></a> Any Types
+
+The any type can be cast to any other type and all types can be coerced to it.  The any type has no definite
+size as it can store any value.  However, similar to the string type, the any type is also implemented as a
+struct; therefore, its size is considered to be the size of that struct.
+
+It has the following type label:
+
+    whirlwind
+    any
