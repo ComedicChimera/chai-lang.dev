@@ -488,7 +488,7 @@ coercible to both types of [floating-point types](#3-float-types), regardless of
 (both signed and unsigned) are only coercible to double types.  However, all integral types can be cast to either
 one of the floating point types explicitly.
 
-Standing apart from the other integral types, the signed and unsigned 32 bit integer type is also capable of being cast
+Standing apart from the other integral types, the signed and unsigned 32 bit integer type is also capable of being coerced
 to the [character type](#3-char-types).  
 
 ### <a name="3-float-types"></a> Floating-Point Types
