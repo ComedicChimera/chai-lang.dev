@@ -1,2 +1,2 @@
-Django==latest
-psycopg2==latest
+Django
+psycopg2
