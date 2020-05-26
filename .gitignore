@@ -1,11 +1,7 @@
-*.pyc
-
-/__pycache__
-
 .env
 
 .vscode/*
 
-/app/__pycache__
+*/__pycache__
 
-to_markdown.py
+*.pyc

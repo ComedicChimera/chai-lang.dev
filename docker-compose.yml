@@ -1,27 +1,21 @@
 version: '3'
+
 services:
-  app:
-    env_file: .env
-    build: '.'
-    ports:
-     - '5000:5000'
-    volumes:
-     - ./static:/static
-     - ./templates:/templates
-    environment:
-      DB_URI: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DB}"
-    depends_on:
-      - db
-  db:
-    env_file: .env
-    image: postgres
-    restart: always
-    volumes: 
-      - "./db:/var/lib/postgresql"
-    ports:
-      - "5432"
-
-
-
-
-     
+    app:
+        env_file: .env
+        build: '.'
+        command: python manage.py runserver 0.0.0.0:8000
+        ports:
+            - '8000:8000'
+        volumes:
+            - ./src:/src
+        depends_on:
+            - db
+    db:
+        env_file: .env
+        image: postgres
+        restart: always
+        volumes: 
+            - "./db:/var/lib/postgresql"
+        ports:
+            - "5432"

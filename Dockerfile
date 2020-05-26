@@ -1,9 +1,8 @@
-FROM python:latest
+# NOTE: this image should only be built once
 
-ADD . .
-
+FROM python:3
+ENV PYTHONUNBUFFERED 1
 RUN pip install -r requirements.txt
-
-EXPOSE 5000
-
-CMD ["python", "index.py"]
+RUN mkdir /src
+COPY src /src/
+WORKDIR /src

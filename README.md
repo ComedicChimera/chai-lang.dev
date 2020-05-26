@@ -1,30 +1,3 @@
-# whirlwind-lang.org
+# Whirlwind Language Website
 
-The Official Whirlwind Language Website
-
-*Website and Information therein Copyright &copy; Jordan Gaines 2019*
-
-## Guide Chapters
-
-- Introduction to Whirlwind
-- Hello World
-- Variables and Constants
-- Collections
-- Control Flow
-- Functions
-- Tuples
-- Pointers and Lifetimes
-- Structs
-- Interfaces
-- Overloading
-- Type Classes
-- Lambdas and Closures
-- Captures
-- Decorators
-- Comprehensions
-- Generics
-- Error Handling
-- Function Composition
-- Monads and Chaining
-- Concurrency
-- Packages and Inclusion
+Nothing to see here yet.
