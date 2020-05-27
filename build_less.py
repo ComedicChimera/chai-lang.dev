@@ -37,12 +37,12 @@ def walk_static_dir(path, build_items):
             build_items[full_file] = dist
 
 def find_dist(in_dir):
-    for item in os.listdir(in_dir):
-        full_path = os.path.join(in_dir, item)
-        if os.path.isdir(full_path) and item == 'dist':
-            return full_path
+    dist_path = os.path.join(in_dir, 'dist')
 
-    return ''
+    if not os.path.exists(dist_path):
+        os.mkdir(dist_path)
+
+    return dist_path
 
 def build_files(build_items):
     common_paths = [os.path.normpath(x.split('common')[0]) for x in {os.path.dirname(item) for item in build_items.keys()} if 'common' in x]
