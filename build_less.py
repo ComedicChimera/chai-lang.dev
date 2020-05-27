@@ -57,25 +57,27 @@ def build_files(build_items):
         if os.path.getsize(new_path) == 0:
             os.remove(new_path)
 
-if len(sys.argv) == 1:
-    build_items = walk_dir(os.path.abspath(os.path.join(os.path.dirname(__file__), 'src')))
+# if len(sys.argv) == 1:
+    
+# else:
+#     fpath = os.path.abspath(sys.argv[1])
 
-    if len(build_items) == 0:
-        print('Unable to find any buildable files')
-        exit(1)
+#     if os.path.exists(fpath):
+#         dist = find_dist(os.path.dirname(fpath))
 
-    build_files(build_items)
-else:
-    fpath = os.path.abspath(sys.argv[1])
+#         if dist == '':
+#             print(f'Unable to find dist for file at `{fpath}`')
+#             exit(1)
 
-    if os.path.exists(fpath):
-        dist = find_dist(os.path.dirname(fpath))
+#         build_files({fpath: dist})
+#     else:
+#         print(f'Unable to find file at `{fpath}`')
+#         exit(1)
 
-        if dist == '':
-            print(f'Unable to find dist for file at `{fpath}`')
-            exit(1)
+build_items = walk_dir(os.path.abspath(os.path.join(os.path.dirname(__file__), 'src')))
 
-        build_files({fpath: dist})
-    else:
-        print(f'Unable to find file at `{fpath}`')
-        exit(1)
+if len(build_items) == 0:
+    print('Unable to find any buildable files')
+    exit(1)
+
+build_files(build_items)
