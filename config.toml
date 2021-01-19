@@ -1,0 +1,4 @@
+baseURL = "https://whirlwind-lang.dev/"
+languageCode = "en-us"
+title = "Whirlwind Programming Language Website"
+theme = "doks"

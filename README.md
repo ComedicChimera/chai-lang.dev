@@ -1,3 +1,15 @@
-# Whirlwind Language Website
+# whirlwind-lang.dev
 
-Nothing to see here yet.
+This is the website for the Whirlwind programming language.
+
+You can find it hosted [here](...) *insert link*.
+
+The Github repository for Whirlwind can be found [here](https://github.com/ComedicChimera/Whirlwind).
+
+## Building
+
+This site was generated using [Hugo](https://gohugo.io/).  To build it:
+
+1. Install Hugo
+2. Run `hugo -D`
+
