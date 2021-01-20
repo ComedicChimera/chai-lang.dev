@@ -2,14 +2,46 @@ header::after {
     background-image: url(/images/blue-ribbon.png)
 }
 
-.subheading {
-    font-size: 1.75rem;
-    line-height: 2rem;
-    font-style: italic;
-    font-weight: normal;
-    text-align: center;
-    margin-bottom: 2rem;
-    margin-top: -2rem;
-    display: block;
+.heading-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+
+    width: 50%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    margin-top: -4rem;
+    margin-bottom: -2rem;
+}
+
+.heading-card a img {
+    max-width: 220rem !important;
+}
+
+.heading-card .right-aside {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.heading-card .right-aside .tagline {
     font-family: "Open Sans", sans-serif;
+    font-size: 1.7rem;
+    font-style: italic;
+
+    margin-bottom: 2rem;
+}
+
+.heading-card .right-aside .call-action {
+    font-size: 1.5rem;
+    padding: 10px;
+    background-color:#00a8ec;
+}
+
+article {
+    font-size: 1.2rem;
 }

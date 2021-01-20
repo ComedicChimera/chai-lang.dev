@@ -2,18 +2,14 @@
 title: Home
 ---
 
-# Whirlwind
+# {{< color "#00a8ec" >}}Whirl{{< /color >}}{{< color "#032f55" >}}wind{{< /color >}}
 
-{{<subheading>}}A language for speed without sacrifice.{{</subheading>}}
-
-![logo](/images/favicon.png?width=70px&height=70px)
+{{< heading-card >}}
 
 Whirlwind is a compiled, modern, and multipurpose language designed with
 intentionality. It is strongly-typed, versatile, expressive, concurrent, and
 relatively easy to learn. It boasts numerous new and old features and is
-designed to represent the needs of any software developer.
-
-To learn more about the language, check out our Getting Started Guide *insert link*.
+designed to represent the needs of any software developer.  
 
 ## Goals
 
