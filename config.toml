@@ -1,14 +1,21 @@
 baseURL = "http://whirlwind-lang.dev/"
 languageCode = "en-us"
 title = "Whirlwind Docs"
-theme = "learn"
+theme = "docdock"
+DefaultContentLanguage = "en"
+pygmentsCodeFences = true
+pygmentsStyle = "monokai"
 
 [params]
-    author = "Jordan Gaines"
+    editURL = "https://github.com/ComedicChimera/whirlwind-lang.dev/edit/master/content"
+    themeStyle = "flex"
+    
+[outputs]
+    home = [ "HTML", "RSS", "JSON"]
 
-    description = "Documentation for Whirlwind Programming Language"
+[[menu.shortcuts]]
+    name = "<i class='fa fa-github'></i> <label>Language Github</label>"
+    url = "https://github.com/ComedicChimera/Whirlwind"
 
-    themeVariant = "blue"
 
-    titleSeparator = "|"
 

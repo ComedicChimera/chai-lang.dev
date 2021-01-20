@@ -3,7 +3,7 @@
 This is the source for the [Whirlwind programming language](https://github.com/ComedicChimera/whirlwind) website.  
 You can find it hosted here *insert link*.
 
-This website was generated with the [hugo-learn](https://learn.netlify.app/en/) theme using [Hugo](https://gohugo.io/).
+This website was generated with the [docdock](https://docdock.netlify.app/) theme using [Hugo](https://gohugo.io/).
 
 
 ## Dependencies

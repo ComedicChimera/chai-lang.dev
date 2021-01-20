@@ -1,0 +1,1 @@
+![whirlwind-logo](/images/favicon.png?width=50px&height=50px)Whirlwind Docs
