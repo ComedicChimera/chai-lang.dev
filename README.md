@@ -1,19 +1,14 @@
 # whirlwind-lang.dev
 
-This is the website for the Whirlwind programming language.
+This is the source for the [Whirlwind programming language](https://github.com/ComedicChimera/whirlwind) website.  
+You can find it hosted here *insert link*.
 
-You can find it hosted [here](...) *insert link*.
+This website was generated with the [hugo-book](https://github.com/alex-shpak/hugo-book) theme using [Hugo](https://gohugo.io/).
 
-The Github repository for Whirlwind can be found [here](https://github.com/ComedicChimera/Whirlwind).
 
+## Dependencies
+
+1. [Hugo](https://gohugo.io/getting-started/installing/)
 ## Building
 
-This site was generated using [Hugo](https://gohugo.io/).  To build it:
-
-1. Install Hugo
-2. Run `hugo -D`
-
-To preview it on a development server, run `hugo server -D` instead of `hugo -D`.
-
-*Note: By default, most of the files on this site are marked as drafts.*
-
+Run `hugo server --minify` to build and view the content on a development server.

@@ -1,4 +1,14 @@
-baseURL = "https://whirlwind-lang.dev/"
+baseURL = "http://whirlwind-lang.dev/"
 languageCode = "en-us"
-title = "Whirlwind Programming Language Website"
-theme = "doks"
+title = "Whirlwind Docs"
+theme = "book"
+
+[params]
+    BookTheme = "light"
+
+    BookLogo = 'favicon.png'
+
+    BookRepo = "https://github.com/ComedicChimera/whirlwind-lang.dev"
+
+    BookComments = false
+
