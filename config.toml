@@ -1,14 +1,14 @@
 baseURL = "http://whirlwind-lang.dev/"
 languageCode = "en-us"
 title = "Whirlwind Docs"
-theme = "book"
+theme = "learn"
 
 [params]
-    BookTheme = "light"
+    author = "Jordan Gaines"
 
-    BookLogo = 'favicon.png'
+    description = "Documentation for Whirlwind Programming Language"
 
-    BookRepo = "https://github.com/ComedicChimera/whirlwind-lang.dev"
+    themeVariant = "blue"
 
-    BookComments = false
+    titleSeparator = "|"
 
