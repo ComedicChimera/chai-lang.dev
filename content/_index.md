@@ -4,6 +4,10 @@ title: Home
 
 # Whirlwind
 
+{{<subheading>}}A language for speed without sacrifice.{{</subheading>}}
+
+![logo](/images/favicon.png?width=70px&height=70px)
+
 Whirlwind is a compiled, modern, and multipurpose language designed with
 intentionality. It is strongly-typed, versatile, expressive, concurrent, and
 relatively easy to learn. It boasts numerous new and old features and is

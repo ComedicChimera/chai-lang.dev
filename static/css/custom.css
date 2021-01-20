@@ -1,3 +1,15 @@
 header::after {
     background-image: url(/images/blue-ribbon.png)
 }
+
+.subheading {
+    font-size: 1.75rem;
+    line-height: 2rem;
+    font-style: italic;
+    font-weight: normal;
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-top: -2rem;
+    display: block;
+    font-family: "Open Sans", sans-serif;
+}
