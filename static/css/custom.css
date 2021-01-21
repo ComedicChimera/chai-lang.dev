@@ -19,6 +19,7 @@ header::after {
 
 .heading-card a img {
     max-width: 220rem !important;
+    margin-left: -4rem !important;
 }
 
 .heading-card .right-aside {
