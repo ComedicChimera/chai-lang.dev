@@ -14,8 +14,14 @@ pygmentsStyle = "monokai"
     home = [ "HTML", "RSS", "JSON"]
 
 [[menu.shortcuts]]
+    name = "<i class='fa fa-download'></i> <label>Install</label>"
+    url = "/install"
+    weight = 1
+
+[[menu.shortcuts]]
     name = "<i class='fa fa-github'></i> <label>Language Github</label>"
     url = "https://github.com/ComedicChimera/Whirlwind"
+    weight = 2
 
 
 
