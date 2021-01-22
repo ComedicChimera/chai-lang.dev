@@ -1,6 +1,6 @@
 baseURL = "http://whirlwind-lang.dev/"
 languageCode = "en-us"
-title = "Whirlwind Docs"
+title = "Whirlwind"
 theme = "docdock"
 DefaultContentLanguage = "en"
 pygmentsCodeFences = true

@@ -50,3 +50,18 @@ article {
     margin-left: auto;
     margin-right: auto;
 }
+
+header .logo p {
+    cursor: pointer;
+
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.6rem;
+}
+
+header .logo p img {
+    margin-top: -0.5rem;
+}
+
+header .shortcuts li:hover {
+    cursor: pointer;
+}
