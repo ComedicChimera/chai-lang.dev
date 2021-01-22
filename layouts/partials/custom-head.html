@@ -2,11 +2,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
 
+<link rel="stylesheet" type="text/css" href="/vendor/prism/prism-tomorrow-night.css"/>
+
+<script src="/vendor/prism/prism.js"></script>
+<script src="/js/language-whirlwind.js"></script>
+
 <script>
     function setup() {
         $('.logo>p').on('mousedown', () => {
             window.location.href = "/"
         })
+
+        $('pre>code').addClass('language-whirlwind')
     }
 
     $(setup)
