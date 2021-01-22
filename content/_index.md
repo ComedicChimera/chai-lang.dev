@@ -133,6 +133,7 @@ composition by default.
             fib_print(fib())
 
 {{< alert theme="info">}}This code is made more complex for the sake of example and showing off more features.{{< /alert >}}
+
 #### Elegant Error Handling
 
 While exceptions are a powerful tool in the right hands, they can often lead to sloppy code and cause

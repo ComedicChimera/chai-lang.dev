@@ -65,3 +65,13 @@ header .logo p img {
 header .shortcuts li:hover {
     cursor: pointer;
 }
+
+aside .menu .dd-item.active > div * {
+    border-bottom: dotted #00a8ec 1px !important;
+}
+
+:not(pre) > code {
+    background-color: #eee;
+    padding: 0.1rem !important;
+    border-radius: 0.3rem;
+}
