@@ -5,7 +5,7 @@ weight: 3
 
 ## Mutable Variables
 
-We use the `let` keyword in Whirlwind to create **mutable** variable.
+We use the `let` keyword in Whirlwind to create a **mutable** variable.
 Simply place the name of the variable you want to create after the
 keyword followed by an **initializer**.
 
@@ -67,5 +67,39 @@ will get an error.
 
     name = 45 // TYPE ERROR
 
+Whirlwind also supports many **compound assignment** operators.  A compound
+assignment operator is an operator that performs some operation between the
+variable and the value being assigned and then stores the result into the variable.
 
+    // Expanded Form
+    x = x + 2
 
+    // Compound Form
+    x += 2
+
+Those two statements are equivalent: `+=` is the compound assignment operator.
+
+## Constants
+
+A **constant** is a variable that can't be mutated -- they are immutable variables.
+They are declared the same as variables -- the only difference being that they use
+the `const` keyword for declaration instead of `let`.
+
+    const e = 2.718
+
+All of the same declaration variations that apply to mutable variables also apply
+to constants:
+
+    const a = 0, b = 1
+
+    const
+        c = 5.2
+        d = "test"
+        v = 42
+
+    const x: uint = 2
+
+The only difference being that you cannot assign to constants -- once declared their
+value is set for the remainder of their scope.
+
+    e = 3.14  // ERROR
