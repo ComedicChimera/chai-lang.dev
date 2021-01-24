@@ -22,15 +22,17 @@ Chapters:
 2. Basic Types
 3. Variables
 4. Control Flow
-5. Collections
-6. Pattern Matching
-7. Functions
-8. Lambdas and Closures
-9. Structured Types
-10. Algebraic Types
-11. Type Sets
-12. Interfaces
-13. Generics
-14. References
-15. Packages
-16. Concurrency
+5. Pattern Matching
+6. Functions
+7. Structured Types
+8. Algebraic Types
+9. Type Sets
+10. Interfaces
+11. References
+12. Regions and Lifetimes
+13. Block References
+14. Collections
+15. Lambdas and Closures
+16. Generics
+17. Packages
+18. Concurrency

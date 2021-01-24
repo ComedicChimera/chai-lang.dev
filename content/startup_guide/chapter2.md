@@ -61,8 +61,7 @@ Here are some examples of some of the operators:
 Finally, you can also use the unary `-` operator to negate a numeric value.
 
     -45 
-    -(2 + 4)
-    (3 + 4) * (7 ~^ 2)
+    -(2 - 4)
 
 ## String and Rune Types
 
@@ -143,7 +142,7 @@ an error at compile-time.
 
 It sometimes convenient or necessary to convert one type into another.  Some
 conversions happen implicitly: from ints to floats for example.  These kinds
-of conversions are called **coercions**.  However, some more complex conversions
+of conversions are called **coercions**.  However, some more "dangerous" conversions
 such as from signed integers to unsigned integers, must be converted explicitly
 using a **type cast**.  Type casts use the keyword `as` followed by the type
 to convert to.  Here are some example casts:

@@ -19,7 +19,7 @@ pygmentsStyle = "monokai"
     weight = 1
 
 [[menu.shortcuts]]
-    name = "<i class='fa fa-github'></i> <label>Language Github</label>"
+    name = "<i class='fa fa-github'></i> <label>Github</label>"
     url = "https://github.com/ComedicChimera/Whirlwind"
     weight = 2
 

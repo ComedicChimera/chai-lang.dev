@@ -20,11 +20,11 @@ Whirlwind has several main goals all of which can be enscapsulated in the idea o
 - Speed of compiling.
 - Speed of running.
 
-Whirlwind recognizes that performance while important is not the only feature that
-matters to modern programmer.  Being able to develop swiftly and fluidly is critical
-to designing robust and elegant applications.  Whirlwind strives to allow you to
-translate your ideas into code as quickly and effortlessly as possible without incurring
-a significant performance cost.  Moreover, by removing the clutter of the
+Whirlwind recognizes that performance while important (and very easily possible with Whirlwind)
+is not the only feature that matters to modern programmer.  Being able to develop swiftly
+and fluidly is critical to designing robust and elegant applications.  Whirlwind strives
+to allow you to translate your ideas into code as quickly and effortlessly as possible
+without incurring a significant performance cost.  Moreover, by removing the clutter of the
 standard development workflow, we allow more time for optimization, testing, and polishing.
 
 In line with these goals, Whirlwind is beautiful by design -- it is designed with minimal
@@ -54,8 +54,9 @@ generating bindings for you based on a preexisting C library.
 
 #### Performance
 
-Whirlwind doesn't just look good: it also runs blazing-fast.  Here is how it performs
-against some of the top-dogs in its "performance bracket."
+Whirlwind doesn't just look good: it also runs blazing-fast.  It has a very lightweight
+runtime and runs without a garbage collector minimizing performance overhead.  This coupled
+with a lean, mean memory model out for blood, and you get results: 
 
 *insert graph of speed and of memory usage*
 
@@ -64,6 +65,14 @@ This means that the IR Whirlwind generates will be transformed into efficient as
 the most performant and powerful tools in the compilation world, and, with optimization enabled,
 your code is put through LLVM's battle-hardened optimizers to produce a ridiculously well-optimized
 output.
+
+#### Reliability
+
+Whirlwind's error handling, memory model, type system, and other features work together to
+create language that doesn't just run fast -- it runs well.  Whirlwind applications are
+robust by design -- writing good Whirlwind also implies writing reliable applications.
+
+*insert some demonstration of this point*
 
 #### Concurrency
 
@@ -86,6 +95,38 @@ them and act appropriately should would Strand panic or fail at any point.
 
 
 ## Language Features
+
+#### Intelligent Memory Model
+
+Whirlwind features a powerful, intelligent memory model that protects you from undefined behavior
+and memory leaks without forcing you to constantly negotiate with the compiler.  Unlike other
+languages, Whirlwind uses regions -- small scoped allocation arenas -- to efficiently manage heap
+references and their lifetimes.  One consequence of this system is that you can overwrite a heap
+references without worrying about creating memory leaks.  Moreover, memory need never be explicitly
+deleted as regions clean up all their memory when they exit.
+
+    type LinkedListNode {
+        value: int
+        next: Option<own &LinkedListNode>
+    }
+
+    func ll_range(r: region, n: int) own &LinkedListNode do
+        if n == 0 do
+            return make in[r] LinkedListNode{value=0, next=None}
+
+        return make in[r] LinkedListNode{value=n, next=Some(ll_range(r, n-1))}
+
+    func main do
+        region r local
+        let ll = ll_range(r, 10)
+
+        while true do
+            println(ll.value)
+
+            if ll.next match Some(next) do
+                ll = next
+            else
+                break
 
 #### Versatile Type System
 
