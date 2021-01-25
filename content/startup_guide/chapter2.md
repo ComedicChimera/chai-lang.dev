@@ -138,7 +138,8 @@ an error at compile-time.
     5 > "abc" 
     !'a'
     5 == "bc" // can't compare items of different types
-    54 and 76
+    54 && 76
+    "name" + 7.5
 
 It sometimes convenient or necessary to convert one type into another.  Some
 conversions happen implicitly: from ints to floats for example.  These kinds

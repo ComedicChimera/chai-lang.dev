@@ -24,15 +24,17 @@ Chapters:
 4. Control Flow
 5. Pattern Matching
 6. Functions
-7. Structured Types
-8. Algebraic Types
-9. Type Sets
-10. Interfaces
-11. References
-12. Regions and Lifetimes
-13. Block References
-14. Collections
-15. Lambdas and Closures
-16. Generics
-17. Packages
-18. Concurrency
+7. Error Handling
+8. Structured Types
+9. Algebraic Types
+10. Type Sets
+11. Interfaces
+12. Duck Typing
+13. References
+14. Regions and Lifetimes
+15. Block References
+16. Collections
+17. Lambdas and Closures
+18. Generics
+19. Packages
+20. Concurrency
