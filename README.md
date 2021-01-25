@@ -35,6 +35,12 @@ Chapters:
 15. Block References
 16. Collections
 17. Lambdas and Closures
-18. Generics
-19. Packages
-20. Concurrency
+18. Iterable Functions
+19. Generics
+20. Packages
+21. Coroutines
+22. Strand Communication
+23. Vectors
+24. Vector Functions
+25. Where to next?
+

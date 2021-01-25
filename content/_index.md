@@ -82,7 +82,7 @@ model.
 Whirlwind programs are executed in Strands *insert link* which are like light-weight
 threads that entirely managed by the Whirlwind runtime as opposed to by the operating
 system.  They are designed to act cooperatively: preferring to voluntarily exchange
-data and yield execution as opposed to be interrupted.
+data and yield execution as opposed to be interrupted while still running in parallel.
 
 *insert some concurrent sample code*
 
