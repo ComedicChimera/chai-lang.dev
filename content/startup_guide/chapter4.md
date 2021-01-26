@@ -171,3 +171,26 @@ arbitrary sequence of values.
 Unfortunately, that is where we must leave the for loop for now; however, keep the basics in the
 back of your mind as much further down the road we will be returning to explore the full power
 of this construct -- there is much left to explore.
+
+## Shadowing
+
+**Shadowing** is an important but simple behavior of variables.  It occurs within any scope hierarchy
+and allows a variable named identically to that in a higher scope to "shadow" or stand in place
+of that higher variable.
+
+{{< alert theme="info" >}}For those unfamiliar, the term scope refers to the area over which a variable
+exists or is defined.  For example, a variable defined in an if block is contained within the scope
+of that if block and cannot be used outside it.{{< /alert >}}
+
+Here is some example code that demonstrates this behavior.
+
+    let x = 0
+
+    if some_cond do
+        let x = 2 // No error occurs here
+        if some_other_cond do
+            println(x) // Prints `2` not `0`
+
+Although variables cannot be defined multiple times in the same scope, as you can see above it is
+possible to override their definitions in lower scopes.  The variable `x` is shadowed by a variable
+of the same name defined in a lower scope.

@@ -128,4 +128,83 @@ was already exhaustive: the last case always matches if none of the others do.
 
 ## The Match Statement
 
-TODO
+The **match statement** is a statement-level extension of the match expression we already know.  It is
+the other main conditional control flow operator in Whirlwind (like the if-statement).
+
+Like the match expression, it begins with the `match` keyword followed by a value to match and the keyword `of`.
+After which, we enter a new indent level and begin enumerating a series of cases.  Unlike the match expression,
+these cases are formal blocks and using the keyword `case` to denote their start.
+
+    let message = ("greet", "Carl")
+
+    match message to
+        case ("greet", name) do
+            println("Hello there,", name)
+        case ("goodbye", name) do
+            println("Goodbye,", name)
+        case ("birthday", name) do
+            println("Happy Birthday,", name)
+        case _ do
+            println("Unable to display message.")
+
+Notice that the patterns inside the cases have the same ability as the patterns inside the match expression.
+
+{{< alert theme="info" >}}Whirlwind doesn't have a `default` keyword -- we use pattern matching with `_` to denote
+the default case.{{< /alert >}}
+
+Match statements contain blocks inside yielding values and so do not have to be exhaustive.  If we had wanted to
+elide the default case above, we could have.  
+
+If you are coming from another language, you may be used to `break` being required at the end of match statements
+(often called switch statements in other languages).  In Whirlwind, this is not only not required but also not
+permitted.  The `break` statement is reserved exclusively for exiting loops and will work to that end even if
+placed at the end of a match statement.
+
+To replace the fallthrough behavior of the conventional switch statement, Whirlwind introduces a `fallthrough`
+statement that can be used anywhere inside a case to automatically jump to the next one.
+
+    let n = 5
+
+    match n to
+        case 0 do
+            println("Additive identity and")
+            fallthrough
+        case 2 do
+            println("Even")
+        case 1 do
+            println("Multiplicative identity and")
+            fallthrough
+        case 3, 5 do
+            println("Odd and prime")
+
+When using `fallthrough`, the next case may not extract a named value in its pattern.  You may also notice that
+our last cases matches multiple values: `3` and `5`.  This behavior works identically to the equivalent in
+match expressions, and, once again, both patterns may not extract values.
+
+## Variable Expressions
+
+On occasion, it is necessary to match against other variables or expressions involving them.  Due to the
+syntax used for pattern matching, we cannot use these variables directly (as otherwise they will match as
+values and shadow their outer variables).  Luckily, we can simply wrap the variables in parentheses to
+denote that they are to be interpreted as an expression not as a pattern variable.
+
+    let x = 3
+    
+    let result = match (0, 1) to
+        ((x), _) => "Case 1"
+        (_, 4) => "Case 2"
+        _ => "Case 3"
+
+The first case only matches a tuple that has the value `3` in first position.  
+
+For expressions, this process is easier.  Even if the expression contains variables, you do not need to wrap
+it in parentheses since it is too complex to be mistaken as a pattern.
+
+    let a = 4, b = 3
+
+    match (12, 10) to
+        case (a * b, y) do
+            println(y)
+        // -- snip --
+
+The above code matches the first value `12` to the product of `a` and `b`.

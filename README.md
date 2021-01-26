@@ -44,3 +44,33 @@ Chapters:
 24. Vector Functions
 25. Where to next?
 
+## Not Covered In Guide
+
+- Operator Overloading
+- Function Variants
+- Method Variants
+- Explicit Composition
+- Partial Function Calling
+- Type Pattern Matching
+- Decorators
+- Annotations
+- Metadata
+- The `init` function
+- Dictionary Comprehensions
+- Global References
+- Volatile References
+- Foreign Values and References
+- `Copyable` and Copy Overriding
+- `Contextual` (outside of error handling)
+- Struct Inheritance
+- Variadic Arguments
+- Asynchronous Iterators
+- Fallthrough to Match
+- With Expressions
+- Inline If Expressions
+- Bitwise Operators
+- `HeapCollection` and Collection Constructors
+- `when` Conditions
+- Custom Iterators
+
+
