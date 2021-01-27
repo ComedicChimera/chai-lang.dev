@@ -72,5 +72,6 @@ Chapters:
 - `HeapCollection` and Collection Constructors
 - `when` Conditions
 - Custom Iterators
+- The `yield` statement
 
 
