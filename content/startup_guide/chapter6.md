@@ -5,7 +5,27 @@ weight: 6
 
 ## Using Functions
 
--- Calling and Storing Results
+A **function call** causes the function to produce a result and/or perform an action based on
+its arguments.  As we have seen with the `println` function, we can call a function by using
+its name followed by a pair of parentheses in which we place a set of a comma delimited arguments.
+
+    fun(2, "as")
+    do_something() // no arguments
+    get_factors(35)
+
+Many functions will return a value that can be used in a computation or stored in variable.
+This is the value the function will evaluate to when called.
+
+    let sum = add(2, 3)
+
+    factorial(5) * zeta(3) + 45
+
+Some functions (such as `println`) will not return anything.  Unlike in many other languages,
+it is possible to extract a value from such functions: this value is simply the `nothing` or
+unit type.  This type has no behavior and will be discussed in more detail in a later chapter.
+
+{{< alert theme="info" >}}The unit type is primarily used for things like generics where
+a type may choose whether or not it actually stores a value.{{< /alert >}}
 
 ## Defining a Function
 
@@ -101,3 +121,38 @@ so we can do this easily.
     fn("Hello", arg3=2)
 
 ## Recursion
+
+**Recursion** occurs when a function calls itself from within its own body.  This is a commonly
+supported feature in most programming languages today and is, of course, something Whirlwind supports.
+
+If you are unfamiliar with the concept, it can be a bit difficult to understand and is not really
+something that this guide is going to explain in much detail since it is already understood well
+enough by most programmers and not a feature that is unique to Whirlwind.  However, for
+the purposes of demonstration, we will include a sample use case of recursion: the factorial function.
+
+The factorial of a number is simply the product of the sequence of a whole numbers between itself and
+one.  For example, the factorial of `4` is `4 * 3 * 2 * 1`.  We can use recursion to implement this
+function cleanly.
+
+    func factorial(n: int) int do
+        if n < 3 do
+            return n
+
+        return n * factorial(n-1)
+
+For all values less than 3, the factorial is simply an identity (`2 * 1` = 2).  For all other values,
+the factorial can simply be considered to be `n` times the factorial of `n - 1` which is what is leveraged
+in the recursive definition above.  
+
+An iterative definition of factorial might look like the following:
+
+    func factorial(n: int) int do
+        let result = 1
+
+        for i in 1..n do
+            result *= i
+
+        return result
+
+It's a lot more cluttered than the recursive method, but it accomplishes the same result.
+
