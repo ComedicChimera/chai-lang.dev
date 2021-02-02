@@ -35,6 +35,10 @@ collections of values.{{< /alert >}}
 Note that the indices must be constant integer values.  You cannot use an expression or variable
 to access a tuple since the compiler would not know the type of the value being accessed.
 
+Finally, it is impossible to change the fields of a tuple individually once it has been created.
+
+    pair.0 = 4 // ERROR
+
 ## Tuple Deconstruction
 
 **Tuple deconstruction** (also called tuple unpacking) is the first kind of **pattern matching**
