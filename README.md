@@ -27,28 +27,28 @@ Chapters:
 7. Error Handling
 8. Structured Types
 9. Algebraic Types
-10. Type Sets
-11. Interfaces
-12. Duck Typing
-13. References
-14. Regions and Lifetimes
-15. Block References
-16. Collections
-17. Lambdas and Closures
-18. Iterable Functions
-19. Generics
-20. Packages
-21. Coroutines
-22. Strand Communication
-23. Vectors
-24. Vector Functions
-25. Where to next?
+10. Interfaces
+11. Duck Typing
+12. References
+13. Regions and Lifetimes
+14. Block References
+15. Collections
+16. Lambdas and Closures
+17. Iterable Functions
+18. Generics
+19. Packages
+20. Coroutines
+21. Strand Communication
+22. Vectors
+23. Vector Functions
+24. Where to next?
 
 ## Not Covered In Guide
 
-- Operator Overloading
-- Function Variants
-- Method Variants
+- Type Sets and Aliases
+- Operator Definitions
+- Function Specialization
+- Method Specialization
 - Explicit Composition
 - Partial Function Calling
 - Type Pattern Matching
