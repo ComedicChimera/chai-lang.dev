@@ -104,7 +104,7 @@ These fields cannot be assigned to after they are initialized.
         const field: uint
     }
 
-    func main do
+    func main() do
         let s = MyStruct{field=3}
 
         println(s.field) // prints `3`

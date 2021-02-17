@@ -116,7 +116,7 @@ deleted as regions clean up all their memory when they exit.
 
         return make in[r] LinkedListNode{value=n, next=Some(ll_range(r, n-1))}
 
-    func main do
+    func main() do
         region r local
         let ll = ll_range(r, 10)
 
@@ -145,7 +145,7 @@ in mind for writing widely reusable code.
                 Some(v) => f(v)
                 None => None
 
-    func main do
+    func main() do
         let r = option_sqrt(2)
 
         r.chain(|x| => println(x))
@@ -166,7 +166,7 @@ composition by default.
     func print_number(prefix: string, n: int) do
         println(prefix + ":", n)
 
-    func main do
+    func main() do
         let fib_print = print_number("The next fibonacci number is", _)
 
         let fib = fibonacci()
@@ -184,7 +184,7 @@ fail part of the function's definition and requiring the caller to appropriately
 However, it also tries to make this process as smooth as possible by leveraging its type system and
 some syntactic sugar.
 
-    func main do
+    func main() do
         with
             resp <- call_api_endpoint("/get-stuff")
             raw_data <- extract_data(resp)
@@ -202,7 +202,7 @@ auto-vectorization where possible.
 
     import vec_sum from vecutil
     
-    func main do
+    func main() do
         let matrix = {
             <{1, 2, 3}>,
             <{4, 5, 6}>,

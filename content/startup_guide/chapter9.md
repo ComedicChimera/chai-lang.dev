@@ -11,8 +11,8 @@ this section, we will write a simple expression type that we can use to represen
 and evaluate mathematical expressions.
 
 Put simply, an **algebraic type** is a composite type made up of multiple distinct,
-named **instances** that may store one or more values.  The type can assume any one of
-its different instances at any time.  This can be useful for variety of things; however,
+named **variants** that may store one or more values.  The type can assume any one of
+its different variants at any time.  This can be useful for variety of things; however,
 the case of evaluating mathematical expressions demonstrates their power perfectly.
 
 A mathematical expression can be composed of many different parts.  For example,
@@ -24,7 +24,7 @@ algebraic type.
 
 We are going to define the `Expr` type to represent our expression.  Algebraic types,
 like struct types, begin with the `type` keyword followed by a name.  However, instead
-of curly braces, we indent and enumerate out the various possible instances of the type
+of curly braces, we indent and enumerate out the various possible variants of the type
 beginning with `|` and separated by newlines.
 
     type Expr
@@ -32,19 +32,19 @@ beginning with `|` and separated by newlines.
         | Add(Expr, Expr)
         | Mul(Expr, Expr)
 
-Our `Expr` type has three instances: `Value`, `Add`, and `Mul`.  All of them store values
+Our `Expr` type has three variants: `Value`, `Add`, and `Mul`.  All of them store values
 and represent the corresponding operations. Much like our `Option<T>` type, we can refer
-to these instance directly, as values, in our program.   For example, if we wanted to
+to these variants directly, as values, in our program.   For example, if we wanted to
 represent the expression `(2 * 3) + 5` using this type, we could write the following:
 
     let expr = Add(Mul(Value(2), Value(3)), Value(5))
 
 As you might guess, the variable `expr` has a type of `Expr`.  Note that all of the
-instances of `Expr` are considered to be of the same type -- we can assign any one of the
-three instances to `expr` without causing any errors.
+variants of `Expr` are considered to be of the same type -- we can assign any one of the
+three variants to `expr` without causing any errors.
 
 Now, let's put our `Expr` type to good use and write a simple function that will evaluate
-any expression.  To do this, we need to use pattern matching to extract specific instances
+any expression.  To do this, we need to use pattern matching to extract specific variants
 and evaluate them.  Here is what such an `evaluate` function would look like:
 
     func evaluate(expr: Expr) double
@@ -53,12 +53,12 @@ and evaluate them.  Here is what such an `evaluate` function would look like:
             Add(a, b) => evaluate(a) + evaluate(b)
             Mul(a, b) => evaluate(a) * evaluate(b)
 
-Notice that we reference the instance we are matching against as part of the pattern and that
+Notice that we reference the variant we are matching against as part of the pattern and that
 we need to call `evaluate` recursively in our `Add` and `Mul` cases -- our data structure is
 inately recursive, and we need to handle that recursion.  
 
-{{< alert theme="info" >}}Our match is exhaustive since we covered every possible instance and
-combination of values in those instances.{{< /alert >}}
+{{< alert theme="info" >}}Our match is exhaustive since we covered every possible variant and
+combination of values in those variants.{{< /alert >}}
 
 If we run the `evaluate` function on `expr`, the result is `11` which is exactly what we
 expect.  However, `evaluate` will work on any expression built up of sums and products.
@@ -73,11 +73,11 @@ types.
 
 ## Closed Algebraic Types
 
-All the types we have looked at so far have been **open** meaning their instances are readily
+All the types we have looked at so far have been **open** meaning their variants are readily
 accessible in the global namespace.  However, this is not always desireable.  Consider the
-example of an **enum**, a special case of algebraic types where none of the instances take values.
-It is rare that we want such an enum to expose its instances globally.  Thus, it would be
-advantageous for us to use a **closed** algebraic type -- whose instances can only be accessed
+example of an **enum**, a special case of algebraic types where none of the variants take values.
+It is rare that we want such an enum to expose its variants globally.  Thus, it would be
+advantageous for us to use a **closed** algebraic type -- whose variants can only be accessed
 through the parent explicitly instead.
 
 To demonstrate this point, let's consider the simple enum `Color` below.
@@ -87,7 +87,7 @@ To demonstrate this point, let's consider the simple enum `Color` below.
         | Blue
         | Green
 
-By default, `Color` is defined as an open type, meaning all of the instances: `Red`, `Blue`, and
+By default, `Color` is defined as an open type, meaning all of the variants: `Red`, `Blue`, and
 `Green` will be defined globally.  However, this is not really what we are looking for so instead
 we can mark `Color` has closed using the `closed` keyword.
 
@@ -135,7 +135,7 @@ expression.
 If `val` (which is assumed to be type `OptionInt`) is `None`, then the pattern will match, and we will
 proceed. 
 
-Conversely, we can do a similar test-match against the `Some` instance as well.
+Conversely, we can do a similar test-match against the `Some` variant as well.
 
     if val match OptionInt::Some(v) do
         // `v` is visible here

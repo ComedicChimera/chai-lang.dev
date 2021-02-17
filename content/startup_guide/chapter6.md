@@ -39,8 +39,7 @@ both of those things.
 The **arguments** of a function are enclosed in parentheses and are placed immediately after
 the name.  
 
-{{< alert theme="info" >}}In Whirlwind, when a function takes no arguments, we elide the
-parentheses entirely.{{< /alert >}}
+{{< alert theme="info" >}}When a function takes no arguments, the parentheses are empty.{{< /alert >}}
 
 These arguments are a sequence of names followed by type extensions.  Each name defines one
 argument that may be accessed by that name in the body of the function.

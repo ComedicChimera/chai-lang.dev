@@ -45,7 +45,7 @@ and importing in a later section -- you won't need more than this for a while.
 Now, we need to create your main function.  This is the function that is called at the start
 of your program.  This function is simply called `main` and should be defined as follows:
 
-    func main do
+    func main() do
         ...
 
 The `do` at the end of the function denotes the beginning of a block of code and a new
@@ -55,7 +55,7 @@ and indentation level to determine where statements fit into the control flow of
 Finally, we need to call the print function.  We are going to pass in the string `"Hello, world!"`.
 A string is simply a piece of text -- we will talk more about them in the next chapter.
 
-    func main do
+    func main() do
         println("Hello, world!")
 
 That's it.  We place the arguments to our function inside parentheses.  We do not need to use any
