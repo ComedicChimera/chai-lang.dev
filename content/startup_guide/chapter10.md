@@ -46,9 +46,9 @@ follow it with the keyword `for` and the type we want to bind to.  Finally, we u
 `is` keyword followed by an interface to specify which interface the binding implements.
 
 The method of this type interface be defined like normal functions except they will also
-have access to a special value: `this`.  `this` points to the type being operated on.
+have access to a special value: `this`. `this` points to the type being operated on.
 
-    import println, printf from io::std
+    import printf from io::std
     
     interf for CountingGreeter is Greeter of
         func greet(name: string) do
@@ -57,4 +57,26 @@ have access to a special value: `this`.  `this` points to the type being operate
 
     interf for NeutralGreeter is Greeter of
         func greet(name: string) do
-            println("Hello,", name + ".", "End of", this.greeting_kind + ".")
+            printf("Hello, %s. End of %s.\n", name, this.greeting_kind)
+        
+Now, we have created two different kinds of `Greeter`, one that provides you with a
+"neutral greeting" and another that counts how many times it has greeted you.  Both
+of these greeters can be interacted with in the same way while having different specific
+behaviors: they both greet you but in different ways.  
+
+{{< mermaid-graph >}}
+    classDiagram
+    Greeter --|> CountingGreeter : Impl
+    Greeter --|> NeutralGreeter : Impl
+    Greeter : greet(name string)
+    CountingGreeter : greet(name string)
+    NeutralGreeter : greet(name string)
+{{< /mermaid-graph >}}
+
+This is the heart of how interfaces work in Whirlwind.  Conceptual interfaces like `Greeter`
+define a general pattern of interaction and a type interface implements that general pattern
+on a specific type.  
+
+Lot's of things in programming can be thought of in this way.  For example, if you are building
+a UI library, you might have an conceptual interface representing a button in general and
+then a bunch of different kinds of buttons that all implement that conceptual interface.

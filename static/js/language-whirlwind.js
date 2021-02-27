@@ -44,7 +44,7 @@ Prism.languages.whirlwind = {
     'type-definition': {
         pattern: /\b(type|interf)\b\s*[a-zA-Z_]\w*\b/,
         inside: {
-            'keyword': /\b(type|async)\b/,
+            'keyword': /\b(type|interf|for)\b/,
             'class-name': /[a-zA-Z_]\w*/,
         }
     },

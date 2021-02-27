@@ -77,3 +77,7 @@ aside .menu .dd-item.active > div * {
     background: #f5f2f0;
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace !important;
 }
+
+/* .mermaid > svg {
+    width: 50% !important;
+} */

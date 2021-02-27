@@ -7,6 +7,9 @@
 <script src="/vendor/prism/prism.js"></script>
 <script src="/js/language-whirlwind.js"></script>
 
+<!-- <link href="/mermaid/mermaid.forest.css" type="text/css" rel="stylesheet"> -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+
 <script>
     function setup() {
         $('.logo>p').on('mousedown', () => {
@@ -14,6 +17,13 @@
         })
 
         $('pre>code').addClass('language-whirlwind')
+
+        mermaid.initialize(
+        {
+            startOnLoad: true,
+            theme: "forest",
+            useMaxWidth: false, 
+        })
     }
 
     $(setup)
