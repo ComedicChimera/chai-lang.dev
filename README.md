@@ -33,15 +33,16 @@ Chapters:
 13. Regions and Lifetimes
 14. Block References
 15. Collections
-16. Lambdas and Closures
-17. Iterable Functions
-18. Generics
-19. Packages
-20. Coroutines
-21. Strand Communication
-22. Vectors
-23. Vector Functions
-24. Where to next?
+16. Using Strings
+17. Lambdas and Closures
+18. Iterable Functions
+19. Generics
+20. Packages
+21. Coroutines
+22. Strand Communication
+23. Vectors
+24. Vector Functions
+25. Where to next?
 
 ## Not Covered In Guide
 
