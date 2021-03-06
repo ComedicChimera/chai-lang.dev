@@ -128,7 +128,7 @@ The **type-test** expression or is-expression is a way to test what type an inte
 storing.  For example, in our `greet_n` method above, `g` could either be a `CountingGreeter` or
 a `NeutralGreeter`.  Sometimes, it is useful to know what type of interface we are dealing with,
 especially if we are planning to **downcast**, that is convert an interface instance into its
-internal data type using a type cast.  
+internal data type, using a type cast.  
 
 {{< alert theme="warning" >}}Downcasting can fail at runtime if the internal type doesn't match
 the type we are downcasting to so it is really important to test and make sure the cast you are
@@ -157,7 +157,7 @@ interfaces.
     interf for ImageResult is SearchResult of
         func get_link() string => this.link
 
-Now, let's see we wanted to define a function that would make a query and give us the first
+Now, let's say we wanted to define a function that would make a query and give us the first
 result the fits some parameters.  For our example, we will say that the only parameter is whether
 or not to allow image results. 
 
@@ -176,6 +176,69 @@ returns true.
             if allow_images || next_result is TextResult do
                 return next_result
 
-TODO: more explanation, is pattern matching, type match expression?
+The code above uses an is-expression to test if `next_result` is a `TextResult`.  The is expression returns
+a boolean indicating if the check succeeded.
 
+The is-expression also supports a kind of pattern matching.  For example, consider the following code:
+
+    func display_result(sr: SearchResult) do
+        if sr is TextResult do
+            printf("Text Result: %s [%d words]\n", sr.get_link(), (sr as TextResult).word_count)
+        elif sr is ImageResult do
+            printf("Image Result: %s [%d x %d]\n", sr.get_link(), (sr as ImageResult).width, (sr as ImageResult).height)
+
+As you can see, `display_result` takes a search result and prints a different message depending on what the
+SearchResult is by checking using a standard is-expression.  You may notice that we have to downcast
+three times to be able to access the unique properties of each deriving type.  This is not only wordy but,
+for more complex operations, really difficult to decifer.
+
+{{< alert theme="info" >}}More likely than not, you would just make `display_result` a method of SearchResult;
+however, this is not always what makes the most sense for your situation.{{</ alert >}}
+
+Luckily, Whirlwind's is-expression supports pattern matching.  We can rewrite the code above to use it
+and then break down how it works.
+
+    func display_result(sr: SearchResult) do
+        if sr is tr: TextResult do
+            printf("Text Result: %s [%d words]\n", sr.get_link(), tr.word_count)
+        elif sr is ir: ImageResult do
+            printf("Image Result: %s [%d x %d]\n", sr.get_link(), ir.width, ir.height)
+
+We have added an additional part to our is-expressions to enable them to pattern match.  The name that is
+defined before the colon is where an automatically downcasted version of `sr` will be stored if the is-expression
+succeeds.
+
+{{< alert theme="warning" >}}The variable will be populated with an unusable value if the test does not
+succeed.  This value should not be accessed for any reason.{{</ alert >}}
+
+This pattern matching has dramatically simplified our code and made it much more readable.  Plus, we saved ourselves
+an extra downcast operation.  
+
+The final piece of the type testing puzzle is the **type-match statement** (and its corresponding expression).  This
+statement is an extension of the regular match statement that, instead of matching based on value, it matches based on
+type.  Here is another version of the `display_result` function amended to use it.
+
+    func display_result(sr: SearchResult) do
+        match sr type to
+            case tr: TextResult do
+                printf("Text Result: %s [%d words]\n", sr.get_link(), tr.word_count)
+            case ir: ImageResult do
+                printf("Image Result: %s [%d x %d]\n", sr.get_link(), ir.width, ir.height)
+
+This statement looks very similar to the regular match statement except it has the `type` keyword between the expression
+being matched and the `to` beginning the body of the statement.  Moreover, instead of having value patterns in its
+cases, it has type patterns.  Note that you can just use plain types as you case expressions instead of full patterns
+if that makes more sense in context.
+
+As mentioned before, this statement also has an expression form (like the value match expression) which in this case is
+by far the most concise way to achieve our goal:
+
+    func display_result(sr: SearchResult) =>
+        match sr type to
+            tr: TextResult => printf("Text Result: %s [%d words]\n", sr.get_link(), tr.word_count)
+            ir: ImageResult => printf("Image Result: %s [%d x %d]\n", sr.get_link(), ir.width, ir.height)
+
+{{< alert theme="info" >}}Although neither `printf` nor `display_result` explicitly return type, all functions that
+return nothing implicitly return the nothing type which can be treated as a value (though it is rarely compiled as one)
+so expressions like the one above are in fact valid.{{</ alert >}}
             

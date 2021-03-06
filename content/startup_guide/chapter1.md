@@ -34,6 +34,9 @@ Now, we are going to walk you through writing your first Whirlwind program.  Thi
 is going to print out `"Hello, world!"` to the console and is often the first program
 written when learning a new language.  
 
+To begin, open the file you created in the first section of this chapter.  You will
+put all the code we write in this section in this file.  
+
 Firstly, we need to import the function `println` that we are going to use to print to
 the console.  To do this, add the following line to the top of your file:
 

@@ -121,9 +121,9 @@ Let us consider a custom Option type just for `int` called `OptionInt`.
 {{< alert theme="info" >}}We introduce this new type for demonstration purposes -- the regular `Option<T>`
 can support any type of value.{{< /alert >}}
 
-closed type OptionInt 
-    | Some(int)
-    | None
+    closed type OptionInt 
+        | Some(int)
+        | None
 
 Notice that we mark this type as closed so as not to conflict with `Option`.  Now, let's say we
 only cared about whether or not the value was `None`.  We could check this single case using the test-match
