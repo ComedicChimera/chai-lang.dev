@@ -37,7 +37,7 @@ Chapters:
 17. Lambdas and Closures
 18. Iterable Functions
 19. Generics
-20. Packages
+20. Packages and Modules
 21. Coroutines
 22. Strand Communication
 23. Vectors
