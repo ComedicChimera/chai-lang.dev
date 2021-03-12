@@ -15,11 +15,16 @@ In order to get started programming in Whirlwind, you will need a workspace to r
 code.  
 
 Assuming you already have the language installed, go to your development directory of
-choice (wherever you want to store your Whirlwind projects) and create a new folder. 
-You can call it whatever you want. 
+choice (wherever you want to store your Whirlwind projects).  Then open your terminal
+and type the following command `whirl mod new <name>` and replace `<name>` with whatever
+you want your starting project to be called.  Note that the name must contain only
+letters, numbers, and underscores and start with either a letter or an underscore.
 
-After you have created it, navigate into the directory and create a new file.  Again,
-this can be called whatever you want.  
+{{< alert theme="info" >}}This command creates a new module which is essential to
+building a Whirlwind project; we will learn about modules much later.{{</ alert >}}
+
+After you run this command, you should see a new directory created based on the name
+you gave to the command.  In this directory, create a new file called `main.wrl`.
 
 Then, go ahead and open up a terminal.  Once you have put some code into the file, you
 can use the command, `whirl run .` to build and run your code (current working package).
@@ -43,7 +48,7 @@ the console.  To do this, add the following line to the top of your file:
     import println from io::std
 
 `io::std` is the name of the package that contains `println`.  We will talk more about packages
-and importing in a later section -- you won't need more than this for a while. 
+and importing in a later chapter -- you won't need more than this for a while. 
 
 Now, we need to create your main function.  This is the function that is called at the start
 of your program.  This function is simply called `main` and should be defined as follows:
