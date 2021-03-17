@@ -59,5 +59,102 @@ Whirlwind takes a markedly different approach to static analysis encapsulated in
 
 ## Regions
 
+A **region** is a small, scoped allocation arena on the heap.  Essentially, they act like variable length
+stack frames for storing data on the heap.  
+
+When we allocate data on the heap in Whirlwind, we have to specify which region it belongs to.  This
+region is known as its **owner**.  All data in a region is deleted when its owner is closed.  
+
+Regions in Whirlwind close automatically -- they have a given scope of existence and close whenever that
+scope ends.  All memory in that region is then returned to the allocator to be used later.  Since regions
+have no fixed length, you can allocate as much memory as you want in a region.  However, you must be
+cognizant of how long you want that memory to linger since, again, that memory can only be freed once the
+region is closed.  
+
+A reference that is allocated in a region is called an **owned reference**.  It type label is similar to
+that of a free reference except the label has the `own` keyword placed before it.  So an integer reference
+allocated on the heap would have the type label: `own& int`.  
+
+To actually allocate such a reference, we first need to create a region to allocate in.  This can be done
+with a **region declaration** which specifies a name for a given region as well as its lifetime.  All region
+declarations begin with the `region` keyword followed by the name of the region.  This is simply the local variable
+name that can be used to refer to the region during allocation.  
+
+For a **local region** declaration -- that is a region whose lifetime is confined to the stack frame of the
+function it is created in -- we need to place the `local` keyword at the end of the region declaration.  So
+a sample declaration of a local region `re` would look like this:
+
+    region re local
+
+To actually allocate in this region, we need to use a **make expression**.  All make expressions begin with
+the keyword `make` followed by a **region specifier** and an **allocation parameter**.  As you might guess,
+a region specifier tells the make expression what region to allocate in.  The first and most common region
+specifier is the **explicit specifier** which is written as `in[r]` where `r` is the name of the region being
+allocated in.  
+
+The allocation parameter tells the make expression what we are allocating.  The first kind of allocation
+parameter is simply a type label: the make expression will allocate a reference with an element type of the
+type label and return it.
+
+Putting all this together, the make expression for an `own& int` in our local region `re` would look like this:
+
+    make in[re] int
+
+All in all not that complicated.  Now let's put all these pieces together to allocate a `User` reference on the
+heap.  The definition of `User` is:
+
+    type User {
+        id: int
+        name, email: string
+    }
+
+Now for the actual allocation function,
+
+    func create_user(name, email: string) own& User do
+        region re local
+        let u = make in[re] User
+
+        // `get_id` defined elsewhere
+        u.id = get_id()
+        u.name = name
+        u.email = email
+
+        return u
+
+We create a region, allocate our user, populate its fields, and return it.  However, the above code has a problem:
+a big one.  In fact, this problem is so large, the compiler will refuse to compile this code at all.  Remember what
+the lifetime of a local region is: its lifetime is confined to that of its enclosing function.  This means that when
+`create_user` returns, all the memory inside `re` is deleted, including our `User` which means we are returning a 
+null reference which is a big problem.  
+
+To fix this, we need to change the lifetime of our region.  How do we do that?  The naive answer would be to have
+some specifier that says the region is "nonlocal", allowing to exist outside the scope of the current function.
+However, the obvious problem with this is that we have no way of knowing how long the caller wants that `User` reference
+to exist.  
+
+TODO: rework regions to work more like type parameters (syntax unclear...), try to remove local region declarations:
+they are just tedious and annoying
+
+We solve this by having the caller specify what region to allocate in.  We do this by having the caller pass a region
+in as a value.  See, when we declare a region, we are really just declaring a special variable that stores some reference
+to our region -- it isn't and can't be treated like a reference (and implementation wise it may not actually be one), but
+internally, it is just data.  That means we can treat it like a value.  All regions use the special type label `region` to
+denote that an argument or variable is storing a region.  Now, let's refactor our `create_user` function to take in a region
+value.
+
+    func create_user(re: region, name, email: string) own& User do
+        let u = make in[re] User
+
+        // `get_id` defined elsewhere
+        u.id = get_id()
+        u.name = name
+        u.email = email
+
+        return u
+
+
+
+
+
 ## Lifetimes
 
