@@ -43,7 +43,7 @@ All numeric types support the following basic arithmetic operations:
 | `/` | Divides two numbers and yields a floating-point number |
 | `~/` | Divides two numbers and yields a integer number |
 | `%` | Calculates the remainder of a division operation |
-| `~*` | Raises a number to an integer power |
+| `~^` | Raises a number to an integer power |
 
 All of these operators are binary: they take two numbers and return
 a single value.  Note that Whirlwind supports two division operators:

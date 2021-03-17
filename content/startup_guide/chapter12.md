@@ -94,5 +94,177 @@ function involving vectors.
 {{< alert theme="info" >}}The compiler actually optimizes the function above to involve zero copies, but that
 is only because this function is fairly simple for the sake of demonstration.{{</ alert >}}
 
-TODO: introduce free references, reference operators, and dereferencing
+This is where the free reference comes into play.  Instead of passing all three vectors as values, we can pass
+them as references which always have a fixed size of 4 or 8 bytes depending on your system.  Keeping in mind
+that an `int` is 4 bytes, even for this simple example with the largest reference size, our memory usage is now
+2/3 of what it original was.  And that is just for a small data structure -- imagine the benefit for a structure
+with 5 or 6 fields of larger size.  
 
+To pass by reference, we need to first change the type of the argument to a reference type.  Since we are just
+passing from one function down to another, we can use free references which are stack bound to do this.
+
+{{< alert theme="info" >}}When we explain lifetimes in the next chapter, this choice will make more sense.  Right
+now, we are just trying to introduce the concepts and syntax associated with references.{{</ alert >}}
+
+The reference type label is `&` followed by the element type.  So for a reference to an `int`, the type label is
+`&int`.  For our `Vec3` above, the label is `&Vec3`.  
+
+    func vec_add(v1, v2, v3: &Vec3) Vec3
+        => Vec3{
+            x=v1.x+v2.x+v3.x,
+            y=v1.y+v2.y+v3.y,
+            z=v1.z+v2.z+v3.z
+        }
+
+Believe it or not, that is all we have to do to refactor our code to use references.  However, two immediate questions
+arise: how do we call this function and why didn't you have to change the body at all?  The first question is easier
+to answer.  We can simply take references to the vector values we want to pass in.  We do this using `&` operator
+which creates a free reference to whatever value we pass in.
+
+    vec_add(&v1, &v2, &v3)
+
+Assuming `v1`, `v2`, and `v3` are defined as vectors elsewhere, the above call would be satisfactory.
+
+The second question of why didn't the function body change functions as a perfect segue to our next topic.
+
+## Dereferencing and Reference Operators
+
+Before we can talk about our `vec_add` function, we need to introduce the idea of **dereferencing**.  This is the
+mechanism by which we access the internal value of a reference.  For example,
+
+    let v = Vec3{x=12, y=-5, z=2}
+
+    let vr = &v
+
+`vr` stores a reference to `v` (and therefore has a type of `&Vec3`).  Now, let's say we wanted to pass `vr` to
+a function: `vec_mag` that calculates the magnitude of a vector
+    
+    func vec_mag(v: &Vec3) double do
+        return 0 // TODO
+
+We need to be able to access the internal value of the vector reference in order to use it.  To do this, we use
+the **dereference operator**.  This operator is the unary `*` and is placed before the reference.
+
+    let v2 = *vr // accesses the value of `vr` and stores it in `v2`.
+
+Now filling in the definition of `vec_mag`,
+
+    import sqrt from math
+
+    func vec_mag(v: &Vec3) double
+        => sqrt((*v).x ~^ 2 + (*v).y ~^ 2 + (*v).z ~^ 2)
+
+We first dereference `v` and then access one of its fields.  Obviously, this code is quite ugly looking.  Luckily,
+Whirlwind offers a solution in the form of **reference operators**.  A reference operator is an operator that can
+operate on a reference as if it were a value.  The `.` operator is one such operator -- it has a reference form
+for accessing the fields and methods of references.  It is used identically to the normal `.` operator.
+
+    func vec_mag(v: &Vec3) double
+        => sqrt(v.x ~^ 2 + v.y ~^ 2 + v.z ~^ 2)
+
+The code above is exactly equivalent to the code before -- the dereference is happening implicitly as a part of the
+operator.  This finally explains our code from the previous section:
+
+    func vec_add(v1, v2, v3: &Vec3) Vec3
+        => Vec3{
+            x=v1.x+v2.x+v3.x,
+            y=v1.y+v2.y+v3.y,
+            z=v1.z+v2.z+v3.z
+        }
+
+This code was using the reference form of the `.` operator access the vector's fields.  There are other reference operators
+besides `.` -- we will cover them in later sections as they become more relevant.
+
+## Mutability
+
+References have two more unique and important properties that we need to dicuss.  The first is the ability to mutate
+data indirectly.  Let's consider we wanted to write an *inplace* vector addition function.  The premise is that it
+takes two vector references, adds them, and stores the result into the first reference.  This could be written
+like so:
+
+    func vec_add_inplace(v1, v2: &Vec3) do
+        v1.x += v2.x
+        v1.y += v2.y
+        v1.z += v2.z
+
+    func main() do
+        let
+            v1 = Vec3{x=5, y=2, z=-4},
+            v2 = Vec3{x=6, y=-2, z=3}
+
+        vec_add_inplace(&v1, &v2)
+
+        println(v1.x, v1.y, v1.z) // prints `11 0 -1`
+
+At face value, this seems odd.  Conventionally, when we pass values to functions, nothing is changed if that value is
+mutated inside the function.  For example,
+
+    func add_one(x: int) do
+        x++
+
+    func main() do
+        let x = 4
+        add_one(x)
+        println(x) // still `4`
+
+This is because the value is copied when it is passed to the function.  Now, this is true for everything in Whirlwind.
+However, copying a reference simply entails copying the address value itself, not the data stored in it.  So, when we
+pass vectors into `vec_add_inplace` while the value representing the address is copied, the data isn't: `v1` in `main`
+points to the same value as `v1` in `vec_add_inplace`.  
+
+We can show this more clearly by reframing our `add_one` function to actually mutate `x` as reference.
+
+    func add_one(x: &int) do
+        (*x)++ // parentheses aren't required but they help with clarity
+
+    func main() do
+        let x = 4
+        add_one(&x)
+
+        println(x) // now, it's value is `5`
+
+We can use the deference operator on the left side of the `=` operator to mutate the value of the reference.  Since
+reference operators connote an implicit dereference, our `vec_add_inplace` code is actually mutating the internal value
+of the `v1` reference.  Sometimes including the implicit deferences helps make this clear:
+
+    func vec_add_inplace(v1, v2: &Vec3) do
+        // This code is *exactly* equivalent to the original implementation
+        (*v1).x += v2.x
+        (*v1).y += v2.y
+        (*v1).z += v2.z    
+
+## Nullability
+
+However, dereferencing isn't always a safe operation.  Consider the code below:
+
+    let x: &int
+
+    println(*x)
+
+What happens when we run this code?  That's actually a trick question, because the Whirlwind compiler will refuse to compile
+that code at all.  The reason is the `x` is marked as a **null reference** because it is unitialized.  Essentially, this means
+that the reference points to nothing -- dereferencing it has no meaning. 
+
+Not all null references are as obvious at the one above.  For example,
+
+    func scale_by(v: &Vec3, factor: double) &Vec3
+        => &Vec3{x=v.x*factor, y=v.y*factor, z=v.z*factor}
+
+There are actually two problems with the above code, both of which are related to the idea of a null reference.  The first
+problem is in the actual value being returned.  See, the new struct we are creating doesn't have a well-defined place in
+memory.  It does have a place but not one we can reference.  The compiler will refuse to compile the above code, stating
+that you "cannot take a reference to an **r-value**".  This refers to the concept of value category -- an r-value is a
+value that doesn't have a well-defined place in memory.  All references to r-values are null by definition.  That's
+why we have always created variables and then referenced them -- the variables do have a well-defined place in memory.
+
+So, let's say we fix that bug by doing the following:
+
+    func scale_by(v: &Vec3, factor: double) &Vec3 do
+        let result = Vec3{x=v.x*factor, y=v.y*factor, z=v.z*factor} 
+        return &result
+
+We still have a problem: the stack frame that `result` exists in is popped when the function `scale_by` exits -- which means
+the reference is no longer valid as soon as it is returned.  Once again, Whirlwind will refuse to compile this code citing
+an issue with the "lifetime" of the return value.  Lifetimes are a major topic in Whirlwind and something we will cover in
+the next chapter, but suffice it to say that they help the compiler to catch errors like the one above -- it helps it to
+determine when a reference will and will not be null.
