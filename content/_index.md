@@ -110,15 +110,14 @@ deleted as regions clean up all their memory when they exit.
         next: Option<own &LinkedListNode>
     }
 
-    @region[r]
-    func ll_range(n: int) own &LinkedListNode do
+    func ll_range(region r)(n: int) own &LinkedListNode do
         if n == 0 do
-            return make in[r] LinkedListNode{value=0, next=None}
+            return make in(r) LinkedListNode{value=0, next=None}
 
-        return make in[r] LinkedListNode{value=n, next=Some(ll_range(r, n-1))}
+        return make in(r) LinkedListNode{value=n, next=Some(ll_range(r, n-1))}
 
     func main() do
-        let ll = ll_range@[local](10)
+        let ll = ll_range(region local)(10)
 
         while true do
             println(ll.value)

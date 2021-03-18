@@ -129,20 +129,18 @@ However, the obvious problem with this is that we have no way of knowing how lon
 to exist.  
 
 We solve this by having the caller specify what region to allocate in using a **region parameter**.  We specify that
-a function takes a region parameter by placing an `@region` above its definition followed by a pair of brackets.  Inside
-these brackets, we create a name for that region parameter that we can reference during allocation.
+a function takes a region parameter by placing an additional set of parameters beginning with the keyword `region` before
+the actual set of arguments to the function.  After the `region` keyword, we place the names of our region parameters.
 
-    @region[re]
-    func create_user(name, email: string) own& User do
+    func create_user(region re)(name, email: string) own& User do
         ...
 
 We are now stating that `create_user` takes in a region parameter called `re`.  But, how do we allocate in `re`?  Well,
-we have to use a different region specifier called an **explicit specifier** which is written `in[re]` if want to allocate
+we have to use a different region specifier called an **explicit specifier** which is written `in(re)` if want to allocate
 in `re` (we replace `re` with whatever the region want to allocate in is called in the general case).
 
-    @region[re]
-    func create_user(name, email: string) own& User do
-        let u = make in[re] User
+    func create_user(region re)(name, email: string) own& User do
+        let u = make in(re) User
 
         u.id = get_id()
         u.name = name
@@ -154,9 +152,8 @@ We can actually simplify the above code even more by using a different allocatio
 Whirlwind to allocate an "empty" `User` struct.  But, we can have it actually allocate a struct with a given set of field values
 by initializing our `User` struct in the make expression.  That would look like this:
 
-    @region[re]
-    func create_user(name, email: string) own& User
-        => make in[re] User{
+    func create_user(region re)(name, email: string) own& User
+        => make in(re) User{
             id=get_id(),
             name=name,
             email=email
@@ -165,10 +162,10 @@ by initializing our `User` struct in the make expression.  That would look like 
 The final piece of the puzzle is actually calling the function.  Let's take a look at what it looks like and then break down
 the syntax and semantics.
 
-    create_user@[local]("Matt", "matt@example.com")
+    create_user(region local)("Matt", "matt@example.com")
 
-It looks just like a normal function call except we have slotted at little `@[local]` in between the name and the parentheses.
-The `@[]` syntax denotes that we are passing in a region and the `local` keyword says that we want it to allocate in the local
+It looks just like a normal function call except we have slotted a little `(region local)` in between the name and the parentheses.
+The `(region ...)` syntax denotes that we are passing in a region and the `local` keyword says that we want it to allocate in the local
 region *of the caller*.  Assuming our function call above occurs in `main`, a flowchart of our program would look like this:
 
 {{< mermaid-graph >}}
