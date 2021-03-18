@@ -110,15 +110,15 @@ deleted as regions clean up all their memory when they exit.
         next: Option<own &LinkedListNode>
     }
 
-    func ll_range(r: region, n: int) own &LinkedListNode do
+    @region[r]
+    func ll_range(n: int) own &LinkedListNode do
         if n == 0 do
             return make in[r] LinkedListNode{value=0, next=None}
 
         return make in[r] LinkedListNode{value=n, next=Some(ll_range(r, n-1))}
 
     func main() do
-        region r local
-        let ll = ll_range(r, 10)
+        let ll = ll_range@[local](10)
 
         while true do
             println(ll.value)
@@ -200,7 +200,7 @@ Whirlwind supports vectorization out of the box and comes with a powerful vector
 efficient numeric computation and fully leverages any system that supports SIMD.  Whirlwind also enables
 auto-vectorization where possible.
 
-    import vec_sum from vecutil
+    import vec_sum from math::vec
     
     func main() do
         let matrix = {

@@ -71,34 +71,31 @@ have no fixed length, you can allocate as much memory as you want in a region.  
 cognizant of how long you want that memory to linger since, again, that memory can only be freed once the
 region is closed.  
 
-A reference that is allocated in a region is called an **owned reference**.  It type label is similar to
-that of a free reference except the label has the `own` keyword placed before it.  So an integer reference
-allocated on the heap would have the type label: `own& int`.  
+A reference that points to memory allocated in a region is called an **owned reference**.  It type label
+is similar to that of a free reference except the label has the `own` keyword placed before it.  So an
+integer reference allocated on the heap would have the type label: `own& int`.  
 
-To actually allocate such a reference, we first need to create a region to allocate in.  This can be done
-with a **region declaration** which specifies a name for a given region as well as its lifetime.  All region
-declarations begin with the `region` keyword followed by the name of the region.  This is simply the local variable
-name that can be used to refer to the region during allocation.  
+{{< alert theme="info" >}}When we say "allocate a reference", we really mean allocate the data and then
+return a reference to it.{{</ alert >}}
 
-For a **local region** declaration -- that is a region whose lifetime is confined to the stack frame of the
-function it is created in -- we need to place the `local` keyword at the end of the region declaration.  So
-a sample declaration of a local region `re` would look like this:
+To allocate an owned reference, we first need to create a region to allocate in.  Luckily, Whirlwind
+provides us with several "standard" regions that will be created automatically if we use them.  The first region
+we will look at is the the **local region** which is the region whose lifetime is confined to the stack frame of 
+the function it is created in.  It is important to reemphasize that this region is only created if it is used
+within a given function and all references to `local` inside any given function refer to the same region.
 
-    region re local
-
-To actually allocate in this region, we need to use a **make expression**.  All make expressions begin with
-the keyword `make` followed by a **region specifier** and an **allocation parameter**.  As you might guess,
-a region specifier tells the make expression what region to allocate in.  The first and most common region
-specifier is the **explicit specifier** which is written as `in[r]` where `r` is the name of the region being
-allocated in.  
+The actual allocation is done with a **make expression**.  All make expressions begin with the keyword `make`
+followed by a **region specifier** and an **allocation parameter**.  As you might guess, a region specifier tells
+the make expression what region to allocate in.  Since we want to allocate in the local region, we are going
+to use the **local specifier** which is denoted with the `local` keyword.  Again,
 
 The allocation parameter tells the make expression what we are allocating.  The first kind of allocation
 parameter is simply a type label: the make expression will allocate a reference with an element type of the
 type label and return it.
 
-Putting all this together, the make expression for an `own& int` in our local region `re` would look like this:
+Putting all this together, the make expression for an `own& int` in the local region would look like this:
 
-    make in[re] int
+    make local int
 
 All in all not that complicated.  Now let's put all these pieces together to allocate a `User` reference on the
 heap.  The definition of `User` is:
@@ -111,8 +108,7 @@ heap.  The definition of `User` is:
 Now for the actual allocation function,
 
     func create_user(name, email: string) own& User do
-        region re local
-        let u = make in[re] User
+        let u = make local User
 
         // `get_id` defined elsewhere
         u.id = get_id()
@@ -124,37 +120,69 @@ Now for the actual allocation function,
 We create a region, allocate our user, populate its fields, and return it.  However, the above code has a problem:
 a big one.  In fact, this problem is so large, the compiler will refuse to compile this code at all.  Remember what
 the lifetime of a local region is: its lifetime is confined to that of its enclosing function.  This means that when
-`create_user` returns, all the memory inside `re` is deleted, including our `User` which means we are returning a 
-null reference which is a big problem.  
+`create_user` returns, all the memory inside its local region is deleted, including our `User` which means we are
+returning a null reference which is a big problem.  
 
 To fix this, we need to change the lifetime of our region.  How do we do that?  The naive answer would be to have
 some specifier that says the region is "nonlocal", allowing to exist outside the scope of the current function.
 However, the obvious problem with this is that we have no way of knowing how long the caller wants that `User` reference
 to exist.  
 
-TODO: rework regions to work more like type parameters (syntax unclear...), try to remove local region declarations:
-they are just tedious and annoying
+We solve this by having the caller specify what region to allocate in using a **region parameter**.  We specify that
+a function takes a region parameter by placing an `@region` above its definition followed by a pair of brackets.  Inside
+these brackets, we create a name for that region parameter that we can reference during allocation.
 
-We solve this by having the caller specify what region to allocate in.  We do this by having the caller pass a region
-in as a value.  See, when we declare a region, we are really just declaring a special variable that stores some reference
-to our region -- it isn't and can't be treated like a reference (and implementation wise it may not actually be one), but
-internally, it is just data.  That means we can treat it like a value.  All regions use the special type label `region` to
-denote that an argument or variable is storing a region.  Now, let's refactor our `create_user` function to take in a region
-value.
+    @region[re]
+    func create_user(name, email: string) own& User do
+        ...
 
-    func create_user(re: region, name, email: string) own& User do
+We are now stating that `create_user` takes in a region parameter called `re`.  But, how do we allocate in `re`?  Well,
+we have to use a different region specifier called an **explicit specifier** which is written `in[re]` if want to allocate
+in `re` (we replace `re` with whatever the region want to allocate in is called in the general case).
+
+    @region[re]
+    func create_user(name, email: string) own& User do
         let u = make in[re] User
 
-        // `get_id` defined elsewhere
         u.id = get_id()
         u.name = name
         u.email = email
 
         return u
 
+We can actually simplify the above code even more by using a different allocation parameter.  Right now, we are just telling
+Whirlwind to allocate an "empty" `User` struct.  But, we can have it actually allocate a struct with a given set of field values
+by initializing our `User` struct in the make expression.  That would look like this:
 
+    @region[re]
+    func create_user(name, email: string) own& User
+        => make in[re] User{
+            id=get_id(),
+            name=name,
+            email=email
+        }
 
+The final piece of the puzzle is actually calling the function.  Let's take a look at what it looks like and then break down
+the syntax and semantics.
 
+    create_user@[local]("Matt", "matt@example.com")
+
+It looks just like a normal function call except we have slotted at little `@[local]` in between the name and the parentheses.
+The `@[]` syntax denotes that we are passing in a region and the `local` keyword says that we want it to allocate in the local
+region *of the caller*.  Assuming our function call above occurs in `main`, a flowchart of our program would look like this:
+
+{{< mermaid-graph >}}
+    graph TD
+        A(main function called) --> B
+        B(region local to main created) -->C
+        C(`create_user` called) -->|local region passed as `re`|D
+        D(User allocated in region local to main) --> E
+        E(`create_user` returns) --> F
+        F(main's local region is deleted) -->|User is deleted|G
+        G(main returns and program exits)
+{{</ mermaid-graph >}}
+
+{{< alert theme="success" >}}The text on the arrows denotes actions that happen either as a part of the previous action.{{</ alert >}}
 
 ## Lifetimes
 
