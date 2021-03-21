@@ -1,10 +1,10 @@
 Prism.languages.whirlwind = {
     'comment': [
         {
-            pattern: /(\/\*[^(\\\*)]*\*\/)/
+            pattern: /(#![^(\\\*)]*!#)/
         },
         {
-            pattern: /\/\/.*/
+            pattern: /#.*/
         }
     ],
     'string': {

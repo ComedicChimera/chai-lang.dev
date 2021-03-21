@@ -10,7 +10,7 @@ its arguments.  As we have seen with the `println` function, we can call a funct
 its name followed by a pair of parentheses in which we place a set of a comma delimited arguments.
 
     fun(2, "as")
-    do_something() // no arguments
+    do_something() # no arguments
     get_factors(35)
 
 Many functions will return a value that can be used in a computation or stored in variable.
@@ -73,7 +73,7 @@ using the `return` statement.
 Functions that only require a single expression to perform their computation can use the
 **expression return** syntax which is essentially a shorter form of the function above.
 
-    func times_two(n: int) int => n * 2
+    func times_two(n: int) int -> n * 2
 
 {{< alert theme="info" >}}The expression can be on a newline and indented if it is too long
 to be reasonable by on the same line as the function signature.{{< /alert >}}.

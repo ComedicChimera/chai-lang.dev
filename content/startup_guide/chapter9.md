@@ -48,10 +48,10 @@ any expression.  To do this, we need to use pattern matching to extract specific
 and evaluate them.  Here is what such an `evaluate` function would look like:
 
     func evaluate(expr: Expr) double
-        => match expr to
-            Value(x) => x
-            Add(a, b) => evaluate(a) + evaluate(b)
-            Mul(a, b) => evaluate(a) * evaluate(b)
+        -> match expr to
+            Value(x) -> x
+            Add(a, b) -> evaluate(a) + evaluate(b)
+            Mul(a, b) -> evaluate(a) * evaluate(b)
 
 Notice that we reference the variant we are matching against as part of the pattern and that
 we need to call `evaluate` recursively in our `Add` and `Mul` cases -- our data structure is
@@ -63,7 +63,7 @@ combination of values in those variants.{{< /alert >}}
 If we run the `evaluate` function on `expr`, the result is `11` which is exactly what we
 expect.  However, `evaluate` will work on any expression built up of sums and products.
 
-    // (7 + 1.2) * (5.1 * -2.3) => -96.186
+    # (7 + 1.2) * (5.1 * -2.3) => -96.186
     evaluate(Mul(Add(Value(7), Value(1.2)), Mul(Value(5.1), Value(-2.3))))
 
 There are two key takeaways from this "Case Study".  The first is that algebraic types are
@@ -102,7 +102,7 @@ Now, we need to explicitly access the values of `Color` using the `::` syntax in
 
     c = Color::Blue
 
-    c = Green // ERROR
+    c = Green # ERROR
 
 {{< alert theme="info">}}We can also use this syntax with open algebraic types although it is rarely
 necessary.{{< /alert >}}
@@ -138,5 +138,5 @@ proceed.
 Conversely, we can do a similar test-match against the `Some` variant as well.
 
     if val match OptionInt::Some(v) do
-        // `v` is visible here
+        # `v` is visible here
         ...

@@ -65,16 +65,16 @@ You can only assign a value of a type that is either equal to or coercible to
 the type of the variable being assigned to.  If your types do not match, you
 will get an error.
 
-    name = 45 // TYPE ERROR
+    name = 45 # TYPE ERROR
 
 Whirlwind also supports many **compound assignment** operators.  A compound
 assignment operator is an operator that performs some operation between the
 variable and the value being assigned and then stores the result into the variable.
 
-    // Expanded Form
+    # Expanded Form
     x = x + 2
 
-    // Compound Form
+    # Compound Form
     x += 2
 
 Those two statements are equivalent: `+=` is the compound assignment operator.
@@ -102,4 +102,4 @@ to constants:
 The only difference being that you cannot assign to constants -- once declared their
 value is set for the remainder of their scope.
 
-    e = 3.14  // ERROR
+    e = 3.14  # ERROR

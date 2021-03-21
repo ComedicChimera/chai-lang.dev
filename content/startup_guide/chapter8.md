@@ -81,19 +81,19 @@ We use a special `...` syntax to perform spread initialization as shown below:
 Once your struct instance is created, you will want to access and manipulate its fields.  This
 is done using the `.` operator followed by the name of the field you want to access.
 
-    println(u3.name) // prints `Brenda`
+    println(u3.name) # prints `Brenda`
 
 We can change the value of that field by assigned to it like so:
 
     u3.name = "Emma"
 
-    println(u3.name) // prints `Emma`
+    println(u3.name) # prints `Emma`
 
 This operator also respects pattern matching on assignment:
 
     let name: string, age: uint
 
-    // -- snip --
+    # -- snip --
 
     u3.name, u3.age = name, age
 
@@ -107,9 +107,9 @@ These fields cannot be assigned to after they are initialized.
     func main() do
         let s = MyStruct{field=3}
 
-        println(s.field) // prints `3`
+        println(s.field) # prints `3`
 
-        s.field += 2 // ERROR
+        s.field += 2 # ERROR
 
 
 

@@ -82,7 +82,7 @@ an interface in code.
 
     func greet_n(g: Greeter, name: string, times: int) do
         for _ in 1..times do
-            // this syntax accesses the greet method and calls it on `g`
+            # this syntax accesses the greet method and calls it on `g`
             g.greet(name)
 
     func main() do
@@ -165,10 +165,10 @@ To test if an interface has a certain internal value, the is-expression is used.
 using a value, the keyword `is`, and a type to match against.  If the value matches that type, it
 returns true.
 
-    // result retrieval function -- implementation unimportant
+    # result retrieval function -- implementation unimportant
     func get_next_result(search_str: string) SearchResult
 
-    // main query function
+    # main query function
     func query(search_str: string, allow_images: bool) SearchResult do
         while true do
             let next_result = get_next_result(search_str)
@@ -233,10 +233,10 @@ if that makes more sense in context.
 As mentioned before, this statement also has an expression form (like the value match expression) which in this case is
 by far the most concise way to achieve our goal:
 
-    func display_result(sr: SearchResult) =>
+    func display_result(sr: SearchResult) ->
         match sr type to
-            tr: TextResult => printf("Text Result: %s [%d words]\n", sr.get_link(), tr.word_count)
-            ir: ImageResult => printf("Image Result: %s [%d x %d]\n", sr.get_link(), ir.width, ir.height)
+            tr: TextResult -> printf("Text Result: %s [%d words]\n", sr.get_link(), tr.word_count)
+            ir: ImageResult -> printf("Image Result: %s [%d x %d]\n", sr.get_link(), ir.width, ir.height)
 
 {{< alert theme="info" >}}Although neither `printf` nor `display_result` explicitly return type, all functions that
 return nothing implicitly return the nothing type which can be treated as a value (though it is rarely compiled as one)

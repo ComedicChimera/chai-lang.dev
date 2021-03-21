@@ -37,7 +37,7 @@ to access a tuple since the compiler would not know the type of the value being 
 
 Finally, it is impossible to change the fields of a tuple individually once it has been created.
 
-    pair.0 = 4 // ERROR
+    pair.0 = 4 # ERROR
 
 ## Tuple Deconstruction
 
@@ -64,7 +64,7 @@ We can also use pattern matching in assignment.
 
     let (x, y, z) = triple1
 
-    // -- snip --
+    # -- snip --
 
     x, y, z = triple2
 
@@ -84,21 +84,21 @@ The **match expression** is a control flow expression used to facilitate sophist
 in expressions.  It is begun with the `match` keyword, followed by an argument, the `of` keyword, and series
 of cases to match against.
 
-The cases are made up of a pattern and an expression separated by the `=>` operator.  Let's see what this
+The cases are made up of a pattern and an expression separated by the `->` operator.  Let's see what this
 expression looks like so we can break it down a bit more.
 
     let v = (1, 1)
 
     let is_std_basis = match v to
-        (1, 0) => true
-        (0, 1) => true
-        _ => false
+        (1, 0) -> true
+        (0, 1) -> true
+        _ -> false
 
 `v` is our argument and match statement compares it to several different values to see if it matches.  This
 introduces us to an aspect of pattern matching not present before: value matching.  The pattern matching
 mechanism will also allows us to compare values directly. 
 
-Notice that the match expression ends with `_ => false`.  This is a special case called the **default case**
+Notice that the match expression ends with `_ -> false`.  This is a special case called the **default case**
 -- the variable `_` in pattern matching will match any value and ignore it (somewhat similar to what it does
 in tuple deconstruction).  This case is provided to make the match expression **exhaustive**.  This means that
 it will yield a value for every possible input.  All match expressions must be exhaustive so that the compiler
@@ -110,8 +110,8 @@ part of the match statement: all the branches must yield values equal or coercib
 We can put multiple patterns in one branch -- so to shorten the sample code above, we could write:
 
     let is_std_basis = match v to
-        (1, 0), (0, 1) => true
-        _ => false
+        (1, 0), (0, 1) -> true
+        _ -> false
 
 Notice that we separated the patterns with commas.  Now either pattern will yield the same branch.
 
@@ -120,9 +120,9 @@ We can elso extract values into variables while we are matching cases.
     let expr = ("add", 1, 2)
 
     let result = match expr to
-        ("add", a, b) => a + b
-        ("mul", a, b) => a * b
-        (_, a, _) => a
+        ("add", a, b) -> a + b
+        ("mul", a, b) -> a * b
+        (_, a, _) -> a
 
 Each branch extracts the values it needs from the tuple to perform the calculate while simultanously
 checking a condition.  Notice that we didn't use the default case at the end because the match expression
@@ -195,9 +195,9 @@ denote that they are to be interpreted as an expression not as a pattern variabl
     let x = 3
     
     let result = match (0, 1) to
-        ((x), _) => "Case 1"
-        (_, 4) => "Case 2"
-        _ => "Case 3"
+        ((x), _) -> "Case 1"
+        (_, 4) -> "Case 2"
+        _ -> "Case 3"
 
 The first case only matches a tuple that has the value `3` in first position.  
 

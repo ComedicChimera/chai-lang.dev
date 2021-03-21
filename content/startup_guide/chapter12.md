@@ -80,7 +80,7 @@ Let's consider a simple example.
     }
 
     func vec_add(v1, v2, v3: Vec3) Vec3
-        => Vec3{
+        -> Vec3{
             x=v1.x+v2.x+v3.x,
             y=v1.y+v2.y+v3.y,
             z=v1.z+v2.z+v3.z
@@ -110,7 +110,7 @@ The reference type label is `&` followed by the element type.  So for a referenc
 `&int`.  For our `Vec3` above, the label is `&Vec3`.  
 
     func vec_add(v1, v2, v3: &Vec3) Vec3
-        => Vec3{
+        -> Vec3{
             x=v1.x+v2.x+v3.x,
             y=v1.y+v2.y+v3.y,
             z=v1.z+v2.z+v3.z
@@ -140,7 +140,7 @@ mechanism by which we access the internal value of a reference.  For example,
 a function: `vec_mag` that calculates the magnitude of a vector
     
     func vec_mag(v: &Vec3) double do
-        return 0 // TODO
+        return 0 # TODO
 
 We need to be able to access the internal value of the vector reference in order to use it.  To do this, we use
 the **dereference operator**.  This operator is the unary `*` and is placed before the reference.
@@ -152,7 +152,7 @@ Now filling in the definition of `vec_mag`,
     import sqrt from math
 
     func vec_mag(v: &Vec3) double
-        => sqrt((*v).x ~^ 2 + (*v).y ~^ 2 + (*v).z ~^ 2)
+        -> sqrt((*v).x ~^ 2 + (*v).y ~^ 2 + (*v).z ~^ 2)
 
 We first dereference `v` and then access one of its fields.  Obviously, this code is quite ugly looking.  Luckily,
 Whirlwind offers a solution in the form of **reference operators**.  A reference operator is an operator that can
@@ -160,13 +160,13 @@ operate on a reference as if it were a value.  The `.` operator is one such oper
 for accessing the fields and methods of references.  It is used identically to the normal `.` operator.
 
     func vec_mag(v: &Vec3) double
-        => sqrt(v.x ~^ 2 + v.y ~^ 2 + v.z ~^ 2)
+        -> sqrt(v.x ~^ 2 + v.y ~^ 2 + v.z ~^ 2)
 
 The code above is exactly equivalent to the code before -- the dereference is happening implicitly as a part of the
 operator.  This finally explains our code from the previous section:
 
     func vec_add(v1, v2, v3: &Vec3) Vec3
-        => Vec3{
+        -> Vec3{
             x=v1.x+v2.x+v3.x,
             y=v1.y+v2.y+v3.y,
             z=v1.z+v2.z+v3.z
@@ -194,7 +194,7 @@ like so:
 
         vec_add_inplace(&v1, &v2)
 
-        println(v1.x, v1.y, v1.z) // prints `11 0 -1`
+        println(v1.x, v1.y, v1.z) # prints `11 0 -1`
 
 At face value, this seems odd.  Conventionally, when we pass values to functions, nothing is changed if that value is
 mutated inside the function.  For example,
@@ -205,7 +205,7 @@ mutated inside the function.  For example,
     func main() do
         let x = 4
         add_one(x)
-        println(x) // still `4`
+        println(x) # still `4`
 
 This is because the value is copied when it is passed to the function.  Now, this is true for everything in Whirlwind.
 However, copying a reference simply entails copying the address value itself, not the data stored in it.  So, when we
@@ -215,20 +215,20 @@ points to the same value as `v1` in `vec_add_inplace`.
 We can show this more clearly by reframing our `add_one` function to actually mutate `x` as reference.
 
     func add_one(x: &int) do
-        (*x)++ // parentheses aren't required but they help with clarity
+        (*x)++ # parentheses aren't required but they help with clarity
 
     func main() do
         let x = 4
         add_one(&x)
 
-        println(x) // now, it's value is `5`
+        println(x) # now, it's value is `5`
 
 We can use the deference operator on the left side of the `=` operator to mutate the value of the reference.  Since
 reference operators connote an implicit dereference, our `vec_add_inplace` code is actually mutating the internal value
 of the `v1` reference.  Sometimes including the implicit deferences helps make this clear:
 
     func vec_add_inplace(v1, v2: &Vec3) do
-        // This code is *exactly* equivalent to the original implementation
+        # This code is *exactly* equivalent to the original implementation
         (*v1).x += v2.x
         (*v1).y += v2.y
         (*v1).z += v2.z    
@@ -248,7 +248,7 @@ that the reference points to nothing -- dereferencing it has no meaning.
 Not all null references are as obvious at the one above.  For example,
 
     func scale_by(v: &Vec3, factor: double) &Vec3
-        => &Vec3{x=v.x*factor, y=v.y*factor, z=v.z*factor}
+        -> &Vec3{x=v.x*factor, y=v.y*factor, z=v.z*factor}
 
 There are actually two problems with the above code, both of which are related to the idea of a null reference.  The first
 problem is in the actual value being returned.  See, the new struct we are creating doesn't have a well-defined place in

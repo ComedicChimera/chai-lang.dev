@@ -107,17 +107,17 @@ deleted as regions clean up all their memory when they exit.
 
     type LinkedListNode {
         value: int
-        next: Option<own &LinkedListNode>
+        next: Option<own& LinkedListNode>
     }
 
-    func ll_range(region r)(n: int) own &LinkedListNode do
+    func ll_range[region r](n: int) own& LinkedListNode do
         if n == 0 do
-            return make in(r) LinkedListNode{value=0, next=None}
+            return make in[r] LinkedListNode{value=0, next=None}
 
-        return make in(r) LinkedListNode{value=n, next=Some(ll_range(r, n-1))}
+        return make in[r] LinkedListNode{value=n, next=Some(ll_range[region r](n-1))}
 
     func main() do
-        let ll = ll_range(region local)(10)
+        let ll = ll_range[region local](10)
 
         while true do
             println(ll.value)
@@ -139,15 +139,15 @@ in mind for writing widely reusable code.
         | None
 
     interf<T> for Option<T> of
-        func chain<R>(f: func(T)(Option<R>)) Option<R> =>
+        func chain<R>(f: func(T)(Option<R>)) Option<R> ->
             match this to
-                Some(v) => f(v)
-                None => None
+                Some(v) -> f(v)
+                None -> None
 
     func main() do
         let r = option_sqrt(2)
 
-        r.chain(|x| => println(x))
+        r.chain(|x| -> println(x))
 
 #### Rich Functional Programming
 
@@ -210,7 +210,7 @@ auto-vectorization where possible.
 
         let x = <{10, 11, 12}>
 
-        let b = <int : 3>
+        let b: <3>int
         for i in 0..2 do
             b[i] = vec_sum(matrix[i] * x)
 

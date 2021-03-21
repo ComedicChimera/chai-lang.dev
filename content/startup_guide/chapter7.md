@@ -19,8 +19,8 @@ it is the type of the possible value returned.
 
 {{< alert theme="tip" >}}All of these words will get more formal definitions later.{{< /alert >}}
 
-    let op = Some(5)             // Type = Option<int>
-    let op2: Option<bool> = None // Type = Option<bool>
+    let op = Some(5)             # Type = Option<int>
+    let op2: Option<bool> = None # Type = Option<bool>
 
 As seen above, we initialize the value of `Some` by putting it in parentheses.  Notice
 that when we use the `None` form, we need to give an explicit type since otherwise Whirlwind
@@ -52,9 +52,9 @@ Furthermore, this method of error handling forces us to deal with both the succe
 states as we progress through our program.
 
     func quadratic_formula(a, b, c: double) Option<(double, double)>
-        => match sqrt(b * b - 4 * a * c) to
-            Some(r) => Some(((-b + r) / (2 * a), (-b - r) / (2 * a)))
-            None => None
+        -> match sqrt(b * b - 4 * a * c) to
+            Some(r) -> Some(((-b + r) / (2 * a), (-b - r) / (2 * a)))
+            None -> None
 
 Notice that the "fallability" of the `sqrt` function pervades all of the functions that depend
 on it (`quadratic formula` now also returns an `Option<T>` type).  It also worth noting that
@@ -105,11 +105,11 @@ do this: `fetch_data`, `validate_data`, and `extract_value`.  Each of these func
 a `Result` type.  Only using what we know now, our code would propably look something like this:
 
     func load_data(url: string) Result<string>
-        => match fetch_data(url) to
-            Ok(data) => match validate_data(data) to
-                Ok(validated_data) => extract_value(validated_data)
-                Err(e) => Err(e) // might not be Result<string>::Err, so we need to reconstruct it
-            Err(e) => Err(e)
+        -> match fetch_data(url) to
+            Ok(data) -> match validate_data(data) to
+                Ok(validated_data) -> extract_value(validated_data)
+                Err(e) -> Err(e) # might not be Result<string>::Err, so we need to reconstruct it
+            Err(e) -> Err(e)
 
 Now that is a bit of an ugly mess isn't it?  This is one of the biggest complaints against languages
 like Whirlwind that force users to manually handle every error: your code gets long and ugly.  Even

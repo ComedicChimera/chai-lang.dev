@@ -23,7 +23,7 @@ just like a regular binding without any named implementations.
             this.y *= scalar
 
         func dot(other: Vec2) double
-            => this.x * other.x + this.y * other.y
+            -> this.x * other.x + this.y * other.y
 
 We bind a type interface onto our `Vec2` type that provides three methods: `add` (for vector addition),
 `mul` (for scalar multiplication), and `dot` (for the dot or scalar product of two vectors).  Now,
@@ -68,12 +68,17 @@ implement `Scaleable` and thus can be treated as a deriving interface of it.
         let v = Vec2{x=1, y=6}
         v = scale_by_2(v) as Vec2
 
-        println(v.x, v.y) // prints `2 12`
+        println(v.x, v.y) # prints `2 12`
 
-This process is called **duck typing** where one type is implicitly coerced to another.  We can also use
-tools like type-testing on `Scaleable` as is `Vec2` were an instance of it.
+This process is called **duck typing** where one type is implicitly coerced to another. 
 
-    s is Vec2 // Totally valid
+{{< alert theme="info" >}}The term "duck typing" comes from an old expression: "if it walks like a duck and talks
+like a duck, it is a duck".  That logic is being applied to say that a type that has all the methods of an interface
+implements that interface.{{</ alert >}}
+
+We can also use tools like type-testing on `Scaleable` as is `Vec2` were an instance of it.
+
+    s is Vec2 # Totally valid
 
 This is a surprisingly common kind of implementation and is really useful for connecting different
 APIs (such as integrating a package someone else has written to your own codebase).
@@ -106,24 +111,24 @@ Using this `div` method, we could add a method `half` that calculates half of a 
 Because `Vec2` implicitly implements `Scaleable` still, we can pass it to half and use the `div` virtual
 method of `Scaleable`.
 
-    half(Vec2{x=4, y=3}) // => Vec2{x=2, y=1.5}
+    half(Vec2{x=4, y=3}) # => Vec2{x=2, y=1.5}
 
 {{< alert theme="info" >}}This makes logical sense since the virtual method `div` only uses other methods
 of the interface which are guaranteed to have implementations.{{</ alert >}}
 
 However, the virtual method `div` is not defined on `Vec2` itself (unlike `mul`).
 
-    v.div(3) // ERROR
+    v.div(3) # ERROR
 
 This is one of the most important distinctions between implicit and explicit implementation: virtual methods
 are only accessible as methods on types that derive by explicit implementation.
 
 For example, if we define an entirely different type,
 
-    // 2 x 2 matrix
+    # 2 x 2 matrix
     type Mat2 {
-        // [ a b ] 
-        // [ c d ]
+        # [ a b ] 
+        # [ c d ]
         a, b, c, d: double
     }
 
@@ -140,10 +145,10 @@ Then, we can use the `div` method on `Mat2`:
 
     let m = Mat2{a=3, b=4, c=5, d=6}
     
-    // implemented `mul` method
+    # implemented `mul` method
     m.mul(4)
 
-    // virtual `div` method of `Scaleable`
+    # virtual `div` method of `Scaleable`
     m.div(2)
 
 The reason for this is that `Mat2` is always `Scaleable` by definition whereas something like `Vec2` is
@@ -170,7 +175,7 @@ our current "lingo") by a different implementation in a deriving type.  Consider
 
     interf for User of
         func to_string() string
-            => format("%s (%d) at %s", this.name, this.id, this.email)
+            -> format("%s (%d) at %s", this.name, this.id, this.email)
 
         func display() do
             printf("%s: %s", this.name, this.email)
@@ -182,11 +187,11 @@ happens when the code below is run:
     let u = User{id=12345, name="John Doe", "jdoe@email.com"}
     let d = User as Displayable
 
-    d.display() // ???
+    d.display() # ???
 
 The answer is that the `display` method of `User` is still run even though we upcast to an interface instance of
 `Displayable`.  This is because `User` **overrides** the display method of `Displayable`, and the overridden method
 is always called over the default implementation.  This is true of both implicit and explicit implementations of
 interfaces.
 
-    d.display() // prints `John Doe: jdoe@email.com`
+    d.display() # prints `John Doe: jdoe@email.com`

@@ -48,19 +48,14 @@ Chapters:
 
 - Type Sets and Aliases
 - Operator Definitions
-- Function Specialization
-- Method Specialization
-- Explicit Composition
+- Specialization
 - Partial Function Calling
-- Type Pattern Matching
-- Decorators
 - Annotations
 - Metadata
 - The `init` function
 - Dictionary Comprehensions
 - Global References
-- Volatile References
-- Foreign Values and References
+- Volatile Values and References
 - `Copyable` and Copy Overriding
 - `Contextual` (outside of error handling)
 - Struct Inheritance

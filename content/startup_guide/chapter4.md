@@ -60,7 +60,7 @@ is no longer true.
     while counter < 10 do
         println(counter)
 
-        // `++` adds one to the variable counter
+        # `++` adds one to the variable counter
         counter++
 
 The code above will print out the numbers zero through nine -- it repeats as long as
@@ -86,8 +86,8 @@ You can also continue onto the next iteration of a loop using the `continue` key
     let word = ""
     let n = 0
 
-    // the `.len()` method gets the length of a type such as a string
-    // we will learn more about methods in a later chapter
+    # the `.len()` method gets the length of a type such as a string
+    # we will learn more about methods in a later chapter
     while word.len() < 10 do
         if n % 2 == 0 do
             word += 'a'
@@ -187,9 +187,9 @@ Here is some example code that demonstrates this behavior.
     let x = 0
 
     if some_cond do
-        let x = 2 // No error occurs here
+        let x = 2 # No error occurs here
         if some_other_cond do
-            println(x) // Prints `2` not `0`
+            println(x) # Prints `2` not `0`
 
 Although variables cannot be defined multiple times in the same scope, as you can see above it is
 possible to override their definitions in lower scopes.  The variable `x` is shadowed by a variable
