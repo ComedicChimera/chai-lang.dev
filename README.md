@@ -29,38 +29,34 @@ Chapters:
 9. Algebraic Types
 10. Interfaces
 11. Duck Typing
-12. References
-13. Regions and Lifetimes
-14. Block References
-15. Collections
-16. Using Strings
-17. Lambdas and Closures
-18. Iterable Functions
-19. Generics
+12. Arrays and Lists
+13. Dictionaries
+14. Using Strings
+15. Lambdas and Closures
+16. Iterable Functions
+17. References
+18. Generics
+19. Type Sets and Aliases
 20. Packages and Modules
 21. Coroutines
-22. Strand Communication
-23. Vectors
-24. Vector Functions
+22. Futures and Async Iterators
+23. Strand Communication
+24. Vectors
 25. Where to next?
 
 ## Not Covered In Guide
 
-- Type Sets and Aliases
 - Operator Definitions
 - Specialization
 - Partial Function Calling
 - Annotations
 - Metadata
 - The `init` function
-- Dictionary Comprehensions
-- Global References
 - Volatile Values and References
 - `Copyable` and Copy Overriding
 - `Contextual` (outside of error handling)
 - Struct Inheritance
 - Variadic Arguments
-- Asynchronous Iterators
 - Fallthrough to Match
 - With Expressions
 - Inline If Expressions

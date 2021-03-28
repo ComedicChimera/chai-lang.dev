@@ -44,35 +44,33 @@ tools.
 Most of the tools you will need to build applications are part of the standard library and
 obtaining and installing new packages to supplement your needs is a trivial endeavor.
 
-For larger, more sophisticated projects, Whirlwind ships with a project management
-tool (think *much* smaller NPM) called Blend *insert link*.  This will not only manage
-local dependencies but also handle static and dynamic linking for you should you need
-it for your project.
+For larger, more sophisticated projects, Whirlwind's module system helps to organize
+your project, manage dependencies, and handle all linking for you.  It is built into
+the standard compiler and streamlines the process of building and maintaining your project
+into a single, simple construct.  
 
 Finally, Whirlwind supports C binding natively, and Blend is even capable of automatically
 generating bindings for you based on a preexisting C library. 
 
 #### Performance
 
-Whirlwind doesn't just look good: it also runs blazing-fast.  It has a very lightweight
-runtime and runs without a garbage collector minimizing performance overhead.  This coupled
-with a lean, mean memory model out for blood, and you get results: 
+Whirlwind doesn't just look good: it also runs blazing-fast.  Despite its garbage collector,
+Whirlwind has a very lightweight runtime.  Moreover, Whirlwind's compiler back-end is built
+using the [LLVM IR compiler infrastructure](https://llvm.org/docs/index.html). This means that
+the IR Whirlwind generates will be transformed into efficient assembly using one of the most
+performant and powerful tools in the compilation world, and, with optimization enabled, your 
+code is put through LLVM's battle-hardened optimizers to produce a ridiculously well-optimized
+output.  These features all combine to produce impressive results:
 
-*insert graph of speed and of memory usage*
-
-Whirlwind's compiler back-end is built using the [LLVM IR compiler infrastructure](https://llvm.org/docs/index.html).
-This means that the IR Whirlwind generates will be transformed into efficient assembly using one of
-the most performant and powerful tools in the compilation world, and, with optimization enabled,
-your code is put through LLVM's battle-hardened optimizers to produce a ridiculously well-optimized
-output.
+**TODO: insert graph of speed and of memory usage**
 
 #### Reliability
 
-Whirlwind's error handling, memory model, type system, and other features work together to
-create language that doesn't just run fast -- it runs well.  Whirlwind applications are
-robust by design -- writing good Whirlwind also implies writing reliable applications.
+Whirlwind's error handling, type system, concurrency model, and many other features work together
+to create language that is safe and reliable.  Writing good, effective Whirlwind is equivalent
+to writing a robust application.
 
-*insert some demonstration of this point*
+**TODO: insert some demonstration of this point**
 
 #### Concurrency
 
@@ -84,48 +82,16 @@ threads that entirely managed by the Whirlwind runtime as opposed to by the oper
 system.  They are designed to act cooperatively: preferring to voluntarily exchange
 data and yield execution as opposed to be interrupted while still running in parallel.
 
-*insert some concurrent sample code*
+**TODO: insert some concurrent sample code**
 
 Whirlwind's model is also designed with fault tolerance in mind.  Information is
 communicated through managed message queues and groups of Strands can be managed
 by a Supervisor *insert link* to ensure that tasks are properly distributed between
 them and act appropriately should would Strand panic or fail at any point.
 
-*insert some supervisor sample code*
-
+**TODO: insert some supervisor sample code**
 
 ## Language Features
-
-#### Intelligent Memory Model
-
-Whirlwind features a powerful, intelligent memory model that protects you from undefined behavior
-and memory leaks without forcing you to constantly negotiate with the compiler.  Unlike other
-languages, Whirlwind uses regions -- small scoped allocation arenas -- to efficiently manage heap
-references and their lifetimes.  One consequence of this system is that you can overwrite a heap
-references without worrying about creating memory leaks.  Moreover, memory need never be explicitly
-deleted as regions clean up all their memory when they exit.
-
-    type LinkedListNode {
-        value: int
-        next: Option<own& LinkedListNode>
-    }
-
-    func ll_range[region r](n: int) own& LinkedListNode do
-        if n == 0 do
-            return make in[r] LinkedListNode{value=0, next=None}
-
-        return make in[r] LinkedListNode{value=n, next=Some(ll_range[region r](n-1))}
-
-    func main() do
-        let ll = ll_range[region local](10)
-
-        while true do
-            println(ll.value)
-
-            if ll.next match Some(next) do
-                ll = next
-            else
-                break
 
 #### Versatile Type System
 
@@ -174,6 +140,25 @@ composition by default.
 
 {{< alert theme="info">}}This code is made more complex for the sake of example and showing off more features.{{< /alert >}}
 
+#### Superb Data Manipulation
+
+Whirlwind places a heavy emphasis on quickly working with data.  As such, it ships with a suite of collections
+designed to suit the needs of the modern scientific programmer.  Moreover, Whirlwind's powerful Iterator protocol
+and numerous data transformation constructs ensure that you can work with data quickly and concisely.
+
+    func radix_sort(list: [int]) [int] do
+        let mx = list.max()
+
+        while let it = 0; 10 ** it < mx; it++ do
+            let buckets = [make [int] for _ in 1..10]
+
+            for item in list do
+                buckets[item // (10 ** it) % 10].push(item)
+
+            list = buckets.flatten().to_list()
+
+        return list
+
 #### Elegant Error Handling
 
 While exceptions are a powerful tool in the right hands, they can often lead to sloppy code and cause
@@ -192,7 +177,6 @@ some syntactic sugar.
             println(data["field"])
         else match Err(e) do
             println("Error:", e)
-
 #### Baked-In Vectorization
 
 Whirlwind supports vectorization out of the box and comes with a powerful vector data type that enables
@@ -218,6 +202,16 @@ auto-vectorization where possible.
 that can allow for efficiently applying operations to multiple numeric values is still useful.  Vectors are
 not required to use Whirlwind.{{< /alert >}}
         
+#### Expressive Reference Semantics
+
+In many languages, reference semantics can often be opaque and confusing -- you modify a list in one function
+somewhere deep in your codebase and suddenly it has changed everywhere.  Whirlwind strives to make its memory
+semantics clear by strictly distinguishing between references and values.  For example, lists are values and
+act like values unless otherwise stated.  But don't worry, working with references is super easy: memory
+efficiency is still front and center without cluttering up your code.
+
+**TODO: find good example of reference semantics in action**
+
 #### Powerful Package System
 
 In Whirlwind, each directory consistutes a package that contains multiple individual files.  All internal
