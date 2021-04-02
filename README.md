@@ -16,6 +16,17 @@ Run `hugo server --minify` to build and view the content on a development server
 
 ## Guide Layout
 
+Units:
+
+| Unit | Title | Chapters |
+| ---- | ----- | -------- |
+| I | Language Basics | 1-7 |
+| II | Defined Types | 8-11 |
+| III | Iterables | 12-17 |
+| IV | *untitled* | 18-21 |
+| V | Concurrency | 22-24 |
+| VI | Vectors | 25 |  
+
 Chapters:
 
 1. Introduction
@@ -31,18 +42,19 @@ Chapters:
 11. Duck Typing
 12. Arrays and Lists
 13. Dictionaries
-14. Using Strings
-15. Lambdas and Closures
-16. Iterable Functions
-17. References
-18. Generics
-19. Type Sets and Aliases
-20. Packages and Modules
-21. Coroutines
-22. Futures and Async Iterators
-23. Strand Communication
-24. Vectors
-25. Where to next?
+14. Comprehensions
+15. Using Strings
+16. Lambdas and Closures
+17. Iterable Methods
+18. References
+19. Generics
+20. Type Sets and Aliases
+21. Packages and Modules
+22. Coroutines
+23. Futures and Async Iterators
+24. Strand Communication
+25. Vectors
+26. Where to next?
 
 ## Not Covered In Guide
 

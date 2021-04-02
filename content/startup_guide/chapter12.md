@@ -130,7 +130,134 @@ are a few other common list methods with demonstrated usages.
 Although it seems like a lot of methods to remember, you will find you use most of these quite a lot,
 and that their names correspond pretty directly (and conventionally) to their function.
 
+## Sequences and Iterables
 
+Lists and arrays both fit into a larger category of data structures called **sequences**.  A sequence is
+any collection of elements that are ordered and can be accessed by indices.
 
+Why is the grouping important?  First and foremost, it is because all sequences shared a number of common
+properties.  For example, they can all can be subscripted (using the `[]` operator).  
 
+Another common property of sequences is that they are all **iterable**.  What does that mean?  At a high
+level, anything that it is iterable can be *iterated over* by something like a for loop -- ie. we can loop
+over each element and do something with it.
 
+{{< alert theme="info" >}}This is not a "technical" definition; rather, it is an abstrast consequence of the
+actual definition.{{</ alert >}}
+
+We have already glimpsed for loops in a previous section; however, now that we have a more complete understanding
+of Whirlwind, we can dive more deeply into them.  A for loop is made up of two parts: the iterable variable(s) and
+the iterable.  They are written like this:
+
+    for item in iterable do
+        ...
+
+`item` is the name of our iterator variable -- it is where each element of the iterable will be stored as we iterate
+over it.  `iterable` can be replaced by anything that is iterable such as a list.  The code below goes through every
+item in our `countries` list from the previous section and prints it out on a separate line.
+
+    for country in countries do
+        println(country)
+
+We can use loops to do all kinds of things such as adding up the elements of an array or finding 
+the maximum element of a list.
+
+    func sum_of(l: []int) int do
+        let s = 0
+
+        for i in l do
+            s += i
+
+        return s
+
+    # assuming list contains only positive integers
+    func max_of(l: [int]) int do
+        let mx = 0
+
+        for i in l do
+            if i > mx do
+                mx = i
+
+        return mx
+
+If we want to iterate through something by its indices, we can use a method called `indices` to do that.
+
+    let nums = [5, 6, 2, 3]
+
+    for i in nums.indices() do
+        println(i, nums[i])
+
+{{< alert theme="info" >}}This method exists for all iterables (even those not organized by indices directly).
+It is part of a larger category of methods called iterable methods we will study in a later chapter.{{</ alert >}}
+
+You might have already guessed by now, but the groupings of iterable and sequence correspond directly to two interfaces:
+`Iterable<T>` and `Sequence<T>`.  The `<T>` denotes that they are *generic interfaces* -- a topic we will cover much more
+in depth in a later chapter.  For the next few chapters, you are going to see that notation pop up more and more often:
+we are going to be using these chapters to gently introduce the topic before diving into fully.  
+
+The `T` inside the angle brackets is the element type of the iterable or sequence -- in much the same way that the `[T]` in
+lists denotes the element type.  Using these two interfaces, we can rewrite our `sum_of` method to work on every kind of iterable.
+
+    func sum_of(it: Iterable<int>) int do
+        let s = 0
+
+        for num in it do
+            s += num
+
+        return s
+
+    func main() do
+        println(sum_of([1, 2, 3])) # 6
+
+        println(sum_of({1, 1, 2, 3, 5})) # 12
+
+While these two interfaces may not appear supremely useful at the moment, understanding the ideas that underpin them is
+critical to understanding Whirlwind's model of data manipulation as a whole: in future chapters, we will build on the ideas
+that we started in this chapter.
+
+## Slicing
+
+The final topic on our introduction to sequences is **slicing**, a technique for taking the subset of a sequence.  Slicing
+using the `[]` operator just like indexing; however, we are now have to specify two bounds: a start and an end index. 
+The start index tells us where we are slicing from and the end index tells us where we are slicing to.  We separate these
+two indices with a `:`.
+
+    let elements = ["chlorine", "nitrogen", "xenon", "cobalt"]
+
+    println(elements[1:3]) # ["nitrogen", "xenon"]
+
+Notice that our slice goes inclusive to exclusive -- it includes the element at the start index and excludes the element at
+the end index.  
+
+We can elide the start index of a slice to slice from the start of a sequence up until a specific index.
+
+    elements[:2] # ["chlorine", "nitrogen"]
+
+Similarly, we can elide the end index to slice from a specific index to the end of the list.
+
+    elements[1:] # ["nitrogen", "xenon", "cobalt"]
+
+We cannot, however, elide both parts at the same time -- this would have no meaning.
+
+    elements[:] # SYNTAX ERROR
+
+Using slicing, we could easily rewrite our `max_of` function to work for both positive and negative integers (without having
+to involve any constants like `MIN_INT`, repeating any handling of integers, or introducing any "complex" control flow).
+
+    func max_of(s: Sequence<int>) int do
+        let mx = s[0]
+
+        # ignore the first value
+        for item in s[1:] do
+            if item > mx do
+                mx = item
+
+        return mx
+
+We can also assign to slices of data structures to overwrite the data contained in them with the contents of the slice.
+
+    elements[1:3] = ["lithium", "argon"]
+
+Note that if the two slices being assigned are of different sizes, the assignment will fail causing a panic.
+
+    elements[:2] = ["barium"] # RUNTIME ERROR
