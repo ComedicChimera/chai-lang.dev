@@ -3,16 +3,40 @@
 This is the source for the [Whirlwind programming language](https://github.com/ComedicChimera/whirlwind) website.  
 You can find it hosted here *insert link*.
 
-This website was generated with the [docdock](https://docdock.netlify.app/) theme using [Hugo](https://gohugo.io/).
+## Dependencies:
 
+This website is built with Django and Svelte.js.
 
-## Dependencies
+Download and Install:
 
-1. [Hugo](https://gohugo.io/getting-started/installing/)
+- Python 3.9 or later
+- Node.js (and NPM)
 
-## Building
+## Building and Running
 
-Run `hugo server --minify` to build and view the content on a development server.
+All actions in this respository can be easily run from the Powershell script `cacao.ps1`. 
+
+Install Required Dependencies:
+
+    cacao setup
+
+Build Static Website Content:
+
+    cacao build
+
+Run Development Server:
+
+    cacao rundev
+
+## Repository Layout
+
+| Directory | Purpose |
+| --------- | ------- |
+| `content` | Static, markdown context for the page
+| `whirlsite` | The main Django project |
+| `whirlsite/whirlsite` | Primary project configuration and common files |
+| `whirlsite/home` | Home page and primary subpages |
+| `whirlsite/docs` | Documentation |
 
 ## Guide Layout
 

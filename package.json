@@ -1,0 +1,35 @@
+{
+  "name": "whirlsite",
+  "version": "1.0.0",
+  "description": "The Whirlwind programming language website",
+  "main": "index.js",
+  "scripts": {
+    "build": "cross-env NODE_ENV=development webpack",
+    "build-prod": "cross-env NODE_ENV=production webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://ComedicChimera@github.com/ComedicChimera/whirlwind-lang.dev.git"
+  },
+  "author": "ComedicChimera",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ComedicChimera/whirlwind-lang.dev/issues"
+  },
+  "homepage": "https://github.com/ComedicChimera/whirlwind-lang.dev#readme",
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-transform-runtime": "^7.13.15",
+    "@babel/preset-env": "^7.13.15",
+    "babel-loader": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "css-loader": "^5.2.4",
+    "mini-css-extract-plugin": "^1.5.0",
+    "sass-loader": "^11.0.1",
+    "style-loader": "^2.0.0",
+    "svelte": "^3.37.0",
+    "svelte-loader": "^3.1.1",
+    "webpack": "^5.36.0",
+    "webpack-cli": "^4.6.0"
+  }
+}
