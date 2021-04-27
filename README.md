@@ -32,7 +32,7 @@ Run Development Server:
 
 | Directory | Purpose |
 | --------- | ------- |
-| `content` | Static, markdown context for the page
+| `content` | Static, markdown content for the website (docs, etc.) |
 | `whirlsite` | The main Django project |
 | `whirlsite/whirlsite` | Primary project configuration and common files |
 | `whirlsite/home` | Home page and primary subpages |
