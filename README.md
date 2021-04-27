@@ -37,6 +37,7 @@ Run Development Server:
 | `whirlsite/whirlsite` | Primary project configuration and common files |
 | `whirlsite/home` | Home page and primary subpages |
 | `whirlsite/docs` | Documentation |
+| `whirlsite/packages` | Package documentation/index |
 
 ## Guide Layout
 
