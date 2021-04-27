@@ -128,4 +128,3 @@ Remember that `hash` must return a unique, 64 bit unsigned integral value that r
 data structure you are hashing (eg. the hash of `"hello"` is always the same).  If you are
 unsure of how to implement a `hash` method, most of the time, Google and Stack Overflow are
 your two best resources. 
-
