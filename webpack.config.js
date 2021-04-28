@@ -2,7 +2,8 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
 const mode = process.env.NODE_ENV || 'development'
-const prod = mode == 'production'
+// const sass = require('svelte-preprocess-sass')
+const autoPreprocess = require('svelte-preprocess')
 
 // List of apps to be compiled using the multi-compiler
 const apps = [
@@ -41,14 +42,15 @@ var config = {
                         hotReload: true,
                         compilerOptions: {
                             customElement: true
-                        }
+                        },
+                        preprocess: autoPreprocess()
                     },
                 }
             },
             {
                 test: /\.scss$/,
                 use: [
-                    prod ? MiniCSSExtractPlugin.loader : 'style-loader',
+                    MiniCSSExtractPlugin.loader,
                     'css-loader',
                     'sass-loader'
                 ]
@@ -70,7 +72,7 @@ var config = {
         ]
     },
     mode,
-    plugins: [],
+    plugins: [],  // MiniCSSExtractPlugin added for each app (separate bundle file names)
     externals: [
         {
             webpack: {
@@ -82,7 +84,7 @@ var config = {
 }
 
 module.exports = apps.map(app => {
-    let name = app.name
+    let name = app.appName
     let staticDir = app.staticDir
 
     let uniqueConfig = {

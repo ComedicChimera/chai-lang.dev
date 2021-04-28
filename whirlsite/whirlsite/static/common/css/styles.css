@@ -6,3 +6,11 @@ html, body {
     overflow-x: hidden;
     overflow-y: scroll;
 }
+
+.light-blue {
+    color: #00a8ec !important;
+}
+
+.dark-blue {
+    color: #032f55;
+}
