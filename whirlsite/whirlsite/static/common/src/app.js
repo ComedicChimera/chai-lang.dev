@@ -1,1 +1,3 @@
-console.log("I am the app")
+import HeaderBar from './HeaderBar.svelte'
+
+export default HeaderBar

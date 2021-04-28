@@ -2,8 +2,7 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
 const mode = process.env.NODE_ENV || 'development'
-// const sass = require('svelte-preprocess-sass')
-const autoPreprocess = require('svelte-preprocess')
+const sveltePreprocess = require('svelte-preprocess')
 
 // List of apps to be compiled using the multi-compiler
 const apps = [
@@ -43,7 +42,8 @@ var config = {
                         compilerOptions: {
                             customElement: true
                         },
-                        preprocess: autoPreprocess()
+                        cascade: false,
+                        preprocess: sveltePreprocess()
                     },
                 }
             },

@@ -23,7 +23,7 @@
 
 <div class="hero">
     <div class="hero-side-by-side">
-        <img src="/static/common/images/logo.png" height="200em" width="200em" alt="Whirlwind logo"/>
+        <img src="/static/common/images/logo.png" height="250em" width="250em" alt="Whirlwind logo"/>
         <div class="hero-right-side">
             <div class="hero-tag-line">
                 An elegant language for <span class="light-blue">speed</span>

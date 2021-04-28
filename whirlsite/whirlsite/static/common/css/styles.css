@@ -4,11 +4,10 @@ html, body {
     margin: 0px;
     padding: 0px;
     overflow-x: hidden;
-    overflow-y: scroll;
 }
 
 .light-blue {
-    color: #00a8ec !important;
+    color: #00a8ec;
 }
 
 .dark-blue {
