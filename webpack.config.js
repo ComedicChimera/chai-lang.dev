@@ -5,7 +5,10 @@ const mode = process.env.NODE_ENV || 'development'
 const prod = mode == 'production'
 
 // List of apps to be compiled using the multi-compiler
-const apps = ['home']
+const apps = [
+    {appName: 'whirlsite', staticDir: 'common'}, 
+    {appName: 'home', staticDir: 'home'}
+]
 
 var config = {
     resolve: {
@@ -78,22 +81,25 @@ var config = {
     ],
 }
 
-module.exports = apps.map((name) => {
+module.exports = apps.map(app => {
+    let name = app.name
+    let staticDir = app.staticDir
+
     let uniqueConfig = {
         name: name,
         entry: {},
         output: {
-            path: path.join(__dirname, `whirlsite/${name}/static/${name}/dist/`),
+            path: path.join(__dirname, `whirlsite/${name}/static/${staticDir}/dist/`),
             filename: `${name}.bundle.js`,
         }
     }
 
-    uniqueConfig['entry'][name] = `./whirlsite/${name}/static/${name}/src/app.js`
+    uniqueConfig['entry'][name] = `./whirlsite/${name}/static/${staticDir}/src/app.js`
 
     let appConfig = Object.assign(uniqueConfig, config)
     appConfig['plugins'].push(
         new MiniCSSExtractPlugin({
-            filename: `whirlsite/${name}/static/${name}/dist/${name}.bundle.css`
+            filename: `whirlsite/${name}/static/${staticDir}/dist/${name}.bundle.css`
         })
     )
 
