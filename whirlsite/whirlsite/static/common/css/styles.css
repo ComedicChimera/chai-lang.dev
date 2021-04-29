@@ -13,3 +13,10 @@ html, body {
 .dark-blue {
     color: #032f55;
 }
+
+#content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}

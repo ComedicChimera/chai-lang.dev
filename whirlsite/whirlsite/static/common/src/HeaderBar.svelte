@@ -3,12 +3,54 @@
 </script>
 
 <style lang="scss">
-    
+    .header {
+        padding: 1rem;
+        margin-bottom: 1rem;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+
+        .full-logo {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+
+            .logo-text {
+                padding-left: 1rem;
+                font-size: 2.5rem;
+                font-family: 'Roboto', sans-serif;
+            }
+        }
+
+        .nav {
+            padding-right: 2rem;
+
+            a {
+                padding-left: 1rem;
+                padding-right: 1rem;
+                font-size: 1.5rem;
+                font-family: 'Open Sans', sans-serif;
+                color: #707070;
+                text-decoration: none;
+                transition-duration: 0.5s;
+            }
+
+            a:hover {
+                color: #00a8ec;
+                transition-duration: 0.5s;
+            }
+        }
+    }
 </style>
 
 <div class="header">
     <div class="full-logo">
-        <img src="/static/common/images/logo.png" width="50em" height="50em" alt="Whirlwind logo"/>
+        <img src="/static/common/images/logo.png" width="70em" height="70em" alt="Whirlwind logo"/>
         <div class="logo-text">
             <span class="light-blue">Whirl</span><span class="dark-blue">wind</span>
         </div>

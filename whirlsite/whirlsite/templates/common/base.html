@@ -10,9 +10,14 @@
         <meta name='description' content='The Whirlwind programming language website'/>
         <meta name='keywords' content='whirlwind programming language docs documentation community packages package wrl'/>
 
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=Open+Sans:wght@300;400&family=Roboto&display=swap" rel="stylesheet">
+
+
         {% load static %}
         <link rel='icon' type='image/png' href='{% static "common/images/logo.png" %}'/>
         <link rel='stylesheet' type='text/css' href='{% static "common/css/styles.css" %}'/>
+        <link rel='stylesheet' type='text/css' href='{% static "common/dist/whirlsite.bundle.css" %}'/>
 
         {% block head %}{% endblock %}
 
