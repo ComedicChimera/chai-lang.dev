@@ -19,8 +19,6 @@
     }
 </style>
 
-<svelte:options tag="app-hero"/>
-
 <div class="hero">
     <div class="hero-side-by-side">
         <img src="/static/common/images/logo.png" height="250em" width="250em" alt="Whirlwind logo"/>

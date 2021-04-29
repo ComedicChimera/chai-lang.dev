@@ -1,3 +1,5 @@
 import HeaderBar from './HeaderBar.svelte'
 
-export default HeaderBar
+new HeaderBar({
+    target: document.getElementById('header'),
+})

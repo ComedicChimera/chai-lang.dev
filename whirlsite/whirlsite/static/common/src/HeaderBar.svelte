@@ -6,8 +6,6 @@
     
 </style>
 
-<svelte:options tag="app-header-bar"/>
-
 <div class="header">
     <div class="full-logo">
         <img src="/static/common/images/logo.png" width="50em" height="50em" alt="Whirlwind logo"/>

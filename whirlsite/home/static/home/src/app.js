@@ -1,3 +1,5 @@
 import Hero from './Hero.svelte'
 
-export default Hero
+new Hero({
+    target: document.getElementById('hero')
+})

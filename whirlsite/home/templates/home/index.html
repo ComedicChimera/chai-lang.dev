@@ -2,9 +2,10 @@
 
 {% block head %}
     {% load static %}
-    <script src="{% static 'home/dist/home.bundle.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'home/dist/home.bundle.css' %}"/>
 {% endblock %}
 {% block title %}Whirlwind{% endblock %}
 {% block content %}
-<app-hero></app-hero>
+<div id="hero"></div>
+<script src="{% static 'home/dist/home.bundle.js' %}"></script>
 {% endblock %}

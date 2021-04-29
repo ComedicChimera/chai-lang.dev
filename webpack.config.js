@@ -39,20 +39,27 @@ var config = {
                     options: {
                         emitCss: true,
                         hotReload: true,
-                        compilerOptions: {
-                            customElement: true
-                        },
+                        // compilerOptions: {
+                        //     customElement: true
+                        // },
                         cascade: false,
                         preprocess: sveltePreprocess()
                     },
                 }
             },
+            // {
+            //     test: /\.scss$/,
+            //     use: [
+            //         MiniCSSExtractPlugin.loader,
+            //         'css-loader',
+            //         'sass-loader'
+            //     ]
+            // },
             {
-                test: /\.scss$/,
+                test: /\.css$/,
                 use: [
                     MiniCSSExtractPlugin.loader,
                     'css-loader',
-                    'sass-loader'
                 ]
             },
             {
@@ -72,7 +79,11 @@ var config = {
         ]
     },
     mode,
-    plugins: [],  // MiniCSSExtractPlugin added for each app (separate bundle file names)
+    plugins: [
+        new MiniCSSExtractPlugin({
+            filename: '[name].bundle.css'
+        })
+    ],  // MiniCSSExtractPlugin added for each app (separate bundle file names)
     externals: [
         {
             webpack: {
@@ -99,11 +110,6 @@ module.exports = apps.map(app => {
     uniqueConfig['entry'][name] = `./whirlsite/${name}/static/${staticDir}/src/app.js`
 
     let appConfig = Object.assign(uniqueConfig, config)
-    appConfig['plugins'].push(
-        new MiniCSSExtractPlugin({
-            filename: `whirlsite/${name}/static/${staticDir}/dist/${name}.bundle.css`
-        })
-    )
 
     return appConfig
 })
