@@ -25,7 +25,7 @@
 
                 .hero-tag-line {
                     font-family: 'Open Sans';
-                    color: #707070;
+                    color: #212121;
                     font-size: 2rem;
                     text-align: center;
 

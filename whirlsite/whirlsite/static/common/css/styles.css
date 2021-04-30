@@ -24,3 +24,13 @@ html, body {
 #features {
     width: 100%;
 }
+
+.icon-grey-hover {
+    stroke: #8e8e8e;
+    transition-duration: 0.5s;
+}
+
+.icon-grey-hover:hover {
+    stroke: #00a8ec;
+    transition-duration: 0.5s;
+}

@@ -35,7 +35,7 @@
                 padding-right: 1rem;
                 font-size: 1.5rem;
                 font-family: 'Open Sans', sans-serif;
-                color: #707070;
+                color: #212121;
                 text-decoration: none;
                 transition-duration: 0.5s;
             }
