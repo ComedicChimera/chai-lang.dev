@@ -51,6 +51,13 @@
                         font-size: 2.5rem;
                         text-align: center;
                         border: none;
+
+                        cursor: pointer;
+                    }
+
+                    button:active {
+                        background-color: #41b6e4;
+
                     }
                 }
             }
