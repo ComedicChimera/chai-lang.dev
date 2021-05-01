@@ -1,12 +1,24 @@
 <script>
-    // import LangFeature from './components/LangFeature.svelte'
-    // import SectionTitle from './components/SectionTitle.svelte'
 
-    let features = [0, 1, 2, 3, 4]
+    import FeatureSlide from './FeatureSlide.svelte'
+
+    import {onMount} from 'svelte'
+
+    const features = [
+        "Type System",
+        "Concurrency",
+        "Interface Binding",
+        "Data Processing"
+    ]
     let currentFeature = 0
+    onMount(() => document.getElementById('feature-select-0').style = 'fill: #00a8ec')
 
     function switchToFeature(id) {
+        document.getElementById(`feature-select-${currentFeature}`).style = ''
 
+        currentFeature = id
+
+        document.getElementById(`feature-select-${id}`).style = 'fill: #00a8ec';
     }
 
     function nextFeature() {
@@ -62,6 +74,13 @@
         }
 
         .feature-deck {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+
+            width: 60%;
+
             .feature-slide-button {
                 border: none;
             }
@@ -74,14 +93,17 @@
         <button id="feature-left" class="feature-slide-button" on:click={prevFeature}>
             <i class="icon-grey-hover" data-feather="chevron-left" width="100" height="100" stroke-width="0.7" fill="none"></i>
         </button>
+        {#key currentFeature}
+            <FeatureSlide title={features[currentFeature]}></FeatureSlide>
+        {/key} 
         <button id="feature-right" class="feature-slide-button" on:click={nextFeature}>
             <i class="icon-grey-hover" data-feather="chevron-right" width="100" height="100" stroke-width="0.7" fill="none"></i>
         </button>
     </div>
     <div class="feature-selector">
-        {#each features as feature}
-            <button class="feature-select-button" on:click={() => switchToFeature(feature)}>
-                <svg width="16" height="16"><circle cx="8" cy="8" r="8"></circle></svg>
+        {#each features as _, ndx}
+            <button class="feature-select-button" on:click={() => switchToFeature(ndx)}>
+                <svg id="feature-select-{ndx}" width="16" height="16"><circle cx="8" cy="8" r="8"></circle></svg>
             </button>
         {/each}
     </div>
