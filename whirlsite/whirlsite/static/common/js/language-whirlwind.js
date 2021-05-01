@@ -38,7 +38,7 @@ window.language_whirlwind = {
     'function-definition': {
         pattern: /\b(func|async)\b\s*[a-zA-Z_]\w*\b/,
         inside: {
-            'keyword': /\b(func|async)\b/,
+            'keyword': /\b(func|async|for)\b/,
             'function-name': /[a-zA-Z_]\w*/,
         }
     },

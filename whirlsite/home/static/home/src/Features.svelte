@@ -5,10 +5,15 @@
     import {onMount} from 'svelte'
 
     const features = [
-        "Type System",
         "Concurrency",
+        "Data Processing",
+        "Algebraic Types",
+        "Performance",
+        "Generics",
+        "Reference Semantics",
         "Interface Binding",
-        "Data Processing"
+        "Package System",
+        "Monadic Error Handling"
     ]
     let currentFeature = 0
     onMount(() => document.getElementById('feature-select-0').style = 'fill: #00a8ec')
@@ -94,8 +99,8 @@
             <i class="icon-grey-hover" data-feather="chevron-left" width="100" height="100" stroke-width="0.7" fill="none"></i>
         </button>
         {#key currentFeature}
-            <FeatureSlide title={features[currentFeature]}></FeatureSlide>
-        {/key} 
+            <FeatureSlide title={features[currentFeature]}/>
+        {/key}
         <button id="feature-right" class="feature-slide-button" on:click={nextFeature}>
             <i class="icon-grey-hover" data-feather="chevron-right" width="100" height="100" stroke-width="0.7" fill="none"></i>
         </button>
