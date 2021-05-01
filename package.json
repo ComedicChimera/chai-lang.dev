@@ -38,6 +38,8 @@
     "webpack-cli": "^4.6.0"
   },
   "dependencies": {
-    "feather-icons": "^4.28.0"
+    "babel-plugin-prismjs": "^2.0.1",
+    "feather-icons": "^4.28.0",
+    "prismjs": "^1.23.0"
   }
 }

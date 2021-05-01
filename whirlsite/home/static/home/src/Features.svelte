@@ -79,7 +79,7 @@
             justify-content: space-evenly;
             align-items: center;
 
-            width: 60%;
+            width: 80%;
 
             .feature-slide-button {
                 border: none;

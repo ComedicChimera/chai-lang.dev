@@ -34,3 +34,7 @@ html, body {
     stroke: #00a8ec;
     transition-duration: 0.5s;
 }
+
+.language-whirlwind {
+    font-size: 1rem;
+}

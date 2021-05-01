@@ -25,7 +25,8 @@ var config = {
             https: 'https-browserify',
             assert: 'assert',
             crypto: 'crypto-browserify',
-            constants: 'constants-browserify'
+            constants: 'constants-browserify',
+            common: path.join(__dirname, 'whirlsite/whirlsite/static/common/src/components/')
         },
         extensions: ['.mjs', '.js', '.svelte'],
         mainFields: ['svelte', 'browser', 'module', 'main']
@@ -71,7 +72,8 @@ var config = {
                         presets: ['@babel/preset-env'],
                         plugins: [
                             '@babel/plugin-proposal-class-properties',
-                            '@babel/plugin-transform-runtime'
+                            '@babel/plugin-transform-runtime',
+                            'prismjs',
                         ]
                     }
                 }

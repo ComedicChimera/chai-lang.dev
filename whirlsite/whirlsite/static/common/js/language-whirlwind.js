@@ -1,4 +1,5 @@
-Prism.languages.whirlwind = {
+// Prism.languages.whirlwind = {
+window.language_whirlwind = {
     'comment': [
         {
             pattern: /(#![^(\\\*)]*!#)/
@@ -44,7 +45,7 @@ Prism.languages.whirlwind = {
     'type-definition': {
         pattern: /\b(type|interf)\b\s*[a-zA-Z_]\w*\b/,
         inside: {
-            'keyword': /\b(type|interf|for|to)\b/,
+            'keyword': /\b(type|interf|for)\b/,
             'class-name': /[a-zA-Z_]\w*/,
         }
     },
@@ -55,7 +56,7 @@ Prism.languages.whirlwind = {
         },
         // declarations
         {
-            pattern: /\b(func|async|type|interf|variant|operator)\b/
+            pattern: /\b(func|async|type|interf|special|oper|constraint)\b/
         },
         // variables
         {
@@ -63,15 +64,15 @@ Prism.languages.whirlwind = {
         },
         // data types
         {
-            pattern: /\b[us]?(int|bool|float|rune|string|byte|long|double|short|nothing|any)\b/
+            pattern: /\b(bool|string|rune|byte|int|uint|any|nothing|u(8|16|32|64)|i(8|16|32|64)|f(32|64))\b/
         },
         // modifier
         {
-            pattern: /\b(vol|closed|own|global)\b/
+            pattern: /\b(vol|closed)\b/
         },
         // special
         {
-            pattern: /\b(new|make|from|import|delete|export|await|in|is|as|local|region)\b/
+            pattern: /\b(make|from|import|delete|export|await|in|is|as)\b/
         }
     ],
     'static-access': {
