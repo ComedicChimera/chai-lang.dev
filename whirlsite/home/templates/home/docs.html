@@ -1,0 +1,11 @@
+{% extends "common/base.html" %} 
+{% block head %}
+    {% load static %}
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'home/dist/home-docs.bundle.css' %}"/> -->
+{% endblock %}
+{% block title %}Whirlwind | Docs{% endblock %}
+{% block content %}
+    <div id="docs-list"></div>
+
+    <script src="{% static 'home/dist/home-docs.bundle.js' %}"></script>
+{% endblock %}

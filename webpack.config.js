@@ -6,8 +6,8 @@ const sveltePreprocess = require('svelte-preprocess')
 
 // List of apps to be compiled using the multi-compiler
 const apps = [
-    {appName: 'whirlsite', staticDir: 'common'}, 
-    {appName: 'home', staticDir: 'home'}
+    {appName: 'whirlsite', staticDir: 'common', bundles: ['app']}, 
+    {appName: 'home', staticDir: 'home', bundles: ['index', 'docs']}
 ]
 
 var config = {
@@ -105,12 +105,14 @@ module.exports = apps.map(app => {
         entry: {},
         output: {
             path: path.join(__dirname, `whirlsite/${name}/static/${staticDir}/dist/`),
-            filename: `${name}.bundle.js`,
+            filename: `[name].bundle.js`,
         }
     }
 
-    uniqueConfig['entry'][name] = `./whirlsite/${name}/static/${staticDir}/src/app.js`
-
+    for (let bundle of app.bundles) {
+        uniqueConfig['entry'][`${name}-${bundle}`] = `./whirlsite/${name}/static/${staticDir}/src/${bundle}.js`
+    }
+    
     let appConfig = Object.assign(uniqueConfig, config)
 
     return appConfig
