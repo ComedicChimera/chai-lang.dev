@@ -43,7 +43,7 @@ module.exports = {
                     func radix_sort(list: [int]) [int] do
                         let max = list.max()
                     
-                        while let it = 0; 10 ** it &lt; max; it++ do
+                        while let it = 0; 10 ** it < max; it++ do
                             let buckets = [make [int] for _ in 0..10]
                     
                             for item in list do
