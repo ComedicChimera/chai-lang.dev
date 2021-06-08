@@ -6,7 +6,7 @@ const sveltePreprocess = require('svelte-preprocess')
 
 // List of apps to be compiled using the multi-compiler
 const apps = [
-    {appName: 'whirlsite', staticDir: 'common', bundles: ['app']}, 
+    {appName: 'chaisite', staticDir: 'common', bundles: ['app']}, 
     {appName: 'home', staticDir: 'home', bundles: ['index', 'docs']}
 ]
 
@@ -26,7 +26,7 @@ var config = {
             assert: 'assert',
             crypto: 'crypto-browserify',
             constants: 'constants-browserify',
-            common: path.join(__dirname, 'whirlsite/whirlsite/static/common/src/components/')
+            common: path.join(__dirname, 'chaisite/chaisite/static/common/src/components/')
         },
         extensions: ['.mjs', '.js', '.svelte'],
         mainFields: ['svelte', 'browser', 'module', 'main']
@@ -104,13 +104,13 @@ module.exports = apps.map(app => {
         name: name,
         entry: {},
         output: {
-            path: path.join(__dirname, `whirlsite/${name}/static/${staticDir}/dist/`),
+            path: path.join(__dirname, `chaisite/${name}/static/${staticDir}/dist/`),
             filename: `[name].bundle.js`,
         }
     }
 
     for (let bundle of app.bundles) {
-        uniqueConfig['entry'][`${name}-${bundle}`] = `./whirlsite/${name}/static/${staticDir}/src/${bundle}.js`
+        uniqueConfig['entry'][`${name}-${bundle}`] = `./chaisite/${name}/static/${staticDir}/src/${bundle}.js`
     }
     
     let appConfig = Object.assign(uniqueConfig, config)

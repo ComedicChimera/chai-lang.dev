@@ -1,7 +1,7 @@
 {
-  "name": "whirlsite",
+  "name": "chaisite",
   "version": "1.0.0",
-  "description": "The Whirlwind programming language website",
+  "description": "The Chai programming language website",
   "main": "index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=development webpack",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://ComedicChimera@github.com/ComedicChimera/whirlwind-lang.dev.git"
+    "url": "git+https://ComedicChimera@github.com/ComedicChimera/chai-lang.dev.git"
   },
   "author": "ComedicChimera",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ComedicChimera/whirlwind-lang.dev/issues"
+    "url": "https://github.com/ComedicChimera/chai-lang.dev/issues"
   },
-  "homepage": "https://github.com/ComedicChimera/whirlwind-lang.dev#readme",
+  "homepage": "https://github.com/ComedicChimera/chai-lang.dev#readme",
   "devDependencies": {
     "@babel/core": "^7.13.16",
     "@babel/plugin-proposal-class-properties": "^7.13.0",

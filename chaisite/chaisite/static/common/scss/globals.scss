@@ -1,0 +1,21 @@
+$primary-color: #be6a15;
+$secondary-color: #ac3f21;
+$dark-bg: #6e3b3b;
+
+.primary-color {
+    color: $primary-color;
+}
+
+.secondary-color {
+    color: $secondary-color;
+}
+
+.icon-grey-hover {
+    stroke: #8e8e8e;
+    transition-duration: 0.5s;
+}
+
+.icon-grey-hover:hover {
+    stroke: $primary-color;
+    transition-duration: 0.5s;
+}

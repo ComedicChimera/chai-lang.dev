@@ -9,7 +9,7 @@ if ($args.Length -lt 1) {
             pip install "-r" requirements.txt
         }
         "rundev" {
-            python whirlsite/manage.py runserver localhost:8000
+            python chaisite/manage.py runserver localhost:8000
         }
         "build" {
             npm run build
