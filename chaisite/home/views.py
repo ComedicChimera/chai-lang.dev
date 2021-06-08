@@ -6,3 +6,9 @@ def index(request):
 
 def docslist(request):
     return render(request, 'home/docs.html')
+
+def startup_home(request):
+    pass
+
+def startup_chapter(request, chapter_number):
+    pass
