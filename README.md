@@ -41,6 +41,47 @@ Run Development Server:
 
 ## Guide Layout
 
-TBD
+### Unit I - Variables and Expressions
+
+1. Hello World
+2. Basic Types
+3. Variables
+4. Control Flow
+5. Pattern Matching
+
+### Unit II - Functions and Collections
+
+6. Functions
+7. Lists and Dictionaries
+8. References
+9. Loops and Comprehensions
+10. Vectors and Matrices
+11. Lambdas and Closures
+12. Sequence Functions
+
+### Unit III - Defined Types
+
+12. Structure Types
+13. Algebraic Types
+14. Method Spaces
+15. Type Classes
+16. Generics
+17. Constraints and Aliases
+
+### Unit IV - Packages and Modules
+
+18. Packages and Visibility
+19. Modules
+20. Import Semantics
+21. Build Profiles
+
+### Unit V - Concurrency
+
+22. Chairoutines (name WIP)
+23. Futures and Events
+24. Async Queues
+25. Task Pools
+
+
 
 
