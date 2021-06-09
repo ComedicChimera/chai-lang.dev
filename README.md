@@ -66,7 +66,7 @@ Run Development Server:
 14. Method Spaces
 15. Type Classes
 16. Generics
-17. Constraints and Aliases
+17. Monads and Error Handling
 
 ### Unit IV - Packages and Modules
 
