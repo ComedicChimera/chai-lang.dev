@@ -49,6 +49,14 @@ window.language_chai = {
             'entity': /[a-zA-Z_]\w*/,
         }
     },
+    'package-import': {
+        pattern: /\b(from|import)\s+[a-zA-Z_]\w*(\.[a-zA-Z_]\w*)*/,
+        inside: {
+            'keyword': /\b(from|import)\b/,
+            'entity': /[a-zA-Z_]\w*/, 
+            'punctuation': /\./,
+        }
+    },
     'keyword': [
         // control flow
         {
@@ -75,30 +83,44 @@ window.language_chai = {
             pattern: /\b(make|from|import|delete|pub|await|in|is|as|fn|then)\b/
         }
     ],
+    'function': /[a-zA-Z_]\w*(?=\()/,
     'prop-access': {
-        pattern: /[a-zA-Z_]\w*(\.[a-zA-Z_]\w*)+/,
+        pattern: /(\.)[a-zA-Z_]\w*/,
+        lookbehind: true,
+        inside: {
+            'property': /[a-zA-Z_]\w*/, 
+        }
+    },
+    'package-access': {
+        pattern: /[a-zA-Z_]\w*\./,
         inside: {
             'entity': /[a-zA-Z_]\w*/, 
             'punctuation': /\./,
         }
     },
     'type-label': {
-        pattern: /:\s*[a-zA-Z_]\w*\b/,
+        pattern: /(:)\s*[a-zA-Z_]\w*\b/,
+        inside: {
+            'entity': /[a-zA-Z_]\w*/, 
+        },
+        lookbehind: true,
+    }, 
+    'typed-variable': {
+        pattern: /[a-zA-Z_]\w*(:)/,
         inside: {
             'punctuation': /:/,
-            'entity': /[a-zA-Z_]\w*/, 
-        }
-    }, 
-    "variable": {
-        pattern: /\b(\w+)(?:\s*(,)\s*(\w+))*\s*(=|<-)(?!=)/,
+            'variable': /[a-zA-Z_]\w*/, 
+        },
+    },
+    'stmt-variable': {
+        pattern: /(?!\))\s*\b(\w+)(?:\s*(,)\s*(\w+))*\s*(=|<-)(?!=)/,
         inside: {
             'variable': /\w+/,
             'operator': /=|<-/,
             'punctuation': /,/
         }
     },
-    'entity': /[a-zA-Z_]\w*(?=[<{])/,
-    'function': /[a-zA-Z_]\w*(?=\()/,
+    'entity': /[a-zA-Z_]\w*(?=\{)|\b(List|Dict|Vec|Mat|RVec|Seq|Iter|Option|Result|Future|Strand)\b/,
     'operator': /[+\-*\/%&\^!|><=\~\?]/,
     'punctuation': /[{}[\];(),.:@]/,
     'boolean': /true|false/,

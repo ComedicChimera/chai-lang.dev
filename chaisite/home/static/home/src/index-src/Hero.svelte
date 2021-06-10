@@ -83,7 +83,7 @@
 
 <div class="hero">
     <div class="hero-side-by-side">
-        <img src="/static/common/images/logo.png" height="400em" width="400em" alt="Chai logo"/>
+        <img src="/static/common/images/chai_logo.png" height="458em" width="400em" alt="Chai logo"/>
         <div class="hero-right-side">
             <div class="hero-tag-line">
                 An elegant language for <span class="primary-color">speed</span>

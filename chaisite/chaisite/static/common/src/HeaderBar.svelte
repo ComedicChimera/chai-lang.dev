@@ -55,9 +55,9 @@
 <div class="header">
     <div class="full-logo">
         <a href="/">
-            <img src="/static/common/images/logo.png" width="70em" height="70em" alt="Whirlwind logo"/>
+            <img src="/static/common/images/chai_logo.png" width="70em" height="83em" alt="Chai logo"/>
             <div class="logo-text">
-                <span class="light-blue">Whirl</span><span class="dark-blue">wind</span>
+                <span class="primary-color">Cha</span><span class="secondary-color">i</span>
             </div>
         </a>   
     </div>
