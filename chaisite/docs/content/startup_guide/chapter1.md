@@ -12,7 +12,7 @@ In order to get started programming in Chai, you will need a workspace to run
 code.  
 
 Assuming you already have the language installed, go to your development
-directory of choice (wherever you want to store your Cgau projects).  Then open
+directory of choice (wherever you want to store your Chai projects).  Then open
 your terminal and type the following command `chai mod new <name>` and replace
 `<name>` with whatever you want your starting project to be called.  Note that
 the name must contain only letters, numbers, and underscores and start with
@@ -29,7 +29,7 @@ Then, go ahead and open up a terminal.  Once you have put some code into the
 file, you can use the command, `chai run .` to build and run your code (current
 working package).
 
-If you want to simply produce an executable, you can use the command `chai build.` 
+If you want to simply produce an executable, you can use the command `chai build .` 
 to build your current package.  The executable will be created in a directory
 called `bin` by default.
 

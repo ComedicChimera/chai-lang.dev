@@ -7,7 +7,8 @@ const sveltePreprocess = require('svelte-preprocess')
 // List of apps to be compiled using the multi-compiler
 const apps = [
     {appName: 'chaisite', staticDir: 'common', bundles: ['app']}, 
-    {appName: 'home', staticDir: 'home', bundles: ['index', 'docs']}
+    {appName: 'home', staticDir: 'home', bundles: ['index', 'docs']},
+    {appName: 'docs', staticDir: 'docs', bundles: ['guide']}
 ]
 
 var config = {
@@ -40,22 +41,23 @@ var config = {
                     options: {
                         emitCss: true,
                         hotReload: true,
-                        // compilerOptions: {
-                        //     customElement: true
-                        // },
+                        compilerOptions: {
+                            hydratable: true
+                            // customElement: true
+                        },
                         cascade: false,
                         preprocess: sveltePreprocess()
                     },
                 }
             },
-            // {
-            //     test: /\.scss$/,
-            //     use: [
-            //         MiniCSSExtractPlugin.loader,
-            //         'css-loader',
-            //         'sass-loader'
-            //     ]
-            // },
+            {
+                test: /\.scss$/,
+                use: [
+                    MiniCSSExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader'
+                ]
+            },
             {
                 test: /\.css$/,
                 use: [

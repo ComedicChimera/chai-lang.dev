@@ -32,17 +32,17 @@ This guide, while helpful, is not the be all, end all of Chai programming
 resources.  As such, there are some other resources that may be helpful both in
 learning the language and as documentation for future use.
 
-#### Language Specification
+### Language Specification
 
 This is a fairly hefty and dry read, but it is the definitive resource for all
 things Chai: every language feature is documented and specified here.
 
-#### Standard Library Reference
+### Standard Library Reference
 
 This is hosted on Chai's package index and documents all of the standard library
 functions of the language.
 
-#### Style Guide
+### Style Guide
 
 This documents standard conventions of the language including naming, comments,
 and more.  While not the most useful for actually programming, having a

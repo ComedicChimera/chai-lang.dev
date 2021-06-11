@@ -16,7 +16,6 @@
 
         {% load static %}
         <link rel='icon' type='image/png' href='{% static "common/images/chai_logo.png" %}'/>
-        <link rel='stylesheet' type='text/css' href='{% static "common/css/styles.css" %}'/>
         <link rel='stylesheet' type='text/css' href='{% static "common/dist/chaisite-app.bundle.css" %}'/>
         <link rel='stylesheet' type='text/css' href='{% static "common/vendor/prism.darcula.css" %}'/>
 
@@ -29,9 +28,9 @@
     <body>
         <div id="wrapper">
             <div id="header"></div>
-            <article>
+            <main>
                 {% block content %}{% endblock %}
-            </article>
+            </main>
         </div>
 
         <script src='{% static "common/dist/chaisite-app.bundle.js" %}'></script>       

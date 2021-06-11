@@ -3,7 +3,7 @@
 </script>
 
 <style lang="scss">
-    @import "chaisite/chaisite/static/common/scss/globals.scss";
+    @import "chaisite/chaisite/static/common/src/scss/globals.scss";
 
     .header {
         padding: 1rem;
@@ -39,7 +39,7 @@
                 padding-right: 1rem;
                 font-size: 1.5rem;
                 font-family: 'Open Sans', sans-serif;
-                color: #212121;
+                color: $text-color;
                 text-decoration: none;
                 transition-duration: 0.5s;
             }

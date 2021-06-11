@@ -1,6 +1,7 @@
 <script>
 
     import FeatureSlide from './FeatureSlide.svelte'
+    import FeatherIcon from 'common/FeatherIcon.svelte'
 
     import {onMount} from 'svelte'
 
@@ -44,10 +45,10 @@
 </script>
 
 <style lang="scss">
-    @import "chaisite/chaisite/static/common/scss/globals.scss";
+    @import "chaisite/chaisite/static/common/src/scss/globals.scss";
 
     .feature-container {
-        background-color: #ececec;
+        background-color: $light-bg;
         width: 100%;
 
         margin-top: 2rem;
@@ -69,7 +70,7 @@
                 border: none;
 
                 svg {
-                    fill: #8E8E8E;
+                    fill: $dark-grey;
                     transition-duration: 0.5s;
                 }
 
@@ -98,13 +99,13 @@
 <div class="feature-container">
     <div class="feature-deck">
         <button id="feature-left" class="feature-slide-button" on:click={prevFeature}>
-            <i class="icon-grey-hover" data-feather="chevron-left" width="100" height="100" stroke-width="0.7" fill="none"></i>
+            <FeatherIcon color="grey" iconName="chevron-left" size="100"></FeatherIcon>
         </button>
         {#key currentFeature}
             <FeatureSlide title={features[currentFeature]}/>
         {/key}
         <button id="feature-right" class="feature-slide-button" on:click={nextFeature}>
-            <i class="icon-grey-hover" data-feather="chevron-right" width="100" height="100" stroke-width="0.7" fill="none"></i>
+            <FeatherIcon color="grey" iconName="chevron-right" size="100"></FeatherIcon>
         </button>
     </div>
     <div class="feature-selector">

@@ -5,7 +5,7 @@
 </script>
 
 <style lang="scss">
-    @import "chaisite/chaisite/static/common/scss/globals.scss";
+    @import "chaisite/chaisite/static/common/src/scss/globals.scss";
 
     .hero {
         margin-bottom: 5rem;
@@ -27,7 +27,7 @@
 
                 .hero-tag-line {
                     font-family: 'Open Sans';
-                    color: #212121;
+                    color: $text-color;
                     font-size: 2rem;
                     text-align: center;
 

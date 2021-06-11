@@ -18,7 +18,7 @@ if ($args.Length -lt 1) {
             if ($args.length -ne 2) {
                 echo "Missing 'app-name' parameter"
             } else {
-                cd whirlsite
+                cd chaisite
                 python manage.py startapp $args[1]
                 cd ../
             }

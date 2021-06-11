@@ -4,13 +4,13 @@
 </script>
 
 <style lang="scss">
-    @import "chaisite/chaisite/static/common/scss/globals.scss";
+    @import "chaisite/chaisite/static/common/src/scss/globals.scss";
 
     .doc-panel {
         padding: 1rem;
         margin: 1rem;
         border-radius: 0.3rem;
-        background-color: #ececec;
+        background-color: $light-bg;
 
         display: flex;
         flex-direction: column;
@@ -35,7 +35,7 @@
         .doc-panel-content {
             font-family: 'Open Sans', sans-serif;
             font-size: 1rem;
-            color: #212121;
+            color: $text-color;
             text-align: left;
             font-weight: 300;
         }

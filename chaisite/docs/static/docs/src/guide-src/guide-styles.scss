@@ -1,0 +1,55 @@
+@import 'chaisite/chaisite/static/common/src/scss/globals.scss';
+
+.guide-page {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-evenly;
+
+    article {   
+        display: block;
+        margin: 1rem;
+
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1rem;
+        font-weight: 300;
+        color: $text-color;
+        
+        // h1 {
+        //     text-align: left;
+        //     color: $primary-color;
+        //     font-size: 2rem;
+        //     font-weight: normal;
+        // }
+
+        h2 {
+            text-align: left;
+            font-size: 1.5rem;
+            font-weight: normal;
+            color: $primary-color;
+
+            a {
+                text-decoration: none;
+                color: $primary-color;
+            }
+        }
+
+        h3 {
+            text-align: left;
+            font-size: 1.3rem;
+            font-weight: normal;
+            color: $secondary-color;
+        }
+
+        code:not(.language-chai) {
+            font-family: 'IBM Plex Mono', monospace;
+            padding: 0.3rem;
+            border-radius: 0.1rem;
+            background-color: $light-bg;
+        }
+
+        a {
+            color: $primary-color;
+        }
+    }
+}
