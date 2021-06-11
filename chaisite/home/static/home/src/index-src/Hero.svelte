@@ -1,6 +1,6 @@
 <script>
     function handleButtonPress() {
-        console.log("Redirecting...")
+        window.location.href = "/docs/guide"
     }
 </script>
 

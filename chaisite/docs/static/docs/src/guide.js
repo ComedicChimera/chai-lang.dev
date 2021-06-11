@@ -1,5 +1,6 @@
 import GuideAside from './guide-src/GuideAside.svelte'
 import GuideSummary from './guide-src/GuideSummary.svelte'
+import GuideNavButtons from './guide-src/GuideNavButtons.svelte'
 import ChaiTitle from 'common/ChaiTitle.svelte'
 
 import prism from 'prismjs'
@@ -43,3 +44,7 @@ for (let table of articleElement.getElementsByTagName("table")) {
     table.setAttribute("border", "1")
     table.setAttribute("cellspacing", "0px")
 }
+
+new GuideNavButtons({
+    target: articleElement,
+})

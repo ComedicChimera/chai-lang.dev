@@ -33,11 +33,10 @@
         }
 
         .doc-panel-content {
-            font-family: 'Open Sans', sans-serif;
+            font-family: $text-font;
             font-size: 1rem;
             color: $text-color;
             text-align: left;
-            font-weight: 300;
         }
     }
 </style>

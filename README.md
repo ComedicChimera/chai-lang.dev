@@ -32,7 +32,6 @@ Run Development Server:
 
 | Directory | Purpose |
 | --------- | ------- |
-| `content` | Static, markdown content for the website (docs, etc.) |
 | `chaisite` | The main Django project |
 | `chaisite/whirlsite` | Primary project configuration and common files |
 | `chaisite/home` | Home page and primary subpages |

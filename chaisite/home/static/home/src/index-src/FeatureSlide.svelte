@@ -11,6 +11,7 @@
 </script>
 
 <style lang='scss'>
+    @import "chaisite/chaisite/static/common/src/scss/globals.scss";
     .feature {
         display: flex;
         flex-direction: row;
@@ -32,10 +33,9 @@
             width: 30%;
 
             .feature-description {
-                font-family: 'Open Sans', sans-serif;
-                color: #212121;
+                font-family: $text-font;
+                color: $text-color;
                 font-size: 1rem;
-                font-weight: 300;
             }
         }
     }
