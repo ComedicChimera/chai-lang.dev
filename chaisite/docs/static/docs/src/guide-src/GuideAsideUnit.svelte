@@ -88,7 +88,7 @@
         <div class="unit-chapters" transition:slide>
             {#each unit.chapters as chapter, index}
                 <div class="unit-chapter">
-                    {#if index == unit.startIndex + selectedChapter - 1}
+                    {#if index == selectedChapter - unit.startIndex - 1}
                         <a class="chapter-title selected" href="/docs/guide/{index + unit.startIndex + 1}">{chapter}</a>
                     {:else}
                         <a class="chapter-title" href="/docs/guide/{index + unit.startIndex + 1}">{chapter}</a>
