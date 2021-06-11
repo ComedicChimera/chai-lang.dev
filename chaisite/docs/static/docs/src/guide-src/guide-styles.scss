@@ -6,14 +6,21 @@
     align-items: flex-start;
     justify-content: space-evenly;
 
+    width: 80%;
+
     article {   
         display: block;
         margin: 1rem;
 
         font-family: 'Open Sans', sans-serif;
-        font-size: 1rem;
+        font-size: 1.1rem;
         font-weight: 300;
         color: $text-color;
+        line-height: 1.8rem;
+
+        p {
+            font-family: $text-font;
+        }
         
         // h1 {
         //     text-align: left;
@@ -43,13 +50,42 @@
 
         code:not(.language-chai) {
             font-family: 'IBM Plex Mono', monospace;
-            padding: 0.3rem;
-            border-radius: 0.1rem;
+            padding: 0.2rem;
+            border-radius: 0.2rem;
             background-color: $light-bg;
+            font-size: 1rem;
         }
 
         a {
             color: $primary-color;
         }
+
+        .info {
+            border: $primary-color;
+            border-style: solid;
+            border-width: 0.1rem;
+            border-radius: 0.5rem;
+            background-color: adjust-color($color: $primary-color,  $lightness: 50%);
+            padding: 1rem;
+            font-family: $text-font;
+
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        table {
+            tbody tr td, thead tr th {
+                border-width: 0.1rem;
+                border-color: $text-color;
+                border-style: solid;
+                
+                padding: 0.5rem;
+            }
+
+            tbody tr td {
+                font-family: $text-font;
+            }
+        }
+        
     }
 }

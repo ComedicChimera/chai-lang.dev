@@ -3,12 +3,40 @@
 
     const guideLayout = [
         {
-            title: "Unit I - Variables and Expressions",
+            title: "Variables and Expressions",
             chapters: [
                 "Hello World",
-                "Basic Types"
+                "Basic Types",
+                "Variables",
+                "Control Flow",
+                "Pattern Matching"
             ],
-            startIndex: 1
+            startIndex: 0
+        },
+        {
+            title: "Functions and Collections",
+            chapters: [
+                "Functions",
+                "Lists and Dictionaries",
+                "References",
+                "Loops and Comprehensions",
+                "Vectors and Matrices",
+                "Lambdas and Closures",
+                "Sequence Functions"
+            ],
+            startIndex: 5
+        },
+        {
+            title: "Defined Types",
+            chapters: [
+                "Structure Types",
+                "Algebraic Types",
+                "Method Spaces",
+                "Type Classes",
+                "Generics",
+                "Monads and Error Handling"
+            ],
+            startIndex: 12
         }
     ]
 

@@ -38,3 +38,8 @@ new GuideSummary({
 for (let h2 of articleElement.getElementsByTagName("h2")) {
     h2.innerHTML = `<a name="${h2.innerHTML.replaceAll(" ", "-").toLowerCase()}">${h2.innerHTML}</a>`
 }
+
+for (let table of articleElement.getElementsByTagName("table")) {
+    table.setAttribute("border", "1")
+    table.setAttribute("cellspacing", "0px")
+}

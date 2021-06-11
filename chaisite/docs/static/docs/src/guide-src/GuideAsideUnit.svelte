@@ -6,7 +6,7 @@
     export let unit
     export let selectedChapter
 
-    let open = selectedChapter >= unit.startIndex && selectedChapter < unit.startIndex + unit.chapters.length
+    let open = selectedChapter > unit.startIndex && selectedChapter <= unit.startIndex + unit.chapters.length
 
     function changeAccordion() {
         open = !open
@@ -32,7 +32,8 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            justify-content: space-evenly;
+            width: 100%;
+            justify-content: space-between;
             margin-bottom: -1rem;
 
             .unit-title-text {
@@ -60,6 +61,10 @@
                 transition-duration: 0.5s;
             }
 
+            .unit-chapter .selected {
+                color: $primary-color;
+            }
+
             .unit-chapter a:hover {
                 color: $primary-color;
                 transition-duration: 0.5s;
@@ -83,10 +88,10 @@
         <div class="unit-chapters" transition:slide>
             {#each unit.chapters as chapter, index}
                 <div class="unit-chapter">
-                    {#if index == unit.startIndex + selectedChapter}
-                        <a class="chapter-title selected" href="/docs/guide/{index + unit.startIndex}">{chapter}</a>
+                    {#if index == unit.startIndex + selectedChapter - 1}
+                        <a class="chapter-title selected" href="/docs/guide/{index + unit.startIndex + 1}">{chapter}</a>
                     {:else}
-                        <a class="chapter-title" href="/docs/guide/{index + unit.startIndex}">{chapter}</a>
+                        <a class="chapter-title" href="/docs/guide/{index + unit.startIndex + 1}">{chapter}</a>
                     {/if}
                 </div>
             {/each}

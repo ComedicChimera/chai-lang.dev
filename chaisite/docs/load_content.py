@@ -19,7 +19,7 @@ def load_markdown(file_path):
         create_path(cached_path)
 
         with open(cached_path, 'wb+') as cached_f:
-            markdown.markdownFromFile(input=md_f, output=cached_f)
+            markdown.markdownFromFile(input=md_f, output=cached_f, extensions=["tables"])
 
         with open(cached_path, 'r') as cached_f:
             return cached_f.read()
