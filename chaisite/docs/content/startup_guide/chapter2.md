@@ -57,7 +57,7 @@ Here are some examples of some of the operators:
     7 % 2    # => 1
     0.5 ~* 2 # => 0.25
     5 / 2    # => 2.5
-    7 ~/ 2   # => 3
+    7 // 2   # => 3
 
 Finally, you can also use the unary `-` operator to negate a numeric value.
 

@@ -12,31 +12,34 @@ In order to get started programming in Chai, you will need a workspace to run
 code.  
 
 Assuming you already have the language installed, go to your development
-directory of choice (wherever you want to store your Chai projects).  Then open
-your terminal and type the following command `chai mod new <name>` and replace
-`<name>` with whatever you want your starting project to be called.  Note that
-the name must contain only letters, numbers, and underscores and start with
-either a letter or an underscore.
+directory of choice (wherever you want to store your Chai projects).  Then,
+create and open a new directory named whatever you want your first project name
+to be. Then, open your terminal and type the following command `chai mod init
+<name>` and replace `<name>` with whatever you want your starting project to be
+called (ideally, it should match your chosen directory name).  Note that the
+name must contain only letters, numbers, and underscores and start with either a
+letter or an underscore.
 
 <div class="info">This command creates a new module which is essential to
 building a Chai project; we will learn about modules much later.</div>
 
-After you run this command, you should see a new directory created based on the
-name you gave to the command.  In this directory, create a new file called
-`main.chai`.
+After you run this command, you should see a new file called `chai-mod.toml`.
+This is the configuration file for your module.  For now, you don't need to
+worry about what's inside it -- the `chai` tool has already selected some
+sensible default configurations for you.
 
-Then, go ahead and open up a terminal.  Once you have put some code into the
-file, you can use the command, `chai run .` to build and run your code (current
-working package).
+In your directory, go ahead and create a new file called `main.chai`.  Once you
+have put some code into the file, you can use the command, `chai run .` to build
+and run your code (current working module).
 
-If you want to simply produce an executable, you can use the command `chai build .` 
-to build your current package.  The executable will be created in a directory
+If you want to simply produce an executable, you can use the command `chai build
+.` to build your current module.  The executable will be created in a directory
 called `bin` by default.
 
 ## Hello Chai
 
 Now, we are going to walk you through writing your first Chai program.  This
-program is going to print out `"Hello, world!"` to the console and is often the
+program is going to print out `Hello, world!` to the console and is often the
 first program written when learning a new language.  
 
 To begin, open the file you created in the first section of this chapter.  You
