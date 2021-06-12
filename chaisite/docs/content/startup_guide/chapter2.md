@@ -1,8 +1,13 @@
 # Basic Types
 
-<div class="info">All code used in this chapter and beyond
-is assumed to have the appropriate enclosing constructs (`println`
-import, main function, etc.) unless otherwise stated.</div>
+Chai is a strongly and statically typed programming language.  This means that
+everything has one possible type determined at compile time.  Therefore,
+understanding what types we are dealing with and knowing the type of all the
+values we use is incredibly important.
+
+> All code used in this chapter and beyond is assumed to have the appropriate
+> enclosing constructs (`println` import, main function, etc.) unless otherwise
+> stated.
 
 ## Numeric Types
 
@@ -25,8 +30,8 @@ Whirlwind supports two kinds of numeric types: **integral** types and
     f32  # 32-bit, floating-point number
     f64  # 64-bit, floating-point number
 
-<div class="info">The strings of text prefixed by `#`
-are comments -- text that is ignored by the compiler.</div>
+> The strings of text prefixed by `#` are comments -- text that is ignored by
+> the compiler.
 
 Here are some examples of various different numeric literals:
 
@@ -84,8 +89,7 @@ common and/or useful ones.
 | `\"` | Escaped double quote |
 | `\'` | Escaped single quote |
 
-<div class="info">Check the Language Specification *insert link* for a
-more definitive list.</div>
+> Check the Language Specification *insert link* for a more definitive list.
 
 Both string and runes support the use of the `+` operator.  For both strings and
 combinations of strings and runes, the `+` operator will concatenate (join) the

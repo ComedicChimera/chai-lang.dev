@@ -1,8 +1,13 @@
 <h1>Basic Types</h1>
-<div class="info">All code used in this chapter and beyond
-is assumed to have the appropriate enclosing constructs (`println`
-import, main function, etc.) unless otherwise stated.</div>
-
+<p>Chai is a strongly and statically typed programming language.  This means that
+everything has one possible type determined at compile time.  Therefore,
+understanding what types we are dealing with and knowing the type of all the
+values we use is incredibly important.</p>
+<blockquote>
+<p>All code used in this chapter and beyond is assumed to have the appropriate
+enclosing constructs (<code>println</code> import, main function, etc.) unless otherwise
+stated.</p>
+</blockquote>
 <h2>Numeric Types</h2>
 <p>Whirlwind supports two kinds of numeric types: <strong>integral</strong> types and
 <strong>floating-point</strong> types.  They have the following type labels:</p>
@@ -22,9 +27,10 @@ byte  # alias for `u8`
 f32  # 32-bit, floating-point number
 f64  # 64-bit, floating-point number
 </code></pre>
-<div class="info">The strings of text prefixed by `#`
-are comments -- text that is ignored by the compiler.</div>
-
+<blockquote>
+<p>The strings of text prefixed by <code>#</code> are comments -- text that is ignored by
+the compiler.</p>
+</blockquote>
 <p>Here are some examples of various different numeric literals:</p>
 <pre><code>45   # integer
 5.6  # floating-point
@@ -125,9 +131,9 @@ common and/or useful ones.</p>
 </tr>
 </tbody>
 </table>
-<div class="info">Check the Language Specification *insert link* for a
-more definitive list.</div>
-
+<blockquote>
+<p>Check the Language Specification <em>insert link</em> for a more definitive list.</p>
+</blockquote>
 <p>Both string and runes support the use of the <code>+</code> operator.  For both strings and
 combinations of strings and runes, the <code>+</code> operator will concatenate (join) the
 items.  However, for combinations of exclusively runes, <code>+</code> will add their

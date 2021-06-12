@@ -1,0 +1,38 @@
+<h1>Control Flow</h1>
+<p>This chapter is only going to cover the first and most basic control flow
+construct in Chai because Chai handles control flow slightly differently then
+you may be used.  Ergo, we will need to take time to explore each control flow
+construct thoroughly.</p>
+<h2>Block Expressions</h2>
+<p>Unlike most languages, Chai considers blocks to be expressions -- ie. things
+that can yield a value.  In fact, the do blocks you were introduced to last
+chapter are themselves expressions.</p>
+<pre><code>let x = do
+    ...
+</code></pre>
+<blockquote>
+<p>As you might guess, the main function we defined earlier also accepts an
+expression after its <code>=</code>, but since do blocks are expressions, we had no
+issues using it. </p>
+</blockquote>
+<p>By default, do blocks will yield the value of the last statement contained
+within them.  </p>
+<pre><code>let x = do
+    let y = 2 + 3
+    y++  # increment yields the new value added
+</code></pre>
+<p>Many of the statements we have already covered yield values as well.  </p>
+<blockquote>
+<p>However, some statements and functions return <code>()</code> which is a special value of
+type <code>nothing</code>.  This value effectively signifies that no value is yielded but
+provides Chai with a type to process so your code still makes sense.</p>
+</blockquote>
+<p>We can also specify the value the do block yields with the <strong>yield statement</strong>.</p>
+<pre><code>x = do
+    let y = 6 * 7
+    yield y + 2  # 44 will be returned
+    y++  # the yielded value is not effected by this update
+</code></pre>
+<p>As you can see, <code>yield</code> does not change the flow of the program -- it just
+changes what value the do block will return.</p>
+<h2>If, Elif, and Else</h2>

@@ -20,8 +20,8 @@ called (ideally, it should match your chosen directory name).  Note that the
 name must contain only letters, numbers, and underscores and start with either a
 letter or an underscore.
 
-<div class="info">This command creates a new module which is essential to
-building a Chai project; we will learn about modules much later.</div>
+> This command creates a new module which is essential to building a Chai
+> project; we will learn about modules much later.
 
 After you run this command, you should see a new file called `chai-mod.toml`.
 This is the configuration file for your module.  For now, you don't need to
