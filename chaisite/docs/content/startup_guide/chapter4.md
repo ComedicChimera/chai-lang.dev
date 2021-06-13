@@ -43,8 +43,8 @@ changes what value the do block will return.
 
 ## If, Elif, and Else
 
-The first basic control flow contruct in Chai is the **if statement** which runs
-its body if the condition in its header is true.
+The first basic control flow contruct in Chai is the **if expression** which
+runs its body if the condition in its header is true.
 
     # NOTE: `random_number` is NOT a real function in Chai
     let x = random_number()  
@@ -87,11 +87,11 @@ You do not need to include an `else` at the end of an `elif` chain.  However,
 the statement must be constructed beginning with an `if`, followed by any `elif`
 blocks, and (optionally) ending with an `else`.
 
-## If Statements as Expressions
+## If Expressions Yielding Values
 
-If statements like do blocks are also expressions.  They yield the type that is
-on their branches.  Moreover, they can yield expressions instead of do blocks
-using the `->` symbol.
+If expressions can yield values, specifically they yield the type that is on
+their branches.  Moreover, they can yield expressions instead of do blocks using
+the `->` symbol.
 
     let x = random_number()
 
@@ -126,13 +126,13 @@ Even though the if block is at the end of the do block and its branches yield
 different typed values, the `main` function returns no value, and therefore
 we are allowed to use it here.
 
-> Notice that we indent the expression blocks inside if statement -- this is not
-> just for code appearance but actually necessary in order for Chai to properly
-> process your code when you use `->`.  If you were to elide the indentations,
-> you would get a syntax error on the `elif`.  In general, if you are not using
-> do blocks as the bodies for your if statements, you must either wrap the block
-> in parentheses (as shown above) or use indentation to denote that you want the
-> if block to continue (ie. have `elif` and `else` clauses).
+> Notice that we indent the expression blocks inside if expressions -- this is
+> not just for code appearance but actually necessary in order for Chai to
+> properly process your code when you use `->`.  If you were to elide the
+> indentations, you would get a syntax error on the `elif`.  In general, if you
+> are not using do blocks as the bodies for your if expressions, you must either
+> wrap the block in parentheses (as shown above) or use indentation to denote
+> that you want the if block to continue (ie. have `elif` and `else` clauses).
 
 All the if expressions we have looked at so far have been **exhaustive** meaning
 they have a branch for every possible input value.  However, if branches do not
@@ -170,4 +170,13 @@ Although variables cannot be defined multiple times in the same scope, as you
 can see above it is possible to override their definitions in lower scopes.  The
 variable `x` is shadowed by a variable of the same name defined in a lower
 scope.
-    
+
+You can also define variables in the head of the if expression itself.  Simple
+write a variable declaration followed by a semicolon and the conditional
+expression for the if expression inside the if header.
+
+    if let x = random_number(); x % 2 == 0 do
+        println(x, "is even")
+
+Note that if variables will shadow variables in our scopes and are only visible
+within the block or branch expression of the if expression.

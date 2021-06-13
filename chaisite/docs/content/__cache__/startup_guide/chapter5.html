@@ -1,0 +1,180 @@
+<h1>Pattern Maching</h1>
+<p><strong>Pattern matching</strong> is a mechanism for efficiently extracting the values of
+more complex data structures.  It can also be used to create extremely efficient
+control flow.</p>
+<h2>Tuples</h2>
+<p>A <strong>tuple</strong> is a fixed-length, ordered grouping of data.  It stores multiple
+elements of different types in specific positions.  </p>
+<p>You can create a tuple by enclosing a sequence of values separated by commas in
+parentheses.</p>
+<pre><code>let pair = (1, 2)
+</code></pre>
+<p><code>pair</code> is a tuple of two integers.  Here are some other examples of tuples:</p>
+<pre><code>("abc", 3)
+(3.14, 2.718, 1.414)
+('q', 0, 'r', 1)
+</code></pre>
+<p>The type label of a tuple is structured similarly to its literal value. It is a
+sequence of type labels enclosed in parentheses.  For example, the type label
+for pair would be <code>(int, int)</code>.  </p>
+<p>You can access the elements of tuples using a <code>.</code> followed by the <strong>index</strong> of
+the element in the tuple.  Tuples are zero indexed so to get the first element,
+you would use the index <code>0</code>. </p>
+<pre><code>let first = pair.0
+</code></pre>
+<blockquote>
+<p>This style of accessing is unique to tuples -- a more standard syntax is used
+for collections.  However, in Whirlwind, tuples are treated more like data
+structures than like collections of values.</p>
+</blockquote>
+<p>Note that the indices must be constant integer values.  You cannot use an
+expression or variable to access a tuple since the compiler would not know the
+type of the value being accessed.</p>
+<p>Finally, it is impossible to change the fields of a tuple individually once it
+has been created.</p>
+<pre><code>pair.0 = 4 # ERROR
+</code></pre>
+<h2>Tuple Deconstruction</h2>
+<p><strong>Tuple deconstruction</strong> (also called tuple unpacking) is the first kind of
+pattern matching that we will look at in this chapter.  Tuple deconstruction is
+a kind of pattern matching used to access the elements of the tuple without
+having to resort to the <code>.</code> syntax every time.  </p>
+<p>We can use tuple deconstruction to unpack the elements of the tuple into
+variables. Let's see what this looks like in practice:</p>
+<pre><code>let (x, y) = pair
+</code></pre>
+<p>The variables <code>x</code> and <code>y</code> will now hold the values in their corresponding
+positions <code>pair</code>.  Notice that the pattern of variables of the left side of the
+initializer matches up with the pattern of values on the right side.  This is
+where the term pattern matching comes from.</p>
+<p>We can also use pattern matching in assignment.</p>
+<pre><code>let
+    triple1 = (1, 2, 0),
+    triple2 = (0, 5, 6)
+
+let (x, y, z) = triple1
+
+# -- snip --
+
+x, y, z = triple2
+</code></pre>
+<p>If we don't want to extract all the values of a tuple and or don't care about
+all of them, we can use the special variable <code>_</code> to ignore values during pattern
+matching.</p>
+<pre><code>a, _, b = triple2
+</code></pre>
+<p>Both <code>a</code> and <code>b</code> will be populate with their corresponding tuple values.
+However, the middle value is simply ignored. </p>
+<blockquote>
+<p>You cannot use <code>_</code> as a variable nor can you access it as a value.</p>
+</blockquote>
+<h2>The Match Expression</h2>
+<p>The <strong>match expression</strong> is a control flow expression used to facilitate
+sophisticated pattern matching in expressions.  It is begun with the <code>match</code>
+keyword, followed by an argument, the <code>to</code> keyword, and series of cases to match
+against.</p>
+<p>The cases are made up of a pattern and an expression separated by the <code>-&gt;</code>
+operator.  Let's see what this expression looks like so we can break it down a
+bit more.</p>
+<pre><code>let v = (1, 1)
+
+let is_std_basis = match v to
+    (1, 0) -&gt; true
+    (0, 1) -&gt; true
+    _ -&gt; false
+</code></pre>
+<p><code>v</code> is our argument and match statement compares it to several different values
+to see if it matches.  This introduces us to an aspect of pattern matching not
+present before: value matching.  The pattern matching mechanism will also allows
+us to compare values directly. </p>
+<p>Notice that the match expression ends with <code>_ -&gt; false</code>.  This is a special case
+called the <strong>default case</strong> -- the variable <code>_</code> in pattern matching will match
+any value and ignore it (somewhat similar to what it does in tuple
+deconstruction).  </p>
+<blockquote>
+<p>This case is provided to make the match expression exhaustive.  Like if
+expressions, a match expression that is not will yield an Option type.</p>
+</blockquote>
+<p>Additionally, notice that the branches of this expression all yield values of
+the same type.  This is another part of the match statement: all the branches
+must yield values equal or coercible to the same type.</p>
+<p>We can put multiple patterns in one branch -- so to shorten the sample code
+above, we could write:</p>
+<pre><code>let is_std_basis = match v to
+    (1, 0), (0, 1) -&gt; true
+    _ -&gt; false
+</code></pre>
+<p>Notice that we separated the patterns with commas.  Now either pattern will
+yield the same branch.</p>
+<p>We can elso extract values into variables while we are matching cases.</p>
+<pre><code>let expr = ("add", 1, 2)
+
+let result = match expr to
+    ("add", a, b) -&gt; a + b
+    ("mul", a, b) -&gt; a * b
+    (_, a, _) -&gt; a
+</code></pre>
+<p>Each branch extracts the values it needs from the tuple to perform the calculate
+while simultanously checking a condition.  Notice that we didn't use the default
+case at the end because the match expression was already exhaustive: the last
+case always matches if none of the others do.</p>
+<blockquote>
+<p>If you extract named values, you cannot use multiple patterns in one branch.</p>
+</blockquote>
+<h2>Fallthrough Statements</h2>
+<p>Match expressions can contain blocks on their branches, like if expressions.</p>
+<pre><code>let message = ("greet", "Carl")
+
+match message to
+    ("greet", name) do
+        println("Hello there,", name)
+    ("goodbye", name) do
+        println("Goodbye,", name)
+    ("birthday", name) do
+        println("Happy Birthday,", name)
+    _ do
+        println("Unable to display message.")
+</code></pre>
+<p>If you are coming from another language, you may be used to <code>break</code> being
+required at the end of match case branches (often called switch statements in
+other languages).  In Chai, this is not only not required but also not
+permitted. The <code>break</code> statement is reserved exclusively for exiting loops and
+will work to that end even if placed at the end of a match statement.</p>
+<p>To replace the fallthrough behavior of the conventional switch statement, Chai
+introduces a <code>fallthrough</code> statement that can be used anywhere inside a case to
+automatically jump to the next one.</p>
+<pre><code>let n = 5
+
+match n to
+    0 do
+        println("Additive identity and")
+        fallthrough
+    2 do
+        println("Even")
+    1 do
+        println("Multiplicative identity and")
+        fallthrough
+    3, 5 do
+        println("Odd and prime")
+</code></pre>
+<p>When using <code>fallthrough</code>, the next case may not extract a named value in its
+pattern.  You may also notice that our last cases matches multiple values: <code>3</code>
+and <code>5</code>.  This behavior works identically to the equivalent in match
+expressions, and, once again, both patterns may not extract values.</p>
+<h2>Test-Match Expressions</h2>
+<p><strong>Test-Match expressions</strong> are special expressions used to test if a value
+matches a given pattern and to extract values from that pattern.  It is written
+in the following form:</p>
+<pre><code>expr match pattern
+</code></pre>
+<p>It returns <code>true</code> if the <code>expr</code> matches the pattern and <code>false</code> if it doesn't.</p>
+<pre><code>let t = (2, 3, 4)
+
+println(t match (2, _, 4))  # =&gt; true
+</code></pre>
+<p>You can also use the test-match expression to extract variables.</p>
+<pre><code>if t match (2, _, x) do
+    println(x)
+</code></pre>
+<p>Note that this is best used in if expressions like so -- <code>x</code> cannot be accessed
+outside of the sub-block it is declared in.</p>
