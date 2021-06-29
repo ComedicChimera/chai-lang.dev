@@ -12,6 +12,10 @@ level.
     do
         ...
 
+> The `...` is actually valid Chai code: it means a block isn't implemented yet.
+> If you execute such a block (eg. by calling it in a function), you will get a
+> fatal runtime panic indicating that the block was not implemented.
+
 We can then amend our main function to use a do block instead of single
 expression.
 
