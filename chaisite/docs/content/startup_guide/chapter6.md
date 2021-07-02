@@ -130,7 +130,7 @@ to exit the function early.
 
 Note that the return statement will exit the function from any depth within it.
 
-## Optional and Variadic Arguments
+## Optional Arguments
 
 Functions in Chai also support **optional arguments** -- arguments that don't
 need to be supplied with every function call.  Optional arguments can be created
@@ -158,9 +158,47 @@ arguments: only specifying the options you care about.
         call_api("/get", timeout=500)
         call_api("/admin/analytics", token="DO NOT USE THIS AS A TOKEN")
 
-TODO: variadic arguments
+Now, we can use our API in a number of different ways without having a
+ridiculously long and unnecessary function call.
 
 ## Recursion
 
-TODO: recursion
+**Recursion** is the act of calling a function from within itself.  Most
+programmers are already familiar with the topic as most modern languages support
+it.  In Chai, recursion can be performed by simply calling a function by its
+name within its body.  Here is one of the simplest recursive functions: the
+[factorial](https://en.wikipedia.org/wiki/Factorial) function.
+
+    def fac(n: int) int =
+        if n == 1 -> n
+        else -> n * fac(n-1)
+
+If we call `fac` with the argument `4`, the result we get is `24` which is
+accurate to our definition of factorial.
+
+If you, the reader, are already comfortable with recursion then go ahead and
+skip to the next chapter: what remains is a brief breakdown of the factorial
+function and recursion in general for more novice programmers.
+
+The result we get from the factorial function can be most easily seen by
+"unrolling" the evaluation of the factorial function. 
+
+    # This code is obviously not valid Chai code: 
+    # it is a symbolic representation of how `fac(4)` evaluates
+
+    fac(4) = 4 * fac(3)
+    fac(3) = 3 * fac(2)
+    fac(2) = 2 * fac(1)
+    fac(1) = 1 # base case
+
+    => fac(4) = 4 * 3 * fac(2)
+    => fac(4) = 4 * 3 * 2 * fac(1)
+    => fac(4) = 4 * 3 * 2 * 1 = 24
+
+As you can see, we repeatedly substitute in the results of previous calls to
+build up a chain of operations that gives us the desired result.  If you are
+still shaky on how recursion works: you can try implementing a few basic
+recursive functions in Chai such as a function giving the nth term of the
+[Fibonacci sequence](https://en.wikipedia.org/wiki/Fibonacci_number).
+
 
