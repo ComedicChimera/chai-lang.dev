@@ -18,8 +18,8 @@
             chapters: [
                 "Functions",
                 "Lists and Dictionaries",
-                "References",
                 "Loops and Comprehensions",
+                "References",
                 "Vectors and Matrices",
                 "Lambdas and Closures",
                 "Sequence Functions"

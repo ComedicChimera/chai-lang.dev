@@ -52,8 +52,8 @@ Run Development Server:
 
 6. Functions
 7. Lists and Dictionaries
-8. References
-9. Loops and Comprehensions
+8. Loops and Comprehsnions
+9. References
 10. Vectors and Matrices
 11. Lambdas and Closures
 12. Sequence Functions
