@@ -52,34 +52,35 @@ Run Development Server:
 
 6. Functions
 7. Lists and Dictionaries
-8. Loops and Comprehsnions
+8. Loops and Sequences
 9. References
 10. Vectors and Matrices
 11. Lambdas and Closures
-12. Sequence Functions
+12. Comprehensions
+13. Sequence Functions
 
 ### Unit III - Defined Types
 
-12. Structure Types
-13. Algebraic Types
-14. Method Spaces
-15. Type Classes
-16. Generics
-17. Monads and Error Handling
+14. Structure Types
+15. Algebraic Types
+16. Method Spaces
+17. Type Classes
+18. Generics
+19. Monads and Error Handling
 
 ### Unit IV - Packages and Modules
 
-18. Packages and Visibility
-19. Modules
-20. Import Semantics
-21. Build Profiles
+20. Packages and Visibility
+21. Modules
+22. Import Semantics
+23. Build Profiles
 
 ### Unit V - Concurrency
 
-22. Chairoutines (name WIP)
-23. Futures and Events
-24. Async Queues
-25. Task Pools
+24. Chairoutines (name WIP)
+25. Futures and Events
+26. Async Queues
+27. Wait Groups and Task Pools
 
 
 

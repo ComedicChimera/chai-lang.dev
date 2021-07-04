@@ -18,10 +18,11 @@
             chapters: [
                 "Functions",
                 "Lists and Dictionaries",
-                "Loops and Comprehensions",
+                "Loops and Sequences",
                 "References",
                 "Vectors and Matrices",
                 "Lambdas and Closures",
+                "Comprehensions",
                 "Sequence Functions"
             ],
             startIndex: 5
@@ -36,7 +37,7 @@
                 "Generics",
                 "Monads and Error Handling"
             ],
-            startIndex: 12
+            startIndex: 14
         }
     ]
 
