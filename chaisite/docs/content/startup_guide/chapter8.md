@@ -119,8 +119,87 @@ iterate through both the indices and elements at the same time.
 
 ## Sequences
 
+Since all values in Chai are expressions, loops have to yield a value: a
+**sequence**.  A sequence is a way of representing a "stream" of items of the
+same type.
 
+Sequences have the type label `Seq[T]` where `T` is the element type.  The most
+general property of all sequences is that they are **iterable** which
+essentially means you can use a for loop on them.
+
+Several builtin types that you are already familiar with are sequences: strings,
+lists, ranges, and dictionaries. 
+
+> Strings are sequences of runes: when you iterate over a string, the elements
+> will be runes.
+
+The `Seq[T]` type is special in that it is the first *type class* we have dealt
+with.  In essence, type clases are a way of categorizing types.  So `List[T]`,
+`string`, and `Dict[K, V]` are all *subtypes* of (meaning they are "members" of
+and coercible to) the `Seq[T]` type class.  This relationship can be thought of
+as akin to how humans categorize information: for example, a dog and a cat are
+both animals which programmatically could be expressed as the types of "Cat" and
+"Dog" are both subtypes of the type class "Animal".
+
+Type classes are a major topic in Chai that we will explore in depth in later
+chapters; however, they are so fundamental to Chai and such a large idea that it
+is often helpful and, in this case, necessary to introduce them a little bit
+earlier. 
+
+Loops act as **generators** for sequences of values.  Each iteration of the for
+loop produces a new value.  Using this, you can easily rephase common operations
+as sequences and generators.  For example, if you wanted a reusable stream of
+fibonacci numbers, you could simply write a loop generator to give them to you.
+
+    def fib() Seq[int] = do
+        let a = 0, b = 1
+        while true do
+            a, b = b, a + b
+            a  # the yielded value
+
+Notice that the return type of the function is `Seq[int]` and the return value
+is the while-loop itself.  Now, we can call `fib` to get a reusable sequence
+of fibonacci numbers that we can iterate over.
+
+    def print_n_fibs(n: int) = do
+        let i = 0
+        for a in fib() do
+            println(a)
+            i++
+
+            if i == n do
+                return
+
+Sequences in Chai are lazy: they only generate values as they are needed. This
+is incredibly important as our `fib` function ends with an infinite loop: if
+Chai fully evaluated it, our program would never exit. 
+
+Sequences can be a bit challenging to get your head around so take a moment to
+fully process what just happened.  We used a loop as a generator for a new
+sequence of values, returned that sequence, and consumed it via a for loop.
+This style of writing generators is somewhat unique to Chai and can be very
+helpful for building up complex layers of iterative logic very quickly cleanly.
+Try playing around with sequences and generators a bit until you feel
+comfortable with them.
 
 ## Break and Continue
+
+The **break statement** allows you to exit a loop prematurely.  They are very
+useful for checking for exit conditions in the middle of a loop. For example, if
+you wanted  to search a collection of elements for a specific value, you could
+use a break statement to exit early if you find the element.
+    
+    let found_item = false
+    for item in list do
+        if item == 2 do
+            found_item = true
+
+            # exit here since we don't need to keep searching
+            break
+
+    if found_item do
+        println("found `2` in `list`")
+
+TODO
 
 ## Comprehensions

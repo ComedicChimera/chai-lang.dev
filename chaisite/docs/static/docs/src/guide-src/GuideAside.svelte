@@ -10,8 +10,7 @@
                 "Variables",
                 "Control Flow",
                 "Pattern Matching"
-            ],
-            startIndex: 0
+            ]
         },
         {
             title: "Functions and Collections",
@@ -24,8 +23,7 @@
                 "Lambdas and Closures",
                 "Comprehensions",
                 "Sequence Functions"
-            ],
-            startIndex: 5
+            ]
         },
         {
             title: "Defined Types",
@@ -36,10 +34,16 @@
                 "Type Classes",
                 "Generics",
                 "Monads and Error Handling"
-            ],
-            startIndex: 14
+            ]
         }
     ]
+
+    // generate start indices for each of the chapters
+    let startIndex = 0
+    for (let item of guideLayout) {
+        item.startIndex = startIndex
+        startIndex += item.chapters.length
+    }
 
     function redirectHome() {
         window.location.href = "/docs/guide"
