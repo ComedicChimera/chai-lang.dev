@@ -1,1 +1,0 @@
-Whirlwind Language and Logo Copyright &copy; Jordan Gaines 2018-2021

@@ -1,0 +1,123 @@
+@import './static/scss/constants.scss';
+
+html, body {
+    width: 100%;
+    margin: 0px;
+    overflow-x: hidden;
+    overflow-y: visible;
+}
+
+body {
+    background-color: $bg-grey;
+
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    width: calc(100% - 4rem);
+
+    background-color: white;
+    padding: 1rem 2rem 1rem 2rem;
+    box-shadow: 0px 0.1rem 0.2rem $shadow-grey;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+
+        .title-text {
+            font-family: $logo-font;
+            font-size: 2.5rem;
+
+            margin-left: 1rem;
+
+            a {
+                text-decoration: none;
+                color: $accent-primary;
+
+                .title-text-i {
+                    color: $accent-secondary;
+                }
+            }
+        }
+    }
+
+    .right-side {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+
+        nav {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+
+            margin-right: 1rem;
+
+            a {
+                padding-left: 1rem;
+                padding-right: 1rem;
+
+                color: $text-color;
+                font-family: $ui-font;
+                font-size: 1.5rem;
+
+                text-decoration: none;
+                transition-duration: 0.5s;
+            }
+
+            a:hover {
+                color: $accent-primary;
+                transition-duration: 0.5s;
+            }
+        }
+
+        .search-box {
+            padding: 1rem;
+            border-radius: 0.3rem;
+            background-color: $bg-grey;
+            
+            input {
+                outline: none;
+                border: none;
+                background: none;
+
+                font-size: 1.3rem;
+                font-family: $ui-font;
+                color: $text-color;
+            }
+        }
+    }
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    width: calc(100% - 4rem);
+
+    background-color: white;
+    padding: 1rem 2rem 1rem 2rem;
+    box-shadow: 0rem -0.1rem 0.2rem $shadow-grey;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    color: $text-color;
+    font-family: $ui-font;
+    font-size: 1rem;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'/>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'/>
+        
+        <meta name='application-name' content='chai-lang.dev'/>
+        <meta name='description' content='The Chai programming language website'/>
+        <meta name='keywords' content='chai programming language docs documentation community packages package'/>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Lato&family=Open+Sans&family=Roboto&display=swap" rel="stylesheet">
+
+        <!-- Favicon -->
+        <link rel='icon' type='image/png' href='static/images/chai_logo.png'/>
+
+        <!-- Stylesheet -->
+        <link rel='stylesheet' type='text/css' href='static/scss/styles.scss'/>
+
+        <title>{{ .Title }}</title>
+    </head>
+    <body>
+        <header>
+            <div class="title">
+                <img src="static/images/chai_logo.png" width="43.6px" height="50px"/>
+                <span class="title-text">
+                    <a href="/">Cha<span class="title-text-i">i</span></a>
+                </span>
+            </div>
+            <div class="right-side">
+                <nav>
+                    <a href="/install">install</a>
+                    <a href="/docs">docs</a>
+                    <a href="/packages">packages</a>
+                    <a href="/community">community</a>
+                </nav>
+                <div class="search-box">
+                    <input type="text"/>
+                    <i data-feather="search"></i>
+                </div>
+            </div>
+        </header>
+        <main>
+            {{ .Content }}
+        </main>
+        <footer>
+            Language and Website Copyright &copy; Jordan Gaines 2017-present
+        </footer>
+    </body>
+</html>
