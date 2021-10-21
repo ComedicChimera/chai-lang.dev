@@ -1,0 +1,26 @@
+@import "./static/scss/constants.scss";
+
+.doc-card {
+    padding: 1rem;
+    border-radius: 0.3rem;
+
+    background-color: $bg-light-accent;
+
+    .doc-name { 
+        margin-bottom: 0.5rem;
+
+        a {
+            color: $accent-primary;
+            font-size: 1.3rem;
+            font-family: $ui-font;
+            text-decoration: none;
+        }
+    }
+
+    .doc-text {
+        font-family: $text-font;
+        color: $text-color;
+        font-size: 1.1rem;
+        line-height: 1.4rem;
+    }
+}

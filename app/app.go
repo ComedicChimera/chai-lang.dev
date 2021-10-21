@@ -7,6 +7,7 @@ func Run(addr string) {
 
 	// General Static File Handling
 	router.Static("/static/images", "./static/images")
+	router.Static("/static/components", "./static/components")
 
 	// Sass Static Files
 	createDistDir()
@@ -14,7 +15,9 @@ func Run(addr string) {
 
 	// Views
 	router.LoadHTMLGlob("templates/*")
+
 	router.GET("/", Index)
+	router.GET("/docs", Docs)
 
 	router.Run(addr)
 }

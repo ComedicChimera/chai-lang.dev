@@ -12,13 +12,13 @@ import (
 
 func loadSass(c *gin.Context) {
 	// compute the file paths
-	scssfilepath := filepath.Join("./static/scss/", c.Param("file"))
-	distfilePath := filepath.Join("./static/dist/", strings.Replace(c.Param("file"), ".scss", ".css", 1))
+	scssFilePath := filepath.Join("./static/scss/", c.Param("file"))
+	distFilePath := filepath.Join("./static/dist/", strings.Replace(c.Param("file"), ".scss", ".css", 1))
 
 	// check the ages of the files to determine if recompilation is necessary
-	distfinfo, err := os.Stat(distfilePath)
+	distfinfo, err := os.Stat(distFilePath)
 	if err == nil {
-		scssfinfo, err := os.Stat(scssfilepath)
+		scssfinfo, err := os.Stat(scssFilePath)
 		if err != nil {
 			c.AbortWithError(http.StatusNotFound, err)
 			return
@@ -27,12 +27,12 @@ func loadSass(c *gin.Context) {
 		// if the dist file is newer than the scss file, just return the compile
 		// file (save us the compilation)
 		if distfinfo.ModTime().Unix() >= scssfinfo.ModTime().Unix() {
-			c.File(distfilePath)
+			c.File(distFilePath)
 		}
 	}
 
 	// open the SCSS file
-	f, err := os.Open(scssfilepath)
+	f, err := os.Open(scssFilePath)
 	if err != nil {
 		c.AbortWithError(http.StatusNotFound, err)
 		return
@@ -40,7 +40,11 @@ func loadSass(c *gin.Context) {
 	defer f.Close()
 
 	// compile it to CSS
-	distfile, err := os.Create(distfilePath)
+	if err := os.MkdirAll(filepath.Dir(distFilePath), os.ModeDir); err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+	}
+
+	distfile, err := os.Create(distFilePath)
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
@@ -58,7 +62,7 @@ func loadSass(c *gin.Context) {
 	}
 
 	// serve the compiled file
-	c.File(distfilePath)
+	c.File(distFilePath)
 }
 
 func createDistDir() {
