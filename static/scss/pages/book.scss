@@ -1,0 +1,101 @@
+@import "./static/scss/constants.scss";
+
+.book-container {    
+    min-height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    aside {
+        width: 20%;
+        margin-top: -1rem;
+
+        background-color: white;
+        padding: 2rem 1rem 1rem 1rem;
+
+        .book-toc-title {        
+            font-family: $ui-font;
+            font-size: 1.5rem;
+            font-weight: bold;
+
+            a {
+                text-decoration: none;
+                color: $accent-primary;
+            }
+        }
+
+        .book-unit {
+            padding-left: 1rem;
+
+            .unit-title {
+                color: $accent-secondary;
+                font-family: $ui-font;
+                font-size: 1.3rem;
+                font-weight: bold;
+            }
+
+            .chapter-list {
+                padding-left: 1rem;
+                margin-top: 0.3rem;
+                
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                align-items: flex-start;
+
+                a {
+                    color: $text-color;
+                    font-family: $text-font;
+                    font-size: 1.1rem;
+                    text-decoration: none;
+
+                    transition-duration: 0.5s;
+                }
+
+                a:hover {
+                    color: $accent-primary;
+                    transition-duration: 0.5s;
+                }
+            }
+        }
+    }
+
+    .book-page {
+        width: 80%;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: flex-start;
+
+        article {
+            width: 70%;
+
+            background-color: white;
+            padding: 2rem 3rem 2rem 3rem;
+
+            font-family: $text-font;
+            font-size: 1.1rem;
+            color: $text-color;
+            line-height: 1.4rem;
+        }
+
+        .content-summary {
+            margin-top: 4rem;
+
+            background-color: $bg-light-accent;
+            padding: 1rem 2rem 1rem 2rem;
+            border-radius: 0.3rem;
+
+            .content-title {
+                font-family: $ui-font;
+                font-size: 1.2rem;
+                color: $accent-primary;
+                font-weight: bold;
+            }
+        }
+    }
+}

@@ -16,20 +16,20 @@
         <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Karla:wght@300;400&family=Open+Sans&family=Roboto&display=swap" rel="stylesheet">
 
         <!-- Favicon -->
-        <link rel='icon' type='image/png' href='static/images/chai_logo.png'/>
+        <link rel='icon' type='image/png' href='/static/images/chai_logo.png'/>
 
         <!-- Common Stylesheet -->
-        <link rel='stylesheet' type='text/css' href='static/scss/styles.scss'/>
+        <link rel='stylesheet' type='text/css' href='/static/scss/styles.scss'/>
 
         {{ if ne .PageStyle "" }}
             <!-- Page Specific Styles -->
-            <link rel='stylesheet' type='text/css' href='static/scss/pages/{{ .PageStyle }}'/>
+            <link rel='stylesheet' type='text/css' href='/static/scss/pages/{{ .PageStyle }}'/>
         {{ end }}
 
         <!-- Components -->
         {{ range .Components }}
-            <link rel='stylesheet' type='text/css' href='static/scss/components/{{.}}.scss'/>
-            <script src='static/components/{{.}}.js' defer></script>
+            <link rel='stylesheet' type='text/css' href='/static/scss/components/{{.}}.scss'/>
+            <script src='/static/components/{{.}}.js' defer></script>
         {{ end }}
 
         <title>{{ .Title }}</title>
@@ -37,7 +37,7 @@
     <body>
         <header>
             <div class="title">
-                <img src="static/images/chai_logo.png" width="43.6px" height="50px"/>
+                <img src="/static/images/chai_logo.png" width="43.6px" height="50px"/>
                 <span class="title-text">
                     <a href="/">Cha<span class="title-text-i">i</span></a>
                 </span>

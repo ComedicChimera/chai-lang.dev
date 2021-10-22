@@ -2,6 +2,8 @@ package app
 
 import "github.com/gin-gonic/gin"
 
+const templateDir = "./templates/"
+
 func Run(addr string) {
 	router := gin.Default()
 
@@ -14,10 +16,12 @@ func Run(addr string) {
 	router.GET("/static/scss/*file", loadSass)
 
 	// Views
-	router.LoadHTMLGlob("templates/*")
+	router.LoadHTMLGlob(templateDir + "*")
 
 	router.GET("/", Index)
 	router.GET("/docs", Docs)
+	router.GET("/docs/book", Book)
+	router.GET("/docs/book/*chapter-path", Chapter)
 
 	router.Run(addr)
 }

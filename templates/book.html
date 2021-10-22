@@ -1,0 +1,30 @@
+<div class="book-container">
+    <aside>
+        <div class="book-toc-title">
+            <a href="/docs/book">Table of Contents</a>
+        </div>
+        {{ range .BookUnits }}
+            <div class="book-unit">
+                <span class="unit-title">{{ .UnitTitle }}</span>
+                <div class="chapter-list">
+                    {{ range .Chapters }}
+                        <a href="/docs/book/{{ .ChapterUnitHref }}/{{ .ChapterHref }}">{{ .ChapterTitle }}</a>
+                    {{ end }}
+                </div>
+            </div>
+        {{ end }}
+    </aside>
+    <div class="book-page">
+        <article>
+            {{ .Content }}
+        </article>
+        <div class="content-summary">
+            <span class="content-title">On This Page</span>
+            <div class="content-list">
+                {{ range .Sections }}
+                    <a href="{{ .SectionTag }}">{{ .SectionTitle }}</a>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+</div>

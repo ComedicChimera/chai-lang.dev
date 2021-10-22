@@ -1,6 +1,7 @@
 package app
 
 import (
+	"fmt"
 	"html/template"
 	"io/ioutil"
 	"net/http"
@@ -19,22 +20,30 @@ type renderContent struct {
 	Components []string
 }
 
-func renderBase(c *gin.Context, title, viewPath, pageStyle string, components []string) {
+func loadViewContent(viewPath string) (string, error) {
 	// open the view file
 	viewFullPath := filepath.Join(htmlContentPath, viewPath)
 
 	viewFile, err := os.Open(viewFullPath)
 	if err != nil {
-		c.AbortWithError(http.StatusNotFound, err)
-		return
+		return "", err
 	}
 	defer viewFile.Close()
 
 	// read the view content as a string
 	viewContent, err := ioutil.ReadAll(viewFile)
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
-		return
+		return "", err
+	}
+
+	return string(viewContent), nil
+}
+
+func renderBase(c *gin.Context, title, viewPath, pageStyle string, components []string) {
+	// read the view content
+	viewContent, err := loadViewContent(viewPath)
+	if err != nil {
+		c.AbortWithError(http.StatusNotFound, err)
 	}
 
 	// serve it into the base template
@@ -52,4 +61,61 @@ func Index(c *gin.Context) {
 
 func Docs(c *gin.Context) {
 	renderBase(c, "docs | chai-lang.dev", "docs.html", "docs.scss", []string{"section-title", "doc-card"})
+}
+
+func Book(c *gin.Context) {
+	// build the aside
+	aside, err := getAside()
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	// load the markdown content
+	mdContent, err := loadMarkdownTemplate("book.html", "book/index.md", map[string]interface{}{
+		"BookUnits": aside,
+		"Sections":  []string{},
+	})
+
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	// render it into the base template
+	c.HTML(http.StatusOK, "base.html", renderContent{
+		Title:      "book | chai-lang.dev",
+		Content:    template.HTML(mdContent),
+		PageStyle:  "book.scss",
+		Components: []string{"section-title"},
+	})
+}
+
+func Chapter(c *gin.Context) {
+	// build the aside
+	aside, err := getAside()
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	// load the markdown content
+	bookPath := fmt.Sprintf("book/%s.md", c.Param("chapter-path"))
+	mdContent, err := loadMarkdownTemplate("book.html", bookPath, map[string]interface{}{
+		"BookUnits": aside,
+		"Sections":  []string{},
+	})
+
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	// render it into the base template
+	c.HTML(http.StatusOK, "base.html", renderContent{
+		Title:      "book | chai-lang.dev",
+		Content:    template.HTML(mdContent),
+		PageStyle:  "book.scss",
+		Components: []string{"section-title"},
+	})
 }
