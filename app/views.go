@@ -74,7 +74,6 @@ func Book(c *gin.Context) {
 	// load the markdown content
 	mdContent, err := loadMarkdownTemplate("book.html", "book/index.md", map[string]interface{}{
 		"BookUnits": aside,
-		"Sections":  []string{},
 	})
 
 	if err != nil {
@@ -103,7 +102,6 @@ func Chapter(c *gin.Context) {
 	bookPath := fmt.Sprintf("book/%s.md", c.Param("chapter-path"))
 	mdContent, err := loadMarkdownTemplate("book.html", bookPath, map[string]interface{}{
 		"BookUnits": aside,
-		"Sections":  []string{},
 	})
 
 	if err != nil {

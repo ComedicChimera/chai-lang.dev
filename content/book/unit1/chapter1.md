@@ -30,8 +30,10 @@ There are a couple key parts to break down here:
 That is all the code necessary to say "Hello, world!".  However, we have a little
 bit more work to do.  Firstly, let's assume we have a directory like so:
 
-    hello/
-        hello.chai
+```language-text
+hello/
+    hello.chai
+```
 
 `hello.chai` is a file containing the source code outlined above -- the file
 extension for Chai code is `.chai`. 
@@ -46,14 +48,18 @@ a later chapter but for now, just understand them as the method of
 The good news is that modules are super easy to set up.  All we need to do is
 run the following command from the command line while in our `hello` directory:
 
-    chai mod init hello
+```language-text
+chai mod init hello
+```
 
 This creates a new module called `hello` in the current directory.  You should
 see a `chai-mod.toml` appear in the current directory:
 
-    hello/
-        chai-mod.toml  <--
-        hello.chai
+```language-text
+hello/
+    chai-mod.toml  <--
+    hello.chai
+```
 
 Chai uses [TOML](https://toml.io) to mark up its module files.  If you were to
 open this file, you would actually see quite a lot of information which, again,
@@ -63,7 +69,9 @@ selects sensible defaults for us when configuring the module.
 Now, to the moment we've all been waiting for, actually building the program.
 Doing so is actually quite simple, just use the `build` command.
 
-    chai build .
+```language-text
+chai build .
+```
 
 Notice that we pass in a directory instead of a source file.  This is once again
 because Chai organizes everything by directories and modules rather than
@@ -72,12 +80,14 @@ useful as your projects grow larger than a single file.
 
 Now, if we check our directory structure, it should now look like this:
 
-    hello/
-        out/
-            hello.exe  <-- our binary
-            hello.pdb  <-- a debugging file for GDB
-        chai-mod.toml
-        hello.chai
+```language-text
+hello/
+    out/
+        hello.exe  <-- our binary
+        hello.pdb  <-- a debugging file for GDB
+    chai-mod.toml
+    hello.chai
+```
 
 > If you are on a Unix platform, your executable will be named accordingly.
 
@@ -86,16 +96,20 @@ this in the module file if you want to a later time.
 
 For now, we will leave it as is and invoke our executable directly:
 
-    > ./out/hello.exe
-    Hello, world!
+```language-text
+> ./out/hello.exe
+Hello, world!
+```
 
 Yay!  Our simple program works as expected.  
 
 Finally, it is worth mentioning that we can streamline our build process a bit
 if we just want to run the program.  We can just use the `run` command.
 
-    > chai run .
-    Hello, world!
+```language-text
+> chai run .
+Hello, world!
+```
 
 This will compile our binary, run it, and then remove any trace of the binary's
 existence for your convenience.
@@ -240,7 +254,7 @@ Several operators are defined on booleans, called **logical operators**:
 | Operator | Operation |
 | -------- | --------- |
 | `&&` | Logical AND |
-| `||` | Logical OR |
+| `\|\|` | Logical OR |
 | `!` | Logical NOT |
 
 > Both logical AND and logical OR support short-circuit evaluation.

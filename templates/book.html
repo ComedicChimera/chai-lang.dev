@@ -1,7 +1,7 @@
 <div class="book-container">
     <aside>
         <div class="book-toc-title">
-            <a href="/docs/book">Table of Contents</a>
+            <a href="/docs/book">The Chai Book</a>
         </div>
         {{ range .BookUnits }}
             <div class="book-unit">
@@ -22,9 +22,25 @@
             <span class="content-title">On This Page</span>
             <div class="content-list">
                 {{ range .Sections }}
-                    <a href="{{ .SectionTag }}">{{ .SectionTitle }}</a>
+                    <a href="#{{ .SectionTag }}">{{ .SectionTitle }}</a>
                 {{ end }}
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    Prism.languages.chai = window.language_chai
+    let codeBlocks = document.getElementsByTagName("pre")
+    for (let item of codeBlocks) {
+        if (item.classList.length == 0) {
+            item.classList.add("language-chai")
+        }
+    }
+
+    let sections = document.getElementsByTagName("h2")
+    for (let i in sections) {
+        let item = sections[i]
+        item.innerHTML = `<a name="section${i}"/> ${item.innerText}`
+    }
+</script>

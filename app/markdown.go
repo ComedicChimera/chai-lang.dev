@@ -4,10 +4,12 @@ import (
 	"bufio"
 	"bytes"
 	"errors"
+	"fmt"
 	"html/template"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 
 	"github.com/yuin/goldmark"
@@ -15,6 +17,10 @@ import (
 )
 
 const contentPath string = "./content"
+
+type mdSection struct {
+	SectionTitle, SectionTag string
+}
 
 func loadMarkdownTemplate(htmlTemplatePath, markdownPath string, contextVars map[string]interface{}) (string, error) {
 	// load the markdown source
@@ -27,6 +33,16 @@ func loadMarkdownTemplate(htmlTemplatePath, markdownPath string, contextVars map
 	mdSrc, err := ioutil.ReadAll(mdFile)
 	if err != nil {
 		return "", err
+	}
+
+	// isolate the sections
+	var sections []*mdSection
+	re := regexp.MustCompile(`\n##[^#\n]+\n`)
+	for i, match := range re.FindAllString(string(mdSrc), -1) {
+		sections = append(sections, &mdSection{
+			SectionTitle: strings.TrimRight(match[4:], "\n"),
+			SectionTag:   fmt.Sprintf("section%d", i),
+		})
 	}
 
 	// convert the markdown
@@ -44,6 +60,7 @@ func loadMarkdownTemplate(htmlTemplatePath, markdownPath string, contextVars map
 	templ := template.Must(template.ParseFiles(filepath.Join(templateDir, htmlTemplatePath)))
 	var htmlBuff bytes.Buffer
 	contextVars["Content"] = template.HTML(mdHtml)
+	contextVars["Sections"] = sections
 	templ.Execute(&htmlBuff, contextVars)
 
 	// return the template

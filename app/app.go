@@ -10,6 +10,8 @@ func Run(addr string) {
 	// General Static File Handling
 	router.Static("/static/images", "./static/images")
 	router.Static("/static/components", "./static/components")
+	router.Static("/static/vendor", "./static/vendor")
+	router.Static("/static/js", "./static/js")
 
 	// Sass Static Files
 	createDistDir()

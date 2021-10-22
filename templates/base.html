@@ -21,6 +21,11 @@
         <!-- Common Stylesheet -->
         <link rel='stylesheet' type='text/css' href='/static/scss/styles.scss'/>
 
+        <!-- Prism JS -->
+        <link rel='stylesheet' type='text/css' href='/static/vendor/prism.darcula.css'/>
+        <script src='/static/js/language-chai.js'></script>
+        <script src='/static/vendor/prism.js'></script>
+
         {{ if ne .PageStyle "" }}
             <!-- Page Specific Styles -->
             <link rel='stylesheet' type='text/css' href='/static/scss/pages/{{ .PageStyle }}'/>
