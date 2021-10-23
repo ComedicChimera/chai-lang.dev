@@ -51,7 +51,13 @@ func loadSass(c *gin.Context) {
 	}
 	defer distfile.Close()
 
-	comp, err := libsass.New(distfile, f)
+	workDir, err := os.Getwd()
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	comp, err := libsass.New(distfile, f, libsass.IncludePaths([]string{filepath.Join(workDir, "static/scss")}))
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return

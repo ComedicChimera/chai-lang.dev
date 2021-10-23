@@ -1,0 +1,93 @@
+@import "constants.scss";
+
+article {
+    width: 70%;
+
+    background-color: white;
+    padding: 2rem 3rem 2rem 3rem;
+
+    font-family: $text-font;
+    font-size: 1.1rem;
+    color: $text-color;
+    line-height: 1.7rem;
+
+    a {
+        color: $accent-primary;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+
+        th {
+            text-align: center;
+        }
+
+        tr:nth-child(2n) {
+            background-color: $bg-grey;
+        }
+
+        th, td {
+            border: 1px solid $text-color;
+            padding: 0.3rem;
+        }  
+    }
+
+    :not(pre) code {
+        background-color: $bg-inline-code;
+        padding: 0.2rem;
+        border-radius: 0.3rem;
+        color: $text-color;
+        font-family: $code-font;
+        font-size: 1rem;
+    }
+
+    blockquote {
+        background-color: $bg-light-accent;
+        padding: 1rem;
+        border-radius: 0.3rem;
+
+        p {
+            margin: 0;
+        }
+    }
+}
+
+.content-summary {
+    position: sticky;
+    top: 10rem;
+
+    background-color: $bg-light-accent;
+    padding: 1rem 2rem 1rem 2rem;
+    border-radius: 0.3rem;
+
+    .content-title {
+        font-family: $ui-font;
+        font-size: 1.2rem;
+        color: $accent-primary;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .content-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        a {
+            color: $accent-secondary;
+            text-decoration: none;
+            font-family: $text-font;
+        }
+    }
+}
+
+.doc-page-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+
+    width: 80%;
+}

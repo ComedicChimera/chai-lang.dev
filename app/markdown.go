@@ -14,6 +14,7 @@ import (
 
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/extension"
+	"github.com/yuin/goldmark/renderer/html"
 )
 
 const contentPath string = "./content"
@@ -46,7 +47,7 @@ func loadMarkdownTemplate(htmlTemplatePath, markdownPath string, contextVars map
 	}
 
 	// convert the markdown
-	mdParser := goldmark.New(goldmark.WithExtensions(extension.Table))
+	mdParser := goldmark.New(goldmark.WithExtensions(extension.Table), goldmark.WithRendererOptions(html.WithUnsafe()))
 	var mdBuff bytes.Buffer
 	if err := mdParser.Convert(mdSrc, &mdBuff); err != nil {
 		return "", err

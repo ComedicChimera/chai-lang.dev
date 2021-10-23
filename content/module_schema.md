@@ -7,18 +7,7 @@ accept: ie. the module's schema.
 
 *Note: not all of these options are implemented.*
 
-## Table of Contents
-
-- [Top Level Configuration](#top-conf)
-  * [Compilation Caching](#compl-caching)
-- [Build Profiles](#build-prof)
-  * [Supported Operating System](#supported-os)
-  * [Supported Architectures](#supported-arch)
-  * [Output Formats](#output-fmt)
-  * [Profile Selection](#profile-selection)
-  * [Profile Elision](#profile-elision)
-
-## <a name="top-conf"> Top Level Configuration
+## Top Level Configuration
 
 The following are all the top level module configuration fields:
 
@@ -30,7 +19,7 @@ The following are all the top level module configuration fields:
 | `caching` | bool | enable [compilation caching](#compl-caching) | N, default = `false` |
 | `enable-profile-elision` | bool | enables [profile elision](#profile-elision) | N, default = `true` |
 
-### <a name="compl-caching"> Compilation Caching
+### <a name="compl-caching"></a> Compilation Caching
 
 **Compilation caching** is profile by which the Chai compiler will cache
 precompiled object files from previous builds so that it doesn't have to
@@ -46,19 +35,21 @@ same directory that contains the output path (directory or file).
 For example, if you had a project where the output path was `out/project.exe`,
 then, the `.chai` directory would be dropped in `out` like so:
 
-    project/
-        out/  
-            .chai/  <-- same dir as output path
-                ...
-            project.exe  <-- output path
-        ...
+```language-text
+project/
+    out/  
+        .chai/  <-- same dir as output path
+            ...
+        project.exe  <-- output path
+    ...
+```
 
 The `.chai` directory should generally be placed in your `.gitignore`.  Not only
 will large object files be placed in it but also several other associated files,
 namely, `cpi` files for each object file and possibly partial `pdb` files as
 well.
 
-## <a name="build-prof"> Build Profiles
+## Build Profiles
 
 Build profiles are a mechanism for specifying compilation options such as the
 target operating system, additional link objects, etc.  They are essentially
@@ -80,20 +71,20 @@ The primary options for each build profile entry are:
 | `default` | bool | flag indicates that this profile is the [default](#profile-selection) | N, default = `false` |
 | `base-only` | bool | flag indicates that this profile should only be considered if it is being selected as the [base profile](#profile-selection) | N, default = `false` |
 
-### <a name="supported-os"> Supported Operating Systems
+### <a name="supported-os"></a> Supported Operating Systems
 
 | OS | Alias |
 | -- | ----- |
 | Windows 10 | `windows` |
 
-### <a name="supported-arch"> Supported Architectures
+### <a name="supported-arch"></a> Supported Architectures
 
 | Arch | Alias |
 | ---- | ----- |
 | x86 | `i386` |
 | x64 | `amd64` |
 
-### <a name="output-fmt"> Output Formats
+### <a name="output-fmt"></a> Output Formats
 
 The output format specifies what type of output should be produced by the compiler.
 
@@ -108,7 +99,7 @@ The output format specifies what type of output should be produced by the compil
 
 *Note: for all output formats that produce multiple files, the convention is one file per package.*
 
-### <a name="profile-selection"> Profile Selection
+### <a name="profile-selection"></a> Profile Selection
 
 The **base profile** is the profile of the root module being built.
 
@@ -135,7 +126,7 @@ Chai determines the profile to build based on (in order of precedence):
 
 If there is no matching profile, then refer to [profile elision](#profile-elision)
 
-### <a name="profile-elision"> Profile Elision
+### <a name="profile-elision"></a> Profile Elision
 
 It is common for sub-modules that don't introduce any additional linking
 dependencies to not provide a build profile (or to provide only profiles that

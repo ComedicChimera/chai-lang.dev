@@ -117,3 +117,25 @@ func Chapter(c *gin.Context) {
 		Components: []string{"section-title"},
 	})
 }
+
+// -----------------------------------------------------------------------------
+
+func docsPage(mdPath string) func(*gin.Context) {
+	return func(c *gin.Context) {
+		// load the markdown content
+		mdContent, err := loadMarkdownTemplate("doc-page.html", mdPath, make(map[string]interface{}))
+
+		if err != nil {
+			c.AbortWithError(http.StatusInternalServerError, err)
+			return
+		}
+
+		// render it into the base content
+		c.HTML(http.StatusOK, "base.html", renderContent{
+			Title:      "docs | chai-lang.dev",
+			Content:    template.HTML(mdContent),
+			PageStyle:  "doc-page.scss",
+			Components: []string{"section-title"},
+		})
+	}
+}
