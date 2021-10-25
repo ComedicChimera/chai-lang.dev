@@ -18,6 +18,7 @@ The following are all the top level module configuration fields:
 | `chai-version` | string | specify the Chai version the module was created on; in the form: `Major.Minor.Build` | Y |
 | `caching` | bool | enable [compilation caching](#compl-caching) | N, default = `false` |
 | `enable-profile-elision` | bool | enables [profile elision](#profile-elision) | N, default = `true` |
+| `last-build-time` | time | used by [compilation caching](#compl-caching) to specify when the last build of the module occurred | N |
 
 ### <a name="compl-caching"></a> Compilation Caching
 
@@ -95,7 +96,6 @@ The output format specifies what type of output should be produced by the compil
 | Objects | `obj` | Directory of Object Files |
 | Assembly | `asm` | Directory of Assembly Files |
 | LLVM IR | `llvm` | Directory of LLVM IR source files |
-| Chai MIR | `mir` | Directory of "textualized" Chai MIR files |
 
 *Note: for all output formats that produce multiple files, the convention is one file per package.*
 

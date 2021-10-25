@@ -282,3 +282,35 @@ Here are some examples of these operators:
     5 > 3           # => true
     "hi" == "hello" # => false
     7.6 <= -8.1     # => false      
+
+### Rune Literals
+
+**Runes** represent single unicode character.  They are used commonly in Chai are
+represented with a single character (such as a letter) enclosed in single quotes.
+They use the type label `rune`.
+
+For example, a rune literal for the character `a` would be: `'a'`. 
+
+Rune literals can contain multibyte unicode literals as well.
+
+    'φ'
+    '♣'
+
+Runes also support several escape codes, which allow the inputting of special
+characters such as newlines and carriage returns into literals.  They begin
+with a backslash followed by one of the following codes:
+
+| Code | Character |
+| ---- | --------- |
+| `a` | alert (legacy on most systems) |
+| `b` | backspace |
+| `f` | form feed |
+| `n` | newline |
+| `r` | carriage return |
+| `t` | tab |
+| `0` | null terminator |
+| `"` | double quote |
+| `'` | single quote |
+| `\` | backslash
+
+For example, to write a newline, one would use the following literal: `\n`.
