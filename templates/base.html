@@ -26,6 +26,13 @@
         <script src='/static/js/language-chai.js'></script>
         <script src='/static/vendor/prism.js'></script>
 
+        <!-- Feather Icons -->
+        <script src="https://unpkg.com/feather-icons"></script>
+        <script src="/static/js/components/feather-icon.js" defer></script>
+
+        <!-- Alpine.js -->
+        <script src="//unpkg.com/alpinejs" defer></script>
+
         {{ if ne .PageStyle "" }}
             <!-- Page Specific Styles -->
             <link rel='stylesheet' type='text/css' href='/static/scss/pages/{{ .PageStyle }}'/>
@@ -34,8 +41,9 @@
         <!-- Components -->
         {{ range .Components }}
             <link rel='stylesheet' type='text/css' href='/static/scss/components/{{.}}.scss'/>
-            <script src='/static/components/{{.}}.js' defer></script>
+            <script src='/static/js/components/{{.}}.js' defer></script>
         {{ end }}
+
 
         <title>{{ .Title }}</title>
     </head>
@@ -56,7 +64,7 @@
                 </nav>
                 <div class="search-box">
                     <input type="text"/>
-                    <i data-feather="search"></i>
+                    <feather-icon name="search" dim="35px"></feather-icon>
                 </div>
             </div>
         </header>
