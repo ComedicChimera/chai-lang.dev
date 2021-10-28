@@ -1,0 +1,25 @@
+import println from io.std
+
+type Expr =
+    | Add(Expr, Expr)
+    | Sub(Expr, Expr)
+    | Mul(Expr, Expr)
+    | Div(Expr, Expr)
+    | Val(f32)
+
+def evaluate(e: Expr) Option[f32] =
+    match e
+        case Add(a, b) -> evaluate(a)? + evaluate(b)?
+        case Sub(a, b) -> evaluate(a)? - evaluate(b)?
+        case Mul(a, b) -> evaluate(a)? * evaluate(b)?
+        case Div(a, b)
+            let b <- evaluate(a)
+            if b == 0 -> None
+            else -> evaluate(a)? / b end
+        case Val(x) -> Some(x)
+    end
+
+def main() = 
+    println(evaluate(
+        Add(Mul(Val(3), Val(4)), Val(5))
+    ))

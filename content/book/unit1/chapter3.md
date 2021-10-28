@@ -1,176 +1,193 @@
-# Control Flow
+# Variables
 
-This chapter introduces the basic control flow of Chai.  Some more advanced
-aspects of control flow will be explained later.
+This chapter introduces variables, assignment, scoping, and blocks.  Chai's
+system for handling variables and state is fairly intuitive once you understand
+the syntax and the rules.
 
-## If, Elif, and Else
+It is worth noting that from this point forward, the main function will be
+elided: it can be assumed that all code that is not itself a top-level
+definition is enclosed in an appropriate function (normally the main function).
+Additionally, all code samples can be assumed to have access to `println`.
+Furthermore, made up functions may occasionally be used: eg. `random_value()`
+which doesn't actually exist in the language (at least not in that form). Just
+use common sense when reading the documentation.
 
-The most basic control flow in Chai is the **if statement**.  It runs the code
-in its body if the condition in its head is true.  If statements begin with the
-`if` keyword followed by a condition, a newline, the body of the if statement
-and an `end`.
+## Blocks and Statements
 
-    if condition
-        body
+Up until now, the only Chai code we have dealt with has been in the form of
+definitions and simple expressions.  In order to work with variables, we need to
+discuss "procedural" code: namely, blocks.
+
+A **block** is a set of **statements** that execute sequentially.  Blocks begin
+with the keyword `do` followed by a newline and are ended by the `end` keyword.
+
+    do
+        statement1
+        statement2
+        ...
     end
 
-> Indentation is never necessary in Chai, but it is strongly recommended to
-> improve code readability.  Newlines, however, are required at the end of
-> statements and at the beginning of blocks.
+Notice that Chai uses newlines to delimit statements.  
 
-The condition can be any boolean.  For example,
+In Chai, blocks are expressions where the last statement (or expression) is the
+returned value of the block.  
 
-    let x = random_value()
+    do
+        statement1
+        statement2
+        (5 + 4)  # <-- returned value of the block
+    end
+
+> The parentheses on the final expression are required: this is not the case for
+> most statements and atomic expressions, but for more complex expressions it
+> is.
+
+Because blocks are expressions, we can place them after the `=` in a function
+definition to allow for multiple statements to be executed as part of the
+function.
+
+    def main() = do
+        println("First")
+        println("Second")
+    end
+
+This pattern happens so often that functions (and most other block statements as
+we will see later) allow you to elide the `= do` to denote that the function has
+a block body.
+
+    def main()
+        println("First")
+        println("Second")
+    end
+
+## Defining Variables
+
+**Variables** are defined with the `let` keyword followed by a name and an
+**initializer**.
+
+    let x = 5
+
+You can specify the type of a variable explicitly using a **type extension**;
+however, these are rarely required as the compiler can deduce the type of a
+variable in the vast majority of cases.
+
+    let x: i32 = 5
+
+You can, however, elide the initializer if you provide a type extension.  This
+will cause the variable to be **null initialized** -- it will be assigned a
+default value (which for numbers is always `0`).
+
+    let x: i32
+
+You can also declare multiple variables at once, even if they are of different
+types, by separating the declarations with commas.
+
+    let x = 5, y = 1.2 * 45
+    let s: string, b = -12, c: bool = true || false
+
+If you define multiple variables with the same name (in the same scope), you
+will get an error.
+
+    let x = 5
+    let x = 7  # COMPILE ERROR
+
+Variables, once defined, can then be used by name in expressions and other
+definitions.
+
+    let a = b + x
+    b + 5 * x - a
+
+If you use a variable that is not defined, you will also get an error.
+
+    z + 4  # COMPILE ERROR
+
+Finally, you can initialize multiple variables at once with the same value like
+so:
+
+    let v1, v2 = 1
+
+    # same can be done with types
+    let s1, s2, s3: string
+
+## Assignment
+
+All variables in Chai are **mutable** meaning their values can be changed.
+**Assignment** is an operation that changes the value of a variable.
+
+Assignment is performed with the `=` operator.
+
+    let x = 5
     
-    if x % 2 == 0
-        println("x is even")
+    # -- SNIP --
+    
+    x = 10
+
+You can assign to multiple variables at once provided that the number of
+variables on the left matches the number of values on the right.
+
+    let a, b: i32
+
+    a, b = 5 * x, -7 - x
+
+Variables are assigned based on their left to right ordering.  In the above
+expression, `a` is bound to `5 * x` and `b` is bound to `-7 - x`. 
+
+Chai fully evaluates the right side an assignment before performing the actual
+assignment operation.  This means that you can trivially swap two variables
+in one line of code:
+
+    a, b = b, a  # b and a are both fully evaluated before they are reassigned here
+
+Chai also supports **compound assignment operators**.  Essentially, these operators
+provide a concise alternative to the pattern `var = var op expr`.  For example:
+
+    a = a + b
+
+    # this is exactly equivalent to the code above
+    a += b
+
+Most of Chai's operators have compound assignment forms including all of the
+arithmetic operators and all of the binary logical operators (ie. `&&` and
+`||`).
+
+    let x, y, z = 5
+
+    x *= y + z
+    z -= 12
+
+These operators can also be applied to multiple values at once.
+
+    x, y *= z, -z
+
+Finally, Chai supports the **increment** (`++`) and **decrement** (`--`)
+operators.  These operators add one or remove one for a number variable.
+
+    x++  # add one to x
+    z--  # subtract one from z
+
+> Chai exclusively supports these operators as statements -- they cannot be used
+> inside simple expressions like in C and C++
+
+## Shadowing
+
+**Shadowing** is the process by which one variable can take the place of another
+in a lower scope.  A **scope** is simple the range of existence of a variable.
+All blocks define new scopes.
+
+For example, the variable `a` is shadowed in all lower scopes.
+
+    let a = "hello"
+
+    do
+        let a = 5
+
+        println(a + 2)  # prints `7`
     end
 
-The body can be multiple statements or even an if statement inside another if:
+    println(a)  # prints `hello`
 
-    if x < 2 || x > -2
-        if x == 0
-            println("x is zero")
-        end
+In general, we recommend that avoid using shadowing: it exists because it is
+sometimes a very convenient behavior but can be confusing if used in excess.
 
-        println("x is in [-2, 2]")
-    end
 
-If statements can also have an `else` condition which runs if the statement
-itself is found out to be untrue.
 
-    if x < 0
-        println("x is negative")
-    else
-        println("x is a natural number")
-    end
-
-Notice that we only need one `end` for the full if/else tree.  This is true even
-if our blocks contain multiple statements.
-
-We can also add an arbitrary number of `elif` conditions which run if the previous
-conditions in the tree fail.  These can be written with or without an `else`.
-
-    if x % 3 == 0 && x % 5 == 0
-        println("FizzBuzz")
-    elif x % 3 == 0
-        println("Fizz")
-    elif x % 5 == 0
-        println("Buzz")
-    else
-        println(x)
-
-> The above program is logic for [Fizz Buzz](https://en.wikipedia.org/wiki/Fizz_buzz)
-
-## If as an Expression
-
-If blocks (with elif and else branches) can also be expressions.  They can be written
-identically to regular if statements, recalling that the last value of any block is
-the value yielded.
-
-    let kind = if x % 2 == 0
-        "even"
-    else
-        "odd"
-    end
-
-However, unlike regular blocks, expression blocks must be **exhaustive**.  This
-means that they return a value for all possible input.  For if statements, this
-essentially means they must have an else clause.
-
-    let y = if x < 0
-        -1
-    end  # <-- ERROR: not exhaustive
-
-As you might have noticed, the current notation for if blocks can be a bit
-verbose at least in terms of whitespace.  As such, Chai allows all blocks
-(expressions or not) to utilize an alternative syntax when they only have an
-expression as their body.
-
-We use the `->` followed by an expression instead of a newline and a block to
-write more concise/single-line if conditions.
-
-    let kind = if x % 2 == 0 -> "even" else -> "odd" end
-
-Up until this point, we have been talking about if blocks as statements and
-expressions as if they were different things, but outside of the exhaustivity
-rule, they are identical.  This is because, semantically, an expression is a
-statement.  So when you use if expressions as statements like we did in the
-first section, you are really just using expressions.
-
-The exhaustivity check really only comes into play because the value yielded by
-the if expression is significant.  When you use it as a statement, the value
-returned by each branch is of type `nothing`; therefore, it has no actual
-semantic value.  Similar properties occur when if statements are used in
-functions or expressions where `nothing` is the expected result.  In essence,
-the exhaustivity check only applies when you use the yielded value.
-
-However, there is one dimension of if expressions, we haven't discussed yet.
-This is **type consistency**.  Much like exhaustivity, this rule applies when
-the value of the if statement is used.  It asserts that the returned values of
-the branches are of the same type.
-
-    let result = if x < 34 -> "string" else -> 67 end  # TYPE MISMATCH ERROR
-
-In the above code, the if branch has a yielded type of `string` but the else
-branch has a yielded type of `i32`; therefore, we have violated type consistency
-and will get an error.
-
-If you are a little bit confused at this point, that is completely normal.  This
-is one of the areas where Chai deviates from the programming language norm quite
-a bit so even experienced programmers might be feeling a bit shaky on the rules.
-
-The best tip I can give you is that Chai's compiler is designed to behave
-logically.  If you use the value, the if expression must be exhaustive and type
-consistent because: a) the if statement has to always give back a value for you
-to use and b) that value must be of a type Chai can determine at compile time
-because Chai is statically typed.  All the other rules exist to satisfy those
-two conditions.  
-
-## Header Variables
-
-**Header variables** are a convenience feature in Chai that allows you define
-variables in the header of if statements that will be bound to their bodies.
-
-For example, consider you have a function that makes a network request and
-returns some form a response, and you only want to process the response's data
-if it is valid.
-
-Normally, you would have to write code that looks like this:
-
-    let resp = make_request()
-
-    if is_valid(resp)
-        do_something_with_data(resp)
-    end
-
-However, the `resp` variable isn't actually useful outside of the body if
-the if statement.  This is where a header variable comes in.
-
-Header variables are defined like regular variables except they are placed write
-after the `if`.  They are closed by a semicolon followed by the actual condition
-of the if.  Rewriting our previous code to use header variables looks like this:
-
-    if let resp = make_request(); is_valid(resp)
-        do_something_with_data(resp)
-    end
-
-    # `resp` is not defined out here :)
-
-Another useful case for header variables is when you have some value
-that is reused multiple times in a condition.  
-
-    if (a + b * c) < 1 || (a + b * c) == 0
-        ...
-    end
-
-This is an obvious waste of computation (especially if the expression is not
-just trivial arithmetic).  The logical solution: header variables!
-
-    if let k = a + b * c; k < 1 || k == 0
-        ...
-    end
-
-It is worth noting that you should be careful not to overuse header variables:
-if every if statement in your code base defined three or four header variables,
-your code is probably going to be hard to read and maintain.  

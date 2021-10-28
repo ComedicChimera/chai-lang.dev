@@ -1,1 +1,32 @@
-<p>This is the index.</p>
+<div class="hero">
+    <div class="hero-left">
+        <div class="hero-title">
+            <img width="70px" height="auto" src="/static/images/chai_logo.png"/>
+            <div class="hero-title-text">Cha<span class="chai-i">i</span></div>
+        </div>
+        <div class="hero-slogan">
+            An elegant language for <span class="accent-1">speed</span> without <span class="accent-2">sacrifice</span>.
+        </div>
+        <button x-data @click="window.location.href = '/docs/book'">Get Started</button>
+    </div>
+    <div class="hero-right" x-data="{ selected: 'hello_world', demoHtml: 'test' }" x-effect="demoHtml = await updateDemo(selected)">
+        <div id="code-demo" class="code-demo">
+            <pre><code class="language-chai" x-html="demoHtml"></code></pre>
+        </div>
+        <select class="code-selection" x-model="selected">
+            <option value="hello_world" selected>Hello World</option>
+            <option value="fib_gen">Fibonacci Generator</option>
+            <option value="expr_eval">Expression Evaluator</option>
+        </select>
+    </div>
+</div>
+<div class="features">
+
+</div>
+<script>
+    async function updateDemo(selected) {
+        let resp = await fetch(`/static/demos/${selected}.chai`)
+        let demoText = await resp.text()
+        return Prism.highlight(demoText, Prism.languages.chai, 'chai')
+    }
+</script>

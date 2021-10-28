@@ -1,0 +1,15 @@
+import println from io.std
+
+def gen_fib(n: i32) Seq[i32]
+    let a, b = 0, 1
+    for _ in 0..n
+        a, b = b, a + b
+        a
+    end
+end
+
+def main()
+    for num in gen_fib(10)
+        println(num)
+    end
+end

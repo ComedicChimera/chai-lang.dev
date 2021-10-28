@@ -139,3 +139,7 @@ footer {
 
     z-index: 2;
 }
+
+code, .language-chai {
+    font-family: $code-font, monospace !important;
+}

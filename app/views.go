@@ -58,7 +58,7 @@ func renderBase(c *gin.Context, title, viewPath, pageStyle string, components []
 }
 
 func Index(c *gin.Context) {
-	renderBase(c, "chai-lang.dev", "index.html", "", nil)
+	renderBase(c, "chai-lang.dev", "index.html", "index.scss", nil)
 }
 
 func Docs(c *gin.Context) {
@@ -83,7 +83,7 @@ func Book(c *gin.Context) {
 		"BookUnits": aside,
 		"Prev":      nil,
 		"Next": &bottomNav{
-			DestName: "Getting Started",
+			DestName: "Hello World",
 			Href:     "/unit1/chapter1",
 		},
 	})

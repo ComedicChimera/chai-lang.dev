@@ -1,5 +1,4 @@
-// Prism.languages.chai = {
-window.language_chai = {
+Prism.languages.chai = {
     'comment': [
         {
             pattern: /(#![^(\\\*)]*!#)/
@@ -60,7 +59,7 @@ window.language_chai = {
     'keyword': [
         // control flow
         {
-            pattern: /\b(break|continue|return|for|if|elif|else|match|else|when|after|while|fallthrough|do|end)\b/
+            pattern: /\b(break|continue|return|for|if|elif|else|match|case|else|when|after|while|fallthrough|do|end)\b/
         },
         // declarations
         {
