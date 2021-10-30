@@ -67,7 +67,7 @@ Prism.languages.chai = {
         },
         // variables
         {
-            pattern: /\blet\b/
+            pattern: /\b(let|const)\b/
         },
         // data types
         {

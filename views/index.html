@@ -17,16 +17,60 @@
             <option value="hello_world" selected>Hello World</option>
             <option value="fib_gen">Fibonacci Generator</option>
             <option value="expr_eval">Expression Evaluator</option>
+            <option value="conways_gol">Conway's Game of Life</option>
         </select>
     </div>
 </div>
-<div class="features">
-
+<div id="features" class="features">
+    <div class="section-title-container">
+        <section-title>Features</section-title>
+    </div>
+    <div class="feature-list">
+        <div class="feature-card">
+            <div class="feature-title">Versatile Type System</div>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Suscipit quaerat dolores amet perspiciatis vitae tempore
+                exercitationem soluta ipsam eaque et veritatis, laborum nobis,
+                incidunt corporis sint molestiae quod culpa esse.
+            </p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-title">Zero Cost Abstractions</div>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Laudantium esse rem odio iure sit? Earum ullam ipsam rerum
+                minima? Quaerat optio quas doloribus repellendus dolores modi
+                magni necessitatibus saepe quia!
+            </p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-title">Lightweight Concurrency</div>
+            <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus
+                nulla cupiditate dolore nihil, assumenda ratione in distinctio
+                vitae, amet natus voluptatem iste eveniet rem. Velit placeat
+                ratione aspernatur fugiat magni!
+            </p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-title">Masterful Data Manipulation</div>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Ratione, inventore deserunt. Sed expedita molestiae
+                necessitatibus eum atque neque sequi architecto quisquam ullam
+                commodi dicta natus quae odio, debitis, at autem!
+            </p>
+        </div>
+    </div>
 </div>
+
 <script>
     async function updateDemo(selected) {
         let resp = await fetch(`/static/demos/${selected}.chai`)
         let demoText = await resp.text()
         return Prism.highlight(demoText, Prism.languages.chai, 'chai')
     }
+
+    Prism.highlightAll(document.getElementById("features"))
 </script>

@@ -58,7 +58,7 @@ func renderBase(c *gin.Context, title, viewPath, pageStyle string, components []
 }
 
 func Index(c *gin.Context) {
-	renderBase(c, "chai-lang.dev", "index.html", "index.scss", nil)
+	renderBase(c, "chai-lang.dev", "index.html", "index.scss", []string{"section-title"})
 }
 
 func Docs(c *gin.Context) {

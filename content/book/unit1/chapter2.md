@@ -170,6 +170,7 @@ with a backslash followed by one of the following codes:
 | `n` | newline |
 | `r` | carriage return |
 | `t` | tab |
+| `v` | vertical tab |
 | `0` | null terminator |
 | `"` | double quote |
 | `'` | single quote |

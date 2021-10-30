@@ -60,7 +60,7 @@ conditions in the tree fail.  These can be written with or without an `else`.
     else
         println(x)
 
-> The above program is logic for [Fizz Buzz](https://en.wikipedia.org/wiki/Fizz_buzz)
+> The above program is the logic for [Fizz Buzz](https://en.wikipedia.org/wiki/Fizz_buzz).
 
 ## If as an Expression
 

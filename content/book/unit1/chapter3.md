@@ -101,12 +101,9 @@ If you use a variable that is not defined, you will also get an error.
 
     z + 4  # COMPILE ERROR
 
-Finally, you can initialize multiple variables at once with the same value like
-so:
+Finally, you can initialize multiple variables at once with the same type
+extension like so:
 
-    let v1, v2 = 1
-
-    # same can be done with types
     let s1, s2, s3: string
 
 ## Assignment
@@ -166,7 +163,31 @@ operators.  These operators add one or remove one for a number variable.
     z--  # subtract one from z
 
 > Chai exclusively supports these operators as statements -- they cannot be used
-> inside simple expressions like in C and C++
+> inside simple expressions like in C and C++.
+
+## Constants
+
+Chai also supports the defining of constants which begin with the `const`
+keyword and use a similar syntax to variables with the notable exception that
+type extenions and initializers must both be included.
+
+    const X: i32 = 0
+
+    const NAME: string = "Alyssa", PRIME: u32 = 7 
+
+Constants, as the name would imply, cannot be mutated and, for all intents
+and purposes, are treated as literal values (like `5` or `"hello"`).
+
+    X = 4  # COMPILE ERROR
+
+    let y = X + 5  # ok
+
+Constants must be evaluable at compile-time: ie. the compiler has to be able
+to determine their value when it is compiling your program.  This condition
+(basically) boils down to two simple rules:
+
+1. Constants may only use other constants in their definitions.
+2. Constants may not call functions (eg. `println`) in their definitions.
 
 ## Shadowing
 
@@ -188,6 +209,3 @@ For example, the variable `a` is shadowed in all lower scopes.
 
 In general, we recommend that avoid using shadowing: it exists because it is
 sometimes a very convenient behavior but can be confusing if used in excess.
-
-
-
