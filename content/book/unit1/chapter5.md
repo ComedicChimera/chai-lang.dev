@@ -136,7 +136,198 @@ And, you can work with tuples of any size when using unpacking.
 Tuple unpacking is one of the most commonly used tools in Chai: as you will see
 later on, many functions that want to return multiple values return tuples that
 you can then be conveniently unpacked to get their values.
+
 ## Match Expressions
 
-## Test-Match Expressions
+**Match expressions** are Chai's primary mechanism for performing pattern
+matching.  We have already seen the basic idea of pattern matching at work in
+tuple unpacking, but in order to understand the idea more generally, we need to
+first discuss what a pattern actually is.
 
+### Patterns
+
+A **pattern** represents the semantic "shape" of a given construct.  Patterns
+can match many different kinds of constructs depending on their initial shape.
+In general, patterns are made up of three elements:
+
+1. Values
+2. Wildcards
+3. Shape Templates
+
+To understand how each of these elements work, let's start with the simplest
+pattern imaginable:
+
+    4
+
+Although it may not look like it, that is, in fact, a pattern.  It matches
+the value `4`.  
+
+We can even test this in Chai using a special case of the match expression:
+the **test-match** expression which is written simply:
+
+    value match pattern
+
+It returns a boolean if the match is successful and false if it isn't.  So, if
+apply this expression to different values using the simple pattern above we can
+explore Chai's pattern matching logic.
+
+    4 match 4  # => true
+    5 match 4  # => false
+
+In the pattern `4`, the single element of that pattern, namely `4`, would fall
+into the category of value element.  Value elements in patterns are matched
+using standard equality comparisons.
+
+However, this is fairly basic, lets take our patterns a step further an
+introduce **wildcards** which match *any* value they are compared against.
+Wildcards are denoted using the `_` symbol.
+    
+    4 match _               # => true
+    5 match _               # => true
+    "test" match _          # => true
+    false match _           # => true
+    (5, 4.5, 'a') match _   # => true
+
+> You might think that the wildcard would introduce problems for the type system
+> since they can match any type, but because Chai only matches patterns to
+> values with known types, the actual "type" of the wildcard is always trivially
+> inferrable.
+
+Okay, so that's great and all, but it doesn't seem that useful.  In this simple
+case, you would be right to think that.  But, we have to cover the building
+blocks before we can cover the big idea. 
+
+The real power of pattern matching comes from **shape templates** which when
+combined with the aforementioned features can lead to some really clever control
+flow.  Shape templates are essentially ways of structuring patterns so that they
+match specific data structures, allowing you to concisely match over their
+internals.  The simplest set of shape templates are, unsurpisingly, those for
+tuples.  Let's first start with an example before diving into the weeds.
+
+    (5, 4) match (_, 4)  # => true
+
+The above pattern uses a shape template for a tuple with 2 elements.  It uses a
+wildcard in place of one element to denote that that element can be anything and
+a specific value in the other.  So, we can combine our simple pattern elements
+together with a specific shape to concisely express what could otherwise be
+quite an annoying computation.  Here are some more examples:
+
+    ("test", 123, 4.5) match (_, 123, 4)  # => false
+
+    ('a', 'b', 'c', 3) match ('a', _, 'c', 3)  # => true
+
+    (5, 4) match (_, _)  # => true
+
+That last pattern in the above sample might seem silly: why not just match
+against `_`.  The answer leads us to the final part of our discussion of
+patterns: typing.  Patterns are strongly typed like everything else in the
+language.  If you try and match values that don't make sense with respect to a
+given pattern, you will get a type error.
+
+    "Hello" match (_, _)  # TYPE ERROR
+
+The above expression matches a string to a tuple-shaped pattern which obviously
+makes no sense and will produce an error at compile-time.  Thus, it is useful in
+situations where a type might not be as easy to predict to use more explicit
+patterns since you they will allow to produce type errors at compile-time for
+unexpected types as opposed to introducing possible run-time bugs.
+
+Note that this typing logic does apply to single values as well:
+
+    5 match "test"  # TYPE ERROR
+
+For values, the `match` operator acts exactly like the `==` operator.
+
+### Simple Match Expressions
+
+Now that you understand pattern matching, match expressions are a natural
+extension of your knowledge.  Put simply, **match expressions** are a control
+flow construct that allows you match against multiple pattern **cases** and run
+the first matching case.
+
+To understand match expressions, let's look at a very simple usage of them.
+Consider you have some number `n` that is inputted by the user, and you
+want to perform different logic depending on what that number is.  Naively,
+you might choose to use an if expression: ie.
+
+    if n == 3
+        println("n is a magic number")
+    elif n == 4 || n == 2 || n == 8
+        println("n is a small power of 2")
+    elif n == 5
+        println("n is a prime number greater than 4")
+    # etc...
+    end
+
+> I am aware that the logic above is entirely obtuse: it exists to demonstrate
+> match expressions without introducing a bunch of complex ideas along with
+> them.
+
+As you may notice, the logic is quite repetitive and quite slow to execute (lots
+of conditional branches).  This is where the match expression comes in.  It
+allows us to concisely and performantly represent the above logic as a series of
+cases (which more logically fits its structure anyway).  Here is the above if
+tree restructured as a match expression:
+
+    match n
+        case 3
+            println("n is a magic number")
+        case 2, 4, 8
+            println("n is a small power of 2")
+        case 5
+            println("n is a prime number greater than 4)
+        # etc...
+    end
+
+Much better!  Now, we don't have to type `n ==` over and over again.  The
+statements structure itself is fairly intuitive.  The argument to the header,
+begun with the `match` keyword is the value you want to compare, each case
+begins with a `case` keyword followed by a block of code and list of values that
+case matches.
+
+As you can imagine, the more cases you have, the more efficient this construct
+becomes, especially if you have cases that run for multiple inputs.
+
+However, this is just the beginning.  After all, we haven't even seen any
+pattern matching yet.  Well, it turns out that those case expressions are
+actually patterns!  So, we can write code like this:
+
+    let pair = some_coord_pair()
+
+    match pair
+        case (0, 0)
+            println("the origin")
+        case (0, _)
+            println("on the y-axis")
+        case (_, 0)
+            println("on the x-axis")
+        case _
+            println("some other point")
+    end
+
+Notice that last case at the end, that is what we call the **default case**, and
+it is how we can quickly make match expressions exhaustive when we use them as
+expressions.  By our pattern matching rules, we know it will match anything so
+we can guarantee our match expression yields a value.
+
+As you might expect, when we use match expressions as expressions, their branches
+must always yield the same value.  Furthermore, you can use the `->` notation
+to yield single expressions as you would with if expressions.
+
+    let loc = match pair
+        case (0, 0) -> "origin"
+        case (_, 0) -> "y-axis"
+        case (0, _) -> "x-axis"
+        case _ -> "not on axis"
+    end
+
+Match expressions are really Chai's bread and butter at least from a control
+flow standpoint.  As you will see later, lots of constructs support pattern
+matching making them even more useful than they are now.
+
+### Fallthroughs
+
+### Case Guards
+
+
+## Variable-Extracting Patterns

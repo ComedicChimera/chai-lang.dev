@@ -96,6 +96,7 @@ The output format specifies what type of output should be produced by the compil
 | Objects | `obj` | Directory of Object Files |
 | Assembly | `asm` | Directory of Assembly Files |
 | LLVM IR | `llvm` | Directory of LLVM IR source files |
+| Chai MIR | `mir` | Directory of Chai MIR textual files |
 
 *Note: for all output formats that produce multiple files, the convention is one file per package.*
 
