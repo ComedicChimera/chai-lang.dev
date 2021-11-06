@@ -172,5 +172,5 @@ just trivial arithmetic).  The logical solution: header variables!
     end
 
 It is worth noting that you should be careful not to overuse header variables:
-if every if statement in your code base defined three or four header variables,
+if every if statement in your code base defines three or four header variables,
 your code is probably going to be hard to read and maintain.  

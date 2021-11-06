@@ -184,10 +184,12 @@ and purposes, are treated as literal values (like `5` or `"hello"`).
 
 Constants must be evaluable at compile-time: ie. the compiler has to be able
 to determine their value when it is compiling your program.  This condition
-(basically) boils down to two simple rules:
+(basically) boils down to three simple rules:
 
 1. Constants may only use other constants in their definitions.
-2. Constants may not call functions (eg. `println`) in their definitions.
+2. Constants may not call (most) functions (eg. `println`) in their definitions.
+3. Constants may only use simple expressions (eg. arithmetic) in their
+   definitions.
 
 ## Shadowing
 

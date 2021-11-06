@@ -275,13 +275,13 @@ tree restructured as a match expression:
         case 2, 4, 8
             println("n is a small power of 2")
         case 5
-            println("n is a prime number greater than 4)
+            println("n is a prime number greater than 4")
         # etc...
     end
 
 Much better!  Now, we don't have to type `n ==` over and over again.  The
 statements structure itself is fairly intuitive.  The argument to the header,
-begun with the `match` keyword is the value you want to compare, each case
+begun with the `match` keyword, is the value you want to compare; each case
 begins with a `case` keyword followed by a block of code and list of values that
 case matches.
 
@@ -321,13 +321,97 @@ to yield single expressions as you would with if expressions.
         case _ -> "not on axis"
     end
 
-Match expressions are really Chai's bread and butter at least from a control
-flow standpoint.  As you will see later, lots of constructs support pattern
-matching making them even more useful than they are now.
+Finally, cases must be **distinct**: this means that you cannot have multiple
+cases with identical patterns.  For example:
+
+    match n
+        case 0 -> -1
+        case 0 -> 1   # ERROR
+    end
+
+As you have seen, however, you can have patterns whose possible matches overlap.
+
+    match n
+        case 0 -> -1
+        case _ -> 1
+    end
+
+In this case, the pattern matching algorithm simply picks the first match.
 
 ### Fallthroughs
 
+**Fallthrough** is a control flow statement that jumps to the next case in the
+sequence.  It is useful for when you have some default behavior you want to
+occur for multiple cases or if you have cases that should flow in sequence.
+
+The fallthrough statement uses the `fallthrough` keyword placed on its own line.
+
+    match n
+        case 1
+            println("n is the multiplicative identity")
+        case 2
+            println("n is the first even natural number")
+            fallthrough
+        case 3, 5
+            println("n is a prime number")
+    end
+
+Notice that fallthrough ignores the actual case's condition and just blindly
+jumps to the next case.
+
+Fallthrough can be used within more complex logic as well.
+
+    match n
+        case 1
+            println("Do something")
+        case 2
+            println("Do something else")
+
+            if n == m
+                fallthrough
+        case 3, 5
+            println("Do something even more else")
+
+However, using fallthrough in this way may render your match expressions
+non-exhaustive.  In this example, the if expression doesn't always yield a
+value: so the match expression by relation becomes non-exhaustive, and its value
+can't be used.
 ### Case Guards
 
+A **case guard** is a condition placed on a case the specifies when it can
+match.  These are particularly useful in cases where you want the flexibility
+and "scalability" of the match statement but have a few bits of more complex
+logic nestled into the matching.
+
+Case guards are placed after the full list of case patterns prefixed by the
+`when` keyword.  The guard expression itself is just a condition like an if
+statement.
+
+    match n
+        case 1
+            println("n is the multiplicative identity")
+        case 2
+            println("n is the first even natural number")
+            fallthrough
+        case 3, 5
+            println("n is a prime number")
+        case _ when n >= 1
+            println("n is a natural number")
+    end
+
+Note that this is different from simply placing an if expression in the case:
+the case guard will prevent the case from matching in the first place. The match
+expression will not even consider the case pattern if the case's guard is not
+satisfied.  This can allow you to have multiple identical patterns provided
+there is some case guard differentiating them.
+
+    match n
+        case 2 when m < 2
+            println("m < n")
+        case 2
+            println("n = 2")
+
+> I am aware the above logic is a completely unnecessary use of case guards, but
+> it demonstrates the idea at hand.
 
 ## Variable-Extracting Patterns

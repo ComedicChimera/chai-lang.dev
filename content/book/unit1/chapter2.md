@@ -26,8 +26,8 @@ operates on Unicode by default.  We will talk in more detail about strings in
 a later section, but for now, let's focus on the numbers.
 
 All integers and floats in Chai have fixed sizes and their size is apart of
-their name.  On every platform, `i32` will be a 32 bit integer.  This tends to
-ensure that your API has more standard behavior on all systems.
+their name.  For example, on every platform, `i32` will be a 32 bit integer.
+This tends to ensure that your API has more standard behavior on all systems.
 
 ## Number Literals
 
@@ -49,7 +49,7 @@ example, the following are all floats:
     6.626e-34
     3E8
 
-however, their size is not constrained.
+However, their size is not constrained.
 
 Similarly, the following are all guaranteed to be some form of integer:
 
@@ -59,8 +59,8 @@ Similarly, the following are all guaranteed to be some form of integer:
 
 Note that if a type for a literal cannot be determined from context (which
 happens surpisingly often), then the compiler will pick a sensible default:
-generally one of the 32 or 64 bit forms.  If you want a specific type, then you
-should state it explicitly.
+generally one of the 64 bit forms.  If you want a specific type, then you should
+state it explicitly.
 
 ## Arithmetic
 
