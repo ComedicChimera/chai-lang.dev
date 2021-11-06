@@ -8,11 +8,11 @@ Prism.languages.chai = {
         }
     ],
     'string': {
-        pattern: /"(?:[^"\\']|\\.)*"/,
+        pattern: /"(?:[^\\"]|\\.)*"/,
         greedy: true
     },
     'char': {
-        pattern: /'(?:[^"\\']|\\.)*'/,
+        pattern: /'(?:[^\\']|\\.)*'/,
         greedy: true
     },
     'number': [

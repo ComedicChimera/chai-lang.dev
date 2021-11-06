@@ -72,26 +72,25 @@ the full list of builtin arithmetic operators.  These work for all numbers.
 | `+` | Add two numbers |
 | `-` | Subtract two numbers OR negate one number |
 | `*` | Multiply two numbers |
-| `/` | Divide two numbers and produce a floating point result |
-| `//` | Divide two numbers and produce a floored, integer result |
+| `/` | Divide* two numbers |
 | `%` | Find the remainder of a division operation |
 | `**` | Raise a number to a non-negative, integer power |
 
-Notice that there are two division operators in Chai: one for floating point
-division and one for integer division.  This is to avoid random casts being
-littered all over your program.  Note that both operators work for both kinds of
-input (integers and floats).
+Notice that Chai has one unified division operator.  This operator will perform
+[integer division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers)
+between integral types and floating point division between floats and mixtures
+of floats and integers.
 
 Chai also supports parentheses and applies standard operator precedence rules
 for arithmetic (ie. exponents, multiplication and division, addition and
 subtraction -- performed left-to-right for ties of precedence).
 
     4 + 5              # => 9
-    (65 * 0.8) // 2    # => 26
     0.5 ** 2           # => 0.25
+    0.7 / 0.1          # => 7.0
     (3.14 + 2.72) * 64 # => 375.04
     5 % 3              # => 2
-    -10 / (6 - 3)      # => -3.333...
+    -10 / (6 - 3)      # => -3
 
 ## Type Casting
 

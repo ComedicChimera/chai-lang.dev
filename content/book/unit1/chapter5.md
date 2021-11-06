@@ -1,6 +1,6 @@
 # Pattern Matching
 
-This section introduces the concept of pattern matching in Chai and one of
+This chapter introduces the concept of pattern matching in Chai and one of
 Chai's most fundamental data structures that happens to be the basis for most
 pattern matching.
 
@@ -238,6 +238,15 @@ Note that this typing logic does apply to single values as well:
 
 For values, the `match` operator acts exactly like the `==` operator.
 
+Finally, patterns in Chai must contain constant values.  This means that you
+cannot place full expressions in patterns: only the pattern elements we
+discussed above.
+
+    6 match 3 + 2  # ERROR
+
+This allows Chai to generate more optimized code for pattern matching and to
+avoid confusion in the case of pattern variables which we will discuss later.
+
 ### Simple Match Expressions
 
 Now that you understand pattern matching, match expressions are a natural
@@ -338,6 +347,8 @@ As you have seen, however, you can have patterns whose possible matches overlap.
 
 In this case, the pattern matching algorithm simply picks the first match.
 
+
+
 ### Fallthroughs
 
 **Fallthrough** is a control flow statement that jumps to the next case in the
@@ -414,4 +425,55 @@ there is some case guard differentiating them.
 > I am aware the above logic is a completely unnecessary use of case guards, but
 > it demonstrates the idea at hand.
 
-## Variable-Extracting Patterns
+## Pattern Variables
+
+A **pattern variable** is a special kind of wildcard that gives a name to
+whatever value it matches allowing it to act as variable.  
+
+Pattern variables can be constructed by placing variable names in place of `_`
+to cause whatever value matched the wildcard to be stored in that variable.
+
+For example,
+
+    let pair = some_tuple()
+
+    let squared_dist = match pair
+        case (0, 0) -> 0
+        case (a, 0) -> a ** 2
+        case (0, b) -> b ** 2
+        case (a, b) -> a ** 2 + b ** 2
+    end
+
+As you can see, the variables match just like wildcards, but they can be used
+the branches of case expressions.  These variables work like header variables
+in if statements: they are only visible within the scope of the case or block
+they are applied.
+
+Notably, test-match expressions can also use header variables.
+
+    if triple match (a, 0, 0)
+        println("The triple at", a, "on the x-axis")
+    end
+
+Header variables *cannot* be used in cases that can be reached by fallthrough.
+This is because fallthrough doesn't actually perform a pattern match so the
+variable is never extracted.
+
+    match pair
+        case (0, 0)
+            println("at origin")
+            fallthrough
+        case (0, a)  # ERROR: pattern variable after fallthrough
+            println("on y-axis at", a)
+        case (b, 0)  # this is ok
+            println("on x-axis at", b)
+    end
+
+Similarly, pattern variables can only be used in cases that have a single
+pattern since Chai won't know at compile-time which variable will be defined.
+
+    match pair
+        case (a, 0), (0, b) -> a + b  # ERROR: pattern variables in case with multiple patterns
+    end
+
+
