@@ -157,11 +157,215 @@ statements: allowing your code to be written more procedurally.
 
 ### Arguments
 
+The arguments that a function takes are specified inside the parentheses of the
+function definition.  Each argument begins with a name followed by type
+extension.  
+
+    def double(x: i32) i32 = x * 2
+
+Functions can take multiple arguments separated by commas, and arguments can
+share a type extension like in variable definitions.
+
+    def sum_and_scale(a, b: i64, s: f64) f64 = (a + b as f64) * s
+
+All function arguments must have a distinct name from other arguments to the
+same function.  However, function arguments can be shadowed by other variables
+of the same name within their bodies.
+
+    def exclaim_message(msg: string) string
+        let msg = msg + "!"
+
+        println(msg)
+
+        msg
+    end
+
 ## The Return Statement
 
+The **return statement** is a special control flow statement that causes the
+enclosing function to immediately return when encountered. 
+
+It begins with the `return` keyword.
+
+    def print_n_times(msg: string, n: i64)
+        if n == 0
+            return
+
+        # -- snip --
+    end
+
+Return statements can also return values.  
+
+    def exp(power: f64) f64
+        if power == 0
+            return 1
+
+        # -- snip --
+    end
+
+Return statements must match the return type of the function.  If a function
+returns nothing, then the return statement must either specify no value or `()`
+as its return value.  Similarly, if a function does return a type, then the
+expression of the return statement must be of that type.
+
+    def some_func(s: string) i32
+        return s  # TYPE ERROR
+    end
+
+The return statement can also take multiple values, separated by commas, to
+return.  In this case, those values are automatically packaged into a tuple for
+you.
+
+    import sqrt from math
+    
+    def quadratic_formula(a, b, c: f64) (f64, f64)
+        let discrim = sqrt(b ** 2 - 4 * a * c)
+
+        return (-b + discrim) / (2 * a), (-b - discrim) / (2 * a)        
+    end
+
+Return statements also affect exhaustiveness checking: any branch that
+definitively ends a return statement is considered exhaustive.  This includes
+branches that occur inside expressions that are being immediately returned from
+the enclosing function.
+
+    def some_func(a, b: i32) i32
+        let x = if a < b 
+            return a
+        else -> a + b end
+
+        # -- snip --
+    end
+
+As you can observe, returns also circumvent type consistency requirements since
+the branch that contains them never actually stores into the variable.
 ## Recursion
+
+**Recursion** occurs when a function calls itself from within its own body.
+Recursion is a widely supported feature in most programming languages, and, in
+Chai, its behaves how you would expect.
+
+A simple example to demonstrate this is to consider the 
+[factorial function](https://en.wikipedia.org/wiki/Factorial).  For those
+unfamiliar, the factorial is defined as follows:
+
+```language-text
+n! = n * (n - 1) * (n - 2) * ... * 3 * 2 * 1
+```
+
+As you can see, factorial is an inherently recursive function: `n!` = `n * (n - 1)!`
+
+We can implement this function in Chai easily.  To begin, let's start with the
+function signature.
+
+    def fac(n: i32) i32 =
+        # TODO
+
+Then, we consider first the base case: `0! = 1`.  All other recursive cases will
+reach this base eventually.
+
+    def fac(n: i32) i32 =
+        if n == 0 -> 1
+        # TODO
+
+Then, we consider the recursive case which is `fac(n) = n * fac(n-1)`.  Adding
+this to our function, we get:
+
+    def fac(n: i32) i32 =
+        if n == 0 -> 1
+        else -> n * fac(n-1)
+    end 
+
+> Putting the end of block statements inside expression function bodies an
+> indentation level out is a fairly common stylistic practice in Chai: it
+> denotes that both the expression and the function are ended.
+
+We can check that this function works by expanding out an evaluation of it.
+Consider `fac(4)` as an example:
+
+```language-text
+fac(4) =
+    4 != 0 => 4 * fac(4-1) = 4 * fac(3)
+fac(3) = 
+    3 != 0 => 3 * fac(3-1) = 3 * fac(2)
+fac(2) =
+    2 != 0 => 2 * fac(2-1) = 2 * fac(1)
+fac(1) =
+    1 != 0 => 1 * fac(1-1) = 1 * fac(0)
+fac(0) =
+    0 == 0 => 1
+
+Therefore:
+fac(4) = 4 * fac(3)
+       = 4 * 3 * fac(2)
+       = 4 * 3 * 2 * fac(1)
+       = 4 * 3 * 2 * 1 * fac(0)
+       = 4 * 3 * 2 * 1 * 1
+       = 24
+```
+
+As you can see, our factorial function matches up exactly with the mathematical
+definition in execution.  Most programmers are always familiar with recursion so
+we will leave the discussion here having demonstrated how recursion works in
+Chai.  However, if you come from a language that does not support this paradigm,
+then try playing around with this idea: recursion is extremely powerful when
+used well and can allow to write very beautiful and intuitive code.
 
 ## Globals
 
+**Globals** are variables and constants defined outside of the bodies of
+functions. They use the exact same syntax as regular variables and constants but
+have somewhat different semantics.  
 
+    const pi: f64 = 3.14159264
+
+    def circle_area(r: f64) f64 = pi * r ** 2
+
+The `pi` constant is fully determined before any user-defined function,
+including main, is ever run.  The same logic is true for mutable variables.
+
+    let counter = 0
+
+    def special_func()
+        println("This function has been called", counter, "times.")
+        counter++
+    end
+
+Notice that the value of `counter` is preserved between function calls as apart
+of global state.
+
+Global variables like regular variables can contain full block expressions in
+their bodies.
+
+    let tau = do
+        println("initializing `tau`")
+
+        pi * 2
+    end
+
+    def circumference(r: f64) f64 = tau * r
     
+> Runtime initialization does occur before global variable initialization so you
+> are free to use functions such as `println` in their bodies.
+
+The reason we chose to discuss global variables now is that such variables do
+have some distinctions from normal local variables that can only be appreciated
+with an understanding of functions.  
+
+Firstly, the return statement can not, for obvious reasons, be used inside a
+global variable initializer.
+
+    let my_global = do
+        return  # ERROR
+    end
+
+Secondly, global variables will be shadowed by arguments and local variables
+within functions.
+
+    let n: i32
+
+    def increment(n: i32) i32 = n + 1
+
+> For the remainder of this book, you can assume that when we use variables,
+> they are not global (ie. enclosed inside the main function) unless the context
+> specifically requires them to be global.
