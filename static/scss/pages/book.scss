@@ -16,6 +16,7 @@
 
         width: 20%;
         margin-top: -1rem;
+        margin-right: 1rem;
 
         background-color: white;
         padding: 2rem 1rem 1rem 1rem;
@@ -31,17 +32,17 @@
             }
         }
 
-        .book-unit {
+        .book-chapter {
             padding-left: 1rem;
 
-            .unit-title {
+            .chapter-title {
                 color: $accent-secondary;
                 font-family: $ui-font;
                 font-size: 1.3rem;
                 font-weight: bold;
             }
 
-            .chapter-list {
+            .section-list {
                 padding-left: 1rem;
                 margin-top: 0.3rem;
                 

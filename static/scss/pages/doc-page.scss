@@ -61,7 +61,8 @@ article {
     padding: 1rem 2rem 1rem 2rem;
     border-radius: 0.3rem;
 
-    margin-left: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
 
     .content-title {
         font-family: $ui-font;
@@ -81,7 +82,8 @@ article {
             color: $accent-secondary;
             text-decoration: none;
             font-family: $text-font;
-        }
+            margin-bottom: 0.2rem;
+        }      
     }
 }
 

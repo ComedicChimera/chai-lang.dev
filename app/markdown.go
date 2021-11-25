@@ -17,8 +17,8 @@ import (
 
 const contentPath string = "./content"
 
-type mdSection struct {
-	SectionTitle, SectionTag string
+type mdHeading struct {
+	HeadingText, HeadingTag string
 }
 
 func loadMarkdownTemplate(htmlTemplatePath, markdownPath string, contextVars map[string]interface{}) (string, error) {
@@ -34,13 +34,13 @@ func loadMarkdownTemplate(htmlTemplatePath, markdownPath string, contextVars map
 		return "", err
 	}
 
-	// isolate the sections
-	var sections []*mdSection
+	// isolate the headings
+	var headings []*mdHeading
 	re := regexp.MustCompile(`\n##[^#\n]+\n`)
 	for i, match := range re.FindAllString(string(mdSrc), -1) {
-		sections = append(sections, &mdSection{
-			SectionTitle: strings.TrimRight(match[4:], "\n"),
-			SectionTag:   fmt.Sprintf("section%d", i),
+		headings = append(headings, &mdHeading{
+			HeadingText: strings.TrimRight(match[4:], "\n"),
+			HeadingTag:  fmt.Sprintf("section%d", i),
 		})
 	}
 
@@ -59,7 +59,7 @@ func loadMarkdownTemplate(htmlTemplatePath, markdownPath string, contextVars map
 	templ := template.Must(template.ParseFiles(filepath.Join(templateDir, htmlTemplatePath)))
 	var htmlBuff bytes.Buffer
 	contextVars["Content"] = template.HTML(mdHtml)
-	contextVars["Sections"] = sections
+	contextVars["Headings"] = headings
 	templ.Execute(&htmlBuff, contextVars)
 
 	// return the template

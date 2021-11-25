@@ -11,145 +11,145 @@ import (
 	"strings"
 )
 
-type bookUnit struct {
-	UnitTitle string
-	Chapters  []*bookChapter
-}
-
 type bookChapter struct {
-	ChapterTitle                 string
-	ChapterUnitHref, ChapterHref string
+	ChapterTitle string
+	Sections     []*bookSection
 }
 
-// getAside loads the units of the book
-func getAside() ([]*bookUnit, error) {
-	// load the units file
-	unitsFile, err := os.Open(filepath.Join(contentPath, "book/units.txt"))
+type bookSection struct {
+	SectionTitle                    string
+	SectionChapterHref, SectionHref string
+}
+
+// getAside loads the chapters of the book for constructing the side bar.
+func getAside() ([]*bookChapter, error) {
+	// load the chapters file
+	chaptersFile, err := os.Open(filepath.Join(contentPath, "book/chapters.txt"))
 	if err != nil {
 		return nil, err
 	}
-	defer unitsFile.Close()
+	defer chaptersFile.Close()
 
-	// convert the units to a list
-	unitContent, err := ioutil.ReadAll(unitsFile)
+	// convert the chapters to a list
+	chapterContent, err := ioutil.ReadAll(chaptersFile)
 	if err != nil {
 		return nil, err
 	}
-	unitTitles := strings.Split(string(unitContent), "\n")
+	chapterTitles := strings.Split(string(chapterContent), "\n")
 
-	// walk the book directory and collect the units
+	// walk the book directory and collect the chapters
 	finfos, err := ioutil.ReadDir(filepath.Join(contentPath, "book"))
 	if err != nil {
 		return nil, err
 	}
 
-	var units []*bookUnit
+	var chapters []*bookChapter
 	for _, finfo := range finfos {
-		// we are going to naively assume there are less than 10 units
-		if finfo.IsDir() && strings.HasPrefix(finfo.Name(), "unit") {
-			// collect the chapters
-			var chapters []*bookChapter
-			chapterfinfos, err := ioutil.ReadDir(filepath.Join(contentPath, "book", finfo.Name()))
+		// we are going to naively assume there are less than 10 chapters
+		if finfo.IsDir() && strings.HasPrefix(finfo.Name(), "chapter") {
+			// collect the sections
+			var sections []*bookSection
+			sectionfinfos, err := ioutil.ReadDir(filepath.Join(contentPath, "book", finfo.Name()))
 			if err != nil {
 				return nil, err
 			}
 
-			for _, chapterfinfo := range chapterfinfos {
+			for _, sectionfinfo := range sectionfinfos {
 				// open the md file
-				chaptermdFile, err := os.Open(filepath.Join(contentPath, "book", finfo.Name(), chapterfinfo.Name()))
+				sectionmdFile, err := os.Open(filepath.Join(contentPath, "book", finfo.Name(), sectionfinfo.Name()))
 				if err != nil {
 					return nil, err
 				}
-				defer chaptermdFile.Close()
+				defer sectionmdFile.Close()
 
-				// read the chapter title
-				sc := bufio.NewScanner(chaptermdFile)
-				var chapterTitleLine string
+				// read the section title
+				sc := bufio.NewScanner(sectionmdFile)
+				var sectionTitleLine string
 				if sc.Scan() {
-					chapterTitleLine = sc.Text()
+					sectionTitleLine = sc.Text()
 				} else {
-					return nil, errors.New("chapter file is empty")
+					return nil, errors.New("section file is empty")
 				}
 
 				// trim the leading `#` to get the title
-				chapters = append(chapters, &bookChapter{
-					ChapterTitle:    chapterTitleLine[2:],
-					ChapterUnitHref: finfo.Name(),
-					ChapterHref:     strings.TrimSuffix(chapterfinfo.Name(), ".md"),
+				sections = append(sections, &bookSection{
+					SectionTitle:       sectionTitleLine[2:],
+					SectionChapterHref: finfo.Name(),
+					SectionHref:        strings.TrimSuffix(sectionfinfo.Name(), ".md"),
 				})
 			}
 
-			// create the final unit
-			units = append(units, &bookUnit{
-				UnitTitle: unitTitles[len(units)],
-				Chapters:  chapters,
+			// create the final chapter
+			chapters = append(chapters, &bookChapter{
+				ChapterTitle: chapterTitles[len(chapters)],
+				Sections:     sections,
 			})
 
 		}
 	}
 
-	return units, nil
+	return chapters, nil
 }
 
 // getBottomNav gets the page-bottom navigation for the book.
-func getBottomNav(units []*bookUnit, chapterPath string) (*bottomNav, *bottomNav, error) {
-	// split up the chapter path
-	chapterPathElems := strings.Split(chapterPath, "/")[1:]
-	unit, chapter := chapterPathElems[0], chapterPathElems[1]
+func getBottomNav(chapters []*bookChapter, sectionPath string) (*bottomNav, *bottomNav, error) {
+	// split up the section path
+	sectionPathElems := strings.Split(sectionPath, "/")[1:]
+	chapter, section := sectionPathElems[0], sectionPathElems[1]
 
-	// get the unit number and chapter number
-	unitN, err := strconv.Atoi(unit[4:])
+	// get the chapter and section number
+	chapterN, err := strconv.Atoi(chapter[4:])
 	if err != nil {
 		return nil, nil, err
 	}
 
-	chapterN, err := strconv.Atoi(chapter[7:])
+	sectionN, err := strconv.Atoi(section[7:])
 	if err != nil {
 		return nil, nil, err
 	}
 
 	// prev navigation
 	var prevNav *bottomNav
-	if chapterN == 1 {
-		// if we are unit 1 => previous points to `Introduction`
-		if unitN == 1 {
+	if sectionN == 1 {
+		// if we are chapter 1 => previous points to `Introduction`
+		if chapterN == 1 {
 			prevNav = &bottomNav{
 				Href:     "",
 				DestName: "The Book",
 			}
 		} else {
-			// otherwise, just go back a unit
-			lastChapter := len(units[unitN-2].Chapters)
+			// otherwise, just go back a section
+			lastSection := len(chapters[chapterN-2].Sections)
 			prevNav = &bottomNav{
-				Href:     fmt.Sprintf("/unit%d/chapter%d", unitN-1, lastChapter),
-				DestName: units[unitN-2].Chapters[lastChapter-1].ChapterTitle,
+				Href:     fmt.Sprintf("/chapter%d/section%d", chapterN-1, lastSection),
+				DestName: chapters[chapterN-2].Sections[lastSection-1].SectionTitle,
 			}
 		}
 	} else {
-		// otherwise, just go back one chapter
+		// otherwise, just go back one section
 		prevNav = &bottomNav{
-			Href:     fmt.Sprintf("/unit%d/chapter%d", unitN, chapterN-1),
-			DestName: units[unitN-1].Chapters[chapterN-2].ChapterTitle,
+			Href:     fmt.Sprintf("/chapter%d/section%d", chapterN, sectionN-1),
+			DestName: chapters[chapterN-1].Sections[sectionN-2].SectionTitle,
 		}
 	}
 
 	// next navigation
 	var nextNav *bottomNav
-	if chapterN == len(units[unitN-1].Chapters) {
+	if sectionN == len(chapters[chapterN-1].Sections) {
 		// we only supply a next if we aren't at the end of the book
-		if unitN < len(units) {
+		if chapterN < len(chapters) {
 			nextNav = &bottomNav{
-				Href:     fmt.Sprintf("/unit%d/chapter1", unitN+1),
-				DestName: units[unitN].Chapters[0].ChapterTitle,
+				Href:     fmt.Sprintf("/chapter%d/section1", chapterN+1),
+				DestName: chapters[chapterN].Sections[0].SectionTitle,
 			}
 		} else {
 			nextNav = nil
 		}
 	} else {
-		// otherwise just go forward one chapter
+		// otherwise just go forward one section
 		nextNav = &bottomNav{
-			Href:     fmt.Sprintf("/unit%d/chapter%d", unitN, chapterN+1),
-			DestName: units[unitN-1].Chapters[chapterN].ChapterTitle,
+			Href:     fmt.Sprintf("/chapter%d/section%d", chapterN, sectionN+1),
+			DestName: chapters[chapterN-1].Sections[sectionN].SectionTitle,
 		}
 	}
 

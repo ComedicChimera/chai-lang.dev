@@ -78,11 +78,11 @@ func Book(c *gin.Context) {
 
 	// load the markdown content
 	mdContent, err := loadMarkdownTemplate("book.html", "book/index.md", map[string]interface{}{
-		"BookUnits": aside,
-		"Prev":      nil,
+		"BookChapters": aside,
+		"Prev":         nil,
 		"Next": &bottomNav{
 			DestName: "Hello World",
-			Href:     "/unit1/chapter1",
+			Href:     "/chapter1/section1",
 		},
 	})
 
@@ -100,7 +100,7 @@ func Book(c *gin.Context) {
 	})
 }
 
-func Chapter(c *gin.Context) {
+func Section(c *gin.Context) {
 	// build the aside
 	aside, err := getAside()
 	if err != nil {
@@ -109,18 +109,18 @@ func Chapter(c *gin.Context) {
 	}
 
 	// calculate the bottom page navigation
-	chapterPath := c.Param("chapter-path")
-	prevNav, nextNav, err := getBottomNav(aside, chapterPath)
+	sectionPath := c.Param("section-path")
+	prevNav, nextNav, err := getBottomNav(aside, sectionPath)
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 	}
 
 	// load the markdown content
-	bookPath := fmt.Sprintf("book/%s.md", chapterPath)
+	bookPath := fmt.Sprintf("book/%s.md", sectionPath)
 	mdContent, err := loadMarkdownTemplate("book.html", bookPath, map[string]interface{}{
-		"BookUnits": aside,
-		"Prev":      prevNav,
-		"Next":      nextNav,
+		"BookChapters": aside,
+		"Prev":         prevNav,
+		"Next":         nextNav,
 	})
 
 	if err != nil {

@@ -5,9 +5,9 @@
     <div class="content-summary">
         <span class="content-title">On This Page</span>
         <div class="content-list">
-            {{ range .Sections }}
-                <a href="#{{ .SectionTag }}">{{ .SectionTitle }}</a>
-            {{ end }}
+            {{ range .Headings }}
+                <a href="#{{ .HeadingTag }}">{{ .HeadingText }}</a>
+            {{ end }}   
         </div>
     </div>
 </div>

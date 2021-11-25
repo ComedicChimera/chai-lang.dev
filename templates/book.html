@@ -3,12 +3,12 @@
         <div class="book-toc-title">
             <a href="/docs/book">The Chai Book</a>
         </div>
-        {{ range .BookUnits }}
-            <div class="book-unit">
-                <span class="unit-title">{{ .UnitTitle }}</span>
-                <div class="chapter-list">
-                    {{ range .Chapters }}
-                        <a href="/docs/book/{{ .ChapterUnitHref }}/{{ .ChapterHref }}">{{ .ChapterTitle }}</a>
+        {{ range .BookChapters }}
+            <div class="book-chapter">
+                <span class="chapter-title">{{ .ChapterTitle }}</span>
+                <div class="section-list">
+                    {{ range .Sections }}
+                        <a href="/docs/book/{{ .SectionChapterHref }}/{{ .SectionHref }}">{{ .SectionTitle }}</a>
                     {{ end }}
                 </div>
             </div>
@@ -41,9 +41,9 @@
         <div class="content-summary">
             <span class="content-title">On This Page</span>
             <div class="content-list">
-                {{ range .Sections }}
-                    <a href="#{{ .SectionTag }}">{{ .SectionTitle }}</a>
-                {{ end }}
+                {{ range .Headings }}
+                    <a href="#{{ .HeadingTag }}">{{ .HeadingText }}</a>
+                {{ end }}     
             </div>
         </div>
     </div>
