@@ -98,7 +98,7 @@ func getBottomNav(chapters []*bookChapter, sectionPath string) (*bottomNav, *bot
 	chapter, section := sectionPathElems[0], sectionPathElems[1]
 
 	// get the chapter and section number
-	chapterN, err := strconv.Atoi(chapter[4:])
+	chapterN, err := strconv.Atoi(chapter[7:])
 	if err != nil {
 		return nil, nil, err
 	}
