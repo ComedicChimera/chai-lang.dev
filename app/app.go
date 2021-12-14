@@ -23,9 +23,9 @@ func Run(addr string) {
 
 	router.GET("/", Index)
 	router.GET("/docs", Docs)
-	router.GET("/docs/book", Book)
-	router.GET("/docs/book/*section-path", Section)
-	router.GET("/docs/module-schema", docsPage("module_schema.md"))
+	router.GET("/docs/spec", DocGroupIndex("Language Specification", "spec"))
+	router.GET("/docs/spec/*chapter-path", DocGroupChapter("Language Specification", "spec"))
+	router.GET("/docs/module-schema", DocPage("module_schema.md"))
 
 	router.Run(addr)
 }

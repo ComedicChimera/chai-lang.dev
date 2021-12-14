@@ -1,7 +1,6 @@
 package app
 
 import (
-	"fmt"
 	"html/template"
 	"io/ioutil"
 	"net/http"
@@ -61,100 +60,4 @@ func Index(c *gin.Context) {
 
 func Docs(c *gin.Context) {
 	renderBase(c, "docs | chai-lang.dev", "docs.html", "docs.scss", []string{"section-title", "doc-card"})
-}
-
-type bottomNav struct {
-	DestName string
-	Href     string
-}
-
-func Book(c *gin.Context) {
-	// build the aside
-	aside, err := getAside()
-	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
-		return
-	}
-
-	// load the markdown content
-	mdContent, err := loadMarkdownTemplate("book.html", "book/index.md", map[string]interface{}{
-		"BookChapters": aside,
-		"Prev":         nil,
-		"Next": &bottomNav{
-			DestName: "Hello World",
-			Href:     "/chapter1/section1",
-		},
-	})
-
-	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
-		return
-	}
-
-	// render it into the base template
-	c.HTML(http.StatusOK, "base.html", renderContent{
-		Title:      "book | chai-lang.dev",
-		Content:    template.HTML(mdContent),
-		PageStyle:  "book.scss",
-		Components: []string{"section-title"},
-	})
-}
-
-func Section(c *gin.Context) {
-	// build the aside
-	aside, err := getAside()
-	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
-		return
-	}
-
-	// calculate the bottom page navigation
-	sectionPath := c.Param("section-path")
-	prevNav, nextNav, err := getBottomNav(aside, sectionPath)
-	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
-	}
-
-	// load the markdown content
-	bookPath := fmt.Sprintf("book/%s.md", sectionPath)
-	mdContent, err := loadMarkdownTemplate("book.html", bookPath, map[string]interface{}{
-		"BookChapters": aside,
-		"Prev":         prevNav,
-		"Next":         nextNav,
-	})
-
-	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
-		return
-	}
-
-	// render it into the base template
-	c.HTML(http.StatusOK, "base.html", renderContent{
-		Title:      "book | chai-lang.dev",
-		Content:    template.HTML(mdContent),
-		PageStyle:  "book.scss",
-		Components: []string{"section-title"},
-	})
-}
-
-// -----------------------------------------------------------------------------
-
-func docsPage(mdPath string) func(*gin.Context) {
-	return func(c *gin.Context) {
-		// load the markdown content
-		mdContent, err := loadMarkdownTemplate("doc-page.html", mdPath, make(map[string]interface{}))
-
-		if err != nil {
-			c.AbortWithError(http.StatusInternalServerError, err)
-			return
-		}
-
-		// render it into the base content
-		c.HTML(http.StatusOK, "base.html", renderContent{
-			Title:      "docs | chai-lang.dev",
-			Content:    template.HTML(mdContent),
-			PageStyle:  "doc-page.scss",
-			Components: []string{"section-title"},
-		})
-	}
 }

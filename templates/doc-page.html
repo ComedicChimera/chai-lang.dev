@@ -12,12 +12,4 @@
     </div>
 </div>
 
-<script>
-    for (let elem of document.getElementsByTagName("pre")) {
-        if (elem.classList.length == 0) {
-            elem.classList.add("language-chai")
-        } else {
-            elem.setAttribute('class', `language-${elem.getAttribute('class')}`)
-        }
-    }
-</script>
+<script src="/static/js/doc.js" defer></script>

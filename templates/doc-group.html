@@ -1,0 +1,49 @@
+<div class="doc-container">
+    <aside>
+        <div class="doc-group-toc-title">
+            {{ .GroupTitle }}
+        </div>
+        <div class="doc-group-toc">
+            {{ range .Chapters }}
+                <div class="doc-chapter">
+                    <a href="{{ .Href }}">{{ .Title }}</a>
+                </div>
+            {{ end }}
+        </div>       
+    </aside>
+    <div class="doc-page">
+        <article>
+            {{ .Content }}
+            <div class="nav-buttons" x-data>
+
+                {{ if .Prev}}
+                    <div class="nav-button nav-prev" @click="window.location.href = '{{ .Prev.Href }}'">
+                        <feather-icon name="chevron-left" dim="70px"></feather-icon>
+                        <span class="nav-button-text">{{ .Prev.Title }}</span>
+                    </div>
+                {{ else }}
+                    <div class="nav-button nav-prev"></div>  
+                {{ end }}
+
+                {{ if .Next}}
+                    <div class="nav-button nav-next" @click="window.location.href = '{{ .Next.Href }}'">
+                        <span class="nav-button-text">{{ .Next.Title }}</span>
+                        <feather-icon name="chevron-right" dim="70px"></feather-icon>
+                    </div>
+                {{ else }}
+                    <div class="nav-button nav-next"></div>
+                {{ end }}
+            </div>
+        </article>
+        <div class="content-summary">
+            <span class="content-title">On This Page</span>
+            <div class="content-list">
+                {{ range .Headings }}
+                    <a href="#{{ .HeadingTag }}">{{ .HeadingText }}</a>
+                {{ end }}     
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/doc.js" defer></script>
