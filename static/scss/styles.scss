@@ -157,3 +157,11 @@ footer {
 code, .language-chai {
     font-family: $code-font, monospace !important;
 }
+
+a[name]::before {
+    content: '';
+    display: block;
+    height: 8rem;
+    margin-top: -8rem;
+    visibility: hidden; 
+}

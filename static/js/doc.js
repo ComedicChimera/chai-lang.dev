@@ -8,7 +8,8 @@ for (let elem of document.getElementsByTagName("pre")) {
 }
 
 // add subheading references
-for (let i in document.getElementsByTagName("h2")) {
+let sections = document.getElementsByTagName("h2")
+for (let i in sections) {
     let item = sections[i]
     item.innerHTML = `<a name="section${i}"/> ${item.innerText}`
 }

@@ -58,6 +58,36 @@ That is a lot of design philosophy to open even a fairly dry formal text, but
 I think it helps to inform some of the possibly odd design decisions made
 and expressed throughout this specification.
 
+## Notation
+
+This guide will present grammatical and lexical constructs using an augmented
+version of Extended Backus-Naur Form.  
+
+```ebnf
+production = 'IDENTIFIER' '=' expression ';' ;
+expression = alternative {'|' alternative} ;
+alternative = term {term} ;
+term = group | option | repeat | terminal ;
+group = '(' expression ')' ;
+option = '[' expression ']' ;
+repeat = '{' expression '}' ;
+terminal = 'LITERAL' | 'EPSILON' ;
+```
+
+The functions of the operator enumerated above are:
+
+| Operator | Function |
+| -------- | -------- |
+| `\|` | Alteration: any one of the alternatives is valid |
+| `{}` | Repetition: one or more of the contents |
+| `[]` | Option: zero or one of the contents |
+
+Literals denote a single lexical token that matches within the source text.
+Literals that are in all-caps correspond to special tokens whereas lowercase
+literals correspond directly to text within user source; however, it should be
+noted that all keywords assert an implicit word boundary (eg. `'key'` does not
+match the `key` in `keys`).
+
 ## Author's Note
 
 On a personal note, I designed Chai for me with my silly neuroses and perhaps
