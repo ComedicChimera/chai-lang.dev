@@ -57,7 +57,6 @@ values such as functions or variables.
 Identifiers must match the regular expression: `\b[a-zA-Z_]\w*`.  Below are
 some examples of valid identifiers:
 
-    # Valid
     a
     b10
     HEll0
