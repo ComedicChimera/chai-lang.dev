@@ -35,7 +35,7 @@ Prism.languages.chai = {
         
     ],
     'function-definition': {
-        pattern: /\bdef\b\s*[a-zA-Z_]\w*\b/,
+        pattern: /\bdef\b\s*[a-zA-Z_]\w*(?=\()\b/,
         inside: {
             'keyword': /\bdef\b/,
             'function': /[a-zA-Z_]\w*/,
@@ -79,7 +79,7 @@ Prism.languages.chai = {
         },
         // special
         {
-            pattern: /\b(from|import|pub|await|in|is|as|fn)\b/
+            pattern: /\b(from|import|pub|await|in|is|as|fn|then|catch|sizeof|with)\b/
         }
     ],
     'function': /[a-zA-Z_]\w*(?=\()/,

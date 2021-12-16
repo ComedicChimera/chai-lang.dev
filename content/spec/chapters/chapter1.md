@@ -10,10 +10,10 @@ Comments primarily serve as code documentation.
 
 Comments come in two varieties:
 
-1. A *line comment* begins with a `#` character and continues until the end of
-   the line.
-2. A *block comment* begins with the the sequence `#!` and continues until a
-   matching `!#` is found.  Block comments can span multiple lines.
+1.  A *line comment* begins with a `#` character and continues until the end of
+    the line.
+2.  A *block comment* begins with the the sequence `#!` and continues until a
+    matching `!#` is found.  Block comments can span multiple lines.
 
 Comments can not begin inside a rune literal, a string literal, or another
 comment.
@@ -51,7 +51,38 @@ newlines.  Finally, an end-of-file may also be counted as a newline.
 
 ## Identifiers
 
-TODO
+An **identifier** is a lexical token generally used for referring two named
+values such as functions or variables.
+
+Identifiers must match the regular expression: `\b[a-zA-Z_]\w*`.  Below are
+some examples of valid identifiers:
+
+    # Valid
+    a
+    b10
+    HEll0
+    _my_func
+    UserError
+    left4ded
+    pi
+
+Some identifiers are reserved as *keywords* meaning they have special syntactic
+significance.  Keywords cannot be used as regular identifiers.  A listing of all
+the keywords in Chai is provided below:
+
+    def     union  type    class   space  for  
+    oper    let    const   import  from   pub 
+    with    async  while   if      elif   closed
+    else    match  case    do      break  continue 
+    return  after  when    end     await  fallthrough
+    as      is     async   await   fn     then
+    catch   null   sizeof  i8      u8     i16
+    u16     i32    u32     i64     u64    nothing
+    f32     f64    string  bool    
+
+In addition to these reserved keywords, the `_` symbol also has special meaning
+and may not generally be used as an identifier.  Its relevancy to pattern
+matching will be discussed in more detail in later sections.
 
 ## Number Literals
 
