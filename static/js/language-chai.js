@@ -18,19 +18,19 @@ Prism.languages.chai = {
     'number': [
         // hex
         {
-            pattern: /\b0x[0-9A-Fa-f]+/
+            pattern: /\b0x[0-9A-Fa-f_]+/
         },
         // binary
         {
-            pattern: /\b0b[10]+/
+            pattern: /\b0b[10_]+/
         },
         // octal
         {
-            pattern: /\b0o[0-7]+/
+            pattern: /\b0o[0-7_]+/
         },
         // numeric
         {
-            pattern: /\b\d+(\.\d+)?([eE]\d+)?[ul]*/
+            pattern: /\b\d(_?\d)*(\.\d(_?\d)*)?([eE]\-?\d+)?[ul]*j?/
         }
         
     ],
@@ -119,7 +119,7 @@ Prism.languages.chai = {
             'punctuation': /,/
         }
     },
-    'entity': /[a-zA-Z_]\w*(?=\{)|\b(List|Dict|Array|Seq|Iter|Option|Result|Future|Strand)\b/,
+    'entity': /[a-zA-Z_]\w*(?=\{)|\b(List|Dict|Vec|Mat|Buff|Seq|Iter|Option|Result|Future|Strand)\b/,
     'operator': /[+\-*\/%&\^!|><=\~\?]/,
     'punctuation': /[{}[\];(),.:@]/,
     'boolean': /\b(true|false)\b/,

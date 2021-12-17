@@ -85,7 +85,96 @@ matching will be discussed in more detail in later sections.
 
 ## Number Literals
 
-TODO
+Chai provides four different kinds of number literals.  These literals
+correspond to a different set of possible types the literal can have.
+
+1. *Numeric Literals*: can be any numeric type
+2. *Float Literals*: can be any floating-point type
+3. *Integer Literals*: can be any integral type
+4. *Imaginary Literals*: can be any complex type
+
+> The specifics of these types will be discussed in later chapters.
+
+### Numeric Literals
+
+Numeric literals consist of any series of digits representing a base 10 integer.
+They may also contain arbitrary underscores separating digits.  These
+underscores do not have any effect on the value of the number; rather, they
+exist to make large literals easier to read.
+
+This can be represented exactly by the regular expression: `\b\d(_?\d)*`.
+
+Below are some examples of these literals:
+
+    45
+    7
+    1240
+    1_000_000
+
+### Float Literals
+
+Float literals are used to represent floating-point numbers.  Such numbers must
+either consist of a series of digits separated by a decimal point or by an
+exponent (scientific notation). A literal may also contain a decimal followed by
+an exponent. Decimals are denoted with the `.` character and exponents with
+either an `e` or an `E`.  Exponents can be negative; however, they must be
+integral.  Similar to numeric literals, underscores may be added in between
+digits before and after the decimal to improve clarity.
+
+This can be represented exactly by the regular expression:
+`\b\d(_?\d)*(\.\d(_?\d)*([eE]\-?\d+)|[eE]\-?\d+)`.
+
+Below are some examples of these literals:
+
+    3.141592
+    6.626e-34
+    81e9
+    6.022E23
+    10_000.123_456
+
+### Integer Literals
+
+Integer literals are used to represent integers non-base 10 integer numbers.
+They begin with a `0` followed by a *base prefix*: `b` for binary, `o` for
+octal, `x` for hexadecimal.  The "digits" of the literal are placed after
+this prefix.  These digits may be separated by underscores.
+
+Regular expressions for each literal are given below:
+
+- Binary: `0b[01](_?[01])*`
+- Octal: `0o[0-7](_?[0-7])*`
+- Hexadecimal: `0x[0-9a-fA-F](_?[0-9a-fA-F])*`
+
+Below are some examples of these literals:
+
+    0b1010
+    0xff
+    0o125
+    0xab_01_7E
+
+In addition, integer literals may also represent special kinds of base 10
+numbers: those which are explicitly unsigned or "long" (64 bits).  Such integers
+are represented by standard numeric literals followed by a suffix: `u` for
+unsigned or `l` for long. Integer literals may have both suffixes applied in any
+order.
+
+Below are examples of these literals:
+
+    1u
+    238l
+    67ul
+
+### Imaginary Literals
+
+Imaginary literals are used to represent the imaginary components of complex
+numbers. These literals are comprised of either a numeric or float literal
+followed immediately by `j` representing the imaginary number.
+
+Below are examples of these literals:
+
+    12j
+    21.5j
+    6.45e10j
 
 ## String Literals
 
