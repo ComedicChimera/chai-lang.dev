@@ -7,10 +7,16 @@ Prism.languages.chai = {
             pattern: /#.*/
         }
     ],
-    'string': {
-        pattern: /"(?:[^\\"]|\\.)*"/,
-        greedy: true
-    },
+    'string': [
+        {
+            pattern: /"(?:[^\\"]|\\.)*"/,
+            greedy: true
+        },
+        {
+            pattern: /`(?:\\`|[^`])*`/,
+            greedy: true
+        },
+    ],
     'char': {
         pattern: /'(?:[^\\']|\\.)*'/,
         greedy: true

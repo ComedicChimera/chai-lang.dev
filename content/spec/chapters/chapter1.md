@@ -135,9 +135,9 @@ Below are some examples of these literals:
 ### Integer Literals
 
 Integer literals are used to represent integers non-base 10 integer numbers.
-They begin with a `0` followed by a *base prefix*: `b` for binary, `o` for
-octal, `x` for hexadecimal.  The "digits" of the literal are placed after
-this prefix.  These digits may be separated by underscores.
+They begin with a `0` followed by a **base prefix**: `b` for binary, `o` for
+octal, `x` for hexadecimal.  The "digits" of the literal are placed after this
+prefix.  These digits may be separated by underscores.
 
 Regular expressions for each literal are given below:
 
@@ -176,10 +176,101 @@ Below are examples of these literals:
     21.5j
     6.45e10j
 
-## String Literals
-
-TODO
-
 ## Rune Literals
 
-TODO
+Rune literals are used to represent a single unicode character.  They consist of
+an arbitrary unicode character enclosed in single quotes.  Examples include:
+
+    'a'
+    ' '
+    'θ'
+
+Rune literals may not contain newlines or unescaped single quotes and backslashes. 
+
+With the exception of escape codes, rune literals may only contain a single
+character.
+
+### Escape Sequences
+
+To denote special characters such as newlines, single quotes, or backslashes,
+escape sequences must be used.  An escape sequence begins with a backslash
+followed by an **escape code**.  Below is a table of escape codes:
+
+| Code | Character |
+| ---- | --------- |
+| `a` | alert |
+| `b` | backspace |
+| `f` | form feed |
+| `n` | newline |
+| `r` | carriage return |
+| `t` | tab |
+| `v` | vertical tab |
+| `0` | null terminator |
+| `'` | single quote |
+| `"` | double quote |
+
+Additionally, Chai supports the use of Unicode escape codes to denote
+unicode characters numerically.  These escape codes begin with a prefix
+followed by a hexadecimal number corresponding to the escape code.
+
+| Code | Max Value | Length |
+| ---- | --------- | ------ |
+| `x` | 255 | 2 |
+| `u` | 65535 | 4 |
+| `U` | 4294967295 | 8 |
+
+Each hexadecimal number must be exactly the length corresponding to the prefix:
+zeroes may be added before as padding.
+
+Here are some examples of escape sequences:
+
+    '\n' # newline
+    '\'' # single-quote rune
+
+    '\u03A9' # upper case omega: Ω
+    '\xB0' # degree symbol: °
+
+## String Literals
+
+String literals represent strings of unicode, UTF-8 encoded, text.  These
+literals come in two flavors with different syntax and properties.
+
+### Standard String Literals
+
+Standard string literals are enclosed in double quotes and can contain any
+unicode characters except: newlines, unescaped backslashes, and unescaped double
+quotes.
+
+Standard string literals can contain escape sequences: these sequences behave
+identically to those in runes.
+
+    "Hello, world!"
+    "I\nam\non\nmany\nlines with a \t tab."
+
+    "\u03B8\xB0"
+
+    "Hello, 世界"
+
+### Raw String Literals
+
+Raw string literals are enclosed in backticks and may contain *any* character
+except an unescaped backtick.  These strings may span multiple lines and contain
+unescaped backslashes.  
+
+A backtick in a raw string literal may be escaped to prevent it from ending the
+literal by placing a backslash before it.  This is the only context in a raw
+string literal in which a backslash has any special functionality.
+
+Here are some examples of raw string literals:
+
+    `Hello, world!`
+
+    `I am
+    a multiline
+    string!`
+
+    `\d+(\.\d+)?`
+
+    `¡Hola!`
+
+    `My name is \`Bob\`!`
