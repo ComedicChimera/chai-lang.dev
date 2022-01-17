@@ -77,7 +77,7 @@ Prism.languages.chai = {
         },
         // data types
         {
-            pattern: /\b(bool|string|rune|byte|nothing|u(8|16|32|64)|i(8|16|32|64)|f(32|64))\b/
+            pattern: /\b(bool|string|rune|nothing|u(8|16|32|64)|i(8|16|32|64)|f(32|64)|c(64|128)|r(64|128))\b/
         },
         // modifier
         {

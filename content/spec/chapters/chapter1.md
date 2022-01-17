@@ -77,11 +77,22 @@ the keywords in Chai is provided below:
     as      is     async   await   fn     then
     catch   null   sizeof  i8      u8     i16
     u16     i32    u32     i64     u64    nothing
-    f32     f64    string  bool    
+    f32     f64    string  bool    super
 
 In addition to these reserved keywords, the `_` symbol also has special meaning
 and may not generally be used as an identifier.  Its relevancy to pattern
 matching will be discussed in more detail in later sections.
+
+### Intrinsic Constants
+
+Chai also reserves several identifiers as **intrinsic constants**: constants
+which refer to a specific value within the language.
+
+The identifiers `true` and `false` refer to the Boolean values of true and
+false respectively and always correspond to a boolean type.  These identifiers
+are often thought of as "boolean literals".
+
+The identifier `null` is used to refer to a type's *null value*.  
 
 ## Number Literals
 
