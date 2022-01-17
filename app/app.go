@@ -1,6 +1,10 @@
 package app
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 const templateDir = "./templates/"
 
@@ -25,6 +29,11 @@ func Run(addr string) {
 	router.GET("/docs", Docs)
 	router.GET("/docs/spec", DocGroupIndex("Language Specification", "spec"))
 	router.GET("/docs/spec/*chapter-path", DocGroupChapter("Language Specification", "spec"))
+	router.GET("/docs/tour", func(c *gin.Context) { c.Redirect(http.StatusPermanentRedirect, "/docs/tour/chapter1") })
+	router.GET("/docs/tour/chapter:chapter", Tour)
+
+	// Pre-run data loading (eg. tour chapter titles)
+	loadTourTitles()
 
 	router.Run(addr)
 }

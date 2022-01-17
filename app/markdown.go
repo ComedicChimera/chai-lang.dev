@@ -21,7 +21,8 @@ type mdHeading struct {
 	HeadingText, HeadingTag string
 }
 
-func loadMarkdownTemplate(htmlTemplatePath, markdownPath string, contextVars map[string]interface{}) (string, error) {
+// loadMarkdownContent loads a markdown file and converts it into HTML.
+func loadMarkdownContent(markdownPath string) (string, error) {
 	// load the markdown source
 	mdFile, err := os.Open(filepath.Join(contentPath, markdownPath))
 	if err != nil {
@@ -34,16 +35,6 @@ func loadMarkdownTemplate(htmlTemplatePath, markdownPath string, contextVars map
 		return "", err
 	}
 
-	// isolate the headings
-	var headings []*mdHeading
-	re := regexp.MustCompile(`\n##[^#\n]+\n`)
-	for i, match := range re.FindAllString(string(mdSrc), -1) {
-		headings = append(headings, &mdHeading{
-			HeadingText: strings.TrimRight(match[4:], "\n"),
-			HeadingTag:  fmt.Sprintf("section%d", i),
-		})
-	}
-
 	// convert the markdown
 	mdParser := goldmark.New(goldmark.WithExtensions(extension.Table), goldmark.WithRendererOptions(html.WithUnsafe()))
 	var mdBuff bytes.Buffer
@@ -52,10 +43,32 @@ func loadMarkdownTemplate(htmlTemplatePath, markdownPath string, contextVars map
 	}
 	mdHtml := mdBuff.String()
 
-	// replace/update HTML tags
+	// replace/update HTML tags (h1 is always converted to `section-title`)
 	mdHtml = strings.ReplaceAll(mdHtml, "h1", "section-title")
 
-	// load the html template
+	return mdHtml, nil
+}
+
+// loadMarkdownDocsTemplate loads a page of standard markdown documentation and
+// fills in the appropriate HTML template with its content.
+func loadMarkdownDocsTemplate(htmlTemplatePath, markdownPath string, contextVars map[string]interface{}) (string, error) {
+	// load the markdown content
+	mdHtml, err := loadMarkdownContent(markdownPath)
+	if err != nil {
+		return "", err
+	}
+
+	// isolate the headings
+	var headings []*mdHeading
+	re := regexp.MustCompile(`<h2>[^<]+</h2>`)
+	for i, match := range re.FindAllString(string(mdHtml), -1) {
+		headings = append(headings, &mdHeading{
+			HeadingText: strings.TrimRight(match[4:len(match)-5], "\n"),
+			HeadingTag:  fmt.Sprintf("section%d", i),
+		})
+	}
+
+	// load the HTML template
 	templ := template.Must(template.ParseFiles(filepath.Join(templateDir, htmlTemplatePath)))
 	var htmlBuff bytes.Buffer
 	contextVars["Content"] = template.HTML(mdHtml)

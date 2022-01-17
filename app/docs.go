@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"html/template"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"path"
@@ -20,7 +21,7 @@ import (
 func DocPage(mdPath string) func(*gin.Context) {
 	return func(c *gin.Context) {
 		// load the markdown content
-		mdContent, err := loadMarkdownTemplate("doc-page.html", mdPath, make(map[string]interface{}))
+		mdContent, err := loadMarkdownDocsTemplate("doc-page.html", mdPath, make(map[string]interface{}))
 
 		if err != nil {
 			c.AbortWithError(http.StatusInternalServerError, err)
@@ -53,7 +54,7 @@ func DocGroupIndex(docName, groupPath string) func(*gin.Context) {
 		prev, next := getBottomNav(0, aside)
 
 		// load the markdown content
-		mdContent, err := loadMarkdownTemplate("doc-group.html", filepath.Join(groupPath, "index.md"), map[string]interface{}{
+		mdContent, err := loadMarkdownDocsTemplate("doc-group.html", filepath.Join(groupPath, "index.md"), map[string]interface{}{
 			"GroupTitle": docName,
 			"Chapters":   aside,
 			"Prev":       prev,
@@ -78,14 +79,13 @@ func DocGroupIndex(docName, groupPath string) func(*gin.Context) {
 // DocGroupChapter returns a handler for retrieving a specific chapter of a
 // documentation group.
 func DocGroupChapter(docName, groupPath string) func(*gin.Context) {
-	return func(c *gin.Context) {
-		// build the aside
-		aside, err := getAside(groupPath)
-		if err != nil {
-			c.AbortWithError(http.StatusInternalServerError, err)
-			return
-		}
+	// build the aside (before loading the chapters)
+	aside, err := getAside(groupPath)
+	if err != nil {
+		log.Fatalf("failed to build aside for doc group `%s`: %s", docName, err.Error())
+	}
 
+	return func(c *gin.Context) {
 		// convert the chapter path into a chapter number
 		chapterPath := c.Param("chapter-path")
 		if chapterPath == "" {
@@ -103,7 +103,7 @@ func DocGroupChapter(docName, groupPath string) func(*gin.Context) {
 		prev, next := getBottomNav(chapterN, aside)
 
 		// load the markdown content
-		mdContent, err := loadMarkdownTemplate("doc-group.html", filepath.Join(groupPath, "chapters", fmt.Sprintf("chapter%d.md", chapterN)), map[string]interface{}{
+		mdContent, err := loadMarkdownDocsTemplate("doc-group.html", filepath.Join(groupPath, "chapters", fmt.Sprintf("chapter%d.md", chapterN)), map[string]interface{}{
 			"GroupTitle": docName,
 			"Chapters":   aside,
 			"Prev":       prev,
