@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 
-<html lang='en'>
+<html lang="en">
     <head>
-        <meta charset='utf-8'/>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
-        <meta http-equiv='X-UA-Compatible' content='IE=edge'/>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         
-        <meta name='application-name' content='chai-lang.dev'/>
-        <meta name='description' content='The Chai programming language website'/>
-        <meta name='keywords' content='chai programming language docs documentation community packages package'/>
+        <meta name="application-name" content="chai-lang.dev"/>
+        <meta name="description" content="The Chai programming language website"/>
+        <meta name="keywords" content="chai programming language docs documentation community packages package"/>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,15 +16,15 @@
         <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Karla:wght@300;400&family=Open+Sans&family=Roboto&display=swap" rel="stylesheet">
 
         <!-- Favicon -->
-        <link rel='icon' type='image/png' href='/static/images/chai_logo.png'/>
+        <link rel="icon" type="image/png" href="/static/images/chai_logo.png"/>
 
         <!-- Common Stylesheet -->
-        <link rel='stylesheet' type='text/css' href='/static/scss/styles.scss'/>
+        <link rel="stylesheet" type="text/css" href="/static/scss/styles.scss"/>
 
         <!-- Prism JS -->
-        <link rel='stylesheet' type='text/css' href='/static/vendor/prism.ghcolors.css'/>
-        <script src='/static/vendor/prism.js'></script>
-        <script src='/static/js/language-chai.js'></script>
+        <link rel="stylesheet" type="text/css" href="/static/vendor/prism/prism.ghcolors.css"/>
+        <script src="/static/vendor/prism/prism.js"></script>
+        <script src="/static/js/language-chai.js"></script>
 
         <!-- Feather Icons -->
         <script src="https://unpkg.com/feather-icons"></script>
@@ -35,15 +35,20 @@
 
         {{ if ne .PageStyle "" }}
             <!-- Page Specific Styles -->
-            <link rel='stylesheet' type='text/css' href='/static/scss/pages/{{ .PageStyle }}'/>
+            <link rel="stylesheet" type="text/css" href="/static/scss/pages/{{ .PageStyle }}"/>
         {{ end }}
 
         <!-- Components -->
         {{ range .Components }}
-            <link rel='stylesheet' type='text/css' href='/static/scss/components/{{.}}.scss'/>
-            <script src='/static/js/components/{{.}}.js' defer></script>
+            <link rel="stylesheet" type="text/css" href="/static/scss/components/{{.}}.scss"/>
+            <script src="/static/js/components/{{.}}.js" defer></script>
         {{ end }}
 
+        <!-- Code Mirror -->
+        {{ if .CodeMirror }}
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.css"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.js"></script>
+        {{ end }}
 
         <title>{{ .Title }}</title>
     </head>

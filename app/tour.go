@@ -63,6 +63,7 @@ func Tour(c *gin.Context) {
 		Content:    template.HTML(htmlBuff.String()),
 		PageStyle:  "tour.scss",
 		Components: []string{"section-title"},
+		CodeMirror: true,
 	})
 }
 

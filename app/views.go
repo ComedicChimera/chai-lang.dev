@@ -17,6 +17,7 @@ type renderContent struct {
 	Content    template.HTML
 	PageStyle  string
 	Components []string
+	CodeMirror bool
 }
 
 func loadViewContent(viewPath string) (string, error) {
