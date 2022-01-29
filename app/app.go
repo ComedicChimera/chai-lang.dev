@@ -1,8 +1,6 @@
 package app
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -29,11 +27,8 @@ func Run(addr string) {
 	router.GET("/docs", Docs)
 	router.GET("/docs/spec", DocGroupIndex("Language Specification", "spec"))
 	router.GET("/docs/spec/*chapter-path", DocGroupChapter("Language Specification", "spec"))
-	router.GET("/docs/tour", func(c *gin.Context) { c.Redirect(http.StatusPermanentRedirect, "/docs/tour/chapter1") })
-	router.GET("/docs/tour/chapter:chapter", Tour)
-
-	// Pre-run data loading (eg. tour chapter titles)
-	loadTourTitles()
+	router.GET("/docs/guide", DocGroupIndex("The Guide", "guide"))
+	router.GET("/docs/guide/*chapter-path", DocGroupChapter("The Guide", "guide"))
 
 	router.Run(addr)
 }

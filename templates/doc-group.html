@@ -35,14 +35,16 @@
                 {{ end }}
             </div>
         </article>
-        <div class="content-summary">
-            <div class="content-title">On This Page</div>
-            <div class="content-list">
-                {{ range .Headings }}
-                    <a href="#{{ .HeadingTag }}">{{ .HeadingText }}</a>
-                {{ end }}     
+        {{ if len .Headings | lt 0 }}
+            <div class="content-summary">
+                <div class="content-title">On This Page</div>
+                <div class="content-list">
+                    {{ range .Headings }}
+                        <a href="#{{ .HeadingTag }}">{{ .HeadingText }}</a>
+                    {{ end }}     
+                </div>
             </div>
-        </div>
+        {{ end }}
     </div>
 </div>
 
