@@ -1,6 +1,6 @@
 import println from io.std
 
-def gen_fib(n: i32) Lazy[i32]
+def gen_fib(n: i32) List[i32]
     let a, b = 0, 1
     for _ in 0..n
         a, b = b, a + b

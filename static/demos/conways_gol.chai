@@ -1,19 +1,19 @@
-import sequtil
+import sum, cartesian, .enumerate from sequtil
 import print from io.std
 import system, OS from os
 import sleep_millis from time
 
 const BOARD_SIZE: usize = 20
 
-let board: Array[bool, BOARD_SIZE, BOARD_SIZE]
+let board: Mat[bool, BOARD_SIZE, BOARD_SIZE]
 
-let kernel = sequtil.cartesian([-1, 0, 1]) 
+let kernel = cartesian([-1, 0, 1]) 
 
-def next_board() Array[bool, BOARD_SIZE, BOARD_SIZE] =
+def next_board() Mat[bool, BOARD_SIZE, BOARD_SIZE] =
 	# no cast necessary -- sequences are type classes
-	for y, row in sequtil.enumerate(board)
-		for x, cell in sequtil.enumerate(row)
-			let num_alive = sequtil.sum(
+	for y, row in board.enumerate()
+		for x, cell in row.enumerate()
+			let num_alive = sum(
 				for x_off, y_off in kernel
 					let x_pos = x + x_off, 
 						y_pos = y + y_off
@@ -25,9 +25,9 @@ def next_board() Array[bool, BOARD_SIZE, BOARD_SIZE] =
 			)
 
 			match num_alive
-				case 2 -> cell
-				case 3 -> true
-				case _ -> false
+				case 2 => cell
+				case 3 => true
+				case _ => false
 			end
 		end
 	end
@@ -41,13 +41,13 @@ def main()
 		board = next_board()
 
 		system(
-			if OS == "windows" -> "cls" 
-			else -> "clear" end
+			if OS == "windows" => "cls" 
+			else => "clear" end
 		)
 
 		for row in board
 			for cell in row
-				print(if cell -> '*' else -> ' ' end)
+				print(if cell => '*' else => ' ' end)
 			end
 
 			print('\n')
