@@ -135,7 +135,7 @@ expressions later).  We denote this by writing an `=` after the signature.
 
 Finally, we get to the actual meat of the body.  We want to print to the console
 so we are going to call our `println` function from earlier.  To do this,
-we start by placing its name `println`, followed by a pair of parentheses which
+we start by placing its name, `println`, followed by a pair of parentheses which
 will contain the arguments we are passing to `println`. 
 
 The only argument `println` accepts is a **string** which contains the text we
@@ -188,7 +188,7 @@ Viola!  Our program works!  Congratulations, you just wrote your first Chai
 program!
 
 > **Exercise**: Modify the *Hello World* program to print *Hello Chai!* instead
-> of *Hello World*.
+> of *Hello World!*.
 
 There is a small shortcut to the above process: you can compile and run your
 program with a single command:
@@ -197,5 +197,5 @@ program with a single command:
 >> chai run .
 ```
 
-This will also "clean up" the executable after it runs it so you won't have a
+This will also "clean up" the executable after it runs it, so you won't have a
 lingering executable file if you just wanted to quickly test your program.
