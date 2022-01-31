@@ -12,8 +12,8 @@ Comments come in two varieties:
 
 1.  A *line comment* begins with a `#` character and continues until the end of
     the line.
-2.  A *block comment* begins with the the sequence `#!` and continues until a
-    matching `!#` is found.  Block comments can span multiple lines.
+2.  A *block comment* begins with the the sequence `#{` and continues until a
+    matching `}#` is found.  Block comments can span multiple lines.
 
 Comments can not begin inside a rune literal, a string literal, or another
 comment.

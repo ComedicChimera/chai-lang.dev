@@ -19,16 +19,16 @@ end of the line.
 
     # This is a line comment
 
-The other variety of comment is enclosed between a `#!` and a `!#`.  All
+The other variety of comment is enclosed between a `#{` and a `}#`.  All
 the text between those two pairs of characters will be ignored.  These comments
 can span multiple lines or be squeezed into the middle of line.
 
-    #! This
+    #{ This
     is a
     block
-    comment !#
+    comment }#
 
-    code #! This is also a block comment !# more code
+    code #{ This is also a block comment }# more code
 
 Notably, comments don't "nest": a comment including inside another comment has
 no meaning beyond simply being text inside that comment.  

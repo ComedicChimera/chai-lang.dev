@@ -1,7 +1,7 @@
 Prism.languages.chai = {
     'comment': [
         {
-            pattern: /(#![^(\\\*)]*!#)/
+            pattern: /(#\{[^(\\\*)]*\}#)/
         },
         {
             pattern: /#.*/
