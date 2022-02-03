@@ -2,7 +2,9 @@
 
 This chapter is going to cover an assortment of basic topics in the language
 that are just essential to do anything remotely useful: this will be our
-"lightning round" so to speak.
+"lightning round" so to speak.  
+
+TODO: decide whether to split this chapter up or not
 
 ## Comments
 
@@ -42,6 +44,8 @@ programming language.  Unfortunately, numbers in many programming languages can
 be a bit arcane and while Chai tries to avoid this confusion as much as
 possible, there are still some common pitfalls worth mentioning.
 
+### The Type System
+
 Before we can discuss numbers, we need to introduce the concept of a **type**.
 In short, a type (also called a *data type*) is way of classifying data. See, to
 computers, all data is simply stored as binary, 1s and 0s.  Types give us a way
@@ -67,6 +71,8 @@ representing all real numbers).  Each type has a **type label** which is a
 special keyword or expression used to label values as being of that type.  Each
 type also has a fixed bit size: a value of that type will occupy precisely that
 number of bits. 
+
+### Integral Types
 
 For integers, there are a total of 8 types: a signed and an unsigned variant for
 each of four sizes.  **Signedness** refers to whether or not the type can be
@@ -97,7 +103,52 @@ With all that annoying garbage out of the way, here are the types:
 
 The keywords on the left are the type labels for those integers.
 
-TODO: floats, literals, and operators
+### Floating-Point Types
+
+Chai provides only two floating-point types whose labels are `f32` and `f64`
+respectively.  As with integers, the number at the end corresponds to the size:
+32-bits (single-precision) and 64-bits (double-precision).  
+
+The meaning of that size is a bit more complex in the case of floating-point
+types.  Floating-point types and floating-point math in general is compliant
+with and specified by a standard known as IEEE-754.  If you have a whole lot of
+time to kill and perhaps take delight in reading dull, dense engineering jargon,
+then you are welcome to read the standard yourself.  If not, then I will try to
+hit the highlights here for you.  I should also note that I am going to use the
+term "float" to refer to floating-point values from here on out.  I mention this
+because to many C, C++, Java programmers, the term float corresponds to
+specifically the 32-bit variety of floating-point numbers.  However, since Chai
+simply uses sizes to denote types, I will consider myself free to use the term
+"float" to mean all kinds of floating-point values.
+
+The most basic principle is the, unlike integers, while floats do have maximum
+and minimum possible values, these values are so astronomically large and small
+that there are very rarely worth consideration.  Instead, they have a
+*precision*: it determines how accurately they can represent a value.  In simple
+terms, a float is essentially represented as
+[scientific notation](https://en.wikipedia.org/wiki/Scientific_notation).  There
+is an exponent which occupies a finite number of bits and a base (or as us
+Computer Science nerds refer to it, the "mantissa") which also occupies a finite
+number of bits.  As your values get larger or smaller, that exponent gets larger
+and smaller and the number of actual "digits" in number itself increases (eg.
+10^10 has 11 digits). However, floats can only represent so many of those digits
+as the numbers grow larger and smaller.  For example, a float might only be to
+represent less than a 20 of the digits of PI because it runs out digits to store
+into.  This is what we mean by precision.
+
+Another important detail about floats is that they are always signed: there is
+no such thing as an unsigned float.
+
+The most notable and dangerous quirk about floats in day to day use has to do
+with arithmetic which we will get to shortly.
+
+### Literals
+
+TODO
+
+### Arithmetic
+
+TODO
 
 ## Variables
 
