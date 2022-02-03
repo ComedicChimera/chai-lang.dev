@@ -1,10 +1,14 @@
-# The Basics
+# Numbers and Types
 
-This chapter is going to cover an assortment of basic topics in the language
-that are just essential to do anything remotely useful: this will be our
-"lightning round" so to speak.  
+We now arrive at the ever-boring and often confusing discussion of the
+representation of numbers.  Given that computers were spawned forth from
+calculators, it only makes sense that numbers would be a critical part of any
+programming language.  Unfortunately, numbers in many programming languages can
+be a bit arcane and while Chai tries to avoid this confusion as much as
+possible, there are still some common pitfalls worth mentioning.
 
-TODO: decide whether to split this chapter up or not
+However, before we begin with numbers, there is one small topic, we need to
+discuss first.
 
 ## Comments
 
@@ -34,17 +38,7 @@ can span multiple lines or be squeezed into the middle of line.
 
 Notably, comments don't "nest": a comment including inside another comment has
 no meaning beyond simply being text inside that comment.  
-
-## Numbers and Types
-
-We now arrive at the ever-boring and often confusing discussion of the
-representation of numbers.  Given that computers were spawned forth from
-calculators, it only makes sense that numbers would be a critical part of any
-programming language.  Unfortunately, numbers in many programming languages can
-be a bit arcane and while Chai tries to avoid this confusion as much as
-possible, there are still some common pitfalls worth mentioning.
-
-### The Type System
+## The Type System
 
 Before we can discuss numbers, we need to introduce the concept of a **type**.
 In short, a type (also called a *data type*) is way of classifying data. See, to
@@ -72,7 +66,7 @@ special keyword or expression used to label values as being of that type.  Each
 type also has a fixed bit size: a value of that type will occupy precisely that
 number of bits. 
 
-### Integral Types
+## Integral Types
 
 For integers, there are a total of 8 types: a signed and an unsigned variant for
 each of four sizes.  **Signedness** refers to whether or not the type can be
@@ -103,7 +97,7 @@ With all that annoying garbage out of the way, here are the types:
 
 The keywords on the left are the type labels for those integers.
 
-### Floating-Point Types
+## Floating-Point Types
 
 Chai provides only two floating-point types whose labels are `f32` and `f64`
 respectively.  As with integers, the number at the end corresponds to the size:
@@ -142,15 +136,84 @@ no such thing as an unsigned float.
 The most notable and dangerous quirk about floats in day to day use has to do
 with arithmetic which we will get to shortly.
 
-### Literals
+## Literals
+
+A **literal** is a lexical (textual) representation of a specific value.  For
+example, the text `12` is a literal representation of the number twelve.
+
+Chai provides several different kinds of literals for representing numbers each
+of which has an association with a certain subset of numeric types. What this
+means is that some literals will only be usable as certain types of numbers.
+For example, the literal `1.2` can only be a float since integers can't have
+decimals. 
+
+Let's start with the simplest kind of literals: *number literals*.  There
+are simply whole numbers:
+
+    12
+    42
+    8
+    0
+    12765
+    100_000  
+    2_345_990_000_123
+
+These literals can be used for any numeric type but default to integers.  What
+this means is that although they can be used to indicate both floats and
+integers, in the absence of other information, the compiler will assume they are
+integers, specifically an `i64`.  (TODO: update with final decision on this
+topic).
+
+Notice that you can insert underscores into the literals to help make them
+easier to read.  This is true with all numeric literals.
+
+The next kind of literals are *float literals*.  There is a bit more variety
+with these so let's just see some examples:
+
+    # Decimal Notation
+    3.141592
+    567.89
+    100_000.567_897
+    0.42
+
+    # Scientific Notation
+    1e9
+    6.626e-34
+    12.2E3
+    1.602E-19
+    10.024e12
+    100E4
+    11_234e-1
+
+All these literals can only be floats and will default to the type `f64`.
+
+Finally, there are *integral literals* which only correspond to integer types.
+These literals are primarily used for notating numbers in other bases.  Chai
+supports base 2 (binary), base 8 (octal), and base 16 (hexadecimal).  Each of
+these literals begins with a specific prefix and has a specific set of digits
+that can be used in them.
+
+| Base | Prefix | Digits |
+| ---- | ------ | ------ |
+| 2 | 0b | `0`, `1` |
+| 8 | 0o | `0` - `7` |
+| 16 | 0x | `0` - `9`, `a` - `f`, `A` - `F` |
+
+Here are some examples of literals in these bases:
+
+    0b101010
+    0xff
+    0o172
+    0xAe23
+    0b110
+    0o23456
+
+These will default to the type `i64`.
+
+## Arithmetic
 
 TODO
 
-### Arithmetic
+## Type Casting
 
 TODO
-
-## Variables
-
-## Command-Line Input
-
