@@ -47,16 +47,15 @@ to give those binary digits special meaning based on how we want to use them.
 Formally, a type is a set of possible values and operations that can be applied
 to and between those values.
 
-Chai is a *strongly* and *statically* typed programming language.  
-**Strong typing** means that generally types don't mix: if a value is expected
-to be of a specific type, then it must be exactly that type.  It also means that
-the compiler will avoid doing *type coercion*: implicitly converting a value of
-one type to another.  **Static typing** means that everything must have a
-well-defined, known type at compile-time.  Furthermore, any value can only have
-*one* type that cannot change during program execution.  This is distinct from
-interpreted languages like Python or Javascript where types change all the time,
-and it can be impossible to know the type of something until you run the
-program.
+Chai is a *strongly* and *statically* typed programming language.  **Strong typing** 
+means that generally types don't mix: if a value is expected to be of a specific
+type, then it must be exactly that type.  It also means that the compiler will
+avoid doing *type coercion*: implicitly converting a value of one type to
+another.  **Static typing** means that everything must have a well-defined,
+known type at compile-time.  Furthermore, any value can only have *one* type
+that cannot change during program execution.  This is distinct from interpreted
+languages like Python or Javascript where types change all the time, and it can
+be impossible to know the type of something until you run the program.
 
 This discussion of typing brings us to the set of **numeric types**: types used
 for numbers.  Generally, these types split into two groups: integral (used for
@@ -212,8 +211,95 @@ These will default to the type `i64`.
 
 ## Arithmetic
 
-TODO
+Chai supports several arithmetic operations by default including:
 
-## Type Casting
+| Operator | Operation |
+| -------- | --------- |
+| `+` | Addition |
+| `-` | Subtraction |
+| `*` | Multiplication |
+| `/` | Division |
+| `%` | Modulo (remainder of a division operation) |
+| `**` | Raise to a Power |
 
-TODO
+All these operations work on all numeric types but expect both their operands to
+be of the same type.  They also return the same type as their operands.  The operators
+also respect precedence (eg. multiplication before addition).  When two operations
+are of equal precedence, they are executed left to right.  Here is brief listing
+of operators in order from highest to lowest precedence.
+
+1. `**`
+2. `*`, `/`, `%`
+3. `+`, `-`
+
+Here are some examples of this arithmetic operators in action:
+
+    1 + 1       # => 2
+    2 - 5 * 6   # => -28
+    4.5 / 2     # => 2.25
+    5 % 2       # => 1
+    78 + 23 - 4 # => 97
+
+You can also use parentheses to group terms and elevate the precedence of
+sub-expressions.
+
+    (4 + 5) * (7 - 2)       # => 45
+    3 * (72 / 6)            # => 36
+    (3 + 6 * 8) * (33 - 27) # => 306
+
+
+You can use a `-` sign as a prefix to an expression to negate the result.
+
+    -4 * 5          # => -20
+    78 + -5         # => 73
+    -(7 + 8) * 2    # => 30
+    -4 - -6.2       # => 2.2
+    -7 * -(3 + 2.5) # => 38.5
+
+There are some notable caveats worth mentioning.  Firstly, the division operator
+works in two modes depending on the types of its operands: integer division and
+floating-point division.  Integer division returns the largest whole number
+quotient of the two numbers.  Floating-point division performs fully accurate
+decimal division. 
+
+    7 / 2   # => 3   (integer division)
+    7.0 / 2 # => 3.5 (float division)
+
+    8 / 12   # => 0    (integer division)
+    8 / 12.0 # => 0.75 (float division)
+
+Secondly, the power operator only works for non-negative integer powers by
+default. 
+
+    5 ** 2   # => 25
+    0.5 ** 3 # => 0.125
+    3 ** 0.5 # ERROR
+
+You can however import the additional functionality for fractional and negative
+exponents by placing the following line at the top of your file:
+
+    import (**) from math
+
+This is called an *operator import*: we will take a look at them in a much later
+chapter.  With this import, you can now do operations like the following:
+
+    2 ** 0.5 # => 1.41421356
+    3 ** -1  # => 0.33333333    
+
+Finally, it is worth noting that arithmetic involving floating-point numbers can
+often be a bit strange.  For example, consider the simple addition below:
+
+    0.1 + 0.2
+
+Intuitively, we would expect this to yield `0.3`.  But, as any seasoned programmer
+will tell you, this is not the case.  Instead, when you perform this addition,
+the following is produced.
+
+    0.1 + 0.2  # => 0.30000000000000004
+
+This is called a **floating-point rounding error**.  It is a systemic problem
+with how computers represent decimal numbers according to the floating-point
+standard. There really isn't anyway to prevent it other than to be aware that it
+exists and design your code with these kinds of errors in mind.  Feel free to
+read up on floating-point errors if you would like to know more, but for now, we
+will conclude our discussion of arithmetic.
