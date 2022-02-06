@@ -83,7 +83,7 @@ to store values.
 
 Variable declarations begin with the `let` keyword followed by name and an
 **initializer**. The initializer contains the initial value that will be stored
-in the variable. Let's look at an example.
+in the variable.  Let's look at an example.
 
     let x = 10
 
@@ -95,16 +95,149 @@ We can then access this value later by simply using the variable's name.
     let y = x * 2
 
 All variables also have a fixed type.  For example, `x` and `y` both store
-numbers, specifically numbers of a type of `i64`.  
+numbers, specifically numbers of a type of `i64`.  This type is *inferred*
+from the type of the expression that is used to initialize them.
 
 If you want to specify the type of a variable, you can use a **type label**.
 
     let pi: f64 = 3.14159264
 
-TODO
+Only one variable with a given name can be declared in a given scope.
+
+    let x = 5.5  # ERROR
+
+You can also declare multiple variables at once by separating them with commas.
+
+    let z = 78, u = -12.56 * pi
 
 ## Assignment
 
-## Command-Line Input
+All variables in Chai are **mutable** meaning you can change their value after
+you assign to them.  Changing a variables value is called **assignment** and is
+done using the `=` operator.  Assignment constitutes its own statement.
 
+    let name = "Bob"
+
+    println(name)  # prints Bob
+
+    name = "Alice"
+
+    println(name)  # prints Alice
+
+A variable's type cannot change during program execution: so, you can only assign
+a value to variable that is the same as the type of that variable.
+
+    let x = 5.6
+
+    x = "Hello"  # ERROR
+
+At this point, it is worth talking a little bit more about type inference.  Let's
+consider a simple example:
+
+    let y = 5
+
+    y = 0xff
+
+    y = 5.5
+
+If you try and compile the code above, you will get a compilation error on the
+third line.  It will look like this:
+
+```text
+no type overload of `{int}` matches type `{float}`
+```
+
+This is a bit of odd error considering the circumstances: what is the compiler
+trying to tell you?  In order to understand why this happened, we need to
+understanding how Chai determines the type of something.
+
+Essentially, it starts with a set of possible types for something and slowly
+prunes those possible types down as it learns more about your program.  Let's
+start with line 1.
+
+    let y = 5
+
+Here, Chai doesn't know much about the type of `y`.  Since `5` is a number
+literal, Chai only knows that `y` must be a numeric type, but it doesn't know
+which of the many types that are available.
+
+Proceeding to line 2:
+
+    y = 0xff
+
+Because `0xff` is an integer literal, Chai now knows that `y` must be an integer:
+all the float types are no longer considered viable types for `y`.  So when Chai
+reaches line 3:
+
+    y = 5.5
+
+It sees that `y` is being assigned to a float type, but it also knows that `y`
+can only be an integer.  Thus, it encounters a type mismatch between the set of
+possible types of `y` and the set of possible types of `5.5`: there is no overlap.
+This is why Chai produces an error.  
+
+The language of the error is also relevant.  Chai refers to something called a
+**type overload**.  As you may be able to guess, a type overload is the formal
+name from one of the possible type possibilities.  All the possible types of `y`
+are called the **type overload set** of `y`.  
+
+Now, we can actually interpret what the compiler is trying to tell us.  
+
+```text
+no type overload of `{int}` matches type `{float}`
+```
+
+Reading it directly, it saying that no type overload of `{int}`, meaning no
+possible type of integer, matches (or is in) the set of float types.
+
+### Compound Assignment
+
+Now let's take a break from type mumbo jumbo and take a look at a cool bit of
+syntactic sugar.  Suppose you have a variable `a` as defined below:
+
+    let a = 10
+
+Now, suppose you want to double `a` (multiply it by 2).  You could write:
+
+    a = a * 2
+
+However, this line is fairly repetitive and as you will discover a common task.
+So, Chai gives us a shorthand.
+
+    a *= 2
+
+This is exactly equivalent to the previous line, just with few characters.  This
+is called **compound assignment**.  You can do this with all the arithmetic
+operators:
+
+    a += 6  # a = a + 6
+
+    a /= 2  # a = a / 2
+
+By far the most common task out of all compound assignments is adding and
+subtracting one, also known as incrementing and decrementing.  Using compound
+assignment, we can shorten these to:
+
+    a += 1  # increment
+    a -= 1  # decrement
+
+However, for this special case, Chai offers yet another little bit of shorthand.
+
+    a++  # increment
+    a--  # decrement
+
+Once again, this code is exactly equivalent to the previous pair of lines, just
+shorter.
+
+### Multi-Assignment
+
+TODO
+
+## Command-Line Input and Output
+
+TODO
+
+### Reading Integers
+
+TODO
 
