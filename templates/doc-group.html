@@ -4,9 +4,14 @@
             {{ .GroupTitle }}
         </div>
         <div class="doc-group-toc">
-            {{ range .Chapters }}
+            {{ range $index, $element := .Chapters }}
                 <div class="doc-chapter">
-                    <a href="{{ .Href }}">{{ .Title }}</a>
+                    {{ if eq $index 0 }}
+                     <a href="{{ .Href }}">{{ $element.Title }}</a>
+                    {{ else }}
+                        <a href="{{ .Href }}"><strong>{{ $index }}.</strong> {{ $element.Title }}</a>
+                    {{ end }}
+                    
                 </div>
             {{ end }}
         </div>       
