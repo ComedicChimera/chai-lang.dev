@@ -110,6 +110,36 @@ You can also declare multiple variables at once by separating them with commas.
 
     let z = 78, u = -12.56 * pi
 
+Variable names can be single letters as we have already seen or they can be full
+words or even combinations of words.  However, there are some restrictions.
+
+1. Variable names cannot begin with numbers.
+2. Variable names can only contain letters (upper and lower), numbers, and underscores.
+3. A single underscore is not a valid variable name.
+4. A variable name may not be the same as a keyword.
+
+Here are some examples of valid variable names.
+
+    my_var
+    var123
+    YOUR_VARIABLE
+    eggMan
+    _i_like_pancakes__
+    a0b1x_12
+
+Although many kinds of variable names are allowed, the convention in Chai is to
+name variables using all lowercase letters and separate words with underscores.
+This is called *snake case*.  Here are some examples:
+
+    token
+    app_name
+    password
+    count_of_items
+    length_of_dataset
+
+The [Style Guide](/docs/style-guide) has a more definitive list of standards for
+naming conventions.
+
 ## Assignment
 
 All variables in Chai are **mutable** meaning you can change their value after
@@ -231,13 +261,192 @@ shorter.
 
 ### Multi-Assignment
 
-TODO
+You can also assign to multiple values at once.
+
+    let a, b: i32
+
+    a, b = 0, 1
+
+The position of the variable on the left corresponds to the position of the
+value that is assigned to it on the right.  For example, in the above code, `a`
+is assigned to `0`, and `b` is assigned to `1`.
+
+Intuitively, one might think that you can simply decompose multi-assignments
+into two separate assignment statements, but this is in fact not the case.
+Let's consider an example to understand why:
+
+    a, b = b, a
+
+This code does exactly what you would expect it to do: it swaps the values of
+`a` and `b`.  But, if you decompose it into two separate statements, the
+result actually changes:
+
+    a = b
+    b = a
+
+Following the execution of that code, you see that it really doesn't have the
+intended behavior: first `a` is assigned to `b` and then `b` is assigned to `a`
+which now holds the value of `b` so `b` is assigned to itself. 
+
+This is ultimately because the multi-assignment is *not* equivalent to the two
+separate statements.  In the case of multi-assignment, Chai fully evaluates
+the right-hand side of the assignment statement before it stores the results
+into the variables.  This means that swapping code is actually equivalent to:
+
+    let a_temp = a
+    let b_temp = b
+
+    a = b_temp
+    b = a_temp
+
+Obviously, the Chai compiler will generate code that is a bit more optimized
+than the above, but the premise still holds.  
+
+You can also use compound assignment operators with multi-assignment.
+
+    let x = 5.6, y = 7.2
+
+    x, y *= 2, 3  # x = 11.2, y = 21.6
+
+Multi-assignment is an amazing tool that you are encouraged the use plentifully.
+It helps make code cleaner and more concise without losing meaning.
 
 ## Command-Line Input and Output
 
-TODO
+In Chapter 1, we introduced the `println` function to print strings to the
+console. Now that we know a little bit more about Chai, it is time that we
+discuss some other means of interacting with the command-line.
 
-### Reading Integers
+First things first, the `println` function doesn't only work with strings.
+You can also print numbers to the command-line just as easily.
 
-TODO
+    println(12)  # prints 12
 
+You will find that most types that ship with Chai either as part of the core
+language or standard library are acceptable as arguments to `println`.  In a
+later chapter, we will learn how to make our own types "Showable".
+
+Often, however, we don't just want to print things to the command-line, we also
+want to read things in.  After all, what good is a program that can't respond to
+input!
+
+Command-line input is a bit more complicated than output.  We will introduce
+some basic tools in this chapter and elaborate more upon them in later chapters.
+
+Let's start with the basics.  First things first, we need to bring in some more
+functions from `io.std`.  The function we want to bring in now is called
+`scanln`. We can do this by simply adding another name to the import statement.  
+
+    import println, scanln from io.std
+
+`scanln` is the exact opposite of `println`: it reads a line from the console
+and drops the newline.  It returns the line it reads in as a string.  To get the
+return value of a function, we simply store the "result" of calling it as a
+value.  To understand what this means, let's look at example.  Below is a simple
+program which inputs a line and then prints it right back out.
+
+    let line <- scanln()
+
+    println(line)
+
+If you run this program, you should see behavior like the following:
+
+```text
+>> Hello!
+Hello!
+```
+
+You may notice something a bit unusual about the variable declaration: I used an
+`<-` instead of an `=`.  This is because `scanln` actually returns something
+called a `Result` type that conditionally contains the string value of the line
+if Chai succeeds in reading from the command-line.  We will learn much more
+about `Result` and that special `<-` in later chapters, but for now, just know
+that whenever you use `scanln`, you need to use the `<-` instead of an `=`. Note
+that this is also true in assignment:
+
+    let line: string
+
+    line <- scanln()
+
+    println(line)
+
+Often, we also want to read in numbers.  To do this, we are going to need a
+function called `scanf`.  We can amend our import statement to bring it in
+instead of `scanln`.
+
+    import println, scanf from io.std
+
+`scanf` is a special function that performs something called *formatted I/O*.
+Basically, it allows us to extract values from user input by providing a pattern
+we want that input to fit. 
+
+Additionally, you will note that `scanf` doesn't actually return the value it
+reads in.  This is because `scanf` can actually read many values from the
+command-line instead of just one like `scanln`.  So, we instead use something
+called a *reference*.  Essentially, references give us a way to store into
+variables without knowing the name or location of the variable.  References are
+massive topic in Chai that will take up a whole chapter later on.  But, because
+they are so integral to Chai, it is good to exposed to them early. 
+
+As you might be able to tell, there is a lot more going on here than I have
+space to explain to you in this chapter.  One might argue that I am jumping
+quite a bit ahead, but considering as reading in numbers from the command-line
+is such an important skill, I am going to, for now, just give you a pattern to
+copy whenever you need to read in a number using `scanf`.  
+
+Here is a sample call to `scanf`.  
+
+    let d: i64
+    scanf("{}\n", &d)
+
+As you can see, `scanf` is taking two arguments separated by commas.  The first
+argument is a special string that essentially tells `scanf` how we want our value
+to be read in.  In this case, we only want to read one value on its own line.
+The second argument is a reference to the variable where we want to store the scanned
+value.  That `&` is the symbol we use to create a reference. 
+
+As an example of this special usage of `scanf`, here is a program that read in a
+number, squares it, and prints the result of the squaring.
+
+    let input: f64
+
+    scanf("{}\n", &input)
+
+    println(input ** 2)
+
+Here is an example of running this program:
+
+```text
+>> 5
+25
+```
+
+There are two things worth noting here.  
+
+Firstly, we didn't need to change that `scanf` line at all to account that we
+are scanning in a float instead of an integer. This is because `scanf` knows
+from the type of `input` what kind of value to scan in.  
+
+Secondly, if it was not already obvious, functions accept full expressions as
+their arguments so we can perform the squaring inside the call to `println`: the
+expression is evaluated, and the result passed to `println`.
+
+One final note on `scanf`: what happens if the user enters something you don't
+expect?  While we don't yet know how to deal with errors, you can already learn
+how to identify the behavior.  For numbers, all that will happen if we run the
+program and input something that Chai can't convert into a number is that nothing
+will be stored into `input` meaning it will have its default value of `0`.  For
+example,
+
+```text
+>> hello
+0
+```
+
+`hello` can't be converted into a number.  So nothing gets stored into `input`.
+In later chapters, we will learn how to more effectively deal with errors like
+this.  However, this knowledge should at least help you eliminate bugs in your
+programs.
+
+> **Exercise:** Write a program that prompts the user to enter two numbers and
+> prints their product.

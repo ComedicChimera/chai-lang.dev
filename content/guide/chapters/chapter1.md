@@ -187,7 +187,7 @@ Hello World!
 Viola!  Our program works!  Congratulations, you just wrote your first Chai
 program!
 
-> **Exercise**: Modify the *Hello World* program to print *Hello Chai!* instead
+> **Exercise:** Modify the *Hello World* program to print *Hello Chai!* instead
 > of *Hello World!*.
 
 There is a small shortcut to the above process: you can compile and run your
