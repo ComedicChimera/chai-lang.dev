@@ -209,6 +209,8 @@ Here are some examples of literals in these bases:
 
 These will default to the type `i64`.
 
+<guide-exercise label="2.1"></guide-exercise>
+
 ## Arithmetic
 
 Chai supports several arithmetic operations by default including:
@@ -247,7 +249,6 @@ sub-expressions.
     3 * (72 / 6)            # => 36
     (3 + 6 * 8) * (33 - 27) # => 306
 
-
 You can use a `-` sign as a prefix to an expression to negate the result.
 
     -4 * 5          # => -20
@@ -255,6 +256,8 @@ You can use a `-` sign as a prefix to an expression to negate the result.
     -(7 + 8) * 2    # => 30
     -4 - -6.2       # => 2.2
     -7 * -(3 + 2.5) # => 38.5
+
+<guide-exercise label="2.2"></guide-exercise>
 
 There are some notable caveats worth mentioning.  Firstly, the division operator
 works in two modes depending on the types of its operands: integer division and

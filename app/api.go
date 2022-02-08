@@ -12,6 +12,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+const exerciseFileURLBase string = "https://raw.githubusercontent.com/ComedicChimera/chai/main/tests/suites/exercises/"
+
 func APIGetGuideExercise(c *gin.Context) {
 	label, ok := c.GetQuery("label")
 	if !ok {
@@ -43,6 +45,24 @@ func APIGetGuideExercise(c *gin.Context) {
 	if err := json.Unmarshal(fdata, &jdata); err != nil {
 		c.AbortWithError(http.StatusInternalServerError, fmt.Errorf("failed to decode exercise file: %s", err))
 		return
+	}
+
+	solutionData := jdata["solution"].(map[string]interface{})
+	if urlRaw, ok := solutionData["url"]; ok {
+		url := urlRaw.(string)
+		resp, err := http.Get(exerciseFileURLBase + url)
+		if err != nil {
+			c.AbortWithError(http.StatusInternalServerError, fmt.Errorf("failed to get file from github: %s", err))
+			return
+		}
+
+		fileData, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			c.AbortWithError(http.StatusInternalServerError, fmt.Errorf("failed to read response from github: %s", err))
+			return
+		}
+
+		solutionData["src"] = string(fileData)
 	}
 
 	c.JSON(http.StatusOK, jdata)

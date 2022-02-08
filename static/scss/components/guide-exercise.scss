@@ -64,4 +64,14 @@
             font-family: $ui-font;
         }
     }
+
+    .exercise-solution {
+        margin-top: 0.5rem;
+
+        .solution-title {
+            font-size: 1.2rem;
+            color: $solution-green;
+            font-family: $ui-font;
+        }
+    }
 }
