@@ -187,8 +187,7 @@ Hello World!
 Viola!  Our program works!  Congratulations, you just wrote your first Chai
 program!
 
-> **Exercise:** Modify the *Hello World* program to print *Hello Chai!* instead
-> of *Hello World!*.
+<guide-exercise label="1.1"><guide-exercise/>
 
 There is a small shortcut to the above process: you can compile and run your
 program with a single command:

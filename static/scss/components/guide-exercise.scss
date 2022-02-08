@@ -1,0 +1,67 @@
+@import "constants.scss";
+
+.guide-exercise {
+    border-radius: 0.3rem;
+    box-shadow: 0rem 0.05rem 0.1rem $shadow-grey;
+
+    padding: 1rem;
+    margin: 1rem;
+
+    .exercise-top-bar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        margin-bottom: 0.5rem;
+
+        .exercise-title {
+            font-family: $ui-font;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .exercise-buttons {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-evenly;
+
+            margin-right: 1rem;
+
+            feather-icon {
+                padding-right: 0.2rem;
+            }
+
+            #hint-button:hover .feather-icon svg {
+                transition-duration: 0.5s;
+                stroke: $hint-blue;
+            }
+
+            #hint-button .feather-icon svg {
+                transition-duration: 0.5s;
+                stroke: $text-color;
+            }
+
+            #solution-button:hover .feather-icon svg {
+                transition-duration: 0.5s;
+                stroke: $solution-green;
+            }
+
+            #solution-button .feather-icon svg {
+                transition-duration: 0.5s;
+                stroke: $text-color;
+            }
+        }
+    }
+
+    .exercise-hint {
+        margin-top: 0.5rem;
+
+        .hint-title {
+            font-size: 1.2rem;
+            color: $hint-blue;
+            font-family: $ui-font;
+        }
+    }
+}

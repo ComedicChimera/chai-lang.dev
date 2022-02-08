@@ -71,7 +71,7 @@ func DocGroupIndex(docName, groupPath string) func(*gin.Context) {
 			Title:      fmt.Sprintf("%s | chai-lang.dev", docName),
 			Content:    template.HTML(mdContent),
 			PageStyle:  "doc-group.scss",
-			Components: []string{"section-title"},
+			Components: []string{"section-title", "guide-exercise"},
 		})
 	}
 }
@@ -120,7 +120,7 @@ func DocGroupChapter(docName, groupPath string) func(*gin.Context) {
 			Title:      fmt.Sprintf("%s | chai-lang.dev", docName),
 			Content:    template.HTML(mdContent),
 			PageStyle:  "doc-group.scss",
-			Components: []string{"section-title"},
+			Components: []string{"section-title", "guide-exercise"},
 		})
 	}
 }

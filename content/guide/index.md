@@ -21,16 +21,15 @@ Even if you are a more seasoned programmer, you may find that Chai does things
 a little bit differently than you may be used to. 
 
 As you read, you will find that many chapters include one or more *exercises*
-sprinkled throughout their content.  These exercises are designed to help you
-practice what you are learning and to encourage you to play around with the
-language and get a feel for how to use it.  We strongly recommend that you try
-and complete as many of the exercises as you can because it will help cement
-what you are learning and make sure you don't move to quickly over things you
-might not actually understand.  These exercises are not designed to be time
-consuming or tedious: you may even find them "fun". In any case, there are
-solutions for each exercise in the 
-[Chai Language Repo](https://github.com/ComedicChimera/chai). Fun fact: the
-solutions are actually used as part of the testing suite for the compiler.
+sprinkled throughout their content.  Here is an example of an exercise:
+
+<guide-exercise label="0.1"></guide-exercise>
+
+These exercises are designed to help you practice what you are learning and to
+encourage you to play around with the language and get a feel for how to use it.
+We strongly recommend that you try and complete as many of the exercises as you
+can because it will help cement what you are learning and make sure you don't
+move to quickly over things you might not actually understand.  
 
 Now, without further adieu, it is time to begin your journey into learning the
 Chai programming language.  Let us begin...

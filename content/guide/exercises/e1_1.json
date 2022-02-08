@@ -1,0 +1,8 @@
+{
+    "content": "Modify the Hello World program to print \"Hello Chai!\" instead of \"Hello World!\"",
+    "hint": "What part of the program contains the text you want to print?",
+    "solution": {
+        "type": "program",
+        "url": "e1_1_hello/hello.chai"
+    }
+}

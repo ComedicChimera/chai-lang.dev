@@ -1,0 +1,8 @@
+{
+    "content": "This will be where the problem statement will go.  Click the button with the question mark to get a hint.  Click the button with the lightning bolt to reveal the solution.",
+    "hint": "This is the hint.",
+    "solution": {
+        "type": "text",
+        "text": "This is the solution."
+    }
+}

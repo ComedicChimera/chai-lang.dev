@@ -30,5 +30,8 @@ func Run(addr string) {
 	router.GET("/docs/guide", DocGroupIndex("The Guide", "guide"))
 	router.GET("/docs/guide/*chapter-path", DocGroupChapter("The Guide", "guide"))
 
+	// API
+	router.GET("/api/get-guide-exercise", APIGetGuideExercise)
+
 	router.Run(addr)
 }
