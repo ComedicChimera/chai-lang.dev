@@ -209,7 +209,17 @@ Here are some examples of literals in these bases:
 
 These will default to the type `i64`.
 
-<guide-exercise label="2.1"></guide-exercise>
+<guide-exercise>
+{
+    "label": "2.1",
+    "content": "What are the possible types of the literal 5.67?",
+    "hint": "What types are used to represent decimal numbers?",
+    "solution": {
+        "type": "text",
+        "text": "f32, f64"
+    }
+}
+</guide-exercise>
 
 ## Arithmetic
 
@@ -257,7 +267,17 @@ You can use a `-` sign as a prefix to an expression to negate the result.
     -4 - -6.2       # => 2.2
     -7 * -(3 + 2.5) # => 38.5
 
-<guide-exercise label="2.2"></guide-exercise>
+<guide-exercise>
+{
+    "label": "2.2",
+    "content": "What is the resulting value and type of the following expression: (5 * 6) - (6.9 + 2.1)?",
+    "hint": "5 and 6 can be any numeric type but 6.9 and 2.1 must be only ___?",
+    "solution": {
+        "type": "text",
+        "text": "21.0, `f64`"
+    }
+}
+</guide-exercise>
 
 There are some notable caveats worth mentioning.  Firstly, the division operator
 works in two modes depending on the types of its operands: integer division and

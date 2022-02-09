@@ -23,7 +23,19 @@ a little bit differently than you may be used to.
 As you read, you will find that many chapters include one or more *exercises*
 sprinkled throughout their content.  Here is an example of an exercise:
 
-<guide-exercise label="0.1"></guide-exercise>
+<guide-exercise>
+{
+    "label": "Example",
+    "content": "This will be where the problem statement will go.  Click the
+    button with the question mark to get a hint.  Click the button with the
+    lightning bolt to reveal the solution.",
+    "hint": "This is the hint.",
+    "solution": {
+        "type": "text",
+        "text": "This is the solution."
+    }
+}
+</guide-exercise>
 
 These exercises are designed to help you practice what you are learning and to
 encourage you to play around with the language and get a feel for how to use it.

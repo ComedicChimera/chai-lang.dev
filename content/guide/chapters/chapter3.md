@@ -448,5 +448,16 @@ In later chapters, we will learn how to more effectively deal with errors like
 this.  However, this knowledge should at least help you eliminate bugs in your
 programs.
 
-> **Exercise:** Write a program that prompts the user to enter two numbers and
-> prints their product.
+<guide-exercise>
+{
+    "label": "3.1",
+    "content": "Write a program that prompts the user to enter two numbers and
+    prints their product.",
+    "hint": "Use scanf twice.",
+    "solution": {
+        "type": "text",
+        "text": "TODO"
+    }
+}
+</guide-exercise>
+

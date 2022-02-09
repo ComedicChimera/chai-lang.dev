@@ -1,8 +1,0 @@
-{
-    "content": "What are the possible types of the literal <code>5.67</code>?",
-    "hint": "What types are used to represent decimal numbers?",
-    "solution": {
-        "type": "text",
-        "text": "<code>f32</code>, <code>f64</code>"
-    }
-}

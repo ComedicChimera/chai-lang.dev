@@ -1,8 +1,0 @@
-{
-    "content": "What is the resulting value and type of the following expression: <code>(5 * 6) - (6.9 + 2.1)</code>?",
-    "hint": "<code>5</code> and <code>6</code> can be any numeric type but <code>6.9</code> and <code>2.1</code> must be only ___?",
-    "solution": {
-        "type": "text",
-        "text": "21.0, <code>f64</code>"
-    }
-}
