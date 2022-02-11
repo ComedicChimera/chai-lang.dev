@@ -118,12 +118,19 @@ Prism.languages.chai = {
         },
     },
     'stmt-variable': {
-        pattern: /(?!\))\s*\b(\w+)(?:\s*(,)\s*(\w+))*\s*([+\-*\\%]?=|<-)(?!=)/,
+        pattern: /(?!\))\s*\b(\w+)(?:\s*(,)\s*(\w+))*\s*([+\-*/%]?=|<-)(?!=)/,
         inside: {
             'variable': /\w+/,
             'operator': /=|<-/,
             'punctuation': /,/
         }
+    },
+    'increment': {
+        pattern: /(\w+)\s*(\+\+|\-\-)/,
+        inside: {
+            'variable': /\w+/,
+            'operator': /\+\+|\-\-/
+        },
     },
     'entity': /[a-zA-Z_]\w*(?=\{)|\b(List|Dict|Vec|Mat|Buff|Seq|Iter|Option|Result|Future|Strand)\b/,
     'operator': /[+\-*\/%&\^!|><=\~\?]/,

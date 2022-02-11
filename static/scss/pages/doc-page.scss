@@ -33,7 +33,7 @@ article {
         }  
     }
 
-    :not(pre) code {
+    :not(pre) > code {
         background-color: $bg-inline-code;
         padding: 0.2rem;
         border-radius: 0.3rem;

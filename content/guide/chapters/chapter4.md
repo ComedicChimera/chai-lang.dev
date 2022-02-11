@@ -57,18 +57,119 @@ relational operators without parentheses.
     1/(1/4) == 4.0     # => true
     2 + 2 >= 5 * 2     # => false
 
+### Logical Operators
+
+**Logical operators** operate specifically on boolean values.  They represent
+different logical queries about and between boolean values.  
+
+To understand what this means, let's look at the first example of a boolean
+operator: the NOT operator.  This operator inverts the input boolean that is
+given to it.  It uses the symbol `!`.
+
+    !true   # => false
+    !false  # => true
+
+Notice that the `!` comes before the boolean value.  It also higher precedence
+than all the other logical operators as well as the relational operators.
+
+    !(5 < 7)  # => false
+
+The next two logical operators are AND and OR.  Both take two boolean values and
+combine them into a new boolean.  The AND operator returns true only if both its
+arguments are true and uses the symbol `&&`.  The OR operator returns true if
+either or both of its arguments are true and uses the symbol `||`.  OR is lower
+precedence than AND.
+
+    true && false   # => false
+    true || false   # => true
+    true && true    # => true
+    false || false  # => false
+
+    false && true || true    # => true
+    false && (true || true)  # => false
+
+    !true || true && !(false && true)  # => true
+
+<guide-exercise>
+{
+    "label": "4.1",
+    "content": "Evaluate the logical expression: true && false || true && !(true && !false)",
+    "hint": "NOT before AND, AND before OR",
+    "solution": {
+        "type": "text",
+        "text": "false"
+    }
+}
+</guide-exercise>
+
+Both AND and OR are also both lower precedence than the relational operators.
+
+    5 < 7 && 8 < 9             # => true
+    "test" == "abc" || 7 >= 8  # => false
+
 ### Multi-Comparison
 
 TODO
 
-### Logical Operators
-
-TODO
 
 ## If, Elif, and Else
 
 TODO
 
+
+## Scoping and Shadowing
+
+### Header Variables
+
 ## Block Expressions
 
 TODO
+
+## Short Circuit Evaluation
+
+Now that we have seen some actual control flow in Chai, let's revisit those
+logical operators from earlier since there is one more special behavior we need
+to discuss: **short circuit evaluation**.
+
+To understand what this behavior is, let's consider a very simple example:
+
+    false && some_bool
+
+Looking at the first value only, we already know that the result is always false
+because both operands can't be true.  This means that the value of `some_bool`
+is completely irrelevant.  Chai might as well not evaluate it at all since it
+already know the answer just from looking at the first argument.  Indeed, this
+is the crux of short circuit evaluation: if Chai already knows the result of a
+logical operation by considering only the first operand, then it won't evaluate
+the second operand at all.
+
+Let's consider another example:
+
+    some_bool || do_something_that_returns_a_boolean()
+
+If `some_bool` is `true`, Chai knows that the result of `||` will also be `true`
+without considering the second argument.  So, in the case that `some_bool` is
+`true`, Chai will not even call `do_something_that_returns_a_boolean`: the code
+will never run.
+
+This behavior occurs for both AND and OR.  For AND, if the first operand evaluates
+to `false`, then the second operand will not be evaluated, and the expression will
+evaluate to `false`.  Similarly, for OR, if the first operand evaluates to `true`,
+then the second operand will not be evaluated, and the expression will return `true`.
+
+To give you a more concrete sense for this logic, here is what AND looks like
+with if expressions.
+
+    if op1 => op2 else => false end
+
+<guide-exercise>
+{
+    "label": "4.4",
+    "content": "Express the short circuit evaluation logic for OR using if expressions.",
+    "hint": "Model your answer after the expression for AND above.",
+    "solution": {
+        "type": "snippet",
+        "code": "if op1 => true else => op2 end"
+    }
+}
+</guide-exercise>

@@ -11,13 +11,15 @@ class GuideExercise extends HTMLElement {
         if (jdata.solution.type == "program") {
             fetch("/api/get-solution-code/" + jdata.solution.url).then(resp => {
                 if (resp.status == 200) {
-                    resp.text().then(html => this.render(jdata, 
+                    resp.text().then(src_text => this.render(jdata, 
                         `<pre x-init="$nextTick(() => Prism.highlightElement($el))"
-                        class="language-chai"><code>${html}</code></pre>`
+                        class="language-chai"><code>${src_text}</code></pre>`
                     ))
                 }
             })
-        } else {
+        } else if (jdata.solution.type == "snippet") { 
+            this.render(jdata, `<pre><code>${jdata.solution.code}</code></pre>`)
+        }else {
             this.render(jdata, jdata.solution.text)
         }   
     }
