@@ -42,7 +42,7 @@ symbol `!=`.
 
 The remaining four relational operators are: greater than (`>`), less than (`<`),
 greater than or equal to (`>=`), and less than or equal to (`<=`).  These work
-similarly to `==` and `!=` except the only work for numbers.
+similarly to `==` and `!=` except they only work for numbers.
 
     5 < 6        # => true
     7.2 >= 7.2   # => true
@@ -109,17 +109,107 @@ Both AND and OR are also both lower precedence than the relational operators.
 
 ### Multi-Comparison
 
-TODO
+Consider a fairly common problem in game programming: testing if a point is
+inside a box.  Mathematically, this is equivalent to testing if the x-coordinate
+of the point is between the x-coordinate edges of the box and if the
+y-coordinate is between the y-coordinate edges of the box.  
 
+We can try and express this programmatically like so:
+
+    leftEdge < x && x < rightEdge && bottomEdge < y && y < topEdge
+
+This code is fairly straight forward, but it does have some redundancies: `x`
+and `y` both occur two times in two different tests.  It turns out that this
+kind of check, that is a value being between two bounding values, is fairly
+common. This is why Chai provides us with a little syntactic sugar to make our
+lives easier.  
+
+Instead of writing two separate comparisons, we can merge the two into one:
+
+    leftEdge < x < rightEdge && bottomEdge < y < topEdge
+
+This is called **multi-comparison**: Chai automatically combines adjacent
+relational operators into a single relation.  This will work with all the
+relational operators and more than two relations can be combined together:
+
+    a <= b > c == d
+
+If you want Chai to consider the operations separately, you will need to use
+parentheses:
+
+    (a <= b) == false
 
 ## If, Elif, and Else
 
-TODO
+Now that we understand conditions, we can use them to change the behavior of our
+program.  The concept of using boolean to direct program progression is called
+**control flow**. 
 
+The simplest kind of control flow is the **if statement**.  This statement begins
+with the keyword `if` and executes the code in its body only if its condition
+is true.  The general form looks like so:
+
+    if condition
+        body
+    end
+
+The condition is always a boolean expression.  The body, in this case, is just a
+block: ie. a series of statements.  Notice that the if body ends using the `end`
+keyword just like the blocks we studied in Chapter 3.  You will see a pattern of
+`end` being used to terminate logical elements of code.
+
+Here is an example of some code that prints out a greeting if the user enters
+"Hello!" using if statements.
+
+    let input = scanln()
+
+    if input == "Hello!"
+        println("Hi!")
+    end
+
+If you run that program, you will see it only responds to your input if you
+enter the exact phrase `Hello!`.  
+
+Often, we also want to specifically run code in the case that the condition is
+not true. This is called an **else clause**.  We use the keyword `else` to
+denote it.
+
+    let favorite_number = 0
+    scanf("{}\n", &favorite_number)
+
+    if -10 < favorite_number < 10
+        println("Your favorite number is one digit.")
+    else
+        println("Your favorite number is two or more digits.")
+    end
+
+Notice that the `end` is only used once for the whole statement despite it being
+made up of separate blocks.  This is because the `end` is used to close the
+entire if-else statement not the individual blocks.
+
+<guide-exercise>
+{
+    "label": "4.2", 
+    "content": "Write a program that prompts the user to enter their favorite
+    number and then displays whether or not that number is even.",
+    "hint": "You can test if a number is even using the modulo operator (see
+    Chapter 2).",
+    "solution": {
+        "type": "text",
+        "text": "TODO"
+    }
+}
+</guide-exercise>
+
+TODO: elif
 
 ## Scoping and Shadowing
 
+TODO
+
 ### Header Variables
+
+TODO
 
 ## Block Expressions
 

@@ -302,14 +302,30 @@ into the variables.  This means that swapping code is actually equivalent to:
 Obviously, the Chai compiler will generate code that is a bit more optimized
 than the above, but the premise still holds.  
 
+Multi-assignment can, of course, be used for more than just two values.
+
+    let c = 10
+
+    a, b, c = a * c, b * 2 * c, c ** 3
+
 You can also use compound assignment operators with multi-assignment.
 
     let x = 5.6, y = 7.2
 
     x, y *= 2, 3  # x = 11.2, y = 21.6
 
-Multi-assignment is an amazing tool that you are encouraged the use plentifully.
-It helps make code cleaner and more concise without losing meaning.
+<guide-exercise>
+{
+    "label": "3.1",
+    "content": "Write an assignment statement that multiplies the values of `a`,
+    `b`, and `c` by the sum of the other two values.",
+    "hint": "You will want to use a compound assignment operator.",
+    "solution": {
+        "type": "snippet",
+        "code": "a, b, c *= b + c, a + c, a + b"
+    }
+}
+</guide-exercise>
 
 ## Command-Line Input and Output
 
@@ -450,7 +466,7 @@ programs.
 
 <guide-exercise>
 {
-    "label": "3.1",
+    "label": "3.2",
     "content": "Write a program that prompts the user to enter two numbers and
     prints their product.",
     "hint": "Use scanf twice.",
