@@ -4,14 +4,22 @@
             {{ .GroupTitle }}
         </div>
         <div class="doc-group-toc">
-            {{ range $index, $element := .Chapters }}
-                <div class="doc-chapter">
-                    {{ if eq $index 0 }}
-                     <a href="{{ .Href }}">{{ $element.Title }}</a>
-                    {{ else }}
-                        <a href="{{ .Href }}"><strong>{{ $index }}.</strong> {{ $element.Title }}</a>
-                    {{ end }}
-                    
+            <div class="doc-group-index">
+                <a href="{{ .Aside.IndexHref }}">{{ .Aside.IndexTitle }}</a>
+            </div>
+            {{ range $_, $chapter := .Aside.Chapters }}
+                <div class="doc-chapter" x-data="{ open: false }">
+                    <div class="doc-chapter-header" x-on:click="open = !open">
+                        <div class="doc-chapter-title"><strong>{{ $chapter.ChapterN}}.</strong> {{ $chapter.Title }}</div>
+                        <feather-icon :name="open ? 'chevron-up' : 'chevron-down'" dim="25px"></feather-icon>
+                    </div>
+                    <div class="doc-chapter-sections" x-show="open" x-transition>
+                        {{ range $_, $section := $chapter.Sections }}
+                            <div class="doc-section">
+                                <a href="{{ $section.Href }}"><strong>{{ $chapter.ChapterN }}.{{ $section.SectionN }}</strong> {{ $section.Title }}</a>
+                            </div>
+                        {{ end }}
+                    </div>                    
                 </div>
             {{ end }}
         </div>       

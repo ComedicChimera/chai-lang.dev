@@ -30,14 +30,14 @@
         }
 
         .doc-group-toc {
-            padding-left: 1rem;
+            margin-left: 0.5rem;
 
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
             align-items: flex-start;
 
-            .doc-chapter {
+            .doc-group-index {
                 margin-top: 0.3rem;
 
                 a {
@@ -52,6 +52,47 @@
                 a:hover {
                     color: $accent-secondary;
                     transition-duration: 0.5s;
+                }
+            }
+        }
+
+        .doc-chapter {
+            width: 100%;
+
+            .doc-chapter-header {
+                margin-top: 0.2rem;
+                // margin-bottom: 0.3rem;
+
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+
+                .doc-chapter-title {
+                    color: $text-color;
+                    font-family: $ui-font;
+                    font-size: 1.1rem;
+                    text-decoration: none;
+                }
+            }
+
+            .doc-chapter-sections {
+                margin-left: 0.5rem;
+
+                .doc-section {
+                    a {
+                        color: $text-color;
+                        font-family: $ui-font;
+                        font-size: 1rem;
+                        text-decoration: none;
+    
+                        transition-duration: 0.5s;
+                    }
+    
+                    a:hover {
+                        color: $accent-secondary;
+                        transition-duration: 0.5s;
+                    }
                 }
             }
         }
