@@ -27,7 +27,7 @@ func Run(addr string) {
 	router.GET("/docs", Docs)
 	// router.GET("/docs/spec", DocGroupIndex("Language Specification", "spec"))
 	// router.GET("/docs/spec/*chapter-path", DocGroupSection("Language Specification", "spec"))
-	router.GET("/docs/book", DocGroupIndex("The Book", "book"))
+	router.GET("/docs/book", DocGroupIndex("The Chai Book", "book"))
 	router.GET("/docs/book/:chapter-path/:section-path", DocGroupSection("The Book", "book"))
 
 	// API
