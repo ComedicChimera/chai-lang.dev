@@ -50,7 +50,7 @@
                 }
 
                 a:hover {
-                    color: $accent-secondary;
+                    color: $accent-primary;
                     transition-duration: 0.5s;
                 }
             }
@@ -68,11 +68,19 @@
                 justify-content: space-between;
                 align-items: center;
 
+                cursor: pointer;
+
                 .doc-chapter-title {
                     color: $text-color;
                     font-family: $ui-font;
                     font-size: 1.1rem;
                     text-decoration: none;
+                    transition-duration: 0.5s;
+                }
+
+                .doc-chapter-title:hover {
+                    color: $accent-primary;
+                    transition-duration: 0.5s;
                 }
             }
 

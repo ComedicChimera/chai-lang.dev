@@ -89,6 +89,15 @@ different elements of the language fit together and build on each other in such
 a way that it is occasionally necessary to divide them over multiple chapters so
 that they can be fully explored.
 
+The conventions used in the book are as follows:
+
+- **bolded text** denotes a definition of an important term
+- *italicized text* denotes the usage of the first use of a commonly understood,
+but still important term worth highlighting.  Such terms may receive a more
+formal or "canonical" definition later on.
+- `inline code` denotes a "literal" piece of source code, often a piece of an
+example program, being discussed
+
 As you read, you will find that many sections include one or more *exercises*
 sprinkled throughout their content.  Here is an example of an exercise:
 

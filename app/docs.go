@@ -59,6 +59,7 @@ func DocGroupIndex(docName, groupPath string) func(*gin.Context) {
 			"Aside":      aside,
 			"Prev":       prev,
 			"Next":       next,
+			"ChapterN":   0,
 		})
 
 		if err != nil {
@@ -118,6 +119,7 @@ func DocGroupSection(docName, groupPath string) func(*gin.Context) {
 			"Aside":      aside,
 			"Prev":       prev,
 			"Next":       next,
+			"ChapterN":   chapterN,
 		})
 
 		if err != nil {
@@ -199,7 +201,7 @@ func getAside(groupPath string) (*groupAside, error) {
 				return nil, err
 			}
 
-			chapter := groupAsideChapter{Title: chapterTitles[chapterN], ChapterN: chapterN}
+			chapter := groupAsideChapter{Title: chapterTitles[chapterN-1], ChapterN: chapterN}
 
 			// walk the chapter directory
 			sectionFInfos, err := ioutil.ReadDir(filepath.Join(groupAbsPath, chapFInfo.Name()))
